@@ -70,7 +70,7 @@ The application is started through `Independer.ino`. Please set up parameters be
 - `workflow/`: Baseline workflow for Actor and Gateway.
 - `application/`: Baseline Independer application.
 
-### More pictures
+## More pictures
 
 <img src="docs/images/hardware.jpeg" width="600"/>
 
