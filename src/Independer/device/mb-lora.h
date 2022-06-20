@@ -190,7 +190,7 @@ ShortMessageAndTuple lora_short_message_parse(String msg, String myId) {
   }
 
   //currentCountsDelimiter == 3 and 
-  if(p_type == "s") {
+  if(p_type == "s" and (p_to == myId or p_to == "*")) {
     ret.from = p_from;
     ret.message = p_value;
     ret.successFlag = true;
