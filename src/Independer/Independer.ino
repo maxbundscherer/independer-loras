@@ -29,7 +29,7 @@
 //Product Config
 String    c_product_version   = "v.0.1.3";
 boolean   c_dev_mode          = true;
-boolean   c_actor_mode        = false;
+boolean   c_actor_mode        = true;
 
 /*
  * ####################################
