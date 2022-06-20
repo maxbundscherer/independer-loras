@@ -1,10 +1,18 @@
+struct S_I_Application_Device_Item {
+  String deviceId;
+  String deviceMsg;
+  String receivedRssi;
+  String attempt;
+};
+
 void application_actor_who_is_in_my_area() {
 
   int c_max_ping_retries = 2; //Maximial attempts to receive
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 1000) / c_max_ping_delta; //Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
 
-  String receivedMsg;
+  S_I_Application_Device_Item collected_db[100];
+  int collected_counter = 0;
 
   int l_attempt = 0;
   while (l_attempt < c_max_ping_retries) {
@@ -30,8 +38,14 @@ void application_actor_who_is_in_my_area() {
         ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
 
         if (parser_ans.message != "") {
-          String msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
-          Serial.println("Res something '" + msg + "'");
+          struct S_I_Application_Device_Item ret = {
+            parser_ans.from,
+            parser_ans.message,
+            String(LoRa.packetRssi(), DEC),
+            String(l_attempt)
+          };
+          collected_db[collected_counter] = ret;
+          collected_counter++;
         }
 
       }
@@ -40,6 +54,10 @@ void application_actor_who_is_in_my_area() {
 
     }
 
+  }
+
+  for (int i = 0; i < collected_counter; i++) {
+    Serial.println("Scan ITEM '" + collected_db[i].deviceId + "'" + collected_db[i].deviceMsg + " " + collected_db[i].receivedRssi + " " + collected_db[i].attempt);
   }
 
 }

@@ -13,11 +13,9 @@
 //TODO: Multi Task Decoding
 //TODO: Warum Faktor 2 Multi Task Decoding
 
-//TODO: Application Multi Actor auf who is near reagieren
+//TODO: Application Actor Who is near - Respond anzeigen
 
-//TODO: Application Actor Who is near - Auf respond reagieren
-
-//TODO: Application Actor und Gateway - Is ava reagieren
+//TODO: Application Actor Is ava
 
 //TODO: Refactoring c_id und Gateway id
 
