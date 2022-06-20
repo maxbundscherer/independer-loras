@@ -6,7 +6,7 @@ void application_actor_who_is_in_my_area() {
 
   int c_max_ping_retries = 2; //Maximial attempts to receive
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = (5000 + 1000) / c_max_ping_delta; //Waiting approx 4 seconds for next packet
+  int c_max_ping_max_receive_attempts = (4000 + 1000) / c_max_ping_delta; //Waiting approx 4 seconds for next packet
 
   String receivedMsg;
 
@@ -15,9 +15,8 @@ void application_actor_who_is_in_my_area() {
     l_attempt++;
 
     lora_send_msg_short_message(state_my_id, "*", "?", state_lora_gain);
-    delay(int(C_INDEPENDER_SEND_DELAY/2));
 
-    gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static("Scan", l_attempt, 0, c_max_ping_retries);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts) {
