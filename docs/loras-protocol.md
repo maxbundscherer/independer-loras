@@ -28,6 +28,6 @@ Setting `[to]` to `*` addresses all devices in the environment.
 
 ### Unsafe single message \[P3\]
 
-*Send single message without hashcode-check*: Testing protocol.
+*Send single message without hashcode-check*: Default protocol for e.g. Respond to Who is in my area? and Is available?.
 
 - `[from]:[to]:!:[msg]`
