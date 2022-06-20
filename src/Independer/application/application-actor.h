@@ -1,7 +1,3 @@
-void application_actor_test() {
-
-}
-
 void application_actor_who_is_in_my_area() {
 
   int c_max_ping_retries = 2; //Maximial attempts to receive
