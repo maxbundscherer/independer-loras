@@ -1,9 +1,9 @@
 #include "heltec.h"
-#include "mb/mb-utils.h"
-#include "mb/mb-gui.h"
+#include "device/mb-utils.h"
+#include "device/mb-gui.h"
 #include "Cipher.h"
-#include "mb/mb-crypt.h"
-#include "mb/mb-lora.h"
+#include "device/mb-crypt.h"
+#include "device/mb-lora.h"
 
 //TODO: Gateway Empfangen Layout fix
 //TODO: Gateway Nicht Blocken bei Fehler anzeigen
