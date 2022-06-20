@@ -13,6 +13,11 @@
 //TODO: Multi Task Decoding
 //TODO: Warum Faktor 2 Multi Task Decoding
 
+//TODO: Application Gateway - Auf ? reagieren
+//TODO: Application Multi Actor auf who is near reagieren
+
+//TODO: Application Actor und Gateway - Is ava reagieren
+
 /*
  * ####################################
  *  Config Section

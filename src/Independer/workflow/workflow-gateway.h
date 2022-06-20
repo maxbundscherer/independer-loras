@@ -32,9 +32,14 @@ void workflow_gateway_main() {
 
       if (parser_ans.message == "cmd_sleep") {
         utils_go_to_sleep();
-      } else {
-        String msg = String(LoRa.packetRssi(), DEC) + " " + String(utils_get_battery()) + " oG";
-        lora_send_msg(state_gateway_id, parser_ans.from, msg, state_lora_gain);
+      } 
+      else if(parser_ans.message == "!" or parser_ans.message == "?")  {
+        //TODO: Wait after ?
+        String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
+        lora_send_msg_single_unsafe(state_gateway_id, parser_ans.from, msg, state_lora_gain);
+      }
+      else {
+        Serial.println("Error received unknown message '" + parser_ans.message + "'");
       }
 
     }
