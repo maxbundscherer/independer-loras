@@ -13,9 +13,8 @@
 //TODO: Multi Task Decoding
 //TODO: Warum Faktor 2 Multi Task Decoding
 
-//TODO: Verzoegerung Response!
-
-//TODO: Application Gateway - Auf ? reagieren
+//TODO: Application Actor Who is near - Auf respond reagieren
+//TODO: Application Gateway Who is near - Auf ? reagieren
 //TODO: Application Multi Actor auf who is near reagieren
 
 //TODO: Application Actor und Gateway - Is ava reagieren

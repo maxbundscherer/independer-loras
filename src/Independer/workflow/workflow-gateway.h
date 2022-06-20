@@ -35,6 +35,7 @@ void workflow_gateway_main() {
       } 
       else if(parser_ans.message == "!" or parser_ans.message == "?")  {
         //TODO: Wait after ?
+        delay(C_INDEPENDER_SEND_DELAY);
         String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
         lora_send_msg_single_unsafe(state_gateway_id, parser_ans.from, msg, state_lora_gain);
       }
