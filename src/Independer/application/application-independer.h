@@ -3,6 +3,10 @@
 Ticker ticker_independer_send_later; //Declare Ticker object
 
 #define C_INDEPENDER_SEND_DELAY 300
+#define C_INDEPENDER_SCAN_MS    4000
+
+String C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL      = "?";
+String C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE   = "!";
 
 String i_independer_send_later_from = "";
 String i_independer_send_later_to = "";
@@ -20,5 +24,6 @@ void application_independer_send_later(String from, String to, String msg, int d
   i_independer_send_later_from = from;
   i_independer_send_later_to = to;
   i_independer_send_later_message = msg;
+  Serial.println("Schedule send later in " + String(delay_ms) + " millis");
   ticker_independer_send_later.once_ms(delay_ms, i_callback_send_later);
 }
