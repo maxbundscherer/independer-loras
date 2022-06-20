@@ -6,7 +6,7 @@ The goal is to develop a small **open-source communication gadget** (at the begi
 
 We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *small keyboards* and develop our own encrypted *protocol* together with *software*.
 
-The project is still in its initial phase. If you want to **join, or have an idea**, feel free to [write me](mailto:maximilian@bundscherer-online.de) or [start a discussion](/discussions).
+The project is still in its initial phase. If you want to **join, or have an idea**, feel free to [write me](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions).
 
 ``esp32 - lora - encryption - short-message - protocol - keyboard``
 
