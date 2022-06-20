@@ -128,9 +128,9 @@ void application_actor_who_is_available(String target_id) {
   while (l_attempt < c_max_ping_retries and!receivedSuccess) {
     l_attempt++;
 
-    lora_send_msg_short_message(state_my_id, target_id, C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE, state_lora_gain);
-
     gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
+
+    lora_send_msg_short_message(state_my_id, target_id, C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE, state_lora_gain);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!receivedSuccess) {
