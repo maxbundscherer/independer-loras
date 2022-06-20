@@ -15,7 +15,7 @@ void application_actor_who_is_in_my_area() {
     l_attempt++;
 
     lora_send_msg_short_message(state_my_id, "*", "?", state_lora_gain);
-    // delay(C_INDEPENDER_SEND_DELAY);
+    delay(int(C_INDEPENDER_SEND_DELAY/2));
 
     gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
 
