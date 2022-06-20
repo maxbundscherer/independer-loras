@@ -15,7 +15,7 @@ void application_actor_who_is_in_my_area() {
 
   int c_max_ping_retries = 2; //Maximial attempts to receive
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 1000) / c_max_ping_delta; //Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 2000) / c_max_ping_delta; //Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
 
   S_I_Application_Device_Item collected_db[100];
   int collected_counter = 0;
@@ -137,7 +137,7 @@ void application_actor_who_is_available(String target_id) {
 
   int c_max_ping_retries = 10; //Maximial attempts to receive pong message
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 2000 / c_max_ping_delta; //Waiting approx 2 seconds for next packet
+  int c_max_ping_max_receive_attempts = 3000 / c_max_ping_delta; //Waiting approx 2 seconds for next packet
 
   String receivedMsg;
   boolean receivedSuccess = false;
