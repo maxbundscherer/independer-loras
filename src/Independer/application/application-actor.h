@@ -26,7 +26,7 @@ void application_actor_who_is_in_my_area() {
 
     lora_send_msg_short_message(state_my_id, "*", C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL, state_lora_gain);
 
-    gui_display_prg_static("Scan", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static("Umgebungs-Scan", l_attempt, 0, c_max_ping_retries);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts) {
@@ -171,7 +171,7 @@ void application_actor_who_is_available(String target_id) {
   }
 
   if (receivedSuccess) {
-    gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_LONG_I);
+    gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   if (sync_was_on_flag) {
