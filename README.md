@@ -29,6 +29,8 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Custom Software and communication protocol LoRaS
 - ESP32 with LoRa Antenna
 - Deep Sleep Mode (battery saving)
+- Communication Actor and Gateway test functions
+- *Who is in my area?* or *Is available?* functions
 - ...
 
 ### Included
