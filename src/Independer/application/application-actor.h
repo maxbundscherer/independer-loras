@@ -7,6 +7,12 @@ struct S_I_Application_Device_Item {
 
 void application_actor_who_is_in_my_area() {
 
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag) {
+    multi_actor_stop();
+  }
+
   int c_max_ping_retries = 3; //Maximial attempts to receive
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 1000) / c_max_ping_delta; //Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
@@ -56,13 +62,17 @@ void application_actor_who_is_in_my_area() {
 
   }
 
-String gui_items[collected_counter];
+  String gui_items[collected_counter];
 
   for (int i = 0; i < collected_counter; i++) {
     gui_items[i] = collected_db[i].deviceId + " (" + collected_db[i].deviceMsg + ") " + collected_db[i].receivedRssi + " " + collected_db[i].attempt;
   }
 
   gui_selection("Scan Ausgabe", gui_items, (int) sizeof(gui_items) / sizeof(gui_items[0]) - 1, true);
+
+  if (sync_was_on_flag) {
+    multi_actor_start();
+  }
 
 }
 
@@ -117,6 +127,12 @@ S_Workflow_Pong i_workflow_pong() {
 
 void application_actor_who_is_available(String target_id) {
 
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag) {
+    multi_actor_stop();
+  }
+
   int c_max_ping_retries = 10; //Maximial attempts to receive pong message
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
   int c_max_ping_max_receive_attempts = 2000 / c_max_ping_delta; //Waiting approx 2 seconds for next packet
@@ -156,6 +172,10 @@ void application_actor_who_is_available(String target_id) {
 
   if (receivedSuccess) {
     gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_LONG_I);
+  }
+
+  if (sync_was_on_flag) {
+    multi_actor_start();
   }
 
 }
