@@ -13,6 +13,10 @@
 //TODO: Multi Task Decoding
 //TODO: Warum Faktor 2 Multi Task Decoding
 
+//TODO: Background Sync bei bedarf anschalten und ausschalten
+
+//TODO: Refactoring c_id und Gateway id
+
 /*
  * ####################################
  *  Config Section
@@ -20,7 +24,7 @@
  */
 //Product Config
 String    c_product_version   = "v.0.1.3";
-boolean   c_dev_mode          = true;
+boolean   c_dev_mode          = false;
 boolean   c_actor_mode        = true;
 
 /*
@@ -40,17 +44,17 @@ RTC_DATA_ATTR int boot_state_oled_brightness = 255;
  */
 
 //Common
-#include "workflow/workflow-independer.h"
 #include "application/application-independer.h"
+#include "workflow/workflow-independer.h"
 
 //Actor
 #include "workflow/workflow-multi-actor.h"
-#include "workflow/workflow-actor.h"
 #include "application/application-actor.h"
+#include "workflow/workflow-actor.h"
 
 //Gateway
-#include "workflow/workflow-gateway.h"
 #include "application/application-gateway.h"
+#include "workflow/workflow-gateway.h"
 
 void setup() {
 
@@ -73,7 +77,7 @@ void setup() {
 void loop() {
 
   if(c_actor_mode) {
-    // multi_actor_start();
+    multi_actor_start();
     workflow_actor_main_menu();
   }
   else {

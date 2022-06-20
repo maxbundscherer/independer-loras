@@ -288,7 +288,7 @@ void i_gui_menu(String menu_title, String page, String menu0, String menu1, Stri
 
 }
 
-int gui_selection(String menu_title, String menu_items[], int count_items) {
+int gui_selection(String menu_title, String menu_items[], int count_items, boolean disableShortcuts = false) {
 
   i_gui_flush_input();
 
@@ -323,29 +323,37 @@ int gui_selection(String menu_title, String menu_items[], int count_items) {
       String menu0;
       outputNumber = curPage * 4 + 1;
       if (outputNumber > 9) outputNumberStr = "+";
+      // else if (disableShortcuts) outputNumberStr = "";
       else outputNumberStr = String(curPage * 4 + 1);
-      if (curPageMaxItems >= 1) menu0 = outputNumberStr + ": " + menu_items[curPage * 4 + 0];
+      if (disableShortcuts) menu0 = menu_items[curPage * 4 + 0];
+      else if (curPageMaxItems >= 1) menu0 = outputNumberStr + ": " + menu_items[curPage * 4 + 0];
       else menu0 = "";
 
       String menu1;
       outputNumber = curPage * 4 + 2;
       if (outputNumber > 9) outputNumberStr = "+";
+      // else if (disableShortcuts) outputNumberStr = "";
       else outputNumberStr = String(curPage * 4 + 2);
-      if (curPageMaxItems >= 2) menu1 = outputNumberStr + ": " + menu_items[curPage * 4 + 1];
+      if (disableShortcuts) menu1 = menu_items[curPage * 4 + 1];
+      else if (curPageMaxItems >= 2) menu1 = outputNumberStr + ": " + menu_items[curPage * 4 + 1];
       else menu1 = "";
 
       String menu2;
       outputNumber = curPage * 4 + 3;
       if (outputNumber > 9) outputNumberStr = "+";
+      // else if (disableShortcuts) outputNumberStr = "";
       else outputNumberStr = String(curPage * 4 + 3);
-      if (curPageMaxItems >= 3) menu2 = outputNumberStr + ": " + menu_items[curPage * 4 + 2];
+      if (disableShortcuts) menu2 = menu_items[curPage * 4 + 2];
+      else if (curPageMaxItems >= 3) menu2 = outputNumberStr + ": " + menu_items[curPage * 4 + 2];
       else menu2 = "";
 
       String menu3;
       outputNumber = curPage * 4 + 4;
       if (outputNumber > 9) outputNumberStr = "+";
+      // else if (disableShortcuts) outputNumberStr = "";
       else outputNumberStr = String(curPage * 4 + 4);
-      if (curPageMaxItems >= 4) menu3 = outputNumberStr + ": " + menu_items[curPage * 4 + 3];
+      if (disableShortcuts) menu3 = menu_items[curPage * 4 + 3];
+      else if (curPageMaxItems >= 4) menu3 = outputNumberStr + ": " + menu_items[curPage * 4 + 3];
       else menu3 = "";
 
       i_gui_menu(menu_title, "(" + String(curPage + 1) + "/" + String(numPages) + ")", menu0, menu1, menu2, menu3, curOffset);

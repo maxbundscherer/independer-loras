@@ -36,7 +36,7 @@ boolean state_multi_is_active = false;
 //         String msg = String(LoRa.packetRssi(), DEC) + " " + String(utils_get_battery()) + " oD";
 //         lora_send_msg_single_unsafe(state_my_id, parser_ans.from, msg, state_lora_gain);
 //         }
-        
+
 //       } else {
 //         Serial.println("Error Buffer OverFlow in Message");
 //       }
@@ -77,14 +77,18 @@ void i_multi_Task1_short_message(void * parameter) {
         i_res += (char) LoRa.read();
       }
 
-        ShortMessageAndTuple parser_ans = lora_short_message_parse(i_res, state_gateway_id);
-        if (parser_ans.successFlag) {
-        Serial.println("Got short-msg '" + String(parser_ans.message) + "' from '" + parser_ans.from + "'");
-        String msg = String(LoRa.packetRssi(), DEC) + " " + String(utils_get_battery()) + " oD";
-        lora_send_msg_single_unsafe(state_my_id, parser_ans.from, msg, state_lora_gain);
+      ShortMessageAndTuple parser_ans = lora_short_message_parse(i_res, state_my_id);
+      if (parser_ans.message != "") {
+
+        if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) {
+          String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
+          if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) application_independer_send_later(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
+          else application_independer_send_later(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + rand() % (C_INDEPENDER_SCAN_MS - 500));
         } else {
-          Serial.println("Received non-short msg. Ignore");
+          Serial.println("Error received unknown message in background '" + parser_ans.message + "'");
         }
+
+      }
 
     }
 
@@ -111,7 +115,7 @@ String multi_actor_get_state_string() {
 
   // String post_string = " Buffer " + String(state_multi_cur_string_i);
 
-//   i_multi_actor_proc_string_buffer();
+  //   i_multi_actor_proc_string_buffer();
 
   if (state_multi_is_active) return "Aktiv"; // + post_string;
   return "Inaktiv";
