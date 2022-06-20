@@ -46,8 +46,8 @@ This repository describes the concept, the project structure, the encrypted Lora
 - [x] Actor to Actor test functions
 - [x] Actor to Gateway test functions
 - [x] Gateway to Actor test functions
-- [ ] Inbox and outbox Actor to Gateway (via LoRaS) communcation
 - [ ] Inbox and outbox Actor to Actor (via LoRaS) communcation (in progress)
+- [ ] Inbox and outbox Actor to Gateway (via LoRaS) communcation
 - [ ] Inbox and outbox Actor to Actor (via WIFI/Internet) communcation
 - [ ] Complete docs
 - [ ] 3D Case improvements
@@ -67,7 +67,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 The application is started through `Independer.ino`. Please set up parameters before compiling. Sourcecodes are located in `src/Independer`.
 
 - `device/`: Baseline LoRaS transmit & receive, Hardware stuff and UI.
-- `workflow/`: Baseline workflow for Actor and Gateway.
+- `workflow/`: Baseline workflow and examples for Actor and Gateway.
 - `application/`: Baseline Independer application.
 
 ## More pictures
