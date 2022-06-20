@@ -274,7 +274,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId) {
       state_parser_last_index = p_type.toInt();
       state_parser_msg += p_value;
       gui_display_prg_static("Empfangen", state_parser_last_index + 2, 0, state_parser_max_packets);
-    } else if (p_type == "!") {
+    } else if (p_type == "!" or p_type == "s") {
       //Unsafe Single Transmit
       Serial.println("- Unsafe transmit - no hashcode check");
       ret_from = p_from;
