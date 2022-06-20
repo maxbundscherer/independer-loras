@@ -2,9 +2,9 @@
 
 This repository is about a device called **Independer**.
 
-We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *small keyboards* and develop our own encrypted *protocol* together with *software*.
-
 The goal is to develop a small **open-source communication gadget** (at the beginning we start with end-to-end encrypted messages) based on LoRa (thus **independent from normal infrastructures** like mobile radio or WIFI).
+
+We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *small keyboards* and develop our own encrypted *protocol* together with *software*.
 
 ``esp32 - lora - encrypted - messages - protocol - keyboard - independer - loras``
 
