@@ -6,7 +6,7 @@ void application_actor_who_is_in_my_area() {
 
   int c_max_ping_retries = 2; //Maximial attempts to receive
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 6000 / c_max_ping_delta; //Waiting approx 4 seconds for next packet
+  int c_max_ping_max_receive_attempts = 8000 / c_max_ping_delta; //Waiting approx 4 seconds for next packet
 
   String receivedMsg;
 
@@ -44,8 +44,6 @@ void application_actor_who_is_in_my_area() {
       }
 
     }
-
-    delay(2000);
 
   }
 
