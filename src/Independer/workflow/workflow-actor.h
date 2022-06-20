@@ -4,109 +4,109 @@
  * ####################################
  */
 
-void i_workflow_ping(String msg, boolean safeTransmit, boolean shortMessageTransmit) {
+// void i_workflow_ping(String msg, boolean safeTransmit, boolean shortMessageTransmit) {
 
-  if(shortMessageTransmit) {
-    lora_send_msg_short_message(state_my_id, state_gateway_id, msg, state_lora_gain);
-    return;
-  }
+//   if(shortMessageTransmit) {
+//     lora_send_msg_short_message(state_my_id, state_gateway_id, msg, state_lora_gain);
+//     return;
+//   }
 
-  //Send Message
-  if (safeTransmit) {
-    lora_send_msg(state_my_id, state_gateway_id, msg, state_lora_gain);
-  } else {
-    lora_send_msg_single_unsafe(state_my_id, state_gateway_id, msg, state_lora_gain);
-  }
+//   //Send Message
+//   if (safeTransmit) {
+//     lora_send_msg(state_my_id, state_gateway_id, msg, state_lora_gain);
+//   } else {
+//     lora_send_msg_single_unsafe(state_my_id, state_gateway_id, msg, state_lora_gain);
+//   }
 
-}
+// }
 
-struct S_Workflow_Pong {
-  boolean receivedSomething;
-  boolean receivingCompleted;
-  String message;
-};
+// struct S_Workflow_Pong {
+//   boolean receivedSomething;
+//   boolean receivingCompleted;
+//   String message;
+// };
 
-S_Workflow_Pong i_workflow_pong() {
+// S_Workflow_Pong i_workflow_pong() {
 
-  int packetSize = LoRa.parsePacket();
+//   int packetSize = LoRa.parsePacket();
 
-  if (packetSize) {
+//   if (packetSize) {
 
-    String i_res = "";
-    for (int i = 0; i < packetSize; i++) {
-      i_res += (char) LoRa.read();
-    }
+//     String i_res = "";
+//     for (int i = 0; i < packetSize; i++) {
+//       i_res += (char) LoRa.read();
+//     }
 
-    ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
+//     ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
 
-    if (parser_ans.message != "") {
-      String msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
-      return S_Workflow_Pong {
-        true,
-        true,
-        msg
-      };
-    }
+//     if (parser_ans.message != "") {
+//       String msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
+//       return S_Workflow_Pong {
+//         true,
+//         true,
+//         msg
+//       };
+//     }
 
-    return S_Workflow_Pong {
-      true,
-      false,
-      ""
-    };
+//     return S_Workflow_Pong {
+//       true,
+//       false,
+//       ""
+//     };
 
-  }
+//   }
 
-  return S_Workflow_Pong {
-    false,
-    false,
-    ""
-  };
-}
+//   return S_Workflow_Pong {
+//     false,
+//     false,
+//     ""
+//   };
+// }
 
-void i_workflow_ping_pong(String msg, boolean safeTransmit, boolean shortMessageTransmit) {
+// void i_workflow_ping_pong(String msg, boolean safeTransmit, boolean shortMessageTransmit) {
 
-  int c_max_ping_retries = 10; //Maximial attempts to receive pong message
-  int c_max_ping_delta = 10; //Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 1000 / c_max_ping_delta; //Waiting approx 1 seconds for next packet
+//   int c_max_ping_retries = 10; //Maximial attempts to receive pong message
+//   int c_max_ping_delta = 10; //Waiting 10ms between receiving
+//   int c_max_ping_max_receive_attempts = 1000 / c_max_ping_delta; //Waiting approx 1 seconds for next packet
 
-  String receivedMsg;
-  boolean receivedSuccess = false;
+//   String receivedMsg;
+//   boolean receivedSuccess = false;
 
-  int l_attempt = 0;
-  while (l_attempt < c_max_ping_retries and!receivedSuccess) {
-    l_attempt++;
+//   int l_attempt = 0;
+//   while (l_attempt < c_max_ping_retries and!receivedSuccess) {
+//     l_attempt++;
 
-    i_workflow_ping(msg + " A" + String(l_attempt), safeTransmit, shortMessageTransmit);
+//     i_workflow_ping(msg + " A" + String(l_attempt), safeTransmit, shortMessageTransmit);
 
-    gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
+//     gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
 
-    int l_cur_receive_attempt = 0;
-    while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!receivedSuccess) {
-      l_cur_receive_attempt++;
+//     int l_cur_receive_attempt = 0;
+//     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!receivedSuccess) {
+//       l_cur_receive_attempt++;
 
-      struct S_Workflow_Pong pong_ans = i_workflow_pong();
+//       struct S_Workflow_Pong pong_ans = i_workflow_pong();
 
-      if (pong_ans.receivedSomething) {
-        l_cur_receive_attempt = 0;
-      }
+//       if (pong_ans.receivedSomething) {
+//         l_cur_receive_attempt = 0;
+//       }
 
-      if (pong_ans.receivingCompleted) {
-        receivedMsg = pong_ans.message;
-        receivedSuccess = true;
-      } else {
-        delay(c_max_ping_delta);
+//       if (pong_ans.receivingCompleted) {
+//         receivedMsg = pong_ans.message;
+//         receivedSuccess = true;
+//       } else {
+//         delay(c_max_ping_delta);
 
-      }
+//       }
 
-    }
+//     }
 
-  }
+//   }
 
-  if (receivedSuccess) {
-    gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_LONG_I);
-  }
+//   if (receivedSuccess) {
+//     gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_LONG_I);
+//   }
 
-}
+// }
 
 /*
  * ####################################
@@ -201,9 +201,11 @@ void i_actor_functions_menu() {
 
 void i_gateway_functions_menu() {
   String menu_items[] = {
-    "Test Nachricht (klein)",
-    "Test Nachricht (groß)",
-    "Test Nachricht (sM)",
+    // "Test Nachricht (klein)",
+    // "Test Nachricht (groß)",
+    // "Test Nachricht (sM)",
+    "Umgebung?",
+    "Erreichbar?",
     "Schlaf Modus",
     "[zurück]"
   };
@@ -212,19 +214,25 @@ void i_gateway_functions_menu() {
   while (!fin_flag) {
     int selected = gui_selection("Gateway Funktionen", menu_items, (int) sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0) {
-      gui_msg_animated("Info", "Sende\nTest Nachricht (klein)", C_GUI_DELAY_MSG_SHORT_I);
-      i_workflow_ping_pong("Test klein", false, false);
+    // if (selected == 0) {
+    //   gui_msg_animated("Info", "Sende\nTest Nachricht (klein)", C_GUI_DELAY_MSG_SHORT_I);
+    //   i_workflow_ping_pong("Test klein", false, false);
+    // }
+    // else if (selected == 1) {
+    //   gui_msg_animated("Info", "Sende\nTest Nachricht (groß)", C_GUI_DELAY_MSG_SHORT_I);
+    //   i_workflow_ping_pong("Das ist jetzt eine größere Test-Nachricht. Ich teste jetzt einmal eine längere Nachricht.", true, false);
+    // }
+    // else if (selected == 2) {
+    //   gui_msg_animated("Info", "Sende\nTest Nachricht (sM)", C_GUI_DELAY_MSG_SHORT_I);
+    //   i_workflow_ping_pong("Test", true, true);
+    // }
+    if(selected == 0) {
+      application_actor_who_is_in_my_area();
     }
-    else if (selected == 1) {
-      gui_msg_animated("Info", "Sende\nTest Nachricht (groß)", C_GUI_DELAY_MSG_SHORT_I);
-      i_workflow_ping_pong("Das ist jetzt eine größere Test-Nachricht. Ich teste jetzt einmal eine längere Nachricht.", true, false);
+    else if(selected == 1) {
+      gui_msg_animated("Info", "Leider ist die Funktion\n'Erreichbar?'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
     }
     else if (selected == 2) {
-      gui_msg_animated("Info", "Sende\nTest Nachricht (sM)", C_GUI_DELAY_MSG_SHORT_I);
-      i_workflow_ping_pong("Test", true, true);
-    }
-    else if (selected == 3) {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "cmd_sleep", state_lora_gain);
     }
