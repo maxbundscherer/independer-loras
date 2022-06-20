@@ -27,7 +27,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - **Actor to Actor (via WIFI/Internet)** communcation: Send messages via a Internet. Actors can query their messages via WIFI/Internet.
 - 3D-printed and protoyped case with mini keyboard
 - Custom Software and communication protocol LoRaS
-- ESP32 with LoRa Antenna
+- ESP32 with LoRa Antenna and multi-tasking features
 - Deep Sleep Mode (battery saving)
 - Communication Actor and Gateway test functions
 - *Who is in my area?* or *Is available?* functions
