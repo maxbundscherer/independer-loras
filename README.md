@@ -59,10 +59,18 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 ### Documentation
 
-- [LoraS-Protocol Documentation](docs/loras-protocol.md)
-- [Independer-Protocol Documentation](docs/independer-protocol.md)
+- [LoraS-Protocol](docs/loras-protocol.md)
+- [Independer-Protocol](docs/independer-protocol.md)
 
-## More pictures
+#### Code Documentation
+
+The application is started through `Independer.ino`. Please set up parameters before compiling. Sourcecodes are located in `src/Independer`.
+
+- `device/`: Baseline LoRaS transmit & receive, Hardware stuff and UI.
+- `workflow/`: Baseline workflow for Actor and Gateway.
+- `application/`: Baseline Independer application.
+
+### More pictures
 
 <img src="docs/images/hardware.jpeg" width="600"/>
 
