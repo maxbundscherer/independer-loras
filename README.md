@@ -10,7 +10,7 @@ The project is still in its initial phase. If you want to **join, or have an ide
 
 ``esp32 - lora - encryption - short-message - protocol - keyboard - 3d-printing - independent``
 
-<img src="images/main.jpeg" width="600"/>
+<img src="docs/images/main.jpeg" width="600"/>
 
 [![shields.io](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
@@ -100,10 +100,10 @@ Application level protocol is based on the LoRaS Protocol.
 
 ## More pictures
 
-<img src="images/hardware.jpeg" width="600"/>
+<img src="docs/images/hardware.jpeg" width="600"/>
 
-<img src="images/ui_actor.jpeg" width="600"/>
+<img src="docs/images/ui_actor.jpeg" width="600"/>
 
-<img src="images/ui_gateway.jpeg" width="600"/>
+<img src="docs/images/ui_gateway.jpeg" width="600"/>
 
-<img src="images/cad.png" width="600"/>
+<img src="docs/images/cad.png" width="600"/>
