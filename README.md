@@ -8,7 +8,7 @@ We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *small keyboards* and 
 
 ``esp32 - lora - encryption - short-message - protocol - keyboard``
 
-<img src="images/main.jpeg" width="400"/>
+<img src="images/main.jpeg" width="600"/>
 
 [![shields.io](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
@@ -87,10 +87,10 @@ Application level protocol is based on the LoRaS Protocol.
 
 ## More pictures
 
-<img src="images/hardware.jpeg" width="400"/>
+<img src="images/hardware.jpeg" width="600"/>
 
-<img src="images/ui_actor.jpeg" width="400"/>
+<img src="images/ui_actor.jpeg" width="600"/>
 
-<img src="images/ui_gateway.jpeg" width="400"/>
+<img src="images/ui_gateway.jpeg" width="600"/>
 
-<img src="images/cad.png" width="400"/>
+<img src="images/cad.png" width="600"/>
