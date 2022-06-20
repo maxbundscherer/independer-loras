@@ -242,7 +242,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId) {
     }
   }
 
-  if (p_to == myId) {
+  if (p_to == myId or (p_type == "s" and p_to == "*")) {
 
     if (p_type == "+") {
       //Beginn (set from, clear)
