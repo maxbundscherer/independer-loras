@@ -39,10 +39,18 @@ RTC_DATA_ATTR int boot_state_oled_brightness = 255;
  * ####################################
  */
 
+//Common
 #include "workflow/workflow-independer.h"
+#include "application/application-independer.h"
+
+//Actor
 #include "workflow/workflow-multi-actor.h"
 #include "workflow/workflow-actor.h"
+#include "application/application-actor.h"
+
+//Gateway
 #include "workflow/workflow-gateway.h"
+#include "application/application-gateway.h"
 
 void setup() {
 
