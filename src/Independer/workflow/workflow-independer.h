@@ -34,7 +34,7 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
 
   if(isDevMode) {
     Serial.println("- Init Dev Mode");
-    state_lora_gain = 1;
+    state_lora_gain = 11;
   }
 
   Serial.println("- Init Display");
