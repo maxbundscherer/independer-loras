@@ -170,6 +170,8 @@ void i_actor_functions_bg_syn_menu() {
 
 void i_actor_functions_menu() {
   String menu_items[] = {
+    "Umgebungs-Scan",
+    "Erreichbar-Check",
     "Batterie Status",
     "Sendekontingent",
     "Hintergrundsync",
@@ -182,15 +184,19 @@ void i_actor_functions_menu() {
   while (!fin_flag) {
     int selected = gui_selection("Actor Funktionen", menu_items, (int) sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0) {
+    if(selected == 0) application_actor_who_is_in_my_area();
+    else if(selected == 1) {
+      gui_msg_animated("Info", "Leider ist die Funktion\n'Erreichbar-Check'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
+    }
+    else if (selected == 2) {
       gui_display_prg_animated("Batterie Status (mV)", utils_get_battery(), 1950, 3100, C_GUI_DELAY_MSG_SHORT_I);
     }
-    else if (selected == 1) {
+    else if (selected == 3) {
       gui_display_prg_animated("Sendekontingent (millis)", lora_get_global_tx_time_millis(), 0, 36000, C_GUI_DELAY_MSG_SHORT_I);
     }
-    else if(selected == 2) i_actor_functions_bg_syn_menu();
-    else if(selected == 3) gui_print_test_buffer();
-    else if (selected == 4) {
+    else if(selected == 4) i_actor_functions_bg_syn_menu();
+    else if(selected == 5) gui_print_test_buffer();
+    else if (selected == 6) {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Actor)", C_GUI_DELAY_MSG_SHORT_I);
       utils_go_to_sleep();
     }
@@ -204,8 +210,6 @@ void i_gateway_functions_menu() {
     // "Test Nachricht (klein)",
     // "Test Nachricht (groß)",
     // "Test Nachricht (sM)",
-    "Umgebung?",
-    "Erreichbar?",
     "Schlaf Modus",
     "[zurück]"
   };
@@ -226,13 +230,7 @@ void i_gateway_functions_menu() {
     //   gui_msg_animated("Info", "Sende\nTest Nachricht (sM)", C_GUI_DELAY_MSG_SHORT_I);
     //   i_workflow_ping_pong("Test", true, true);
     // }
-    if(selected == 0) {
-      application_actor_who_is_in_my_area();
-    }
-    else if(selected == 1) {
-      gui_msg_animated("Info", "Leider ist die Funktion\n'Erreichbar?'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
-    }
-    else if (selected == 2) {
+    if (selected == 0) {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "cmd_sleep", state_lora_gain);
     }
