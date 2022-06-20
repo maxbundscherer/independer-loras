@@ -6,7 +6,7 @@ The goal is to develop a small **open-source communication gadget** (at the begi
 
 We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *small keyboards* and develop our own encrypted *protocol* together with *software*.
 
-``esp32 - lora - encrypted - messages - protocol - keyboard - independer - loras``
+``esp32 - lora - encryption - short-message - protocol - keyboard``
 
 <img src="images/main.jpeg" width="400"/>
 
