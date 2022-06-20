@@ -52,7 +52,6 @@ This repository describes the concept, the project structure, the encrypted Lora
 - [ ] Complete docs
 - [ ] 3D Case improvements
 - [ ] Code Refactoring
-- [ ] Application level implementations
 - [ ] Deploy (secret keys, actor and gateway releated) configurations
 - [ ] Crypt improvements
 - [ ] GUI Multilanguage
