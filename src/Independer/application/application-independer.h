@@ -2,8 +2,8 @@
 
 Ticker ticker_independer_send_later; //Declare Ticker object
 
-#define C_INDEPENDER_SEND_DELAY 500
-#define C_INDEPENDER_SCAN_MS    5000
+#define C_INDEPENDER_SEND_DELAY 1000
+#define C_INDEPENDER_SCAN_MS    6000
 
 String C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL      = "?";
 String C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE   = "!";

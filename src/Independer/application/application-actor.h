@@ -13,9 +13,9 @@ void application_actor_who_is_in_my_area() {
     multi_actor_stop();
   }
 
-  int c_max_ping_retries = 3; //Maximial attempts to receive
+  int c_max_ping_retries = 2; //Maximial attempts to receive
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 1000) / c_max_ping_delta; //Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 2000) / c_max_ping_delta; //Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
 
   S_I_Application_Device_Item collected_db[100];
   int collected_counter = 0;
@@ -26,7 +26,7 @@ void application_actor_who_is_in_my_area() {
 
     lora_send_msg_short_message(state_my_id, "*", C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL, state_lora_gain);
 
-    gui_display_prg_static("Scan", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static("Umgebungs-Scan", l_attempt, 0, c_max_ping_retries);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts) {
@@ -62,16 +62,18 @@ void application_actor_who_is_in_my_area() {
 
   }
 
-  String gui_items[collected_counter];
+  if (collected_counter > 0) {
+    String gui_items[collected_counter];
 
-  for (int i = 0; i < collected_counter; i++) {
-    gui_items[i] = collected_db[i].deviceId + " (" + collected_db[i].deviceMsg + ") " + collected_db[i].receivedRssi + " " + collected_db[i].attempt;
-  }
+    for (int i = 0; i < collected_counter; i++) {
+      gui_items[i] = collected_db[i].deviceId + " (" + collected_db[i].deviceMsg + ") " + collected_db[i].receivedRssi + " " + collected_db[i].attempt;
+    }
 
-  gui_selection("Scan Ausgabe", gui_items, (int) sizeof(gui_items) / sizeof(gui_items[0]) - 1, true);
+    gui_selection("Scan Ausgabe", gui_items, (int) sizeof(gui_items) / sizeof(gui_items[0]) - 1, true);
 
-  if (sync_was_on_flag) {
-    multi_actor_start();
+    if (sync_was_on_flag) {
+      multi_actor_start();
+    }
   }
 
 }
@@ -135,7 +137,7 @@ void application_actor_who_is_available(String target_id) {
 
   int c_max_ping_retries = 10; //Maximial attempts to receive pong message
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 2000 / c_max_ping_delta; //Waiting approx 2 seconds for next packet
+  int c_max_ping_max_receive_attempts = 3000 / c_max_ping_delta; //Waiting approx 2 seconds for next packet
 
   String receivedMsg;
   boolean receivedSuccess = false;
@@ -171,7 +173,7 @@ void application_actor_who_is_available(String target_id) {
   }
 
   if (receivedSuccess) {
-    gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_LONG_I);
+    gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   if (sync_was_on_flag) {

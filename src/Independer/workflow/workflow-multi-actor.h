@@ -82,8 +82,8 @@ void i_multi_Task1_short_message(void * parameter) {
 
         if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) {
           String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
-          if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) application_independer_send_later(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
-          else application_independer_send_later(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + rand() % (C_INDEPENDER_SCAN_MS - 500));
+          if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) application_independer_send_later(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
+          else application_independer_send_later(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (rand() % (C_INDEPENDER_SCAN_MS - 500)));
         } else {
           Serial.println("Error received unknown message in background '" + parser_ans.message + "'");
         }
