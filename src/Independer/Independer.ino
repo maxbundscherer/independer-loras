@@ -13,9 +13,9 @@
 //TODO: Multi Task Decoding
 //TODO: Warum Faktor 2 Multi Task Decoding
 
-//TODO: Application Actor Who is near - Respond anzeigen
-
 //TODO: Application Actor Is ava
+
+//TODO: Background Sync bei bedarf anschalten
 
 //TODO: Refactoring c_id und Gateway id
 
