@@ -4,7 +4,7 @@ This repository is about a device called **Independer**.
 
 The goal is to develop a small **open-source communication gadget** (at the beginning we start with end-to-end encrypted messages) based on LoRa (thus **independent from normal infrastructures** like mobile radio or WIFI).
 
-We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *small keyboards* and develop our own encrypted *protocol* together with *software*.
+We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
 
 The project is still in its initial phase. If you want to **join, or have an idea**, feel free to [write me](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions).
 
@@ -25,6 +25,10 @@ This page describes the concept, the project structure, the encrypted LoraS tran
 - **Actor to Actor (via LoRaS)** communcation: Send messages directly between two Actors.
 - **Actor to Gateway (via LoRaS)** communcation: Send messages via a Gateway. Actors can query their messages via a gateway.
 - **Actor to Actor (via WIFI/Internet)** communcation: Send messages via a Internet. Actors can query their messages via WIFI/Internet.
+- 3D-printed and protoyped case with mini keyboard
+- Custom Software and communication protocol LoRaS
+- ESP32 with LoRa Antenna
+- Deep Sleep Mode (battery saving)
 - ...
 
 ### Included
@@ -39,8 +43,15 @@ This page describes the concept, the project structure, the encrypted LoraS tran
 - [x] Crypt baseline implementations
 - [x] Device (hardware, gui) baseline implementations
 - [x] Gateway and Actor baseline implementations
+- [x] Actor to Actor test functions
+- [x] Actor to Gateway test functions
+- [x] Gateway to Actor test functions
+- [ ] Inbox and outbox Actor to Gateway (via LoRaS) communcation
+- [ ] Inbox and outbox Actor to Actor (via LoRaS) communcation (in progress)
+- [ ] Inbox and outbox Actor to Actor (via WIFI/Internet) communcation
 - [ ] Complete docs
 - [ ] 3D Case improvements
+- [ ] Code Refactoring
 - [ ] Application level implementations
 - [ ] Deploy (secret keys, actor and gateway releated) configurations
 - [ ] Crypt improvements
