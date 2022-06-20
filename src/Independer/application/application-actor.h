@@ -119,7 +119,7 @@ void application_actor_who_is_available(String target_id) {
 
   int c_max_ping_retries = 10; //Maximial attempts to receive pong message
   int c_max_ping_delta = 10; //Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 1000 / c_max_ping_delta; //Waiting approx 1 seconds for next packet
+  int c_max_ping_max_receive_attempts = 2000 / c_max_ping_delta; //Waiting approx 2 seconds for next packet
 
   String receivedMsg;
   boolean receivedSuccess = false;
