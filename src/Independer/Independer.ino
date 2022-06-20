@@ -79,7 +79,7 @@ void setup() {
 void loop() {
 
   if(c_actor_mode) {
-    // multi_actor_start();
+    multi_actor_start();
     workflow_actor_main_menu();
   }
   else {
