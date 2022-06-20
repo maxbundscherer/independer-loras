@@ -9,7 +9,7 @@ Application level protocol is based on the LoRaS Protocol \[P1\], \[P2\], and\[P
 This feature is used to find out which Actors and Gateways are nearby.
 
 1. For this \[P2\] with `[to] *` is used and `[msg]` is set to `?`. 
-2. Other devices respond randomly within 4 seconds \[P3\] and `[msg]` is set to `[battery-rssi]`
+2. Other devices respond randomly within 5 seconds \[P3\] and `[msg]` is set to `[battery-rssi]`
 
 This is repeated twice to reach and receive more devices.
 
