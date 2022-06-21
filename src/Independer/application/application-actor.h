@@ -236,7 +236,7 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg) {
   boolean sendSuccess = false;
 
   int l_attempt = 0;
-  while (l_attempt < c_max_ping_retries and!sendSuccess) {
+  while (l_attempt < c_max_ping_retries and !sendSuccess) {
     l_attempt++;
 
     gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
