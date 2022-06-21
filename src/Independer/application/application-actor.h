@@ -92,58 +92,6 @@ void application_actor_who_is_in_my_area() {
  * ####################################
  */
 
-struct S_APP_PONG {
-  boolean receivedSomething;
-  boolean receivingCompleted;
-  String message;
-};
-
-/**
- * @param check_from_id device id (gateway) 
- * @param addDebugDataToMsg flag true = add debug data to message
- */
-S_APP_PONG i_application_pong(String check_from_id, boolean addDebugDataToMsg) {
-
-  int packetSize = LoRa.parsePacket();
-
-  if (packetSize) {
-
-    String i_res = "";
-    for (int i = 0; i < packetSize; i++) {
-      i_res += (char) LoRa.read();
-    }
-
-    ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
-
-    if (parser_ans.message != ""
-      and parser_ans.from == check_from_id) {
-      String msg = parser_ans.message;
-      if (addDebugDataToMsg) {
-        msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
-      }
-
-      return S_APP_PONG {
-        true,
-        true,
-        msg
-      };
-    }
-
-    return S_APP_PONG {
-      true,
-      false,
-      ""
-    };
-
-  }
-
-  return S_APP_PONG {
-    false,
-    false,
-    ""
-  };
-}
-
 /**
  * @return boolean return if is available 
  */
@@ -174,7 +122,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!receivedSuccess) {
       l_cur_receive_attempt++;
 
-      struct S_APP_PONG pong_ans = i_application_pong(target_id, true);
+      struct S_APP_PONG pong_ans = application_independer_pong(target_id, true);
 
       if (pong_ans.receivedSomething) {
         l_cur_receive_attempt = 0;
@@ -249,7 +197,7 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg) {
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!sendSuccess) {
       l_cur_receive_attempt++;
 
-      struct S_APP_PONG pong_ans = i_application_pong(state_gateway_id, false);
+      struct S_APP_PONG pong_ans = application_independer_pong(state_gateway_id, false);
 
       if (pong_ans.receivedSomething) {
         l_cur_receive_attempt = 0;
