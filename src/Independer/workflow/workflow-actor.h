@@ -108,7 +108,7 @@ void i_gateway_functions_menu() {
 
     if (selected == 0) {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
-      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "(C)(sleep)", state_lora_gain);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
     }
     else fin_flag = true;
   }
