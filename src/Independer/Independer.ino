@@ -13,7 +13,7 @@
 //TODO: Multi Task Decoding
 //TODO: Warum Faktor 2 Multi Task Decoding
 
-//TODO: Background Sync bei bedarf anschalten und ausschalten
+//TODOL Actor App: Scan Output Tmp Workaround, -2
 
 //TODO: Refactoring c_id und Gateway id
 
