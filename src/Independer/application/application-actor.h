@@ -1,3 +1,9 @@
+/*
+ * ####################################
+ *  Who is near? Section
+ * ####################################
+ */
+
 struct S_I_Application_Device_Item {
   String deviceId;
   String deviceMsg;
@@ -82,52 +88,9 @@ void application_actor_who_is_in_my_area() {
 
 /*
  * ####################################
- *  Ping Pong Section
+ *  Is Available Section
  * ####################################
  */
-
-struct S_Workflow_Pong {
-  boolean receivedSomething;
-  boolean receivingCompleted;
-  String message;
-};
-
-S_Workflow_Pong i_workflow_pong(String target_id) {
-
-  int packetSize = LoRa.parsePacket();
-
-  if (packetSize) {
-
-    String i_res = "";
-    for (int i = 0; i < packetSize; i++) {
-      i_res += (char) LoRa.read();
-    }
-
-    ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
-
-    if (parser_ans.message != "" and parser_ans.from == target_id) {
-      String msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
-      return S_Workflow_Pong {
-        true,
-        true,
-        msg
-      };
-    }
-
-    return S_Workflow_Pong {
-      true,
-      false,
-      ""
-    };
-
-  }
-
-  return S_Workflow_Pong {
-    false,
-    false,
-    ""
-  };
-}
 
 /**
  * @return boolean return if is available 
@@ -151,7 +114,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
   while (l_attempt < c_max_ping_retries and!receivedSuccess) {
     l_attempt++;
 
-    gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static("Erreichbar-Check Versuch", l_attempt, 0, c_max_ping_retries);
 
     lora_send_msg_short_message(state_my_id, target_id, C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE, state_lora_gain);
 
@@ -159,7 +122,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!receivedSuccess) {
       l_cur_receive_attempt++;
 
-      struct S_Workflow_Pong pong_ans = i_workflow_pong(target_id);
+      struct S_APP_PONG pong_ans = application_independer_pong(target_id, true);
 
       if (pong_ans.receivedSomething) {
         l_cur_receive_attempt = 0;
@@ -177,8 +140,10 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
 
   }
 
-  if (receivedSuccess and !flagHideAns) {
+  if (receivedSuccess and!flagHideAns) {
     gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_MIDDLE_I);
+  } else if (!flagHideAns) {
+    gui_msg_animated("Fehler", "keine Antwort\nerhalten", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   if (sync_was_on_flag) {
@@ -186,4 +151,99 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
   }
 
   return receivedSuccess;
+}
+
+/*
+ * ####################################
+ *  Send Message to Gateway Section
+ * ####################################
+ */
+
+void application_actor_send_msg_to_gateway(String receiverId, String userMsg) {
+
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag) {
+    multi_actor_stop();
+  }
+
+  boolean isAvailable = application_actor_is_available(state_gateway_id, true);
+
+  if (!isAvailable) {
+    gui_msg_animated("Fehler", "Gateway ist\nnicht erreichbar", C_GUI_DELAY_MSG_MIDDLE_I);
+    if (sync_was_on_flag) {
+      multi_actor_start();
+    }
+    return;
+  }
+
+  int c_max_ping_retries = 3; //Maximial attempts to receive pong message
+  int c_max_ping_delta = 10; //Waiting 10ms between receiving
+  int c_max_ping_max_receive_attempts = 3000 / c_max_ping_delta; //Waiting approx 2 seconds for next packet
+
+  boolean sendSuccess = false;
+
+  int l_attempt = 0;
+  while (l_attempt < c_max_ping_retries and !sendSuccess) {
+    l_attempt++;
+
+    gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
+
+    delay(C_GUI_DELAY_STATIC_SHORT);
+
+    lora_send_msg(state_my_id, state_gateway_id, "M;" + receiverId + ";" + userMsg, state_lora_gain);
+
+    int l_cur_receive_attempt = 0;
+    while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!sendSuccess) {
+      l_cur_receive_attempt++;
+
+      struct S_APP_PONG pong_ans = application_independer_pong(state_gateway_id, false);
+
+      if (pong_ans.receivedSomething) {
+        l_cur_receive_attempt = 0;
+      }
+
+      if (pong_ans.receivingCompleted and pong_ans.message == "A;ok") {
+        sendSuccess = true;
+      } else {
+        delay(c_max_ping_delta);
+      }
+
+    }
+
+  }
+
+  if (sync_was_on_flag) {
+    multi_actor_start();
+  }
+
+  if (sendSuccess) {
+    gui_msg_animated("Info", "Nachricht wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
+
+  } else {
+    gui_msg_animated("Fehler", "Nachricht konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
+  }
+
+}
+
+/*
+ * ####################################
+ *  Query Messages from Gateway Section
+ * ####################################
+ */
+
+void application_actor_query_msgs_from_gateway() {
+
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag) {
+    multi_actor_stop();
+  }
+
+  //TODO
+
+  if (sync_was_on_flag) {
+    multi_actor_start();
+  }
+
 }

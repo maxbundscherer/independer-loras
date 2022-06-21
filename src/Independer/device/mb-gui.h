@@ -10,6 +10,7 @@
   */
 
 #define C_GUI_DELAY_STATIC        3000
+#define C_GUI_DELAY_STATIC_SHORT  1000
 #define C_GUI_DELAY_LONG_STATIC   10000
 
 #define C_GUI_DELAY_MSG_SHORT_I   20

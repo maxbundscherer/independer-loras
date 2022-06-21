@@ -6,11 +6,10 @@
 #include "device/mb-lora.h"
 
 //TODO: Gateway Empfangen Layout fix
-//TODO: Gateway Nicht Blocken bei Fehler anzeigen
+//TODO: Gateway und Actor Nicht Blocken bei Fehler anzeigen
 
 //TODO: Sendekontigent mit echter Zeit
 
-//TODO: Multi Task Decoding
 //TODO: Warum Faktor 2 Multi Task Decoding
 
 //TODO: Refactoring c_id und Gateway id

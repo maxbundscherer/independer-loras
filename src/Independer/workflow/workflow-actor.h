@@ -20,7 +20,7 @@ void i_communication_menu() {
 
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "");
       String msg_tx = gui_input_text("Nachricht", "");
-      lora_send_msg(state_my_id, msg_res, msg_tx, state_lora_gain);
+      application_actor_send_msg_to_gateway(msg_res, msg_tx);
 
     }
     else if (selected == 1) gui_msg_animated("Info", "Leider ist die Funktion\n'Briefe abrufen'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
@@ -108,7 +108,7 @@ void i_gateway_functions_menu() {
 
     if (selected == 0) {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
-      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "(C)(sleep)", state_lora_gain);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
     }
     else fin_flag = true;
   }
