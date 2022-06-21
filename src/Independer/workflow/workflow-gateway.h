@@ -38,6 +38,11 @@ void workflow_gateway_main() {
         if(parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
         else application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS-500)));
       }
+      else if(parser_ans.message.startsWith("(M)(")) {
+        Serial.println("Should store message '" + parser_ans.message + "'");
+        //TODO
+        application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, "(A)(ok)", C_INDEPENDER_SEND_DELAY);
+      }
       else {
         Serial.println("Error received unknown message '" + parser_ans.message + "'");
       }
