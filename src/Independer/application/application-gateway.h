@@ -27,6 +27,7 @@ void application_gateway_store_msg(String from, String messageString) {
 
   Serial.println("Extracted p_receiver_id '" + p_receiver_id + "'");
   Serial.println("Extracted p_message '" + p_message + "'");
+  Serial.println("Extracted from '" + from + "'");
 
   //TODO
 
