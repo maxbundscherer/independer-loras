@@ -20,7 +20,7 @@ void i_callback_send_later() //Callback function
   i_independer_send_later_message = "";
 }
 
-void application_independer_send_later(String from, String to, String msg, int delay_ms) {
+void application_independer_send_later_single_unsafe(String from, String to, String msg, int delay_ms) {
   i_independer_send_later_from = from;
   i_independer_send_later_to = to;
   i_independer_send_later_message = msg;
