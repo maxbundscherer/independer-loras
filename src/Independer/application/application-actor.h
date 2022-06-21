@@ -202,6 +202,11 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
 
 void application_actor_send_msg_to_gateway(String receiverId, String userMsg) {
 
+  Serial.println("Should send '" + userMsg + "' to '" + receiverId + "'");
+
+  boolean isAvailable = application_actor_is_available(state_gateway_id, true);
+  Serial.println("Check if Gateway is available " + String(isAvailable));
+
 }
 
 /*
