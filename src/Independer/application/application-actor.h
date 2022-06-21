@@ -66,10 +66,12 @@ void application_actor_who_is_in_my_area() {
     String gui_items[collected_counter];
 
     for (int i = 0; i < collected_counter; i++) {
-      gui_items[i] = collected_db[i].deviceId + " (" + collected_db[i].deviceMsg + ") " + collected_db[i].receivedRssi + " " + collected_db[i].attempt;
+      String r = collected_db[i].deviceId + " (" + collected_db[i].deviceMsg + ") " + collected_db[i].receivedRssi + " " + collected_db[i].attempt;
+      // Serial.println("Scan Item '" + r + "'");
+      gui_items[i] = r;
     }
 
-    gui_selection("Scan Ausgabe", gui_items, (int) sizeof(gui_items) / sizeof(gui_items[0]) - 1, true);
+    gui_selection("Scan Ausgabe", gui_items, collected_counter - 2, true);
 
     if (sync_was_on_flag) {
       multi_actor_start();
