@@ -10,7 +10,7 @@ This feature is used to set Gateway in sleep mode (Actor controlled).
 
 1. For this Actor \[P3\] `[msg]` is set to `(C)(sleep)`.
 
-No available check before sending. Gateway sends no response and goes into sleep mode.
+No available check before sending (\[F23.2\]). Gateway sends no response and goes into sleep mode.
 
 ### Based on Safe message \[P1\] and Unsafe single message \[P3\]
 
@@ -33,7 +33,7 @@ This function is used to send messages via Gateway from Actor to Actor. This han
 1. For this Actor \[P3\] `[msg]` is set to `(Q)(msg)`.
 2. Gateway respond \[P1\] `[msg]` is set to `(A)($numMessages)`...
 
-No available check before sending. This is repeated three times, if Actor receives no response from Gateway.
+No available check before sending (\[F23.2\]). This is repeated three times, if Actor receives no response from Gateway.
 
 ### Based on Unsafe short message \[P2\] and Unsafe single message \[P3\]
 
