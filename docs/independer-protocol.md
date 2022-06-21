@@ -42,7 +42,7 @@ No available check before sending (\[F23.2\]). This is repeated three times, if 
 This function is used to find out which Actors and Gateways are nearby.
 
 1. For this Actor \[P2\] `[to]` is set to `*` and `[msg]` is set to `?`. 
-2. Other devices (Actors and Gateways) respond randomly within 6 seconds \[P3\] and `[msg]` is set to `[$battery-$rssi]`. Where `$battery` is battery in mA and `$rssi` is rssi in dbi.
+2. Other devices (Actors and Gateways) respond randomly within 6 seconds \[P3\] and `[msg]` is set to `$battery-$rssi`. Where `$battery` is battery in mA and `$rssi` is rssi in dbi.
 
 This is repeated threefold to reach and receive more devices. Designed for Actor background-job and Gateway.
 
@@ -51,6 +51,6 @@ This is repeated threefold to reach and receive more devices. Designed for Actor
 This function is used to find out whether a specific actor or gateway is nearby. Used mainly before sending a message over LoRaS.
 
 1. For this Actor \[P2\] `[msg]` is set to `!`.
-2. Other device (Actors and Gateways) respond immedatly \[P3\] and `[msg]` is set to `[$battery-$rssi]`. Where `$battery` is battery in mA and `$rssi` is rssi in dbi.
+2. Other device (Actors and Gateways) respond immedatly \[P3\] and `[msg]` is set to `$battery-$rssi`. Where `$battery` is battery in mA and `$rssi` is rssi in dbi.
 
 This function can be repeated. Designed for Actor background-job and Gateway.
