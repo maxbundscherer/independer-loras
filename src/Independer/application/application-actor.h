@@ -205,11 +205,26 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
 
 void application_actor_send_msg_to_gateway(String receiverId, String userMsg) {
 
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag) {
+    multi_actor_stop();
+  }
+
   boolean isAvailable = application_actor_is_available(state_gateway_id, true);
 
   if (!isAvailable) {
     gui_msg_animated("Fehler", "Gateway ist\nnicht erreichbar", C_GUI_DELAY_MSG_MIDDLE_I);
+    if (sync_was_on_flag) {
+      multi_actor_start();
+    }
     return;
+  }
+
+  //TODO
+
+  if (sync_was_on_flag) {
+    multi_actor_start();
   }
 
 }
@@ -221,5 +236,17 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg) {
  */
 
 void application_actor_query_msgs_from_gateway() {
+
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag) {
+    multi_actor_stop();
+  }
+
+  //TODO
+
+  if (sync_was_on_flag) {
+    multi_actor_start();
+  }
 
 }
