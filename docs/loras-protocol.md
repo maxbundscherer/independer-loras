@@ -12,11 +12,11 @@ Currently the frequency **868 MHz** is used, but in the future the frequency **4
 
 *Send message with hashcode-check*: Default protocol for e.g. Application messages.
 
-`[num_packets]` and `[current_packet]` are int-values.
+`[num_packets]`, `[current_packet]`, and `[hashcode_msg]` are int-values.
 
 - `[from]:[to]:+:[num_packets]`
-- `[from]:[to]:[current_packet]:[msg_part]`
-- `[from]:[to]:-:[num_packets]`
+- `[from]:[to]:[current_packet]:[part_of_msg]`
+- `[from]:[to]:-:[hashcode_msg]`
 
 ### Unsafe short message \[P2\]
 

@@ -30,13 +30,13 @@ void workflow_gateway_main() {
       state_gateway_received_messages++;
       state_gateway_has_sth_changed = true;
 
-      if (parser_ans.message == "cmd_sleep") {
+      if (parser_ans.message == "(C)(sleep)") {
         utils_go_to_sleep();
       } 
       else if(parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)  {
         String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
-        if(parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) application_independer_send_later(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
-        else application_independer_send_later(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS-500)));
+        if(parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
+        else application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS-500)));
       }
       else {
         Serial.println("Error received unknown message '" + parser_ans.message + "'");
