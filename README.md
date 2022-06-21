@@ -82,3 +82,5 @@ The application is started through `Independer.ino`. Please set up parameters be
 <img src="docs/images/ui_gateway.jpeg" width="600"/>
 
 <img src="docs/images/cad.png" width="600"/>
+
+Also check out [Awesome/Automatic SDR](https://a-sdr.org/).
