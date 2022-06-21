@@ -30,7 +30,7 @@ void workflow_gateway_main() {
       state_gateway_received_messages++;
       state_gateway_has_sth_changed = true;
 
-      if (parser_ans.message == "cmd_sleep") {
+      if (parser_ans.message == "(C)(sleep)") {
         utils_go_to_sleep();
       } 
       else if(parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)  {
