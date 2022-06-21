@@ -30,7 +30,7 @@ If Actor does not receive a response from Gateway, Actor goes to step 2 (skip av
 
 This function is used to find out which Actors and Gateways are nearby.
 
-1. For this Actor \[P2\] with `[to] *` is used and `[msg]` is set to `?`. 
+1. For this Actor \[P2\] `[to]` is set to `*` and `[msg]` is set to `?`. 
 2. Other devices (Actors and Gateways) respond randomly within 6 seconds \[P3\] and `[msg]` is set to `[battery-rssi]`
 
 This is repeated threefold to reach and receive more devices. Designed for Actor background-job and Gateway.
