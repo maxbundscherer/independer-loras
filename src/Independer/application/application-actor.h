@@ -71,8 +71,7 @@ void application_actor_who_is_in_my_area() {
       gui_items[i] = r;
     }
 
-    //TODOL Scan Output Tmp Workaround, -2
-    gui_selection("Scan Ausgabe", gui_items, collected_counter - 2, true);
+    gui_selection("Scan Ausgabe", gui_items, collected_counter - 1, true);
 
     if (sync_was_on_flag) {
       multi_actor_start();

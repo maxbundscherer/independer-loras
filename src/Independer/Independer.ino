@@ -13,8 +13,6 @@
 //TODO: Multi Task Decoding
 //TODO: Warum Faktor 2 Multi Task Decoding
 
-//TODOL Actor App: Scan Output Tmp Workaround, -2
-
 //TODO: Refactoring c_id und Gateway id
 
 /*

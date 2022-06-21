@@ -291,9 +291,10 @@ void i_gui_menu(String menu_title, String page, String menu0, String menu1, Stri
 int gui_selection(String menu_title, String menu_items[], int count_items, boolean disableShortcuts = false) {
 
   // Serial.println("Got " + String(count_items) + " in menu onl");
-  // Serial.println("Got " + String(count_items) + " in menu '" + String(menu_items[0]) + "'");
+  // Serial.println("Got " + String(count_items) + " in menu first '" + String(menu_items[0]) + "'");
+  // Serial.println("Got " + String(count_items) + " in menu last '" + String(menu_items[count_items]) + "'");
 
-  // for (int i = 0; i < count_items+1; i++) {
+  // for (int i = 0; i < count_items; i++) {
   //     String r = menu_items[i];
   //     Serial.println("Menu Item '" + r + "'");
   //   }
