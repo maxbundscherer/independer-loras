@@ -157,7 +157,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
   while (l_attempt < c_max_ping_retries and!receivedSuccess) {
     l_attempt++;
 
-    gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static("Erreichbar-Check Versuch", l_attempt, 0, c_max_ping_retries);
 
     lora_send_msg_short_message(state_my_id, target_id, C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE, state_lora_gain);
 
@@ -185,6 +185,9 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
 
   if (receivedSuccess and !flagHideAns) {
     gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_MIDDLE_I);
+  }
+  else if (!flagHideAns) {
+    gui_msg_animated("Fehler", "keine Antwort\nerhalten", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   if (sync_was_on_flag) {
