@@ -98,7 +98,11 @@ struct S_APP_PONG {
   String message;
 };
 
-S_APP_PONG i_application_pong(String target_id) {
+/**
+ * @param check_from_id device id (gateway) 
+ * @param addDebugDataToMsg flag true = add debug data to message
+ */
+S_APP_PONG i_application_pong(String check_from_id, boolean addDebugDataToMsg) {
 
   int packetSize = LoRa.parsePacket();
 
@@ -112,8 +116,12 @@ S_APP_PONG i_application_pong(String target_id) {
     ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
 
     if (parser_ans.message != ""
-      and parser_ans.from == target_id) {
-      String msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
+      and parser_ans.from == check_from_id) {
+      String msg = parser_ans.message;
+      if (addDebugDataToMsg) {
+        msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
+      }
+
       return S_APP_PONG {
         true,
         true,
@@ -166,7 +174,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!receivedSuccess) {
       l_cur_receive_attempt++;
 
-      struct S_APP_PONG pong_ans = i_application_pong(target_id);
+      struct S_APP_PONG pong_ans = i_application_pong(target_id, true);
 
       if (pong_ans.receivedSomething) {
         l_cur_receive_attempt = 0;
