@@ -92,7 +92,7 @@ struct S_Workflow_Pong {
   String message;
 };
 
-S_Workflow_Pong i_workflow_pong() {
+S_Workflow_Pong i_workflow_pong(String target_id) {
 
   int packetSize = LoRa.parsePacket();
 
@@ -105,7 +105,7 @@ S_Workflow_Pong i_workflow_pong() {
 
     ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
 
-    if (parser_ans.message != "") {
+    if (parser_ans.message != "" and parser_ans.from == target_id) {
       String msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
       return S_Workflow_Pong {
         true,
@@ -129,7 +129,10 @@ S_Workflow_Pong i_workflow_pong() {
   };
 }
 
-void application_actor_who_is_available(String target_id) {
+/**
+ * @return boolean return if is available 
+ */
+boolean application_actor_is_available(String target_id, boolean flagHideAns) {
 
   boolean sync_was_on_flag = multi_actor_get_state();
 
@@ -156,7 +159,7 @@ void application_actor_who_is_available(String target_id) {
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!receivedSuccess) {
       l_cur_receive_attempt++;
 
-      struct S_Workflow_Pong pong_ans = i_workflow_pong();
+      struct S_Workflow_Pong pong_ans = i_workflow_pong(target_id);
 
       if (pong_ans.receivedSomething) {
         l_cur_receive_attempt = 0;
@@ -174,7 +177,7 @@ void application_actor_who_is_available(String target_id) {
 
   }
 
-  if (receivedSuccess) {
+  if (receivedSuccess and !flagHideAns) {
     gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
@@ -182,4 +185,5 @@ void application_actor_who_is_available(String target_id) {
     multi_actor_start();
   }
 
+  return receivedSuccess;
 }

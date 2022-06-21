@@ -77,7 +77,7 @@ void i_actor_functions_menu() {
     if(selected == 0) application_actor_who_is_in_my_area();
     else if(selected == 1) {
       String ans = gui_input_text("Empfänger ID (z.B.: 0gMB)", state_gateway_id);
-      application_actor_who_is_available(ans);
+      application_actor_is_available(ans, false);
     }
     else if (selected == 2) {
       gui_display_prg_animated("Batterie Status (mV)", utils_get_battery(), 1950, 3100, C_GUI_DELAY_MSG_SHORT_I);
