@@ -200,6 +200,16 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
  * ####################################
  */
 
-void application_actor_send_msg_to_gateway(String myId, String gatewayId, String receiverId, String userMsg) {
+void application_actor_send_msg_to_gateway(String receiverId, String userMsg) {
+
+}
+
+/*
+ * ####################################
+ *  Query Messages from Gateway Section
+ * ####################################
+ */
+
+void application_actor_query_msgs_from_gateway() {
 
 }
