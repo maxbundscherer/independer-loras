@@ -111,7 +111,8 @@ S_APP_PONG i_application_pong(String target_id) {
 
     ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
 
-    if (parser_ans.message != "" and parser_ans.from == target_id) {
+    if (parser_ans.message != ""
+      and parser_ans.from == target_id) {
       String msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
       return S_APP_PONG {
         true,
@@ -183,10 +184,9 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
 
   }
 
-  if (receivedSuccess and !flagHideAns) {
+  if (receivedSuccess and!flagHideAns) {
     gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_MIDDLE_I);
-  }
-  else if (!flagHideAns) {
+  } else if (!flagHideAns) {
     gui_msg_animated("Fehler", "keine Antwort\nerhalten", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
@@ -205,10 +205,12 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
 
 void application_actor_send_msg_to_gateway(String receiverId, String userMsg) {
 
-  Serial.println("Should send '" + userMsg + "' to '" + receiverId + "'");
-
   boolean isAvailable = application_actor_is_available(state_gateway_id, true);
-  Serial.println("Check if Gateway is available " + String(isAvailable));
+
+  if (!isAvailable) {
+    gui_msg_animated("Fehler", "Gateway ist\nnicht erreichbar", C_GUI_DELAY_MSG_MIDDLE_I);
+    return;
+  }
 
 }
 
