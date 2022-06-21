@@ -1,3 +1,9 @@
+/*
+ * ####################################
+ *  Who is near? Section
+ * ####################################
+ */
+
 struct S_I_Application_Device_Item {
   String deviceId;
   String deviceMsg;
@@ -82,17 +88,17 @@ void application_actor_who_is_in_my_area() {
 
 /*
  * ####################################
- *  Ping Pong Section
+ *  Is Available Section
  * ####################################
  */
 
-struct S_Workflow_Pong {
+struct S_APP_PONG {
   boolean receivedSomething;
   boolean receivingCompleted;
   String message;
 };
 
-S_Workflow_Pong i_workflow_pong(String target_id) {
+S_APP_PONG i_application_pong(String target_id) {
 
   int packetSize = LoRa.parsePacket();
 
@@ -107,14 +113,14 @@ S_Workflow_Pong i_workflow_pong(String target_id) {
 
     if (parser_ans.message != "" and parser_ans.from == target_id) {
       String msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
-      return S_Workflow_Pong {
+      return S_APP_PONG {
         true,
         true,
         msg
       };
     }
 
-    return S_Workflow_Pong {
+    return S_APP_PONG {
       true,
       false,
       ""
@@ -122,7 +128,7 @@ S_Workflow_Pong i_workflow_pong(String target_id) {
 
   }
 
-  return S_Workflow_Pong {
+  return S_APP_PONG {
     false,
     false,
     ""
@@ -159,7 +165,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and!receivedSuccess) {
       l_cur_receive_attempt++;
 
-      struct S_Workflow_Pong pong_ans = i_workflow_pong(target_id);
+      struct S_APP_PONG pong_ans = i_application_pong(target_id);
 
       if (pong_ans.receivedSomething) {
         l_cur_receive_attempt = 0;
@@ -186,4 +192,14 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns) {
   }
 
   return receivedSuccess;
+}
+
+/*
+ * ####################################
+ *  Send Message to Gateway Section
+ * ####################################
+ */
+
+void application_actor_send_msg_to_gateway(String myId, String gatewayId, String receiverId, String userMsg) {
+
 }
