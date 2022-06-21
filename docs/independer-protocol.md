@@ -16,13 +16,24 @@ No available check before sending. Gateway sends no response and goes into sleep
 
 #### Send Message Actor to Gateway \[F13.1\]
 
-This function is used to send messages via Gateway from Actor to Actor. This handles communication between Actor to Gateway (sending).
+This function is used to send messages via Gateway from Actor to Actor. This handles communication between Actor to Gateway (sending message).
 
 1. For this Actor check if Gateway is available (\[F23.2\]).
 2. If Gateway is available: Actor to Gateway \[P1\] `[msg]` is set to `(M)($receiverId)($userMsg)`. Where `$receiverId` is user-id from msg-receiver and `$userMsg` is actual message. Message author is derived from `[from]`.
-3. Gateway to Actor \[P3\] `[msg]` is set to `(ok)`.
+3. Gateway to Actor \[P3\] `[msg]` is set to `(A)(ok)`.
 
 If Actor does not receive a response from Gateway, Actor goes to step 2 (skip available check). This is repeated three times.
+
+### Based on Unsafe single message \[P3\] and Safe message \[P1\]
+
+#### Receive Messages Actor to Gateway to Actor \[F31.1\]
+
+This function is used to send messages via Gateway from Actor to Actor. This handles communication between Actor to Gateway to Actor (receiving messages).
+
+1. For this Actor \[P3\] `[msg]` is set to `(Q)(msg)`.
+2. Gateway respond \[P1\] `[msg]` is set to `(A)($numMessages)`...
+
+No available check before sending. This is repeated three times, if Actor receives no response from Gateway.
 
 ### Based on Unsafe short message \[P2\] and Unsafe single message \[P3\]
 
