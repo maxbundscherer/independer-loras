@@ -62,10 +62,10 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 ### Documentation
 
+- [Hardware and Cost Overview](docs/hardware.md)
+- [Developer Overview](docs/developer.md)
 - [LoraS-Protocol](docs/loras-protocol.md)
 - [Independer-Protocol](docs/independer-protocol.md)
-- [Developer](docs/developer.md)
-- [Hardware](docs/hardware.md)
 
 ## More pictures
 
