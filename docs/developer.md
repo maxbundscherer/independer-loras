@@ -8,7 +8,7 @@ The application is started through `Independer.ino`. Please set up parameters be
 - `workflow/`: Baseline workflow and examples for Actor and Gateway.
 - `application/`: Baseline Independer application.
 
-### Recommend Steps
+### Recommended Steps
 
 1. Install [Arduino IDE](https://www.arduino.cc/en/software).
 2. Install [Heltec ESP32 Board](https://github.com/Heltec-Aaron-Lee/WiFi_Kit_series/releases/download/0.0.5/package_heltec_esp32_index.json) in Arduino IDE.
