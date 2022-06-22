@@ -13,6 +13,7 @@
 // TODO: Warum Faktor 2 Multi Task Decoding
 
 // TODO: Speicherüberlauf Schutz bei Actor App Umgebung Scan und Gateway Store Message
+// TODO: Workaround Scan List ausgeben - 1
 
 // TODO: Refactoring c_id und Gateway id
 

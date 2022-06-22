@@ -83,7 +83,9 @@ void application_actor_who_is_in_my_area()
       gui_items[i] = r;
     }
 
-    gui_selection("Scan Ausgabe", gui_items, collected_counter - 1, true);
+    // TODO: Workaround Scan List ausgeben - 1
+    // gui_selection("Scan Ausgabe", gui_items, collected_counter - 1, true);
+    gui_selection("Scan Ausgabe", gui_items, collected_counter - 2, true);
 
     if (sync_was_on_flag)
     {
