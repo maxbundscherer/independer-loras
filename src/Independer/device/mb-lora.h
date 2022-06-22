@@ -1,5 +1,8 @@
 #include "heltec.h"
 
+#define C_INDEPENDER_SEND_DELAY 1000
+#define C_INDEPENDER_SCAN_MS 6000
+
 /*
  * ####################################
  *  Internal Section
@@ -110,7 +113,7 @@ void lora_send_msg(String from, String to, String msg, int sendGain)
 {
 
   int c_max_length = 10;
-  int c_send_delay = 100;
+  int c_send_delay = C_INDEPENDER_SEND_DELAY;
 
   long msg_hash = i_adapter_lora_string_hash(msg);
   int msg_length = msg.length();
