@@ -67,7 +67,7 @@ void workflow_gateway_main()
 
   if (state_gateway_has_sth_changed)
   {
-    gui_msg_static_gateway("Independer Gateway", "Pakete: " + String(state_gateway_received_packets) + " Nachrichten: " + String(state_gateway_received_messages) + "\nDatenbank Einträge: " + String(state_gateway_db_items), 0);
+    gui_msg_static_gateway("Independer Gateway", "Pakete: " + String(state_gateway_received_packets) + " Nachrichten: " + String(state_gateway_received_messages) + "\nDatenbank Einträge: " + String(state_gateway_db_items), lora_get_global_tx_time_millis());
     state_gateway_has_sth_changed = false;
   }
 
