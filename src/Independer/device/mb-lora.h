@@ -306,7 +306,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
       else
       {
         Serial.println("- End transmit - hashcode bad");
-        gui_msg_animated("Fehler", "Received bad hashcode", C_GUI_DELAY_MSG_SHORT_I);
+        // gui_msg_animated("Fehler", "Received bad hashcode", C_GUI_DELAY_MSG_SHORT_I);
       }
       state_parser_from = "";
       state_parser_last_index = -1;
@@ -341,13 +341,13 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
       state_parser_last_index = -1;
       state_parser_max_packets = -1;
       state_parser_msg = "";
-      gui_msg_animated("Fehler", "Received not matched values", C_GUI_DELAY_MSG_SHORT_I);
+      // gui_msg_animated("Fehler", "Received not matched values", C_GUI_DELAY_MSG_SHORT_I);
     }
   }
   else
   {
     Serial.println("Ignore message (not matched id)");
-    gui_msg_animated("Fehler", "Received not matched id", C_GUI_DELAY_MSG_SHORT_I);
+    // gui_msg_animated("Fehler", "Received not matched id", C_GUI_DELAY_MSG_SHORT_I);
   }
 
   struct ParserAnsTuple ret = {

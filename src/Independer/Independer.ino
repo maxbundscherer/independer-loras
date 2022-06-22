@@ -6,7 +6,7 @@
 #include "device/mb-lora.h"
 
 // TODO: Gateway Empfangen Layout fix
-// TODO: Gateway und Actor Nicht Blocken bei Fehler anzeigen
+// TODO: Gateway und Actor Fehler beim Empfang irgendwo anzeigen
 
 // TODO: Sendekontigent mit echter Zeit
 
