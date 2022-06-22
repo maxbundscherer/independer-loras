@@ -203,6 +203,28 @@ void gui_msg_static(String msg_title, String msg)
   Heltec.display->display();
 }
 
+void gui_msg_static_gateway(String msg_title, String msg, int global_tx_time)
+{
+  Heltec.display->clear();
+  Heltec.display->setFont(ArialMT_Plain_10);
+  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
+  Heltec.display->drawString(5, 5, msg_title);
+  Heltec.display->drawLine(5, 17, 5 + 120, 17);
+
+  Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
+  Heltec.display->drawString(64, 10 * 2 + 2 + 4, msg);
+
+  int progress = (((float)global_tx_time - 0) / ((float)36000 - 0)) * (float)100;
+  if (progress > 100)
+    progress = 100;
+  if (progress < 0)
+    progress = 0;
+
+  Heltec.display->drawProgressBar(0, 0 + 53, 120, 10, progress);
+
+  Heltec.display->display();
+}
+
 /*
  * ####################################
  *  Prg Section
