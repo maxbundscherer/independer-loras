@@ -49,6 +49,7 @@ void workflow_gateway_main()
       }
       else if (parser_ans.message == "Q;msg")
       {
+        delay(C_INDEPENDER_SEND_DELAY);
         application_gateway_send_msgs_to_actor(parser_ans.from);
       }
       else if (parser_ans.message.startsWith("M;"))

@@ -113,7 +113,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns)
 
   int c_max_ping_retries = 5;                                    // Maximial attempts to receive pong message
   int c_max_ping_delta = 10;                                     // Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 3000 / c_max_ping_delta; // Waiting approx 2 seconds for next packet
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 3) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   String receivedMsg;
   boolean receivedSuccess = false;
@@ -198,7 +198,7 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg)
 
   int c_max_ping_retries = 3;                                    // Maximial attempts to receive pong message
   int c_max_ping_delta = 10;                                     // Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 3000 / c_max_ping_delta; // Waiting approx 2 seconds for next packet
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 3) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   boolean sendSuccess = false;
 
@@ -269,7 +269,7 @@ void application_actor_query_msgs_from_gateway()
 
   int c_max_ping_retries = 3;                                    // Maximial attempts to receive pong message
   int c_max_ping_delta = 10;                                     // Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 3000 / c_max_ping_delta; // Waiting approx 2 seconds for next packet
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 3) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   boolean resSuccess = false;
 
