@@ -300,28 +300,29 @@ void application_actor_query_msgs_from_gateway()
 
       if (pong_ans.receivingCompleted and pong_ans.message.startsWith("A;"))
       {
-        Serial.println("Should show messages '" + pong_ans.message + "'");
+        resSuccess = true;
 
         pong_ans.message = pong_ans.message.substring(2, pong_ans.message.length());
 
         // Get Num of Messages
         int numMessages = 0;
 
-        String m_buffer = "";
+        String m_buffer_nm = "";
         int currentCountsDelimiter = 0;
         boolean finParser = false;
-        for (int i = 0; i < pong_ans.message.length() and !finParser; i++)
+        for (int i_single_char = 0; i_single_char < pong_ans.message.length() and !finParser; i_single_char++)
         {
-          String current = pong_ans.message.substring(i, i + 1);
+          String current = pong_ans.message.substring(i_single_char, i_single_char + 1);
           if (current == ";")
             currentCountsDelimiter++;
           else
           {
             if (currentCountsDelimiter == 0)
-              m_buffer += current;
-            if (currentCountsDelimiter == 1)
+              m_buffer_nm += current;
+            else if (currentCountsDelimiter == 1)
             {
-              numMessages = m_buffer.toInt();
+              pong_ans.message = pong_ans.message.substring(i_single_char, pong_ans.message.length());
+              numMessages = m_buffer_nm.toInt();
               finParser = true;
             }
           }
@@ -329,12 +330,56 @@ void application_actor_query_msgs_from_gateway()
 
         if (numMessages > 0)
         {
-          // TODO
+
+          // Get Messages
+          String gui_items[numMessages];
+          int lastDelimiterIndex = 0;
+
+          for (int i_msg = 0; i_msg < numMessages; i_msg++)
+          {
+
+            String r = "";
+
+            String tmp = pong_ans.message.substring(lastDelimiterIndex, pong_ans.message.length());
+
+            // Parse Message Substring
+
+            String m_buffer_author = "";
+            String m_buffer_msg = "";
+            int currentCountsDelimiter = 0;
+            boolean finParser = false;
+            for (int i_char_t = 0; i_char_t < tmp.length() and !finParser; i_char_t++)
+            {
+              String current = tmp.substring(i_char_t, i_char_t + 1);
+              if (current == ";")
+                currentCountsDelimiter++;
+              else
+              {
+                if (currentCountsDelimiter == 0)
+                  m_buffer_author += current;
+                else if (currentCountsDelimiter == 1)
+                  m_buffer_msg += current;
+
+                if (currentCountsDelimiter == 2 or i_char_t == tmp.length() - 1)
+                {
+
+                  // Write message
+                  r = "(" + m_buffer_author + ") " + m_buffer_msg;
+
+                  lastDelimiterIndex = lastDelimiterIndex + i_char_t;
+                  finParser = true;
+                }
+              }
+            }
+
+            // Serial.println("Message Item '" + r + "'");
+            gui_items[i_msg] = r;
+          }
+
+          gui_selection("Nachrichten", gui_items, numMessages - 1, false);
         }
         else
           gui_msg_animated("Info", "keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
-
-        resSuccess = true;
       }
       else
       {
@@ -348,11 +393,7 @@ void application_actor_query_msgs_from_gateway()
     multi_actor_start();
   }
 
-  if (resSuccess)
-  {
-    gui_msg_animated("Info", "Nachricht wurden\nempfangen", C_GUI_DELAY_MSG_MIDDLE_I);
-  }
-  else
+  if (!resSuccess)
   {
     gui_msg_animated("Fehler", "Nachricht konnten\nnicht empfangen werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
