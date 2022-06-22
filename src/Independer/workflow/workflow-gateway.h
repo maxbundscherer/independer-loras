@@ -13,7 +13,7 @@ boolean state_gateway_has_sth_changed = true;
 void workflow_gateway_main()
 {
 
-  int c_max_res_delta = 10; // Waiting 10ms between receiving
+  int c_max_res_delta = 1; // Waiting 1ms between receiving
 
   int packetSize = LoRa.parsePacket();
 
