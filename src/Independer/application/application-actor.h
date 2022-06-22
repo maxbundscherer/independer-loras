@@ -86,11 +86,11 @@ void application_actor_who_is_in_my_area()
     // TODO: Workaround Scan List ausgeben - 1
     // gui_selection("Scan Ausgabe", gui_items, collected_counter - 1, true);
     gui_selection("Scan Ausgabe", gui_items, collected_counter - 2, true);
+  }
 
-    if (sync_was_on_flag)
-    {
-      multi_actor_start();
-    }
+  if (sync_was_on_flag)
+  {
+    multi_actor_start();
   }
 }
 
