@@ -13,7 +13,7 @@ boolean state_gateway_has_sth_changed = true;
 void workflow_gateway_main()
 {
 
-  int c_max_res_delta = 1; // Waiting 1ms between receiving
+  int c_max_res_delta = C_INDEPENDER_RES_BETWEEN_DELAY; // Waiting 10ms between receiving
 
   int packetSize = LoRa.parsePacket();
 
@@ -67,7 +67,7 @@ void workflow_gateway_main()
 
   if (state_gateway_has_sth_changed)
   {
-    gui_msg_static_gateway("Independer Gateway", "Pakete: " + String(state_gateway_received_packets) + " Nachrichten: " + String(state_gateway_received_messages) + "\nDatenbank Einträge: " + String(state_gateway_db_items), lora_get_global_tx_time_millis());
+    gui_msg_static_gateway("Independer Gateway", "Pakete: " + String(state_gateway_received_packets) + " Nachrichten: " + String(state_gateway_received_messages) + "\nDatenbank Einträge: " + String(state_gateway_db_items), 0);
     state_gateway_has_sth_changed = false;
   }
 
