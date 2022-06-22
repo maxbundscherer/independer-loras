@@ -7,11 +7,11 @@ boolean state_multi_is_active = false;
 // int state_multi_cur_string_i = 0;
 // String state_multi_sting_buffer[MULTI_STRING_BUFFER_MAX];
 
-//Maybe deprecated, important for string buffer
-// void i_multi_Task1_string_buffer(void * parameter) {
-//   for (;;) {
-//     // Serial.print("multi_Task1 runs on Core: "); 
-//     // Serial.println(xPortGetCoreID()); 
+// Maybe deprecated, important for string buffer
+//  void i_multi_Task1_string_buffer(void * parameter) {
+//    for (;;) {
+//      // Serial.print("multi_Task1 runs on Core: ");
+//      // Serial.println(xPortGetCoreID());
 
 //     int packetSize = LoRa.parsePacket();
 
@@ -63,60 +63,73 @@ boolean state_multi_is_active = false;
 //   state_multi_cur_string_i = 0;
 // }
 
-void i_multi_Task1_short_message(void * parameter) {
-  for (;;) {
-    // Serial.print("multi_Task1 runs on Core: "); 
-    // Serial.println(xPortGetCoreID()); 
+void i_multi_Task1_short_message(void *parameter)
+{
+  for (;;)
+  {
+    // Serial.print("multi_Task1 runs on Core: ");
+    // Serial.println(xPortGetCoreID());
 
     int packetSize = LoRa.parsePacket();
 
-    if (packetSize) {
+    if (packetSize)
+    {
 
       String i_res = "";
-      for (int i = 0; i < packetSize; i++) {
-        i_res += (char) LoRa.read();
+      for (int i = 0; i < packetSize; i++)
+      {
+        i_res += (char)LoRa.read();
       }
 
       ShortMessageAndTuple parser_ans = lora_short_message_parse(i_res, state_my_id);
-      if (parser_ans.message != "") {
+      if (parser_ans.message != "")
+      {
 
-        if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) {
+        if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)
+        {
           String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
-          if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE) application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
-          else application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
-        } else {
+          if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)
+            application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
+          else
+            application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
+        }
+        else
+        {
           Serial.println("Error received unknown message in background '" + parser_ans.message + "'");
         }
-
       }
-
     }
 
-    delay(10); //Between Trans
+    delay(10); // Between Trans
   }
 }
 
-void multi_actor_start() {
+void multi_actor_start()
+{
   state_multi_is_active = true;
   // state_multi_cur_string_i = 0;
-  xTaskCreatePinnedToCore(i_multi_Task1_short_message, "CPU_1", 1000 * 2, NULL, 1, & Core1TaskHnd, 1); //TODO: Warum Faktor 2
+  xTaskCreatePinnedToCore(i_multi_Task1_short_message, "CPU_1", 1000 * 2, NULL, 1, &Core1TaskHnd, 1); // TODO: Warum Faktor 2
 }
 
-void multi_actor_stop() {
+void multi_actor_stop()
+{
   vTaskSuspend(Core1TaskHnd);
   state_multi_is_active = false;
 }
 
-boolean multi_actor_get_state() {
+boolean multi_actor_get_state()
+{
   return state_multi_is_active;
 }
 
-String multi_actor_get_state_string() {
+String multi_actor_get_state_string()
+{
 
   // String post_string = " Buffer " + String(state_multi_cur_string_i);
 
   //   i_multi_actor_proc_string_buffer();
 
-  if (state_multi_is_active) return "Aktiv"; // + post_string;
+  if (state_multi_is_active)
+    return "Aktiv"; // + post_string;
   return "Inaktiv";
 }

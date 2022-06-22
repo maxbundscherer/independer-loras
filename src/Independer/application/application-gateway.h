@@ -4,7 +4,8 @@
  * ####################################
  */
 
-void application_gateway_store_msg(String from, String messageString) {
+void application_gateway_store_msg(String from, String messageString)
+{
 
   messageString = messageString.substring(2, messageString.length());
 
@@ -13,15 +14,21 @@ void application_gateway_store_msg(String from, String messageString) {
 
   int currentCountsDelimiter = 0;
 
-  for (int i = 0; i < messageString.length(); i++) {
+  for (int i = 0; i < messageString.length(); i++)
+  {
 
     String current = messageString.substring(i, i + 1);
 
-    if (current == ";") {
+    if (current == ";")
+    {
       currentCountsDelimiter++;
-    } else {
-      if (currentCountsDelimiter == 0) p_receiver_id += current;
-      if (currentCountsDelimiter == 1) p_message += current;
+    }
+    else
+    {
+      if (currentCountsDelimiter == 0)
+        p_receiver_id += current;
+      if (currentCountsDelimiter == 1)
+        p_message += current;
     }
   }
 
@@ -29,8 +36,7 @@ void application_gateway_store_msg(String from, String messageString) {
   Serial.println("Extracted p_message '" + p_message + "'");
   Serial.println("Extracted from '" + from + "'");
 
-  //TODO
-
+  // TODO
 }
 
 /*
@@ -39,6 +45,6 @@ void application_gateway_store_msg(String from, String messageString) {
  * ####################################
  */
 
-void application_gateway_send_msgs_to_actor(String actorId) {
-
+void application_gateway_send_msgs_to_actor(String actorId)
+{
 }
