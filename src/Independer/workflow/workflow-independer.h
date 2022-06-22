@@ -4,8 +4,8 @@ char *c_cipher_key = "kjew50fkjriowej6";
 // Send Config
 #define BAND 868E6 // you can set band here directly,e.g. 868E6 915E6 433E6
 #define LORA_SYNC_WORD 0xF3
-#define LORA_SIG_BANDWIDTH 125E3 // 250E3 //125E3 is default
-#define LORA_SPREAD 9            // 12 //7 is default
+#define LORA_SIG_BANDWIDTH 250E3 // 250E3 // 62.5E3 // 125E3 is default
+#define LORA_SPREAD 12            // 12 // 10 //7 is default
 
 // Keyboard Power Pin
 #define KEYBOARD_POWER_PIN 13

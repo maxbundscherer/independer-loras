@@ -13,7 +13,7 @@ boolean state_gateway_has_sth_changed = true;
 void workflow_gateway_main()
 {
 
-  int c_max_res_delta = 10; // Waiting 10ms between receiving
+  int c_max_res_delta = C_INDEPENDER_RES_BETWEEN_DELAY; // Waiting 10ms between receiving
 
   int packetSize = LoRa.parsePacket();
 
@@ -47,11 +47,15 @@ void workflow_gateway_main()
         else
           application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
       }
+      else if (parser_ans.message == "Q;msg")
+      {
+        delay(C_INDEPENDER_SEND_DELAY);
+        application_gateway_send_msgs_to_actor(parser_ans.from);
+      }
       else if (parser_ans.message.startsWith("M;"))
       {
         application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, "A;ok", C_INDEPENDER_SEND_DELAY);
-        application_gateway_store_msg(parser_ans.from, parser_ans.message);
-        state_gateway_db_items++;
+        state_gateway_db_items = application_gateway_store_msg(parser_ans.from, parser_ans.message);
         state_gateway_has_sth_changed = true;
       }
       else
@@ -63,7 +67,7 @@ void workflow_gateway_main()
 
   if (state_gateway_has_sth_changed)
   {
-    gui_msg_static("Independer Gateway", "Anzahl Pakete: " + String(state_gateway_received_packets) + "\nAnzahl Nachrichten: " + String(state_gateway_received_messages) + "\nDatenbank Einträge: " + String(state_gateway_db_items));
+    gui_msg_static_gateway("Independer Gateway", "Pakete: " + String(state_gateway_received_packets) + " Nachrichten: " + String(state_gateway_received_messages) + "\nDatenbank Einträge: " + String(state_gateway_db_items), 0);
     state_gateway_has_sth_changed = false;
   }
 

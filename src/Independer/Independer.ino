@@ -6,11 +6,14 @@
 #include "device/mb-lora.h"
 
 // TODO: Gateway Empfangen Layout fix
-// TODO: Gateway und Actor Nicht Blocken bei Fehler anzeigen
+// TODO: Gateway und Actor Fehler beim Empfang irgendwo anzeigen
 
 // TODO: Sendekontigent mit echter Zeit
 
 // TODO: Warum Faktor 2 Multi Task Decoding
+
+// TODO: Speicherüberlauf Schutz bei Actor App Umgebung Scan und Gateway Store Message
+// TODO: Workaround Scan List ausgeben - 1
 
 // TODO: Refactoring c_id und Gateway id
 
@@ -31,7 +34,7 @@ boolean c_actor_mode = true;
  */
 String state_my_id = "0xMB";
 String state_gateway_id = "0gMB";
-int state_lora_gain = 20;
+int state_lora_gain = 10;
 RTC_DATA_ATTR int boot_state_oled_brightness = 255;
 
 /*

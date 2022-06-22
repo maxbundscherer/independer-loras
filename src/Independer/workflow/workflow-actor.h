@@ -25,7 +25,7 @@ void i_communication_menu()
       application_actor_send_msg_to_gateway(msg_res, msg_tx);
     }
     else if (selected == 1)
-      gui_msg_animated("Info", "Leider ist die Funktion\n'Briefe abrufen'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
+      application_actor_query_msgs_from_gateway();
     else if (selected == 2)
       gui_msg_animated("Info", "Leider ist die Funktion\n'Kontakte'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
     else

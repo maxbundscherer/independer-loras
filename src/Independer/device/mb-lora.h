@@ -1,5 +1,9 @@
 #include "heltec.h"
 
+#define C_INDEPENDER_SEND_DELAY 1000
+#define C_INDEPENDER_RES_BETWEEN_DELAY 1
+#define C_INDEPENDER_SCAN_MS 10000
+
 /*
  * ####################################
  *  Internal Section
@@ -55,7 +59,7 @@ void i_lora_trans_encrypt(String msg, int sendGain)
 
   digitalWrite(LED, HIGH);
 
-  if (sendGain < 10)
+  if (sendGain <= 7)
   {
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
     uint64_t du_start = esp_timer_get_time();
@@ -110,7 +114,7 @@ void lora_send_msg(String from, String to, String msg, int sendGain)
 {
 
   int c_max_length = 10;
-  int c_send_delay = 100;
+  int c_send_delay = C_INDEPENDER_SEND_DELAY;
 
   long msg_hash = i_adapter_lora_string_hash(msg);
   int msg_length = msg.length();
@@ -302,7 +306,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
       else
       {
         Serial.println("- End transmit - hashcode bad");
-        gui_msg_animated("Fehler", "Received bad hashcode", C_GUI_DELAY_MSG_SHORT_I);
+        // gui_msg_animated("Fehler", "Received bad hashcode", C_GUI_DELAY_MSG_SHORT_I);
       }
       state_parser_from = "";
       state_parser_last_index = -1;
@@ -337,13 +341,13 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
       state_parser_last_index = -1;
       state_parser_max_packets = -1;
       state_parser_msg = "";
-      gui_msg_animated("Fehler", "Received not matched values", C_GUI_DELAY_MSG_SHORT_I);
+      // gui_msg_animated("Fehler", "Received not matched values", C_GUI_DELAY_MSG_SHORT_I);
     }
   }
   else
   {
     Serial.println("Ignore message (not matched id)");
-    gui_msg_animated("Fehler", "Received not matched id", C_GUI_DELAY_MSG_SHORT_I);
+    // gui_msg_animated("Fehler", "Received not matched id", C_GUI_DELAY_MSG_SHORT_I);
   }
 
   struct ParserAnsTuple ret = {

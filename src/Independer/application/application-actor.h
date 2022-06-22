@@ -23,7 +23,7 @@ void application_actor_who_is_in_my_area()
   }
 
   int c_max_ping_retries = 3;                                                             // Maximial attempts to receive
-  int c_max_ping_delta = 10;                                                              // Waiting 10ms between receiving
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY;                                  // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 2000) / c_max_ping_delta; // Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
 
   S_I_Application_Device_Item collected_db[30];
@@ -83,12 +83,14 @@ void application_actor_who_is_in_my_area()
       gui_items[i] = r;
     }
 
-    gui_selection("Scan Ausgabe", gui_items, collected_counter - 1, true);
+    // TODO: Workaround Scan List ausgeben - 1
+    // gui_selection("Scan Ausgabe", gui_items, collected_counter - 1, true);
+    gui_selection("Scan Ausgabe", gui_items, collected_counter - 2, true);
+  }
 
-    if (sync_was_on_flag)
-    {
-      multi_actor_start();
-    }
+  if (sync_was_on_flag)
+  {
+    multi_actor_start();
   }
 }
 
@@ -111,9 +113,9 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns)
     multi_actor_stop();
   }
 
-  int c_max_ping_retries = 5;                                    // Maximial attempts to receive pong message
-  int c_max_ping_delta = 10;                                     // Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 3000 / c_max_ping_delta; // Waiting approx 2 seconds for next packet
+  int c_max_ping_retries = 5;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY;                                  // Waiting 1ms between receiving
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 6) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   String receivedMsg;
   boolean receivedSuccess = false;
@@ -196,9 +198,9 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg)
     return;
   }
 
-  int c_max_ping_retries = 3;                                    // Maximial attempts to receive pong message
-  int c_max_ping_delta = 10;                                     // Waiting 10ms between receiving
-  int c_max_ping_max_receive_attempts = 3000 / c_max_ping_delta; // Waiting approx 2 seconds for next packet
+  int c_max_ping_retries = 3;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY;                                  // Waiting 1ms between receiving
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 6) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   boolean sendSuccess = false;
 
@@ -267,10 +269,132 @@ void application_actor_query_msgs_from_gateway()
     multi_actor_stop();
   }
 
-  // TODO
+  int c_max_ping_retries = 3;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY;                                  // Waiting 1ms between receiving
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 6) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
+
+  boolean resSuccess = false;
+
+  int l_attempt = 0;
+  while (l_attempt < c_max_ping_retries and !resSuccess)
+  {
+    l_attempt++;
+
+    gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
+
+    delay(C_GUI_DELAY_STATIC_SHORT);
+
+    lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "Q;msg", state_lora_gain);
+
+    int l_cur_receive_attempt = 0;
+    while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and !resSuccess)
+    {
+      l_cur_receive_attempt++;
+
+      struct S_APP_PONG pong_ans = application_independer_pong(state_gateway_id, false);
+
+      if (pong_ans.receivedSomething)
+      {
+        l_cur_receive_attempt = 0;
+      }
+
+      if (pong_ans.receivingCompleted and pong_ans.message.startsWith("A;"))
+      {
+        resSuccess = true;
+
+        pong_ans.message = pong_ans.message.substring(2, pong_ans.message.length());
+
+        // Get Num of Messages
+        int numMessages = 0;
+
+        String m_buffer_nm = "";
+        int currentCountsDelimiter = 0;
+        boolean finParser = false;
+        for (int i_single_char = 0; i_single_char < pong_ans.message.length() and !finParser; i_single_char++)
+        {
+          String current = pong_ans.message.substring(i_single_char, i_single_char + 1);
+          if (current == ";")
+            currentCountsDelimiter++;
+          else
+          {
+            if (currentCountsDelimiter == 0)
+              m_buffer_nm += current;
+            else if (currentCountsDelimiter == 1)
+            {
+              pong_ans.message = pong_ans.message.substring(i_single_char, pong_ans.message.length());
+              numMessages = m_buffer_nm.toInt();
+              finParser = true;
+            }
+          }
+        }
+
+        if (numMessages > 0)
+        {
+
+          // Get Messages
+          String gui_items[numMessages];
+          int lastDelimiterIndex = 0;
+
+          for (int i_msg = 0; i_msg < numMessages; i_msg++)
+          {
+
+            String r = "";
+
+            String tmp = pong_ans.message.substring(lastDelimiterIndex, pong_ans.message.length());
+
+            // Parse Message Substring
+
+            String m_buffer_author = "";
+            String m_buffer_msg = "";
+            int currentCountsDelimiter = 0;
+            boolean finParser = false;
+            for (int i_char_t = 0; i_char_t < tmp.length() and !finParser; i_char_t++)
+            {
+              String current = tmp.substring(i_char_t, i_char_t + 1);
+              if (current == ";")
+                currentCountsDelimiter++;
+              else
+              {
+                if (currentCountsDelimiter == 0)
+                  m_buffer_author += current;
+                else if (currentCountsDelimiter == 1)
+                  m_buffer_msg += current;
+
+                if (currentCountsDelimiter == 2 or i_char_t == tmp.length() - 1)
+                {
+
+                  // Write message
+                  r = "(" + m_buffer_author + ") " + m_buffer_msg;
+
+                  lastDelimiterIndex = lastDelimiterIndex + i_char_t;
+                  finParser = true;
+                }
+              }
+            }
+
+            // Serial.println("Message Item '" + r + "'");
+            gui_items[i_msg] = r;
+          }
+
+          gui_selection("Nachrichten", gui_items, numMessages - 1, false);
+        }
+        else
+          gui_msg_animated("Info", "keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
+      }
+      else
+      {
+        delay(c_max_ping_delta);
+      }
+    }
+  }
 
   if (sync_was_on_flag)
   {
     multi_actor_start();
+  }
+
+  if (!resSuccess)
+  {
+    gui_msg_animated("Fehler", "Nachricht konnten\nnicht empfangen werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 }
