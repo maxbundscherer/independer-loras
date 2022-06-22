@@ -282,8 +282,7 @@ void application_actor_query_msgs_from_gateway()
 
     delay(C_GUI_DELAY_STATIC_SHORT);
 
-    // TODO
-    // lora_send_msg(state_my_id, state_gateway_id, "M;" + receiverId + ";" + userMsg, state_lora_gain);
+    lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "Q;msg", state_lora_gain);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and !resSuccess)
@@ -297,9 +296,10 @@ void application_actor_query_msgs_from_gateway()
         l_cur_receive_attempt = 0;
       }
 
-      // TODO
-      if (pong_ans.receivingCompleted and pong_ans.message == "A;ok")
+      if (pong_ans.receivingCompleted and pong_ans.message.startsWith("A;"))
       {
+        Serial.println("Should show messages '" + pong_ans.message + "'");
+        // TODO
         resSuccess = true;
       }
       else
@@ -314,13 +314,12 @@ void application_actor_query_msgs_from_gateway()
     multi_actor_start();
   }
 
-  // TODO
   if (resSuccess)
   {
-    gui_msg_animated("Info", "Nachricht wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated("Info", "Nachricht wurden\nempfangen", C_GUI_DELAY_MSG_MIDDLE_I);
   }
   else
   {
-    gui_msg_animated("Fehler", "Nachricht konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated("Fehler", "Nachricht konnten\nnicht empfangen werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 }
