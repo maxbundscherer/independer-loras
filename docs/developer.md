@@ -16,3 +16,4 @@ The application is started through `Independer.ino`. Please set up parameters be
     - Change Board to `WiFi LoRA 32 (V2)`
 3. Run and deploy software with `Upload` in in Arduino IDE. Debug logs are written to serial console.
 4. (opt.) Use [Visual Studio Code](https://code.visualstudio.com/) as IDE.
+4. (opt.) Use [Clang Format](https://www.dynamsoft.com/codepool/vscode-format-c-code-windows-linux.html) as Visual Studio Code Extension (with vs-code-style).

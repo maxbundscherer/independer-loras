@@ -39,6 +39,13 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Sourcecode (`src/`)
 - 3D case (`case/`)
 
+### Documentation
+
+- [Hardware and Cost Overview](docs/hardware.md)
+- [Developer Overview](docs/developer.md)
+- [LoraS-Protocol](docs/loras-protocol.md)
+- [Independer-Protocol](docs/independer-protocol.md)
+
 ### Project stages
 
 - [x] Antenna testing and 3D case prototyping
@@ -59,13 +66,6 @@ This repository describes the concept, the project structure, the encrypted Lora
 - [ ] Crypt improvements
 - [ ] GUI Multilanguage
 - [ ] ...
-
-### Documentation
-
-- [Hardware and Cost Overview](docs/hardware.md)
-- [Developer Overview](docs/developer.md)
-- [LoraS-Protocol](docs/loras-protocol.md)
-- [Independer-Protocol](docs/independer-protocol.md)
 
 ## More pictures
 
