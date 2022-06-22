@@ -1,6 +1,6 @@
 #include "heltec.h"
 
-#define C_INDEPENDER_SEND_DELAY 1000
+#define C_INDEPENDER_SEND_DELAY 500
 #define C_INDEPENDER_SCAN_MS 6000
 
 /*
