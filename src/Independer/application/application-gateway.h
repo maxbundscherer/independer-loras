@@ -64,12 +64,25 @@ int application_gateway_store_msg(String from, String messageString)
 void application_gateway_send_msgs_to_actor(String actorId)
 {
 
-  lora_send_msg(state_gateway_id, actorId, "A;0;", state_lora_gain);
+  int msgCounter = 0;
+  String msgString = "";
 
   for (int i = 0; i < state_gateway_messages_count; i++)
   {
-    Serial.println("Stored Message '" + state_gateway_messages[i].msgAuthor + " " + state_gateway_messages[i].msgReceiver + " " + state_gateway_messages[i].msgContent + "'");
+
+    if (state_gateway_messages[i].msgReceiver == actorId)
+    {
+      String m = state_gateway_messages[i].msgAuthor + ";" + state_gateway_messages[i].msgContent;
+      if (msgCounter == 0)
+        msgString = msgString + m;
+      else
+        msgString = msgString + ";" + m;
+
+      msgCounter++;
+    }
   }
 
-  // TODO
+  String ret_string = "A;" + String(msgCounter) + ";" + msgString;
+
+  lora_send_msg(state_gateway_id, actorId, ret_string, state_lora_gain);
 }

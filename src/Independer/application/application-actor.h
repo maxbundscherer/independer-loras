@@ -278,7 +278,7 @@ void application_actor_query_msgs_from_gateway()
   {
     l_attempt++;
 
-    gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
 
     delay(C_GUI_DELAY_STATIC_SHORT);
 
