@@ -63,8 +63,13 @@ int application_gateway_store_msg(String from, String messageString)
 
 void application_gateway_send_msgs_to_actor(String actorId)
 {
+
+  lora_send_msg(state_gateway_id, actorId, "A;0;", state_lora_gain);
+
   for (int i = 0; i < state_gateway_messages_count; i++)
   {
     Serial.println("Stored Message '" + state_gateway_messages[i].msgAuthor + " " + state_gateway_messages[i].msgReceiver + " " + state_gateway_messages[i].msgContent + "'");
   }
+
+  // TODO
 }

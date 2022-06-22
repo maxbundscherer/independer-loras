@@ -47,6 +47,10 @@ void workflow_gateway_main()
         else
           application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
       }
+      else if (parser_ans.message == "Q;msg")
+      {
+        application_gateway_send_msgs_to_actor(parser_ans.from);
+      }
       else if (parser_ans.message.startsWith("M;"))
       {
         application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, "A;ok", C_INDEPENDER_SEND_DELAY);
