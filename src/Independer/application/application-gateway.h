@@ -4,7 +4,20 @@
  * ####################################
  */
 
-void application_gateway_store_msg(String from, String messageString)
+struct S_I_Application_Gateway_Message
+{
+  String msgAuthor;
+  String msgReceiver;
+  String msgContent;
+};
+
+S_I_Application_Gateway_Message state_gateway_messages[100];
+int state_gateway_messages_count = 0;
+
+/**
+ * @return int number of stored messages
+ */
+int application_gateway_store_msg(String from, String messageString)
 {
 
   messageString = messageString.substring(2, messageString.length());
@@ -32,11 +45,14 @@ void application_gateway_store_msg(String from, String messageString)
     }
   }
 
-  Serial.println("Extracted p_receiver_id '" + p_receiver_id + "'");
-  Serial.println("Extracted p_message '" + p_message + "'");
-  Serial.println("Extracted from '" + from + "'");
+  // Serial.println("Extracted p_receiver_id '" + p_receiver_id + "'");
+  // Serial.println("Extracted p_message '" + p_message + "'");
+  // Serial.println("Extracted from '" + from + "'");
 
-  // TODO
+  state_gateway_messages[state_gateway_messages_count] = {from, p_receiver_id, p_message};
+  state_gateway_messages_count++;
+
+  return state_gateway_messages_count;
 }
 
 /*
@@ -47,4 +63,8 @@ void application_gateway_store_msg(String from, String messageString)
 
 void application_gateway_send_msgs_to_actor(String actorId)
 {
+  for (int i = 0; i < state_gateway_messages_count; i++)
+  {
+    Serial.println("Stored Message '" + state_gateway_messages[i].msgAuthor + " " + state_gateway_messages[i].msgReceiver + " " + state_gateway_messages[i].msgContent + "'");
+  }
 }
