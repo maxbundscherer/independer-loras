@@ -23,7 +23,7 @@ void application_actor_who_is_in_my_area()
   }
 
   int c_max_ping_retries = 3;                                                             // Maximial attempts to receive
-  int c_max_ping_delta = 1;                                                              // Waiting 1ms between receiving
+  int c_max_ping_delta = 1;                                                               // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 2000) / c_max_ping_delta; // Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
 
   S_I_Application_Device_Item collected_db[30];
@@ -113,8 +113,8 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns)
     multi_actor_stop();
   }
 
-  int c_max_ping_retries = 5;                                    // Maximial attempts to receive pong message
-  int c_max_ping_delta = 1;                                     // Waiting 1ms between receiving
+  int c_max_ping_retries = 5;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_delta = 1;                                                               // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 6) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   String receivedMsg;
@@ -198,8 +198,8 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg)
     return;
   }
 
-  int c_max_ping_retries = 3;                                    // Maximial attempts to receive pong message
-  int c_max_ping_delta = 1;                                     // Waiting 1ms between receiving
+  int c_max_ping_retries = 3;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_delta = 1;                                                               // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 6) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   boolean sendSuccess = false;
@@ -269,8 +269,8 @@ void application_actor_query_msgs_from_gateway()
     multi_actor_stop();
   }
 
-  int c_max_ping_retries = 3;                                    // Maximial attempts to receive pong message
-  int c_max_ping_delta = 1;                                     // Waiting 1ms between receiving
+  int c_max_ping_retries = 3;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_delta = 1;                                                               // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 6) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   boolean resSuccess = false;
@@ -301,7 +301,39 @@ void application_actor_query_msgs_from_gateway()
       if (pong_ans.receivingCompleted and pong_ans.message.startsWith("A;"))
       {
         Serial.println("Should show messages '" + pong_ans.message + "'");
-        // TODO
+
+        pong_ans.message = pong_ans.message.substring(2, pong_ans.message.length());
+
+        // Get Num of Messages
+        int numMessages = 0;
+
+        String m_buffer = "";
+        int currentCountsDelimiter = 0;
+        boolean finParser = false;
+        for (int i = 0; i < pong_ans.message.length() and !finParser; i++)
+        {
+          String current = pong_ans.message.substring(i, i + 1);
+          if (current == ";")
+            currentCountsDelimiter++;
+          else
+          {
+            if (currentCountsDelimiter == 0)
+              m_buffer += current;
+            if (currentCountsDelimiter == 1)
+            {
+              numMessages = m_buffer.toInt();
+              finParser = true;
+            }
+          }
+        }
+
+        if (numMessages > 0)
+        {
+          // TODO
+        }
+        else
+          gui_msg_animated("Info", "keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
+
         resSuccess = true;
       }
       else
