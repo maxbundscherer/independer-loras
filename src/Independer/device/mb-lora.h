@@ -55,7 +55,7 @@ void i_lora_trans_encrypt(String msg, int sendGain)
 
   digitalWrite(LED, HIGH);
 
-  if (sendGain < 10)
+  if (sendGain <= 7)
   {
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
     uint64_t du_start = esp_timer_get_time();
