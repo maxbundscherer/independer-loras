@@ -20,7 +20,7 @@ void i_communication_menu()
     if (selected == 0)
     {
 
-      String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "");
+      String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
       String msg_tx = gui_input_text("Nachricht", "");
       application_actor_send_msg_to_gateway(msg_res, msg_tx);
     }
