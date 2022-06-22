@@ -34,7 +34,7 @@ boolean c_actor_mode = true;
  */
 String state_my_id = "0xMB";
 String state_gateway_id = "0gMB";
-int state_lora_gain = 20;
+int state_lora_gain = 18;
 RTC_DATA_ATTR int boot_state_oled_brightness = 255;
 
 /*
