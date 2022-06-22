@@ -1,8 +1,9 @@
 #include "driver/rtc_io.h" //Low Power Mode
 
-int utils_get_battery() {
+int utils_get_battery()
+{
 
-  float XS = 0.00225; //The returned reading is multiplied by this XS to get the battery voltage.
+  float XS = 0.00225; // The returned reading is multiplied by this XS to get the battery voltage.
   uint16_t MUL = 1000;
   uint16_t MMUL = 100;
 
@@ -10,12 +11,14 @@ int utils_get_battery() {
   return c;
 }
 
-void utils_print_wakeup_reason() {
+void utils_print_wakeup_reason()
+{
   esp_sleep_wakeup_cause_t wakeup_reason;
 
   wakeup_reason = esp_sleep_get_wakeup_cause();
 
-  switch (wakeup_reason) {
+  switch (wakeup_reason)
+  {
   case ESP_SLEEP_WAKEUP_EXT0:
     Serial.println("Wakeup caused by external signal using RTC_IO");
     break;
@@ -37,7 +40,8 @@ void utils_print_wakeup_reason() {
   }
 }
 
-void utils_go_to_sleep() {
+void utils_go_to_sleep()
+{
   /*
   First we configure the wake up source
   We set our ESP32 to wake up for an external trigger.
@@ -49,10 +53,10 @@ void utils_go_to_sleep() {
   RTC peripherals to be turned on.
   */
   rtc_gpio_pulldown_en(GPIO_NUM_0);
-  esp_sleep_enable_ext0_wakeup(GPIO_NUM_0, 0); //1 = High, 0 = Low
+  esp_sleep_enable_ext0_wakeup(GPIO_NUM_0, 0); // 1 = High, 0 = Low
 
-  //If you were to use ext1, you would use it like
-  //esp_sleep_enable_ext1_wakeup(BUTTON_PIN_BITMASK,ESP_EXT1_WAKEUP_ANY_HIGH);
+  // If you were to use ext1, you would use it like
+  // esp_sleep_enable_ext1_wakeup(BUTTON_PIN_BITMASK,ESP_EXT1_WAKEUP_ANY_HIGH);
 
   esp_deep_sleep_start();
 }
