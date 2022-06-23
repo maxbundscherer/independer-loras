@@ -54,13 +54,36 @@ void i_actor_functions_status_function_menu()
   }
 }
 
+void i_actor_functions_test_function_menu()
+{
+  String menu_items[] = {
+      "Erreichbar-Check",
+      "Test Ausgabe",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Test Menü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+    {
+      String ans = gui_input_text("Empfänger ID (z.B.: 0gMB)", state_gateway_id);
+      application_actor_is_available(ans, false);
+    }
+    else if (selected == 1)
+      gui_print_test_buffer();
+    else
+      fin_flag = true;
+  }
+}
+
 void i_actor_functions_menu()
 {
   String menu_items[] = {
       "Umgebungs-Scan",
-      "Erreichbar-Check",
+      "Test Menü",
       "Status Menü",
-      "Test Ausgabe",
       "Schlaf Modus",
       "[zurück]"};
 
@@ -72,17 +95,12 @@ void i_actor_functions_menu()
     if (selected == 0)
       application_actor_who_is_in_my_area();
     else if (selected == 1)
-    {
-      String ans = gui_input_text("Empfänger ID (z.B.: 0gMB)", state_gateway_id);
-      application_actor_is_available(ans, false);
-    }
+      i_actor_functions_test_function_menu();
     else if (selected == 2)
     {
       i_actor_functions_status_function_menu();
     }
     else if (selected == 3)
-      gui_print_test_buffer();
-    else if (selected == 4)
     {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Actor)", C_GUI_DELAY_MSG_SHORT_I);
       utils_go_to_sleep();
