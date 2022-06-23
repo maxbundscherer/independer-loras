@@ -72,7 +72,7 @@ void i_actor_functions_test_function_menu()
       application_actor_is_available(ans, false);
     }
     else if (selected == 1)
-      gui_print_test_buffer();
+      gui_test();
     else
       fin_flag = true;
   }
