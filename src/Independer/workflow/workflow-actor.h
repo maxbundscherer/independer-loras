@@ -154,9 +154,9 @@ void i_settings_menu()
       state_gateway_id = gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id);
     else if (selected == 2)
     {
-      int ans = gui_input_text("LoRa Gain (1-20)", String(state_lora_gain)).toInt();
-      if (ans > 20)
-        ans = 20;
+      int ans = gui_input_text("LoRa Gain (1-17)", String(state_lora_gain)).toInt();
+      if (ans > 17)
+        ans = 17;
       if (ans < 1)
         ans = 1;
       state_lora_gain = ans;

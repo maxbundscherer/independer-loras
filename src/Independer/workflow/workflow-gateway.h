@@ -13,12 +13,14 @@ boolean state_gateway_has_sth_changed = true;
 void workflow_gateway_main()
 {
 
-  int c_max_res_delta = C_INDEPENDER_RES_BETWEEN_DELAY; // Waiting 10ms between receiving
-
+  // LoRa.receive();
   int packetSize = LoRa.parsePacket();
 
   if (packetSize)
   {
+
+    Serial.println("\n\n Got Packet");
+
     state_gateway_received_packets++;
     state_gateway_has_sth_changed = true;
 
@@ -71,5 +73,5 @@ void workflow_gateway_main()
     state_gateway_has_sth_changed = false;
   }
 
-  delay(c_max_res_delta);
+  delay(C_INDEPENDER_RES_BETWEEN_DELAY_GATEWAY);
 }

@@ -1,8 +1,10 @@
 #include "heltec.h"
 
-#define C_INDEPENDER_SEND_DELAY 1000
-#define C_INDEPENDER_RES_BETWEEN_DELAY 1
-#define C_INDEPENDER_SCAN_MS 10000
+#define C_INDEPENDER_SEND_DELAY 500
+#define C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR 1
+#define C_INDEPENDER_RES_BETWEEN_DELAY_GATEWAY 10
+#define C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI 10
+#define C_INDEPENDER_SCAN_MS 8000
 
 /*
  * ####################################
@@ -59,7 +61,7 @@ void i_lora_trans_encrypt(String msg, int sendGain)
 
   digitalWrite(LED, HIGH);
 
-  if (sendGain <= 7)
+  if (sendGain < 10)
   {
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
     uint64_t du_start = esp_timer_get_time();
@@ -181,6 +183,7 @@ ShortMessageAndTuple lora_short_message_parse(String msg, String myId)
   int msg_len = msg.length();
 
   Serial.println("(Received raw message) '" + msg + "'");
+  Serial.println("Message Debug Info RSSI=" + String(LoRa.packetRssi()) + " SNR=" + String(LoRa.packetSnr()));
 
   if (msg_len > 50)
   {
@@ -250,6 +253,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
   msg = crypt_decrypt(msg);
 
   Serial.println("(Received raw message) '" + msg + "'");
+  Serial.println("Message Debug Info RSSI=" + String(LoRa.packetRssi()) + " SNR=" + String(LoRa.packetSnr()));
 
   String p_from = "";
   String p_to = "";

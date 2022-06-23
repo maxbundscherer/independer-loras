@@ -100,7 +100,7 @@ void i_multi_Task1_short_message(void *parameter)
       }
     }
 
-    delay(C_INDEPENDER_RES_BETWEEN_DELAY); // Between Res
+    delay(C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI); // Between Res
   }
 }
 
