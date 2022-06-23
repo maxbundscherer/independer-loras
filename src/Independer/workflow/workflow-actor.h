@@ -33,13 +33,33 @@ void i_communication_menu()
   }
 }
 
+void i_actor_functions_status_function_menu()
+{
+  String menu_items[] = {
+      "Batterie Status",
+      "Sendekontingent",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Status Menü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+      gui_display_prg_animated("Batterie Status (mV)", utils_get_battery(), 1950, 3100, C_GUI_DELAY_MSG_SHORT_I);
+    else if (selected == 1)
+      gui_display_prg_animated("Sendekontingent (millis)", lora_get_global_tx_time_millis(), 0, 36000, C_GUI_DELAY_MSG_SHORT_I);
+    else
+      fin_flag = true;
+  }
+}
+
 void i_actor_functions_menu()
 {
   String menu_items[] = {
       "Umgebungs-Scan",
       "Erreichbar-Check",
-      "Batterie Status",
-      "Sendekontingent",
+      "Status Menü",
       "Test Ausgabe",
       "Schlaf Modus",
       "[zurück]"};
@@ -58,15 +78,11 @@ void i_actor_functions_menu()
     }
     else if (selected == 2)
     {
-      gui_display_prg_animated("Batterie Status (mV)", utils_get_battery(), 1950, 3100, C_GUI_DELAY_MSG_SHORT_I);
+      i_actor_functions_status_function_menu();
     }
     else if (selected == 3)
-    {
-      gui_display_prg_animated("Sendekontingent (millis)", lora_get_global_tx_time_millis(), 0, 36000, C_GUI_DELAY_MSG_SHORT_I);
-    }
-    else if (selected == 4)
       gui_print_test_buffer();
-    else if (selected == 5)
+    else if (selected == 4)
     {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Actor)", C_GUI_DELAY_MSG_SHORT_I);
       utils_go_to_sleep();
