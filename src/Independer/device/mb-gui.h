@@ -178,6 +178,9 @@ void i_gui_test_buffer()
 
 void gui_test()
 {
+
+  Heltec.display->clear();
+
   i_gui_test_drawLines();
   delay(1000);
   Heltec.display->clear();
