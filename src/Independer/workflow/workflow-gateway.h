@@ -13,10 +13,14 @@ boolean state_gateway_has_sth_changed = true;
 void workflow_gateway_main()
 {
 
+  // LoRa.receive();
   int packetSize = LoRa.parsePacket();
 
   if (packetSize)
   {
+
+    Serial.println("\n\n Got Packet");
+
     state_gateway_received_packets++;
     state_gateway_has_sth_changed = true;
 

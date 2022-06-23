@@ -6,7 +6,7 @@ char *c_cipher_key = "kjew50fkjriowdj6";
 #define LORA_SYNC_WORD 0x35                // 0x34 is default
 #define LORA_SIG_BANDWIDTH 125E3           // 125E3 is default - 7.8E3, 10.4E3, 15.6E3, 20.8E3, 31.25E3, 41.7E3, 62.5E3, 125E3, and 250E3
 #define LORA_SPREAD 12                     // 7 is default - between 6 and 12
-#define LORA_SIG_CODING_RATE_DENOMINATOR 5 // 5 is default - Supported values are between 5 and 8, these correspond to coding rates of 4/5 and 4/8. The coding rate numerator is fixed at 4
+#define LORA_SIG_CODING_RATE_DENOMINATOR 8 // 5 is default - Supported values are between 5 and 8, these correspond to coding rates of 4/5 and 4/8. The coding rate numerator is fixed at 4
 
 // Keyboard Power Pin
 #define KEYBOARD_POWER_PIN 13
