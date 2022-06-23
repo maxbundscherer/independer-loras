@@ -197,10 +197,6 @@ void gui_test()
   delay(1000);
   Heltec.display->clear();
 
-  i_gui_test_drawCircle();
-  delay(1000);
-  Heltec.display->clear();
-
   i_gui_test_buffer();
   delay(1000);
   Heltec.display->clear();
