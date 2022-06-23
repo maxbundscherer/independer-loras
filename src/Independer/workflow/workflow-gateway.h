@@ -71,5 +71,5 @@ void workflow_gateway_main()
     state_gateway_has_sth_changed = false;
   }
 
-  delay(c_max_res_delta);
+  // delay(c_max_res_delta);
 }
