@@ -69,5 +69,5 @@ void workflow_gateway_main()
     state_gateway_has_sth_changed = false;
   }
 
-  // delay(C_INDEPENDER_RES_BETWEEN_DELAY_GATEWAY);
+  delay(C_INDEPENDER_RES_BETWEEN_DELAY_GATEWAY);
 }
