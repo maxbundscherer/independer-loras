@@ -81,10 +81,10 @@ void i_actor_functions_test_function_menu()
 void i_actor_functions_menu()
 {
   String menu_items[] = {
-      "Umgebungs-Scan",
-      "Test Menü",
       "Status Menü",
+      "Test Menü",
       "Schlaf Modus",
+      "Umgebungs-Scan",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -93,18 +93,18 @@ void i_actor_functions_menu()
     int selected = gui_selection("Actor Funktionen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected == 0)
-      application_actor_who_is_in_my_area();
-    else if (selected == 1)
-      i_actor_functions_test_function_menu();
-    else if (selected == 2)
-    {
       i_actor_functions_status_function_menu();
+    else if (selected == 1)
+    {
+      i_actor_functions_test_function_menu();
     }
-    else if (selected == 3)
+    else if (selected == 2)
     {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Actor)", C_GUI_DELAY_MSG_SHORT_I);
       utils_go_to_sleep();
     }
+    else if (selected == 3)
+      application_actor_who_is_in_my_area();
     else
       fin_flag = true;
   }
