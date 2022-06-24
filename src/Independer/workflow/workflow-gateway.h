@@ -41,6 +41,11 @@ void workflow_gateway_main()
       {
         utils_go_to_sleep();
       }
+      else if (parser_ans.message == "C;clmsg")
+      {
+        state_gateway_db_items = application_gateway_clear_user_msgs(parser_ans.from);
+        state_gateway_has_sth_changed = true;
+      }
       else if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)
       {
         String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
