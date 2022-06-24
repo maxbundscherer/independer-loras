@@ -120,7 +120,13 @@ void multi_actor_background_clear_messages()
  * ####################################
  */
 
+int c_led_blinking_delay = 1500;
+boolean c_state_multi_led_blinking = false;
+
 boolean state_multi_is_active = false;
+
+boolean state_multi_led_blinking_state = false;
+int state_led_blinking_t_current = 0;
 
 void i_multi_Task1_short_message(void *parameter)
 {
@@ -164,6 +170,29 @@ void i_multi_Task1_short_message(void *parameter)
         }
       }
 
+      // LED Blinking
+      if (c_state_multi_led_blinking)
+      {
+
+        if (state_led_blinking_t_current > c_led_blinking_delay)
+        {
+          if (state_multi_led_blinking_state)
+          {
+            digitalWrite(LED, LOW);
+            state_multi_led_blinking_state = false;
+          }
+          else
+          {
+            digitalWrite(LED, HIGH);
+            state_multi_led_blinking_state = true;
+          }
+
+          state_led_blinking_t_current = 0;
+        }
+        else
+          state_led_blinking_t_current += C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI;
+      }
+
       vTaskDelay(C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI); // Between Res
     }
     else
@@ -171,6 +200,18 @@ void i_multi_Task1_short_message(void *parameter)
       // Serial.println("Disable background");
     }
   }
+}
+
+void multi_actor_start_blinking()
+{
+  c_state_multi_led_blinking = true;
+}
+
+void multi_actor_stop_blinking()
+{
+  c_state_multi_led_blinking = false;
+  digitalWrite(LED, LOW);
+  state_multi_led_blinking_state = false;
 }
 
 void multi_actor_start()
