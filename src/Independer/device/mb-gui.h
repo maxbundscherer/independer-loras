@@ -662,16 +662,16 @@ int gui_selection(String menu_title, String menu_items[], int count_items, boole
 void i_gui_input_single_line(String menu_title, String val, int current_cursor)
 {
 
-  int c_chars_per_line = 3;
+  int c_chars_per_line = 21;
 
-  int val_length = val.length() + 1; // Add 1 for cursor
+  int val_length = val.length() + 1 + 2; // Add 1 for cursor and Add 2 for Start and Stop Mark
 
   int num_lines = ceil((float)val_length / c_chars_per_line);
 
   String pre = val.substring(0, current_cursor);
   String post = val.substring(current_cursor, val.length());
 
-  val = pre + "_" + post;
+  val = "'" + pre + "_" + post + "'";
 
   String outStringLines[num_lines] = "";
   int newLineBreakCounter = 0;
@@ -730,7 +730,7 @@ void i_gui_input_single_line(String menu_title, String val, int current_cursor)
   Heltec.display->drawLine(5, 17, 5 + 120, 17);
 
   Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 10 * 2 + 2, "'" + out + "'");
+  Heltec.display->drawString(5, 10 * 2 + 2, out);
 
   Heltec.display->setTextAlignment(TEXT_ALIGN_RIGHT);
   Heltec.display->drawString(128 - 5, 64 - 15, "[Enter] Ok");
