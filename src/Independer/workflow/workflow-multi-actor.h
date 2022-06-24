@@ -93,6 +93,10 @@ void i_multi_Task1_short_message(void *parameter)
           else
             application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
         }
+        else if (parser_ans.message = "T")
+        {
+          application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, "S", C_INDEPENDER_SEND_DELAY);
+        }
         else
         {
           Serial.println("Error received unknown message in background '" + parser_ans.message + "'");
