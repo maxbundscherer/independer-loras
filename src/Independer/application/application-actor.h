@@ -435,7 +435,7 @@ void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg
     multi_actor_stop();
   }
 
-  int c_max_ping_retries = 5;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_retries = 6;                                                             // Maximial attempts to receive pong message
   int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
