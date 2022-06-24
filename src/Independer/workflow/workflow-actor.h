@@ -54,8 +54,8 @@ void i_communication_messages_menu()
 void i_communication_menu()
 {
   String menu_items[] = {
-      "Briefe",
-      "Nachrichten",
+      "Briefe (Gateway)",
+      "Nachrichten (Actor)",
       "Kontakte",
       "[zurück]"};
 
