@@ -4,7 +4,7 @@
  * ####################################
  */
 
-void i_multi_actor_rec_message_from_actor(actorId)
+void i_multi_actor_rec_message_from_actor(String actorId)
 {
 
   int c_max_ping_retries = 1;                                                             // Maximial attempts to receive pong message
