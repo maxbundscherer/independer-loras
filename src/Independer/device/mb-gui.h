@@ -17,6 +17,8 @@
 #define C_GUI_DELAY_MSG_MIDDLE_I 40
 #define C_GUI_DELAY_MSG_LONG_I 60
 
+#define C_GUI_CHARS_PER_LINE 25
+
 /*
  * ####################################
  *  Test Section
@@ -662,7 +664,7 @@ int gui_selection(String menu_title, String menu_items[], int count_items, boole
 void i_gui_input_single_line(String menu_title, String val, int current_cursor)
 {
 
-  int c_chars_per_line = 21;
+  int c_chars_per_line = C_GUI_CHARS_PER_LINE;
 
   int val_length = val.length() + 1 + 2; // Add 1 for cursor and Add 2 for Start and Stop Mark
 
@@ -831,12 +833,54 @@ void gui_msg_long_text(String msg_title, String msg)
 
   i_gui_flush_input();
 
+  int c_chars_per_line = C_GUI_CHARS_PER_LINE;
+  int c_lines_per_page = 3;
+
+  int val_length = msg.length() + 2; // Add 2 for Start and Stop Mark
+
+  msg = "'" + msg + "'";
+
+  int num_lines = ceil((float)val_length / c_chars_per_line);
+
+  String outStringLines[num_lines] = "";
+  int newLineBreakCounter = 0;
+  int currentNumLine = 0;
+
+  for (int i = 0; i < val_length; i++)
+  {
+
+    outStringLines[currentNumLine] = outStringLines[currentNumLine] + msg[i];
+    newLineBreakCounter++;
+
+    if (newLineBreakCounter == c_chars_per_line)
+    {
+      currentNumLine++;
+      newLineBreakCounter = 0;
+    }
+  }
+
+  int num_pages = ceil((float)num_lines / c_lines_per_page);
+
+  // Serial.println("\nNum of lines " + String(num_lines));
+  // Serial.println("Num of pages " + String(num_pages));
+
+  // for (int i = 0; i < num_lines; i++)
+  // {
+  //   Serial.println("Line " + String(i) + ": '" + outStringLines[i] + "'");
+  // }
+
   int currentPage = 0;
   boolean hasSelected = false;
   while (!hasSelected)
   {
 
-    i_gui_msg_long_text(msg_title, msg, "(" + String(currentPage + 1) + "/3)");
+    String t_msg = "";
+    for (int i = currentPage * c_lines_per_page; i < num_lines; i++)
+    {
+      t_msg += outStringLines[i] + "\n";
+    }
+
+    i_gui_msg_long_text(msg_title, t_msg, "(" + String(currentPage + 1) + "/" + String(num_pages) + ")");
 
     Wire.requestFrom(CARDKB_ADDR, 1);
     while (Wire.available())
@@ -853,8 +897,8 @@ void gui_msg_long_text(String msg_title, String msg)
 
           if (currentPage < 0)
             currentPage = 0;
-          else if (currentPage > 3)
-            currentPage = 3;
+          else if (currentPage > num_pages - 1)
+            currentPage = num_pages - 1;
         }
         else if (c == 0xD) // Press Enter
           hasSelected = true;
