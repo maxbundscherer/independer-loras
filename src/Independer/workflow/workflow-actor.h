@@ -51,7 +51,7 @@ void i_communication_messages_menu()
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
       String msg_tx = gui_input_text("Nachricht", "");
-      lora_send_msg_short_message(state_my_id, msg_res, "T", state_lora_gain);
+      application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
     }
     else if (selected == 1)
     {

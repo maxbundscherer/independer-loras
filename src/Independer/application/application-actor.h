@@ -425,4 +425,17 @@ void application_actor_query_msgs_from_gateway()
 
 void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg)
 {
+
+  int c_max_retries = 5;
+  boolean sucFlag = false;
+  int cur_at = 0;
+
+  while (cur_at < c_max_retries and !sucFlag)
+  {
+    Serial.println("Sending Message to Actor " + String(cur_at + 1) + " of " + String(c_max_retries));
+    sucFlag = application_actor_is_available(receiverId, true, "T", 1, "S", true);
+    cur_at++;
+  }
+
+  Serial.println("Success Flag: " + String(sucFlag));
 }
