@@ -440,8 +440,11 @@ void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg
 
     delay(C_GUI_DELAY_STATIC_SHORT);
 
-    Serial.println("Sending Message to Actor " + String(cur_at + 1) + " of " + String(c_max_retries));
-    sucFlag = application_actor_is_available(receiverId, true, "T", 1, "S", true);
+    Serial.println("\nSending Message to Actor " + String(cur_at + 1) + " of " + String(c_max_retries));
+
+    boolean actorAva = application_actor_is_available(receiverId, true, "T", 1, "S", true);
+
+    Serial.println("Actor Ava " + String(actorAva));
   }
 
   Serial.println("Success Flag: " + String(sucFlag));
