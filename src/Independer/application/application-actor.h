@@ -74,18 +74,26 @@ void application_actor_who_is_in_my_area()
 
   if (collected_counter > 0)
   {
-    String gui_items[collected_counter];
+    String gui_items[collected_counter + 1]; // Add + 1 (go back item)
 
     for (int i = 0; i < collected_counter; i++)
     {
-      String r = collected_db[i].deviceId + " (" + collected_db[i].deviceMsg + ") " + collected_db[i].receivedRssi + " " + collected_db[i].attempt;
+      String r = collected_db[i].attempt + ": (" + collected_db[i].deviceId + ") '" + collected_db[i].deviceMsg + "' RS=" + collected_db[i].receivedRssi;
       // Serial.println("Scan Item '" + r + "'");
       gui_items[i] = r;
     }
 
-    // TODO: Workaround Scan List ausgeben - 1
-    // gui_selection("Scan Ausgabe", gui_items, collected_counter - 1, true);
-    gui_selection("Scan Ausgabe", gui_items, collected_counter - 2, true);
+    gui_items[collected_counter] = "[zurück]"; // Add go back item
+
+    boolean hasComp = false;
+    while (!hasComp)
+    {
+      int selected = gui_selection("Scan Ausgabe", gui_items, collected_counter - 1 + 1, false); // Add + 1 (go back item)
+      if (selected == collected_counter)
+        hasComp = true;
+      else
+        gui_msg_long_text("Scan Detail", gui_items[selected]);
+    }
   }
 
   if (sync_was_on_flag)
