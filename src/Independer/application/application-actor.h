@@ -142,7 +142,9 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns, St
     {
       l_cur_receive_attempt++;
 
-      struct S_APP_PONG pong_ans = application_independer_pong(target_id, true);
+      boolean appendDebug = !checkResponse;
+
+      struct S_APP_PONG pong_ans = application_independer_pong(target_id, appendDebug);
 
       if (pong_ans.receivedSomething)
       {
