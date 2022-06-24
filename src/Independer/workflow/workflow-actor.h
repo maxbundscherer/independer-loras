@@ -20,7 +20,7 @@ void i_communication_letters_menu()
     if (selected == 0)
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      String msg_tx = gui_input_text("Nachricht", "");
+      String msg_tx = gui_input_text("Brief", "");
       application_actor_send_msg_to_gateway(msg_res, msg_tx);
     }
     else if (selected == 1)
@@ -47,7 +47,17 @@ void i_communication_messages_menu()
   {
     int selected = gui_selection("Nachrichten", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    fin_flag = true;
+    if (selected == 0)
+    {
+      String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      String msg_tx = gui_input_text("Nachricht", "");
+      lora_send_msg_short_message(state_my_id, msg_res, "T", state_lora_gain);
+    }
+    else if (selected == 1)
+    {
+    }
+    else
+      fin_flag = true;
   }
 }
 
