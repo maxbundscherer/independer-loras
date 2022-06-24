@@ -37,7 +37,7 @@ void i_multi_res_proc_actor_rec_message_from_actor(void *parameter)
     {
       l_cur_receive_attempt++;
 
-      struct S_APP_PONG pong_ans = application_independer_pong(actorId, false);
+      struct S_APP_PONG pong_ans = application_independer_pong(actorId, false, true);
 
       if (pong_ans.receivedSomething)
       {
