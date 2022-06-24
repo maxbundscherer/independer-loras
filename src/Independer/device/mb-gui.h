@@ -800,3 +800,65 @@ String gui_input_text(String menu_title, String default_value)
 
   return current;
 }
+
+/*
+ * ####################################
+ *  Long Text Section
+ * ####################################
+ */
+
+void i_gui_msg_long_text(String msg_title, String msg, String page)
+{
+
+  Heltec.display->clear();
+  Heltec.display->setFont(ArialMT_Plain_10);
+  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
+
+  Heltec.display->drawString(5, 5, msg_title);
+  Heltec.display->drawLine(5, 17, 5 + 120, 17);
+
+  Heltec.display->setTextAlignment(TEXT_ALIGN_RIGHT);
+  Heltec.display->drawString(120, 5, page);
+
+  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
+  Heltec.display->drawString(5, 10 * 2 + 2, msg);
+
+  Heltec.display->display();
+}
+
+void gui_msg_long_text(String msg_title, String msg)
+{
+
+  i_gui_flush_input();
+
+  int currentPage = 0;
+  boolean hasSelected = false;
+  while (!hasSelected)
+  {
+
+    i_gui_msg_long_text(msg_title, msg, "(" + String(currentPage + 1) + "/3)");
+
+    Wire.requestFrom(CARDKB_ADDR, 1);
+    while (Wire.available())
+    {
+      char c = Wire.read();
+      if (c != 0)
+      {
+        if (c == 0xB5 or c == 0xB6) // Press Down or Up
+        {
+          if (c == 0xB5) // Press Down
+            currentPage -= 1;
+          else // Press Up
+            currentPage += 1;
+
+          if (currentPage < 0)
+            currentPage = 0;
+          else if (currentPage > 3)
+            currentPage = 3;
+        }
+        else if (c == 0xD) // Press Enter
+          hasSelected = true;
+      }
+    }
+  }
+}
