@@ -435,29 +435,67 @@ void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg
     multi_actor_stop();
   }
 
-  int c_max_retries = 5;
-  boolean sucFlag = false;
-  int cur_at = 0;
+  int c_max_ping_retries = 3;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
-  while (cur_at < c_max_retries and !sucFlag)
+  boolean sendSuccess = false;
+
+  int l_attempt = 0;
+  while (l_attempt < c_max_ping_retries and !sendSuccess)
   {
-    cur_at++;
+    l_attempt++;
 
-    gui_display_prg_static("Sende Versuch", cur_at, 0, c_max_retries);
+    gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
 
     delay(C_GUI_DELAY_STATIC_SHORT);
 
-    Serial.println("\nSending Message to Actor " + String(cur_at + 1) + " of " + String(c_max_retries));
-
     boolean actorAva = application_actor_is_available(receiverId, true, "T", 1, "S", true);
 
-    Serial.println("Actor Ava " + String(actorAva));
-  }
+    Serial.println("\nSending Message to Actor " + String(l_attempt) + " of " + String(c_max_ping_retries) + " Actor Ava=" + String(actorAva));
 
-  Serial.println("Success Flag: " + String(sucFlag));
+    if (!actorAva)
+      delay(C_INDEPENDER_SEND_DELAY);
+    else
+    {
+
+      lora_send_msg(state_my_id, receiverId, userMsg, state_lora_gain);
+
+      int l_cur_receive_attempt = 0;
+      while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and !sendSuccess)
+      {
+        l_cur_receive_attempt++;
+
+        struct S_APP_PONG pong_ans = application_independer_pong(state_gateway_id, false);
+
+        if (pong_ans.receivedSomething)
+        {
+          l_cur_receive_attempt = 0;
+        }
+
+        if (pong_ans.receivingCompleted and pong_ans.message == "N")
+        {
+          sendSuccess = true;
+        }
+        else
+        {
+          delay(c_max_ping_delta);
+        }
+      }
+    }
+  }
 
   if (sync_was_on_flag)
   {
     multi_actor_start();
+  }
+
+  if (sendSuccess)
+  {
+    gui_msg_animated("Info", "Nachricht wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
+  }
+  else
+  {
+    gui_msg_animated("Fehler", "Nachricht konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 }
