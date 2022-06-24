@@ -15,9 +15,13 @@ void i_multi_res_proc_actor_rec_message_from_actor()
 
   String actorId = state_ticker_multi_actor_rec_actor_id;
 
-  int c_max_ping_retries = 1;                                                             // Maximial attempts to receive pong message
-  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
-  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
+  lora_send_msg_single_unsafe(state_my_id, actorId, "S", state_lora_gain);
+
+  Serial.println("OPEN RES " + actorId);
+
+  int c_max_ping_retries = 1;
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4 + C_INDEPENDER_SEND_DELAY) / c_max_ping_delta; // Add interval, sending
 
   boolean sendSuccess = false;
 
@@ -31,7 +35,7 @@ void i_multi_res_proc_actor_rec_message_from_actor()
     {
       l_cur_receive_attempt++;
 
-      struct S_APP_PONG pong_ans = application_independer_pong(actorId, false);
+      struct S_APP_PONG pong_ans = application_independer_pong(state_my_id, false);
 
       if (pong_ans.receivedSomething)
       {
@@ -52,14 +56,14 @@ void i_multi_res_proc_actor_rec_message_from_actor()
   }
 
   state_ticker_multi_actor_rec_actor_id = "";
+  Serial.println("CLOSE RES " + actorId);
 }
 
 void i_multi_actor_rec_message_from_actor(String actorId)
 {
-  application_independer_send_later_single_unsafe(state_my_id, actorId, "S", C_INDEPENDER_SEND_DELAY);
-  Serial.println("Schedule receving background later in " + String(100) + " millis");
+  Serial.println("Schedule receving background later in " + String(int(C_INDEPENDER_SEND_DELAY / 2)) + " millis");
   state_ticker_multi_actor_rec_actor_id = actorId;
-  ticker_independer_send_later.once_ms(100, i_multi_res_proc_actor_rec_message_from_actor);
+  ticker_independer_send_later.once_ms(int(C_INDEPENDER_SEND_DELAY / 2), i_multi_res_proc_actor_rec_message_from_actor);
 }
 
 /*
