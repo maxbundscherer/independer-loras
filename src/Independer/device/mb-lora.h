@@ -243,7 +243,7 @@ int state_parser_last_index = -1;
 int state_parser_max_packets = -1;
 String state_parser_msg = "";
 
-ParserAnsTuple lora_stateful_parse(String msg, String myId)
+ParserAnsTuple lora_stateful_parse(String msg, String myId, boolean disableGUI = false)
 {
 
   String ret_from = "";
@@ -295,7 +295,8 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
       state_parser_last_index = -1;
       state_parser_max_packets = p_value.toInt() + 2; // Sync frames 2
       state_parser_msg = "";
-      gui_display_prg_static("Empfangen", 1, 0, state_parser_max_packets);
+      if (!disableGUI)
+        gui_display_prg_static("Empfangen", 1, 0, state_parser_max_packets);
     }
     else if (p_type == "-" and p_from == state_parser_from)
     {
@@ -310,7 +311,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
       else
       {
         Serial.println("- End transmit - hashcode bad");
-        // gui_msg_animated("Fehler", "Received bad hashcode", C_GUI_DELAY_MSG_SHORT_I);
+        // if (!disableGUI)  gui_msg_animated("Fehler", "Received bad hashcode", C_GUI_DELAY_MSG_SHORT_I);
       }
       state_parser_from = "";
       state_parser_last_index = -1;
@@ -323,7 +324,8 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
       Serial.println("- Between transmit");
       state_parser_last_index = p_type.toInt();
       state_parser_msg += p_value;
-      gui_display_prg_static("Empfangen", state_parser_last_index + 2, 0, state_parser_max_packets);
+      if (!disableGUI)
+        gui_display_prg_static("Empfangen", state_parser_last_index + 2, 0, state_parser_max_packets);
     }
     else if (p_type == "!" or p_type == "s")
     {
@@ -345,13 +347,13 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId)
       state_parser_last_index = -1;
       state_parser_max_packets = -1;
       state_parser_msg = "";
-      // gui_msg_animated("Fehler", "Received not matched values", C_GUI_DELAY_MSG_SHORT_I);
+      // if (!disableGUI) gui_msg_animated("Fehler", "Received not matched values", C_GUI_DELAY_MSG_SHORT_I);
     }
   }
   else
   {
     Serial.println("Ignore message (not matched id)");
-    // gui_msg_animated("Fehler", "Received not matched id", C_GUI_DELAY_MSG_SHORT_I);
+    // if (!disableGUI)  gui_msg_animated("Fehler", "Received not matched id", C_GUI_DELAY_MSG_SHORT_I);
   }
 
   struct ParserAnsTuple ret = {

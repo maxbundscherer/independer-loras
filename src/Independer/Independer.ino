@@ -10,14 +10,14 @@
 
 // TODO: Sendekontigent mit echter Zeit
 
-// TODO: Warum Faktor 2 Multi Task Decoding
+// TODO: Warum Faktor 2 und 8 Multi Task Decoding
 
-// TODO: Speicherüberlauf Schutz bei Actor App Umgebung Scan und Gateway Store Message
-// TODO: Workaround Scan List ausgeben - 1
+// TODO: Speicherüberlauf Schutz bei Actor App Umgebung Scan und Gateway Store Message und Background Actor Empfang
 // TODO: Verbesser Start/Stop Actor Multi in Briefe abrufen
 // TODO: UI Verbessern Leerzeichen bei Long Text ausgabe und Text Eingabe
 
 // TODO: Refactoring c_id und Gateway id
+// TODO: Refactoring disableShortcuts bei gui_selection wieder ausbauen, hat nicht funktioniert
 
 /*
  * ####################################

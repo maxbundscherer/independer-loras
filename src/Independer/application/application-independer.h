@@ -49,7 +49,7 @@ struct S_APP_PONG
  * @param check_from_id device id (gateway)
  * @param addDebugDataToMsg flag true = add debug data to message
  */
-S_APP_PONG application_independer_pong(String check_from_id, boolean addDebugDataToMsg)
+S_APP_PONG application_independer_pong(String check_from_id, boolean addDebugDataToMsg, boolean disableGUI = false)
 {
 
   int packetSize = LoRa.parsePacket();
@@ -63,7 +63,7 @@ S_APP_PONG application_independer_pong(String check_from_id, boolean addDebugDat
       i_res += (char)LoRa.read();
     }
 
-    ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
+    ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id, disableGUI);
 
     if (parser_ans.message != "" and parser_ans.from == check_from_id)
     {

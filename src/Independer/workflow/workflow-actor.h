@@ -4,25 +4,23 @@
  * ####################################
  */
 
-void i_communication_menu()
+void i_communication_letters_menu()
 {
   String menu_items[] = {
       "Brief schreiben",
       "Briefe abrufen",
       "Briefe leeren",
-      "Kontakte",
       "[zurück]"};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Kommunikation", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    int selected = gui_selection("Briefe", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected == 0)
     {
-
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      String msg_tx = gui_input_text("Nachricht", "");
+      String msg_tx = gui_input_text("Brief", "");
       application_actor_send_msg_to_gateway(msg_res, msg_tx);
     }
     else if (selected == 1)
@@ -32,7 +30,57 @@ void i_communication_menu()
       gui_msg_animated("Info", "Leere Briefe\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clmsg", state_lora_gain);
     }
-    else if (selected == 3)
+    else
+      fin_flag = true;
+  }
+}
+
+void i_communication_messages_menu()
+{
+  String menu_items[] = {
+      "Nachricht schreiben",
+      "Nachrichten lesen",
+      "Nachrichten leeren",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Nachrichten", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+    {
+      String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      String msg_tx = gui_input_text("Nachricht", "");
+      application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
+    }
+    else if (selected == 1)
+      multi_actor_background_show_messages();
+    else if (selected == 2)
+      multi_actor_background_clear_messages();
+    else
+      fin_flag = true;
+  }
+}
+
+void i_communication_menu()
+{
+  String menu_items[] = {
+      "Briefe (Gateway)",
+      "Nachrichten (Actor)",
+      "Kontakte",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Kommunikation", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+      i_communication_letters_menu();
+    else if (selected == 1)
+      i_communication_messages_menu();
+    else if (selected == 2)
       gui_msg_animated("Info", "Leider ist die Funktion\n'Kontakte'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
 
     else
