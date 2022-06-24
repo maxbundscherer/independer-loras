@@ -467,7 +467,7 @@ void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg
       {
         l_cur_receive_attempt++;
 
-        struct S_APP_PONG pong_ans = application_independer_pong(state_gateway_id, false);
+        struct S_APP_PONG pong_ans = application_independer_pong(receiverId, false);
 
         if (pong_ans.receivedSomething)
         {
