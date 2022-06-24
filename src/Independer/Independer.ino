@@ -10,7 +10,7 @@
 
 // TODO: Sendekontigent mit echter Zeit
 
-// TODO: Warum Faktor 2 Multi Task Decoding
+// TODO: Warum Faktor 2 und 8 Multi Task Decoding
 
 // TODO: Speicherüberlauf Schutz bei Actor App Umgebung Scan und Gateway Store Message
 // TODO: Verbesser Start/Stop Actor Multi in Briefe abrufen

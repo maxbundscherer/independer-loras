@@ -4,20 +4,19 @@
  * ####################################
  */
 
-#include <Ticker.h> //Call Ticker.h library
-
-Ticker ticker_multi_actor_receiving; // Declare Ticker object for send later
+// TaskHandle_t Core0TaskHnd; // Core0
+TaskHandle_t Core1TaskHnd;
 
 String state_ticker_multi_actor_rec_actor_id = "";
 
-void i_multi_res_proc_actor_rec_message_from_actor()
+void i_multi_res_proc_actor_rec_message_from_actor(void *parameter)
 {
-
   String actorId = state_ticker_multi_actor_rec_actor_id;
 
+  delay(C_INDEPENDER_SEND_DELAY);
   lora_send_msg_single_unsafe(state_my_id, actorId, "S", state_lora_gain);
 
-  Serial.println("OPEN RES " + actorId);
+  Serial.println("\n !!!!!!!!!!!!!!! START BACKGROUND RECEIVING actorId=" + actorId);
 
   int c_max_ping_retries = 1;
   int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;
@@ -35,35 +34,45 @@ void i_multi_res_proc_actor_rec_message_from_actor()
     {
       l_cur_receive_attempt++;
 
-      struct S_APP_PONG pong_ans = application_independer_pong(state_my_id, false);
+      struct S_APP_PONG pong_ans = application_independer_pong(actorId, false);
 
       if (pong_ans.receivedSomething)
       {
+        // Serial.println("----- RES SOMETHING " + String(pong_ans.receivedSomething) + " " + String(pong_ans.receivingCompleted) + "\n");
         l_cur_receive_attempt = 0;
       }
 
       if (pong_ans.receivingCompleted)
       {
-        application_independer_send_later_single_unsafe(state_my_id, actorId, "N", C_INDEPENDER_SEND_DELAY);
-        Serial.println("Direct msg from " + actorId + ": '" + pong_ans.message + "'");
-        sendSuccess = true;
+        if (pong_ans.message == "S")
+        {
+          lora_send_msg_single_unsafe(state_my_id, actorId, "S", state_lora_gain);
+        }
+        else
+        {
+          delay(C_INDEPENDER_SEND_DELAY);
+          lora_send_msg_single_unsafe(state_my_id, actorId, "N", state_lora_gain);
+          Serial.println("Direct msg from " + actorId + ": '" + pong_ans.message + "'");
+          // TODO
+          sendSuccess = true;
+        }
       }
       else
       {
-        delay(c_max_ping_delta);
+        vTaskDelay(c_max_ping_delta);
       }
     }
   }
 
   state_ticker_multi_actor_rec_actor_id = "";
-  Serial.println("CLOSE RES " + actorId);
+  Serial.println("!!!!!!!!!!!!!!! START BACKGROUND RECEIVING actorId=" + actorId);
+  vTaskSuspend(NULL);
 }
 
 void i_multi_actor_rec_message_from_actor(String actorId)
 {
-  Serial.println("Schedule receving background later in " + String(int(C_INDEPENDER_SEND_DELAY / 2)) + " millis");
   state_ticker_multi_actor_rec_actor_id = actorId;
-  ticker_independer_send_later.once_ms(int(C_INDEPENDER_SEND_DELAY / 2), i_multi_res_proc_actor_rec_message_from_actor);
+  xTaskCreatePinnedToCore(i_multi_res_proc_actor_rec_message_from_actor, "CPU_1b", 1000 * 8, NULL, 1, &Core1TaskHnd, 1); // TODO: Warum Faktor 8
 }
 
 /*
@@ -71,8 +80,7 @@ void i_multi_actor_rec_message_from_actor(String actorId)
  *  Background Job Section
  * ####################################
  */
-// TaskHandle_t  Core0TaskHnd ; //Core0
-TaskHandle_t Core1TaskHnd;
+
 boolean state_multi_is_active = false;
 
 // const int MULTI_STRING_BUFFER_MAX = 50;
@@ -140,44 +148,52 @@ void i_multi_Task1_short_message(void *parameter)
 {
   for (;;)
   {
-    // Serial.print("multi_Task1 runs on Core: ");
-    // Serial.println(xPortGetCoreID());
 
-    int packetSize = LoRa.parsePacket();
-
-    if (packetSize)
+    if (state_ticker_multi_actor_rec_actor_id == "")
     {
+      // Serial.print("multi_Task1 runs on Core: ");
+      // Serial.println(xPortGetCoreID());
 
-      String i_res = "";
-      for (int i = 0; i < packetSize; i++)
-      {
-        i_res += (char)LoRa.read();
-      }
+      int packetSize = LoRa.parsePacket();
 
-      ShortMessageAndTuple parser_ans = lora_short_message_parse(i_res, state_my_id);
-      if (parser_ans.message != "")
+      if (packetSize)
       {
 
-        if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)
+        String i_res = "";
+        for (int i = 0; i < packetSize; i++)
         {
-          String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
-          if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)
-            application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
+          i_res += (char)LoRa.read();
+        }
+
+        ShortMessageAndTuple parser_ans = lora_short_message_parse(i_res, state_my_id);
+        if (parser_ans.message != "")
+        {
+
+          if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL or parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)
+          {
+            String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
+            if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)
+              application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
+            else
+              application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
+          }
+          else if (parser_ans.message = "T")
+          {
+            i_multi_actor_rec_message_from_actor(parser_ans.from);
+          }
           else
-            application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
-        }
-        else if (parser_ans.message = "T")
-        {
-          i_multi_actor_rec_message_from_actor(parser_ans.from);
-        }
-        else
-        {
-          Serial.println("Error received unknown message in background '" + parser_ans.message + "'");
+          {
+            Serial.println("Error received unknown message in background '" + parser_ans.message + "'");
+          }
         }
       }
-    }
 
-    delay(C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI); // Between Res
+      vTaskDelay(C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI); // Between Res
+    }
+    else
+    {
+      // Serial.println("Disable background");
+    }
   }
 }
 
@@ -185,7 +201,7 @@ void multi_actor_start()
 {
   state_multi_is_active = true;
   // state_multi_cur_string_i = 0;
-  xTaskCreatePinnedToCore(i_multi_Task1_short_message, "CPU_1", 1000 * 2, NULL, 1, &Core1TaskHnd, 1); // TODO: Warum Faktor 2
+  xTaskCreatePinnedToCore(i_multi_Task1_short_message, "CPU_1m", 1000 * 2, NULL, 1, &Core1TaskHnd, 1); // TODO: Warum Faktor 2
 }
 
 void multi_actor_stop()

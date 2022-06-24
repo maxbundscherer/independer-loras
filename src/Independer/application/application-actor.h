@@ -459,6 +459,7 @@ void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg
     else
     {
 
+      delay(C_INDEPENDER_SEND_DELAY);
       lora_send_msg(state_my_id, receiverId, userMsg, state_lora_gain);
 
       int l_cur_receive_attempt = 0;
