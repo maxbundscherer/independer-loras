@@ -157,6 +157,7 @@ void i_actor_functions_menu()
     else if (selected == 2)
     {
       gui_input_char_no_output();
+      fin_flag = true;
     }
     else if (selected == 3)
     {
