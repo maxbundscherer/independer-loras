@@ -4,7 +4,9 @@
  * ####################################
  */
 
-// TaskHandle_t Core0TaskHnd; // Core0
+// TaskHandle_t Core0TaskHnd; //
+void multi_actor_start_blinking();
+void multi_actor_stop_blinking();
 TaskHandle_t Core1TaskHnd;
 
 String state_ticker_multi_actor_rec_actor_id = "";
@@ -56,6 +58,7 @@ void i_multi_res_proc_actor_rec_message_from_actor(void *parameter)
           delay(C_INDEPENDER_SEND_DELAY);
           lora_send_msg_single_unsafe(state_my_id, actorId, "N", state_lora_gain);
           Serial.println("Save Direct msg from " + actorId + ": '" + pong_ans.message + "'");
+          multi_actor_start_blinking();
           state_multi_actor_msgs[state_multi_actor_msgs_counter] = "(" + actorId + ") " + pong_ans.message;
           state_multi_actor_msgs_counter++;
           sendSuccess = true;
@@ -81,6 +84,8 @@ void i_multi_actor_rec_message_from_actor(String actorId)
 
 void multi_actor_background_show_messages()
 {
+
+  multi_actor_stop_blinking();
 
   if (state_multi_actor_msgs_counter == 0)
   {
@@ -120,7 +125,14 @@ void multi_actor_background_clear_messages()
  * ####################################
  */
 
+int c_led_blinking_delay = 1000;
+boolean c_state_multi_led_blinking = false;
+
 boolean state_multi_is_active = false;
+
+boolean state_multi_led_blinking_state = false;
+boolean state_multi_led_blinking_skip_one_interval = true;
+int state_led_blinking_t_current = 0;
 
 void i_multi_Task1_short_message(void *parameter)
 {
@@ -164,6 +176,37 @@ void i_multi_Task1_short_message(void *parameter)
         }
       }
 
+      // LED Blinking
+      if (c_state_multi_led_blinking)
+      {
+
+        if (state_led_blinking_t_current > c_led_blinking_delay)
+        {
+          if (state_multi_led_blinking_state)
+          {
+            digitalWrite(LED, LOW);
+            state_multi_led_blinking_state = false;
+            state_multi_led_blinking_skip_one_interval = true;
+          }
+          else
+          {
+            if (state_multi_led_blinking_skip_one_interval)
+            {
+              state_multi_led_blinking_skip_one_interval = false;
+            }
+            else
+            {
+              digitalWrite(LED, HIGH);
+              state_multi_led_blinking_state = true;
+            }
+          }
+
+          state_led_blinking_t_current = 0;
+        }
+        else
+          state_led_blinking_t_current += C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI;
+      }
+
       vTaskDelay(C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI); // Between Res
     }
     else
@@ -171,6 +214,19 @@ void i_multi_Task1_short_message(void *parameter)
       // Serial.println("Disable background");
     }
   }
+}
+
+void multi_actor_start_blinking()
+{
+  c_state_multi_led_blinking = true;
+}
+
+void multi_actor_stop_blinking()
+{
+  c_state_multi_led_blinking = false;
+  digitalWrite(LED, LOW);
+  state_multi_led_blinking_state = false;
+  state_multi_led_blinking_skip_one_interval = true;
 }
 
 void multi_actor_start()
