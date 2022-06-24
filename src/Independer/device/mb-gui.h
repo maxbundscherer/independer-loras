@@ -806,6 +806,8 @@ String gui_input_text(String menu_title, String default_value)
 char gui_input_char_no_output()
 {
 
+  Heltec.display->displayOff();
+
   i_gui_flush_input();
 
   char ret_char;
@@ -826,6 +828,7 @@ char gui_input_char_no_output()
     }
   }
 
+  Heltec.display->displayOn();
   return ret_char;
 }
 

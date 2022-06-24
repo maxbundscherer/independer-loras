@@ -154,8 +154,8 @@ void i_actor_functions_menu()
     {
       i_actor_functions_test_function_menu();
     }
-    else if(selected == 2){
-      gui_msg_static("Info", "Standby");
+    else if (selected == 2)
+    {
       gui_input_char_no_output();
     }
     else if (selected == 3)
