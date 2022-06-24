@@ -428,6 +428,13 @@ void application_actor_query_msgs_from_gateway()
 void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg)
 {
 
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag)
+  {
+    multi_actor_stop();
+  }
+
   int c_max_retries = 5;
   boolean sucFlag = false;
   int cur_at = 0;
@@ -448,4 +455,9 @@ void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg
   }
 
   Serial.println("Success Flag: " + String(sucFlag));
+
+  if (sync_was_on_flag)
+  {
+    multi_actor_start();
+  }
 }
