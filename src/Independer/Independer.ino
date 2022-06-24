@@ -69,6 +69,11 @@ void setup()
       delay(C_GUI_DELAY_STATIC);
     }
   }
+
+  if(c_actor_mode) {
+    String o = gui_input_text("Test", "testWert");
+    Serial.println("Got String '" + o + "'");
+  }
 }
 
 /*

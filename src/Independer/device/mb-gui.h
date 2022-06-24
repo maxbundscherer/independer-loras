@@ -659,8 +659,11 @@ int gui_selection(String menu_title, String menu_items[], int count_items, boole
  * ####################################
  */
 
-void i_gui_input_single_line(String menu_title, String val)
+void i_gui_input_single_line(String menu_title, String val, int current_cursor)
 {
+
+  val = val.substring(0, current_cursor) + "_" + val.substring(current_cursor, val.length());
+
   Heltec.display->clear();
   Heltec.display->setFont(ArialMT_Plain_10);
   Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
@@ -684,12 +687,13 @@ String gui_input_text(String menu_title, String default_value)
 
   String current = default_value;
   int current_length = current.length();
+  int current_cursor = current_length;
 
   boolean hasSelected = false;
   while (!hasSelected)
   {
 
-    i_gui_input_single_line(menu_title, current);
+    i_gui_input_single_line(menu_title, current, current_cursor);
 
     Wire.requestFrom(CARDKB_ADDR, 1);
     while (Wire.available())
@@ -697,21 +701,40 @@ String gui_input_text(String menu_title, String default_value)
       char c = Wire.read();
       if (c != 0)
       {
-        //          Serial.println(c, HEX);
-        if (c == 0x8)
-        { // Press Rm
+        // Serial.println();
+        // Serial.println(c, HEX);
+        // Serial.println("Current Length: " + String(current_length));
+        // Serial.println("Current Cursor: " + String(current_cursor));
+        if (c == 0x8) // Press Rm
+        {
           if (current_length != 0)
           {
-            current.remove(current_length - 1, 1);
-            current_length -= 1;
+            // current.remove(current_length - 1, 1);
+            current = current.substring(0, current_cursor - 1) + current.substring(current_cursor, current_length);
+            current_length--;
+            current_cursor--;
           }
         }
-        else if (c == 0xD)
-          hasSelected = true; // Press Enter
+        else if (c == 0xB4 or c == 0xB7) // Press Left or right
+        {
+          if (c == 0xB4) // Press Left
+            current_cursor -= 1;
+          else // Press Right
+            current_cursor += 1;
+
+          if (current_cursor < 0)
+            current_cursor = 0;
+          else if (current_cursor > current_length)
+            current_cursor = current_length;
+        }
+        else if (c == 0xD) // Press Enter
+          hasSelected = true;
         else
         {
-          current += c;
-          current_length += 1;
+          // current += c;
+          current = current.substring(0, current_cursor) + c + current.substring(current_cursor, current_length);
+          current_length++;
+          current_cursor++;
         }
       }
     }
