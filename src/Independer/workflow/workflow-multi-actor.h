@@ -79,6 +79,41 @@ void i_multi_actor_rec_message_from_actor(String actorId)
   xTaskCreatePinnedToCore(i_multi_res_proc_actor_rec_message_from_actor, "CPU_1b", 1000 * 8, NULL, 1, &Core1TaskHnd, 1); // TODO: Warum Faktor 8
 }
 
+void multi_actor_background_show_messages()
+{
+
+  if (state_multi_actor_msgs_counter == 0)
+  {
+    gui_msg_animated("Info", "keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_SHORT_I);
+    return;
+  }
+
+  String gui_items[state_multi_actor_msgs_counter + 1]; // Add 1 for go back item
+
+  for (int i = 0; i < state_multi_actor_msgs_counter; i++)
+  {
+    gui_items[i] = state_multi_actor_msgs[i];
+  }
+
+  gui_items[state_multi_actor_msgs_counter] = "[zurück]"; // Add go back item
+
+  boolean hasMesageShown = false;
+  while (!hasMesageShown)
+  {
+    int selected = gui_selection("Nachrichten", gui_items, state_multi_actor_msgs_counter - 1 + 1, false); // Add + 1 (go back item)
+    if (selected == state_multi_actor_msgs_counter)
+      hasMesageShown = true;
+    else
+      gui_msg_long_text("Nachricht", gui_items[selected]);
+  }
+}
+
+void multi_actor_background_clear_messages()
+{
+  gui_msg_animated("Info", "Leere Nachrichten", C_GUI_DELAY_MSG_SHORT_I);
+  state_multi_actor_msgs_counter = 0;
+}
+
 /*
  * ####################################
  *  Background Job Section

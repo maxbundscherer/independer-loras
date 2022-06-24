@@ -74,4 +74,4 @@ This function is for sending messages directly between Actor A1 and Actor A2.
 3. A1 send data to A2 \[P1\] `[msg]` is set to `$msgContent`. Where `$msgContent` is content of message.
 4. A2 replies to A1 \[P3\] `[msg]` is set to `N` and switch to background.
 
-Designed for Actor background-job. A1 tries whole process three times. A2 goes automatic in background if no data received from A1. If A2 receive data from step 1 - A2 reply \[P3\] to A1 `[msg]` is set to `S` again.
+Designed for Actor background-job. A1 tries whole process five times. A2 goes automatic in background if no data received from A1. If A2 receive data from step 1 - A2 reply \[P3\] to A1 `[msg]` is set to `S` again.

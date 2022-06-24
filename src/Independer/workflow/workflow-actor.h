@@ -39,7 +39,8 @@ void i_communication_messages_menu()
 {
   String menu_items[] = {
       "Nachricht schreiben",
-      "Nachrichten abrufen",
+      "Nachrichten lesen",
+      "Nachrichten leeren",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -54,8 +55,9 @@ void i_communication_messages_menu()
       application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
     }
     else if (selected == 1)
-    {
-    }
+      multi_actor_background_show_messages();
+    else if (selected == 2)
+      multi_actor_background_clear_messages();
     else
       fin_flag = true;
   }
