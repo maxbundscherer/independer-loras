@@ -1,3 +1,5 @@
+#define C_APP_GATEWAY_MAX_MESSAGES 100
+
 /*
  * ####################################
  *  Proc Incoming Message Section
@@ -11,7 +13,7 @@ struct S_I_Application_Gateway_Message
   String msgContent;
 };
 
-S_I_Application_Gateway_Message state_gateway_messages[100];
+S_I_Application_Gateway_Message state_gateway_messages[C_APP_GATEWAY_MAX_MESSAGES];
 int state_gateway_messages_count = 0;
 
 /**
@@ -85,4 +87,38 @@ void application_gateway_send_msgs_to_actor(String actorId)
   String ret_string = "A;" + String(msgCounter) + ";" + msgString;
 
   lora_send_msg(state_gateway_id, actorId, ret_string, state_lora_gain);
+}
+
+/*
+ * ####################################
+ *  Clear user messages Section
+ * ####################################
+ */
+/**
+ * @return int number of stored messages
+ */
+int application_gateway_clear_user_msgs(String actorId)
+{
+
+  S_I_Application_Gateway_Message new_state_gateway_messages[C_APP_GATEWAY_MAX_MESSAGES];
+  int new_state_gateway_messages_count = 0;
+
+  for (int i = 0; i < state_gateway_messages_count; i++)
+  {
+
+    if (state_gateway_messages[i].msgReceiver != actorId)
+    {
+      new_state_gateway_messages[new_state_gateway_messages_count] = {state_gateway_messages[i].msgAuthor, state_gateway_messages[i].msgReceiver, state_gateway_messages[i].msgContent};
+      new_state_gateway_messages_count++;
+    }
+  }
+
+  for (int i = 0; i < new_state_gateway_messages_count; i++)
+  {
+    state_gateway_messages[i] = new_state_gateway_messages[i];
+  }
+
+  state_gateway_messages_count = new_state_gateway_messages_count;
+
+  return state_gateway_messages_count;
 }

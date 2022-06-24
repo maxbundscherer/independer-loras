@@ -14,6 +14,8 @@
 
 // TODO: Speicherüberlauf Schutz bei Actor App Umgebung Scan und Gateway Store Message
 // TODO: Workaround Scan List ausgeben - 1
+// TODO: Verbesser Start/Stop Actor Multi in Briefe abrufen
+// TODO: UI Verbessern Leerzeichen bei Long Text ausgabe und Text Eingabe
 
 // TODO: Refactoring c_id und Gateway id
 

@@ -23,7 +23,7 @@ void application_actor_who_is_in_my_area()
   }
 
   int c_max_ping_retries = 3;                                                             // Maximial attempts to receive
-  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                                  // Waiting 1ms between receiving
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SCAN_MS + 2000) / c_max_ping_delta; // Waiting approx C_INDEPENDER_SCAN_MS seconds for next packet
 
   S_I_Application_Device_Item collected_db[30];
@@ -114,7 +114,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns)
   }
 
   int c_max_ping_retries = 5;                                                             // Maximial attempts to receive pong message
-  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                                  // Waiting 1ms between receiving
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   String receivedMsg;
@@ -199,7 +199,7 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg)
   }
 
   int c_max_ping_retries = 3;                                                             // Maximial attempts to receive pong message
-  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                                  // Waiting 1ms between receiving
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   boolean sendSuccess = false;
@@ -270,7 +270,7 @@ void application_actor_query_msgs_from_gateway()
   }
 
   int c_max_ping_retries = 3;                                                             // Maximial attempts to receive pong message
-  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                                  // Waiting 1ms between receiving
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
   boolean resSuccess = false;
@@ -332,7 +332,7 @@ void application_actor_query_msgs_from_gateway()
         {
 
           // Get Messages
-          String gui_items[numMessages];
+          String gui_items[numMessages + 1]; // +1 for go back
           int lastDelimiterIndex = 0;
 
           for (int i_msg = 0; i_msg < numMessages; i_msg++)
@@ -376,7 +376,17 @@ void application_actor_query_msgs_from_gateway()
             gui_items[i_msg] = r;
           }
 
-          gui_selection("Nachrichten", gui_items, numMessages - 1, false);
+          gui_items[numMessages] = "[zurück]"; // Add go back item
+
+          boolean hasMesageShown = false;
+          while (!hasMesageShown)
+          {
+            int selected = gui_selection("Nachrichten", gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
+            if (selected == numMessages)
+              hasMesageShown = true;
+            else
+              gui_msg_long_text("Nachricht", gui_items[selected]);
+          }
         }
         else
           gui_msg_animated("Info", "keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);

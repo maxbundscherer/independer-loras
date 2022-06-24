@@ -9,6 +9,7 @@ void i_communication_menu()
   String menu_items[] = {
       "Brief schreiben",
       "Briefe abrufen",
+      "Briefe leeren",
       "Kontakte",
       "[zurück]"};
 
@@ -27,7 +28,13 @@ void i_communication_menu()
     else if (selected == 1)
       application_actor_query_msgs_from_gateway();
     else if (selected == 2)
+    {
+      gui_msg_animated("Info", "Leere Briefe\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clmsg", state_lora_gain);
+    }
+    else if (selected == 3)
       gui_msg_animated("Info", "Leider ist die Funktion\n'Kontakte'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
+
     else
       fin_flag = true;
   }
