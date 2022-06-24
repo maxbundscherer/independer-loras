@@ -1,11 +1,19 @@
 /*
  * ####################################
- *  Background Job Section
+ *  Background Receiving Section
  * ####################################
  */
 
-void i_multi_actor_rec_message_from_actor(String actorId)
+#include <Ticker.h> //Call Ticker.h library
+
+Ticker ticker_multi_actor_receiving; // Declare Ticker object for send later
+
+String state_ticker_multi_actor_rec_actor_id = "";
+
+void i_multi_res_proc_actor_rec_message_from_actor()
 {
+
+  String actorId = state_ticker_multi_actor_rec_actor_id;
 
   int c_max_ping_retries = 1;                                                             // Maximial attempts to receive pong message
   int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
@@ -17,8 +25,6 @@ void i_multi_actor_rec_message_from_actor(String actorId)
   while (l_attempt < c_max_ping_retries and !sendSuccess)
   {
     l_attempt++;
-
-    application_independer_send_later_single_unsafe(state_my_id, actorId, "S", C_INDEPENDER_SEND_DELAY);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and !sendSuccess)
@@ -44,6 +50,16 @@ void i_multi_actor_rec_message_from_actor(String actorId)
       }
     }
   }
+
+  state_ticker_multi_actor_rec_actor_id = "";
+}
+
+void i_multi_actor_rec_message_from_actor(String actorId)
+{
+  application_independer_send_later_single_unsafe(state_my_id, actorId, "S", C_INDEPENDER_SEND_DELAY);
+  Serial.println("Schedule receving background later in " + String(100) + " millis");
+  state_ticker_multi_actor_rec_actor_id = actorId;
+  ticker_independer_send_later.once_ms(100, i_multi_res_proc_actor_rec_message_from_actor);
 }
 
 /*
