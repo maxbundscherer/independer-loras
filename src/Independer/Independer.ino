@@ -71,7 +71,7 @@ void setup()
   }
 
   if(c_actor_mode) {
-    String o = gui_input_text("Test", "testWert");
+    String o = gui_input_text("Test", "123456789");
     Serial.println("Got String '" + o + "'");
   }
 }

@@ -662,7 +662,65 @@ int gui_selection(String menu_title, String menu_items[], int count_items, boole
 void i_gui_input_single_line(String menu_title, String val, int current_cursor)
 {
 
-  val = val.substring(0, current_cursor) + "_" + val.substring(current_cursor, val.length());
+  int c_chars_per_line = 3;
+
+  int val_length = val.length() + 1; // Add 1 for cursor
+
+  int num_lines = ceil((float)val_length / c_chars_per_line);
+
+  String pre = val.substring(0, current_cursor);
+  String post = val.substring(current_cursor, val.length());
+
+  val = pre + "_" + post;
+
+  String outStringLines[num_lines] = "";
+  int newLineBreakCounter = 0;
+  int currentNumLine = 0;
+
+  for (int i = 0; i < val_length; i++)
+  {
+
+    outStringLines[currentNumLine] = outStringLines[currentNumLine] + val[i];
+    newLineBreakCounter++;
+
+    if (newLineBreakCounter == c_chars_per_line)
+    {
+      currentNumLine++;
+      newLineBreakCounter = 0;
+    }
+  }
+
+  int current_line_cursor = ceil((float)current_cursor / c_chars_per_line);
+
+  // Serial.println("\n'" + pre + "' '" + post + "' '" + val + "'");
+  // Serial.println("Num Of Lines " + String(num_lines));
+  // Serial.println("Current Num Line Cursor " + String(current_line_cursor));
+
+  // for(int i = 0; i<num_lines; i++) {
+  //   Serial.println("Line " + String(i) + ": '" + outStringLines[i] + "'");
+  // }
+
+  int firstLine = current_line_cursor - 1;
+  int secondLine = current_line_cursor;
+
+  String out = "";
+
+  if (num_lines == 1)
+    out = outStringLines[0];
+  else
+  {
+    if (firstLine < 0)
+    {
+      firstLine = 0;
+      secondLine = 1;
+    }
+    if (secondLine > num_lines - 1)
+    {
+      firstLine = num_lines - 2;
+      secondLine = num_lines - 1;
+    }
+    out = outStringLines[firstLine] + "\n" + outStringLines[secondLine];
+  }
 
   Heltec.display->clear();
   Heltec.display->setFont(ArialMT_Plain_10);
@@ -672,7 +730,7 @@ void i_gui_input_single_line(String menu_title, String val, int current_cursor)
   Heltec.display->drawLine(5, 17, 5 + 120, 17);
 
   Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 10 * 2 + 2, "'" + val + "'");
+  Heltec.display->drawString(5, 10 * 2 + 2, "'" + out + "'");
 
   Heltec.display->setTextAlignment(TEXT_ALIGN_RIGHT);
   Heltec.display->drawString(128 - 5, 64 - 15, "[Enter] Ok");
@@ -729,7 +787,7 @@ String gui_input_text(String menu_title, String default_value)
         }
         else if (c == 0xD) // Press Enter
           hasSelected = true;
-        else
+        else if (c != 0xB5 and c != 0xB6) // Ignore Down and Up
         {
           // current += c;
           current = current.substring(0, current_cursor) + c + current.substring(current_cursor, current_length);
