@@ -4,7 +4,9 @@
  * ####################################
  */
 
-// TaskHandle_t Core0TaskHnd; // Core0
+// TaskHandle_t Core0TaskHnd; //
+void multi_actor_start_blinking();
+void multi_actor_stop_blinking();
 TaskHandle_t Core1TaskHnd;
 
 String state_ticker_multi_actor_rec_actor_id = "";
@@ -56,6 +58,7 @@ void i_multi_res_proc_actor_rec_message_from_actor(void *parameter)
           delay(C_INDEPENDER_SEND_DELAY);
           lora_send_msg_single_unsafe(state_my_id, actorId, "N", state_lora_gain);
           Serial.println("Save Direct msg from " + actorId + ": '" + pong_ans.message + "'");
+          multi_actor_start_blinking();
           state_multi_actor_msgs[state_multi_actor_msgs_counter] = "(" + actorId + ") " + pong_ans.message;
           state_multi_actor_msgs_counter++;
           sendSuccess = true;
@@ -81,6 +84,8 @@ void i_multi_actor_rec_message_from_actor(String actorId)
 
 void multi_actor_background_show_messages()
 {
+
+  multi_actor_stop_blinking();
 
   if (state_multi_actor_msgs_counter == 0)
   {
