@@ -803,6 +803,32 @@ String gui_input_text(String menu_title, String default_value)
   return current;
 }
 
+char gui_input_char_no_output()
+{
+
+  i_gui_flush_input();
+
+  char ret_char;
+
+  boolean hasSelected = false;
+  while (!hasSelected)
+  {
+
+    Wire.requestFrom(CARDKB_ADDR, 1);
+    while (Wire.available())
+    {
+      char c = Wire.read();
+      if (c != 0)
+      {
+        ret_char = c;
+        hasSelected = true;
+      }
+    }
+  }
+
+  return ret_char;
+}
+
 /*
  * ####################################
  *  Long Text Section
