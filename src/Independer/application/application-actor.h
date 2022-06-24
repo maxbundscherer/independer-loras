@@ -432,9 +432,14 @@ void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg
 
   while (cur_at < c_max_retries and !sucFlag)
   {
+    cur_at++;
+
+    gui_display_prg_static("Sende Versuch", cur_at, 0, c_max_retries);
+
+    delay(C_GUI_DELAY_STATIC_SHORT);
+
     Serial.println("Sending Message to Actor " + String(cur_at + 1) + " of " + String(c_max_retries));
     sucFlag = application_actor_is_available(receiverId, true, "T", 1, "S", true);
-    cur_at++;
   }
 
   Serial.println("Success Flag: " + String(sucFlag));
