@@ -111,7 +111,7 @@ void application_actor_who_is_in_my_area()
 /**
  * @return boolean return if is available
  */
-boolean application_actor_is_available(String target_id, boolean flagHideAns)
+boolean application_actor_is_available(String target_id, boolean flagHideAns, String testSendMsg = C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE, int maxRetries = 5, String responseMsgCheck = "", boolean checkResponse = false)
 {
 
   boolean sync_was_on_flag = multi_actor_get_state();
@@ -121,7 +121,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns)
     multi_actor_stop();
   }
 
-  int c_max_ping_retries = 5;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_retries = maxRetries;                                                    // Maximial attempts to receive pong message
   int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
   int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
 
@@ -135,7 +135,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns)
 
     gui_display_prg_static("Erreichbar-Check Versuch", l_attempt, 0, c_max_ping_retries);
 
-    lora_send_msg_short_message(state_my_id, target_id, C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE, state_lora_gain);
+    lora_send_msg_short_message(state_my_id, target_id, testSendMsg, state_lora_gain);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and !receivedSuccess)
@@ -149,7 +149,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns)
         l_cur_receive_attempt = 0;
       }
 
-      if (pong_ans.receivingCompleted)
+      if (pong_ans.receivingCompleted and (!checkResponse or pong_ans.message == responseMsgCheck))
       {
         receivedMsg = pong_ans.message;
         receivedSuccess = true;
@@ -415,4 +415,14 @@ void application_actor_query_msgs_from_gateway()
   {
     gui_msg_animated("Fehler", "Nachricht konnten\nnicht empfangen werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
+}
+
+/*
+ * ####################################
+ *  Send Message Actor to Actor Section
+ * ####################################
+ */
+
+void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg)
+{
 }
