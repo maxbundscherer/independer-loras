@@ -1,3 +1,19 @@
+/*
+ * ####################################
+ *  Background Job Section
+ * ####################################
+ */
+
+void i_multi_actor_rec_message_from_actor(actorId)
+{
+  application_independer_send_later_single_unsafe(state_my_id, actorId, "S", C_INDEPENDER_SEND_DELAY);
+}
+
+/*
+ * ####################################
+ *  Background Job Section
+ * ####################################
+ */
 // TaskHandle_t  Core0TaskHnd ; //Core0
 TaskHandle_t Core1TaskHnd;
 boolean state_multi_is_active = false;
@@ -95,7 +111,7 @@ void i_multi_Task1_short_message(void *parameter)
         }
         else if (parser_ans.message = "T")
         {
-          application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, "S", C_INDEPENDER_SEND_DELAY);
+          i_multi_actor_rec_message_from_actor(parser_ans.from);
         }
         else
         {
