@@ -6,7 +6,44 @@
 
 void i_multi_actor_rec_message_from_actor(actorId)
 {
-  application_independer_send_later_single_unsafe(state_my_id, actorId, "S", C_INDEPENDER_SEND_DELAY);
+
+  int c_max_ping_retries = 1;                                                             // Maximial attempts to receive pong message
+  int c_max_ping_delta = C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR;                            // Waiting 1ms between receiving
+  int c_max_ping_max_receive_attempts = (C_INDEPENDER_SEND_DELAY * 4) / c_max_ping_delta; // Waiting approx 2 seconds for next packet
+
+  boolean sendSuccess = false;
+
+  int l_attempt = 0;
+  while (l_attempt < c_max_ping_retries and !sendSuccess)
+  {
+    l_attempt++;
+
+    application_independer_send_later_single_unsafe(state_my_id, actorId, "S", C_INDEPENDER_SEND_DELAY);
+
+    int l_cur_receive_attempt = 0;
+    while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and !sendSuccess)
+    {
+      l_cur_receive_attempt++;
+
+      struct S_APP_PONG pong_ans = application_independer_pong(actorId, false);
+
+      if (pong_ans.receivedSomething)
+      {
+        l_cur_receive_attempt = 0;
+      }
+
+      if (pong_ans.receivingCompleted)
+      {
+        application_independer_send_later_single_unsafe(state_my_id, actorId, "N", C_INDEPENDER_SEND_DELAY);
+        Serial.println("Direct msg from " + actorId + ": '" + pong_ans.message + "'");
+        sendSuccess = true;
+      }
+      else
+      {
+        delay(c_max_ping_delta);
+      }
+    }
+  }
 }
 
 /*
