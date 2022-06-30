@@ -39,12 +39,12 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Documentation (`docs/`)
 - Sourcecode (`src/`)
 - 3D case (`case/`)
+- [Releases](https://github.com/maxbundscherer/independer-loras/releases/) 
 
 ### Documentation
 
 - [Hardware and Cost Overview](docs/hardware.md)
 - [Update over WIFI](docs/update.md)
-- [Changelog](docs/changelog.md)
 - [Developer Overview](docs/developer.md)
 - [LoraS-Protocol](docs/loras-protocol.md)
 - [Independer-Protocol](docs/independer-protocol.md)
