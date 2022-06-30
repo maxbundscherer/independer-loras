@@ -57,6 +57,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - [x] Actor to Gateway test functions
 - [x] Gateway to Actor test functions
 - [x] *Who is in my area?* or *Is available?* functions
+- [x] Over-the-Air-Update
 - [x] Inbox and outbox Actor to Gateway (via LoRaS) communcation
 - [x] Inbox and outbox Actor to Actor (via LoRaS) communcation
 - [ ] Inbox and outbox Actor to Actor (via WIFI/Internet) communcation (in progress)
