@@ -16,7 +16,7 @@ No available check before sending (\[F23.2\]). Gateway sends no response and goe
 
 This feature is used to clear user messages from Gateway (Actor controlled).
 
-1. For this Actor \[P3\] `[msg]` is set to `C;clmsg`.
+1. For this Actor \[P3\] `[msg]` is set to `C;clmsg`. (send twice)
 
 No available check before sending (\[F23.2\]). Gateway sends no response and clears user messages.
 
@@ -49,7 +49,7 @@ No available check before sending (\[F23.2\]). This is repeated three times, if 
 
 This function is used to find out which Actors and Gateways are nearby.
 
-1. For this Actor \[P2\] `[to]` is set to `*` and `[msg]` is set to `?`. 
+1. For this Actor \[P2\] `[to]` is set to `*` and `[msg]` is set to `?`.  (send twice)
 2. Other devices (Actors and Gateways) respond randomly within 8 seconds \[P3\] and `[msg]` is set to `$battery-$rssi`. Where `$battery` is battery in mA and `$rssi` is rssi in dbi.
 
 This is repeated threefold to reach and receive more devices. Designed for Actor background-job and Gateway.
@@ -58,8 +58,8 @@ This is repeated threefold to reach and receive more devices. Designed for Actor
 
 This function is used to find out whether a specific actor or gateway is nearby. Used mainly before sending a message over LoRaS.
 
-1. For this Actor \[P2\] `[msg]` is set to `!`.
-2. Other device (Actors and Gateways) respond immedatly \[P3\] and `[msg]` is set to `$battery-$rssi`. Where `$battery` is battery in mA and `$rssi` is rssi in dbi.
+1. For this Actor \[P2\] `[msg]` is set to `!`. (send twice)
+2. Other device (Actors and Gateways) respond immedatly \[P3\] and `[msg]` is set to `$battery-$rssi`. Where `$battery` is battery in mA and `$rssi` is rssi in dbi. (send twice)
 
 This function can be repeated. Designed for Actor background-job and Gateway.
 
@@ -69,9 +69,9 @@ This function can be repeated. Designed for Actor background-job and Gateway.
 
 This function is for sending messages directly between Actor A1 and Actor A2.
 
-1. A1 (foreground) to A2 (background) \[P2\] `[msg]` is set to `T`.
-2. A2 reply to A1 \[P3\] `[msg]` is set to `S` and switch to foreground.
+1. A1 (foreground) to A2 (background) \[P2\] `[msg]` is set to `T`. (send twice)
+2. A2 reply to A1 \[P3\] `[msg]` is set to `S` and switch to foreground. (send twice)
 3. A1 send data to A2 \[P1\] `[msg]` is set to `$msgContent`. Where `$msgContent` is content of message.
-4. A2 replies to A1 \[P3\] `[msg]` is set to `N` and switch to background.
+4. A2 replies to A1 \[P3\] `[msg]` is set to `N` and switch to background. (send twice)
 
 Designed for Actor background-job. A1 tries whole process five times. A2 goes automatic in background if no data received from A1. If A2 receive data from step 1 - A2 reply \[P3\] to A1 `[msg]` is set to `S` again.

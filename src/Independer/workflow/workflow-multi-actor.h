@@ -20,6 +20,8 @@ void i_multi_res_proc_actor_rec_message_from_actor(void *parameter)
 
   delay(C_INDEPENDER_SEND_DELAY);
   lora_send_msg_single_unsafe(state_my_id, actorId, "S", state_lora_gain);
+  delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+  lora_send_msg_single_unsafe(state_my_id, actorId, "S", state_lora_gain);
 
   Serial.println("\n !!!!!!!!!!!!!!! START BACKGROUND RECEIVING actorId=" + actorId);
 
@@ -56,6 +58,8 @@ void i_multi_res_proc_actor_rec_message_from_actor(void *parameter)
         else
         {
           delay(C_INDEPENDER_SEND_DELAY);
+          lora_send_msg_single_unsafe(state_my_id, actorId, "N", state_lora_gain);
+          delay(C_INDEPENDER_SEND_DELAY_REPEAT);
           lora_send_msg_single_unsafe(state_my_id, actorId, "N", state_lora_gain);
           Serial.println("Save Direct msg from " + actorId + ": '" + pong_ans.message + "'");
           multi_actor_start_blinking();
@@ -161,7 +165,13 @@ void i_multi_Task1_short_message(void *parameter)
           {
             String msg = String(LoRa.packetRssi(), DEC) + "-" + String(utils_get_battery());
             if (parser_ans.message == C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE)
-              application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
+            {
+              delay(C_INDEPENDER_SEND_DELAY);
+              lora_send_msg_single_unsafe(state_my_id, parser_ans.from, msg, state_lora_gain);
+              delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+              lora_send_msg_single_unsafe(state_my_id, parser_ans.from, msg, state_lora_gain);
+              // application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
+            }
             else
               application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
           }
