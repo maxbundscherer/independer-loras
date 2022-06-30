@@ -225,7 +225,7 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg)
 
     gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
 
-    delay(C_GUI_DELAY_STATIC_SHORT);
+    delay(C_INDEPENDER_SEND_DELAY);
 
     lora_send_msg(state_my_id, state_gateway_id, "M;" + receiverId + ";" + userMsg, state_lora_gain);
 
