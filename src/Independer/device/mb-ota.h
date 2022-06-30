@@ -127,7 +127,7 @@ void i_ota_setup(String ssid, String password, String host)
 
     Serial.println("Updated");
 
-    gui_msg_static("Update", "Gehe im Browser auf\n'" + String(my_ip) + "'");
+    gui_msg_static("Update", "Gehe im Browser auf\n'" + String(my_ip) + "'\n'admin' 'updateindepender'");
 
     /*use mdns for host name resolution*/
     char host_char[host.length() + 1];
