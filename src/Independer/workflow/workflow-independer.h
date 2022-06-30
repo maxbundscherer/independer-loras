@@ -46,7 +46,7 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
 
   Serial.println("- Init Display");
   Heltec.display->init();
-  Heltec.display->setBrightness(boot_state_oled_brightness);
+  Heltec.display->setBrightness(state_oled_brightness);
   // Heltec.display -> flipScreenVertically();
 
   Serial.println("- Init Cipher");

@@ -1,6 +1,6 @@
 #include <Preferences.h>
 
-const char* c_db_target_key = "independer-app";
+const char *c_db_target_key = "independer-app";
 
 Preferences preferences;
 
@@ -14,18 +14,19 @@ void db_init()
     state_wifi_ssid = preferences.getString("pref_wifi_ssid", state_wifi_ssid);
     state_wifi_pw = preferences.getString("pref_wifi_pw", state_wifi_pw);
     state_lora_gain = preferences.getInt("pref_lora_gain", state_lora_gain);
+    state_oled_brightness = preferences.getInt("pref_oled_bri", state_oled_brightness);
 
     preferences.end();
 }
 
-void i_db_write(char* key, String value)
+void i_db_write(char *key, String value)
 {
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.putString(key, value);
     preferences.end();
 }
 
-void i_db_write(char* key, int value)
+void i_db_write(char *key, int value)
 {
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.putInt(key, value);
@@ -62,7 +63,14 @@ void db_save_lora_gain(int value)
     i_db_write("pref_lora_gain", value);
 }
 
-void db_clear() {
+void db_save_oled_brightness(int value)
+{
+    state_oled_brightness = value;
+    i_db_write("pref_oled_bri", value);
+}
+
+void db_clear()
+{
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.clear();
     preferences.end();

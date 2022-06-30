@@ -286,13 +286,13 @@ void i_settings_menu()
     }
     else if (selected == 3)
     {
-      int ans = gui_input_text("Helligkeit (0-255)", String(boot_state_oled_brightness)).toInt();
+      int ans = gui_input_text("Helligkeit (0-255)", String(state_oled_brightness)).toInt();
       if (ans > 255)
         ans = 255;
       if (ans < 0)
         ans = 0;
-      boot_state_oled_brightness = ans;
-      Heltec.display->setBrightness(boot_state_oled_brightness);
+      db_save_oled_brightness(ans);
+      Heltec.display->setBrightness(state_oled_brightness);
     }
     else if (selected == 4)
       i_setting_bg_syn_menu();
