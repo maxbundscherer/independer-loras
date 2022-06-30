@@ -41,6 +41,9 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
     state_lora_gain = 6;
   }
 
+  Serial.println("- Init Database");
+  db_init();
+
   Serial.println("- Init Display");
   Heltec.display->init();
   Heltec.display->setBrightness(boot_state_oled_brightness);
