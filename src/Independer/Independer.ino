@@ -13,6 +13,7 @@
 // TODO: Feature Python WebServer
 // TODO: Pakete doppelt senden um empfang besser zu macen
 // TODO: Bug Senden fällt bei Actoren im Background aus (vielleicht mal bei Verwendung von sendLaster bei Near me ?)
+// TODO: Bug Hostname bei WIFI wird nicht übertragen
 
 // TODO: Warum Faktor 2 und 8 Multi Task Decoding
 
@@ -47,7 +48,7 @@ String state_wifi_hostname = "independer-" + String(rand());
 
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN - Saved in db
 
-int state_oled_brightness = 255; //saved in db
+int state_oled_brightness = 255; // saved in db
 
 /*
  * ####################################
