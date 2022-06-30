@@ -4,6 +4,12 @@ const char *c_db_target_key = "independer-app";
 
 Preferences preferences;
 
+/*
+ * ####################################
+ *  Settings Section
+ * ####################################
+ */
+
 void db_init()
 {
 
@@ -75,3 +81,9 @@ void db_clear()
     preferences.clear();
     preferences.end();
 }
+
+/*
+ * ####################################
+ *  Letters and Message Section
+ * ####################################
+ */
