@@ -1,6 +1,6 @@
 ## Update
 
-Update Independer Actor via WIFI.
+Update Independer Actor via WIFI. **Google Chrome is recommend**.
 
 ### Steps
 
