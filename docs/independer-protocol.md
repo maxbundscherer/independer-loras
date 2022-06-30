@@ -8,7 +8,7 @@ Application level protocol is based on the LoRaS Protocol \[P1\], \[P2\], and\[P
 
 This feature is used to set Gateway in sleep mode (Actor controlled).
 
-1. For this Actor \[P3\] `[msg]` is set to `C;slp`.
+1. For this Actor \[P3\] `[msg]` is set to `C;slp`. (send twice)
 
 No available check before sending (\[F23.2\]). Gateway sends no response and goes into sleep mode.
 
