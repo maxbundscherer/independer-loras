@@ -11,3 +11,9 @@
 (≈ 10 €)
 
 In total ≈ 45 - 55 € per device (without shipping).
+
+### How to connect pins
+
+<img src="images/hardware_how_to.jpeg" width="600"/>
+
+<img src="images/ui_actor.jpeg" width="600"/>

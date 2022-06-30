@@ -43,7 +43,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 ### Documentation
 
-- [Hardware and Cost Overview](docs/hardware.md)
+- [Hardware, Cost Overview, and How-to](docs/hardware.md)
 - [Update over WIFI](docs/update.md)
 - [Developer Overview](docs/developer.md)
 - [LoraS-Protocol](docs/loras-protocol.md)
