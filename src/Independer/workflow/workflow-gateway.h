@@ -68,7 +68,11 @@ void workflow_gateway_main()
       }
       else if (parser_ans.message.startsWith("M;"))
       {
-        application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, "A;ok", C_INDEPENDER_SEND_DELAY);
+        delay(C_INDEPENDER_SEND_DELAY);
+        lora_send_msg_single_unsafe(state_gateway_id, parser_ans.from, "A;ok", state_lora_gain);
+        delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+        lora_send_msg_single_unsafe(state_gateway_id, parser_ans.from, "A;ok", state_lora_gain);
+        // application_independer_send_later_single_unsafe(state_gateway_id, parser_ans.from, "A;ok", C_INDEPENDER_SEND_DELAY);
         state_gateway_db_items = application_gateway_store_msg(parser_ans.from, parser_ans.message);
         state_gateway_has_sth_changed = true;
       }

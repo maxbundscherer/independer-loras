@@ -28,7 +28,7 @@ This function is used to send messages via Gateway from Actor to Actor. This han
 
 1. For this Actor check if Gateway is available (\[F23.2\]).
 2. If Gateway is available: Actor to Gateway \[P1\] `[msg]` is set to `M;$receiverId;$userMsg`. Where `$receiverId` is user-id from msg-receiver and `$userMsg` is actual message. Message author is derived from `[from]`.
-3. Gateway to Actor \[P3\] `[msg]` is set to `A;ok`.
+3. Gateway to Actor \[P3\] `[msg]` is set to `A;ok`. (send twice)
 
 If Actor does not receive a response from Gateway, Actor goes to step 2 (skip available check). This is repeated three times.
 
