@@ -12,7 +12,7 @@
 
 // TODO: Feature Python WebServer
 // TODO: Pakete doppelt senden um empfang besser zu macen
-// TODO: Bug Senden fällt bei Actoren im Background aus
+// TODO: Bug Senden fällt bei Actoren im Background aus (vielleicht mal bei Verwendung von sendLaster bei Near me ?)
 
 // TODO: Warum Faktor 2 und 8 Multi Task Decoding
 
@@ -29,7 +29,7 @@
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.1.3";
+String c_product_version = "v.0.1.4";
 boolean c_dev_mode = false;
 boolean c_actor_mode = true;
 
