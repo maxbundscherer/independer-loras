@@ -6,11 +6,33 @@
 #define C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI 10
 #define C_INDEPENDER_SCAN_MS 8000
 
+#define BAND 868E6 // you can set band here directly,e.g. 868E6 915E6 433E6
+
 /*
  * ####################################
  *  Internal Section
  * ####################################
  */
+
+int c_gain_threshold_boost = 10;
+
+void i_reinit_lora(int sendGain)
+{
+
+  // LoRa.end();
+  //  LoRa.sleep();
+
+  // if (sendGain < c_gain_threshold_boost)
+  // {
+  //   LoRa.begin(BAND, RF_PACONFIG_PASELECT_RFO);
+  // }
+  // else {
+  //   LoRa.begin(BAND, RF_PACONFIG_PASELECT_PABOOST);
+  // }
+
+  LoRa.idle();
+  // LoRa.sleep();
+}
 
 long i_lora_string_hash(char *str)
 {
@@ -61,7 +83,7 @@ void i_lora_trans_encrypt(String msg, int sendGain)
 
   digitalWrite(LED, HIGH);
 
-  if (sendGain < 10)
+  if (sendGain < c_gain_threshold_boost)
   {
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
     uint64_t du_start = esp_timer_get_time();
@@ -115,6 +137,8 @@ void i_trans_short_message(String from, String to, String msg, int sendGain)
 void lora_send_msg(String from, String to, String msg, int sendGain)
 {
 
+  i_reinit_lora(sendGain);
+
   int c_max_length = 10;
   int c_send_delay = C_INDEPENDER_SEND_DELAY;
 
@@ -149,12 +173,14 @@ void lora_send_msg(String from, String to, String msg, int sendGain)
 void lora_send_msg_single_unsafe(String from, String to, String msg, int sendGain)
 {
 
+  i_reinit_lora(sendGain);
   i_trans_single_unssafe(from, to, msg, sendGain);
 }
 
 void lora_send_msg_short_message(String from, String to, String msg, int sendGain)
 {
 
+  i_reinit_lora(sendGain);
   i_trans_short_message(from, to, msg, sendGain);
 }
 
