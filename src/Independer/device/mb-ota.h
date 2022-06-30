@@ -4,10 +4,6 @@
 #include <ESPmDNS.h>
 #include <Update.h>
 
-const char *host = "esp32";
-const char *ssid = "Bundscherer-Gast";
-const char *password = "";
-
 WebServer server(80);
 
 /*
@@ -99,12 +95,19 @@ const char *serverIndex =
 /*
  * setup function
  */
-void i_ota_setup(void)
+void i_ota_setup(String ssid, String password, String host)
 {
-    Serial.begin(115200);
 
     // Connect to WiFi network
-    WiFi.begin(ssid, password);
+    char ssid_char[ssid.length() + 1];
+    ssid.toCharArray(ssid_char, ssid.length() + 1);
+
+    char password_char[password.length() + 1];
+    password.toCharArray(password_char, password.length() + 1);
+
+    Serial.println("Conntect to '" + String(ssid_char) + "' '" + ssid + "'");
+
+    WiFi.begin(ssid_char, password_char);
     Serial.println("");
 
     WiFi.setSleep(false);
@@ -121,10 +124,12 @@ void i_ota_setup(void)
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
 
-    Serial.println("Updated 2");
+    Serial.println("Updated");
 
     /*use mdns for host name resolution*/
-    if (!MDNS.begin(host))
+    char host_char[host.length() + 1];
+    host.toCharArray(host_char, host.length() + 1);
+    if (!MDNS.begin(host_char))
     { // http://esp32.local
         Serial.println("Error setting up MDNS responder!");
         while (1)
@@ -187,4 +192,13 @@ void i_ota_loop(void)
 {
     server.handleClient();
     delay(1);
+}
+
+void ota_start()
+{
+    i_ota_setup(state_wifi_ssid, state_wifi_pw, state_wifi_hostname);
+    while (1)
+    {
+        i_ota_loop();
+    }
 }
