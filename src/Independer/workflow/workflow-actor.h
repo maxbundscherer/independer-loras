@@ -4,12 +4,47 @@
  * ####################################
  */
 
+void i_communication_letters_recovery_menu()
+{
+  String menu_items[] = {
+      "Erneut senden",
+      "Speicher löschen",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Rettungsmenü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+    {
+      if (db_has_stored_letter)
+      {
+        gui_msg_animated("tbd", "tbd", C_GUI_DELAY_MSG_SHORT_I);
+      }
+      else
+      {
+        gui_msg_animated("Fehler", "Keine Nachricht\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+      }
+    }
+    else if (selected == 1)
+    {
+      gui_msg_animated("Hinweis", "Nachrichten werden\ngelöscht", C_GUI_DELAY_MSG_SHORT_I);
+      db_clear_letter();
+    }
+
+    else
+      fin_flag = true;
+  }
+}
+
 void i_communication_letters_menu()
 {
   String menu_items[] = {
       "Brief schreiben",
       "Briefe abrufen",
       "Briefe leeren",
+      "Rettungsmenü",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -32,6 +67,8 @@ void i_communication_letters_menu()
       delay(C_INDEPENDER_SEND_DELAY_REPEAT);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clmsg", state_lora_gain);
     }
+    else if (selected == 3)
+      i_communication_letters_recovery_menu();
     else
       fin_flag = true;
   }
@@ -298,10 +335,11 @@ void i_settings_menu()
       i_setting_bg_syn_menu();
     else if (selected == 5)
       i_setting_wifi_menu();
-      else if(selected == 6){
-        db_clear();
-        ESP.restart();
-      }
+    else if (selected == 6)
+    {
+      db_clear();
+      ESP.restart();
+    }
     else
       fin_flag = true;
   }
