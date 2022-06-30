@@ -132,7 +132,9 @@ void i_communication_messages_menu()
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
       String msg_tx = gui_input_text("Nachricht", "");
-      application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
+      boolean suc = application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
+      if (!suc)
+        db_store_msg(msg_res, msg_tx);
     }
     else if (selected == 1)
       multi_actor_background_show_messages();
