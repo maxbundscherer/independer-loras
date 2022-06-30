@@ -32,6 +32,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Communication Actor and Gateway test functions
 - *Who is in my area?* or *Is available?* functions
 - Over-the-Air-Update (update devices through WIFI)
+- Blinking led if you have new unseen messages
 - ...
 
 ### Included

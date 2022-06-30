@@ -29,6 +29,8 @@ void i_communication_letters_menu()
     {
       gui_msg_animated("Info", "Leere Briefe\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clmsg", state_lora_gain);
+      delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clmsg", state_lora_gain);
     }
     else
       fin_flag = true;
@@ -188,6 +190,8 @@ void i_gateway_functions_menu()
     if (selected == 0)
     {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
+      delay(C_INDEPENDER_SEND_DELAY_REPEAT);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
     }
     else
