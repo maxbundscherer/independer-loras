@@ -99,7 +99,7 @@ const char *serverIndex =
 /*
  * setup function
  */
-void setup(void)
+void i_ota_setup(void)
 {
     Serial.begin(115200);
 
@@ -183,7 +183,7 @@ void setup(void)
     server.begin();
 }
 
-void loop(void)
+void i_ota_loop(void)
 {
     server.handleClient();
     delay(1);
