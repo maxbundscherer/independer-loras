@@ -299,6 +299,8 @@ void application_actor_query_msgs_from_gateway()
     delay(C_GUI_DELAY_STATIC_SHORT);
 
     lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "Q;msg", state_lora_gain);
+    delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+    lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "Q;msg", state_lora_gain);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts and !resSuccess)

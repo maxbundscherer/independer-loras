@@ -38,7 +38,7 @@ If Actor does not receive a response from Gateway, Actor goes to step 2 (skip av
 
 This function is used to send messages via Gateway from Actor to Actor. This handles communication between Actor to Gateway to Actor (receiving messages).
 
-1. For this Actor \[P3\] `[msg]` is set to `Q;msg`.
+1. For this Actor \[P3\] `[msg]` is set to `Q;msg`. (send twice)
 2. Gateway respond \[P1\] `[msg]` is set to `A;$numMessages;$msgAuthor1;$msgContent1;$msgAuthor2;$msgContent2;$msgAuthorN;$msgContentN`. Where `$numMessages` is number of message. If set `0` no messages are available. Messages with authors are appended to `[msg]` like `$msgAuthorN;$msgContentN`.  
 
 No available check before sending (\[F23.2\]). This is repeated three times, if Actor receives no response from Gateway.
