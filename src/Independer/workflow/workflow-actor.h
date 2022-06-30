@@ -20,7 +20,8 @@ void i_communication_letters_recovery_menu()
     {
       if (db_has_stored_letter)
       {
-        gui_msg_animated("tbd", "tbd", C_GUI_DELAY_MSG_SHORT_I);
+        boolean ans = application_actor_send_msg_to_gateway(db_letter_get_rec(), db_letter_get_msg());
+        if(ans) db_clear_letter();
       }
       else
       {
@@ -56,7 +57,8 @@ void i_communication_letters_menu()
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
       String msg_tx = gui_input_text("Brief", "");
-      application_actor_send_msg_to_gateway(msg_res, msg_tx);
+      boolean suc = application_actor_send_msg_to_gateway(msg_res, msg_tx);
+      if(!suc) db_store_letter(msg_res, msg_tx);
     }
     else if (selected == 1)
       application_actor_query_msgs_from_gateway();

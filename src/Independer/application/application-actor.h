@@ -190,7 +190,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns, St
  * ####################################
  */
 
-void application_actor_send_msg_to_gateway(String receiverId, String userMsg)
+boolean application_actor_send_msg_to_gateway(String receiverId, String userMsg)
 {
 
   boolean sync_was_on_flag = multi_actor_get_state();
@@ -209,7 +209,7 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg)
     {
       multi_actor_start();
     }
-    return;
+    return false;
   }
 
   int c_max_ping_retries = 3;                                                             // Maximial attempts to receive pong message
@@ -265,6 +265,8 @@ void application_actor_send_msg_to_gateway(String receiverId, String userMsg)
   {
     gui_msg_animated("Fehler", "Nachricht konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
+
+  return sendSuccess;
 }
 
 /*
