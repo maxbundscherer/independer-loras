@@ -18,3 +18,8 @@ The application is started through `Independer.ino`. Please set up parameters be
 4. Run and deploy software with `Upload` in in Arduino IDE. Debug logs are written to serial console.
 5. (opt.) Use [Visual Studio Code](https://code.visualstudio.com/) as IDE.
 6. (opt.) Use [Clang Format](https://www.dynamsoft.com/codepool/vscode-format-c-code-windows-linux.html) as Visual Studio Code Extension (with vs-code-style).
+
+### Upload code via WIFI
+
+- Run ``Export compiled Binary`` in Arduino IDE.
+- Upload ``.bin`` file via webbrowser (see update-doc).

@@ -44,6 +44,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 - [Hardware and Cost Overview](docs/hardware.md)
 - [Update over WIFI](docs/update.md)
+- [Changelog](docs/changelog.md)
 - [Developer Overview](docs/developer.md)
 - [LoraS-Protocol](docs/loras-protocol.md)
 - [Independer-Protocol](docs/independer-protocol.md)

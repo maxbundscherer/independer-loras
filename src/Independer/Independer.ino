@@ -38,9 +38,9 @@ boolean c_actor_mode = true;
  *  State Section
  * ####################################
  */
-String state_my_id = "0xMB";
-String state_gateway_id = "0gMB";
-String state_wifi_ssid = "Bundscherer-Gast";
+String state_my_id = "0x01";
+String state_gateway_id = "0g01";
+String state_wifi_ssid = "";
 String state_wifi_pw = "";
 String state_wifi_hostname = "independer-" + state_my_id;
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN
