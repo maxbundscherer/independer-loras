@@ -106,6 +106,7 @@ void i_ota_setup(String ssid, String password, String host)
     password.toCharArray(password_char, password.length() + 1);
 
     Serial.println("Conntect to '" + String(ssid_char) + "' '" + ssid + "'");
+    gui_msg_static("Hinweis", "Verbindet mit\n'" + String(ssid_char) + "'");
 
     WiFi.begin(ssid_char, password_char);
     Serial.println("");
@@ -121,10 +122,12 @@ void i_ota_setup(String ssid, String password, String host)
     Serial.println("");
     Serial.print("Connected to ");
     Serial.println(ssid);
-    Serial.print("IP address: ");
-    Serial.println(WiFi.localIP());
+    String my_ip = WiFi.localIP().toString();
+    Serial.print("IP address: " + my_ip);
 
     Serial.println("Updated");
+
+    gui_msg_static("Update", "Gehe im Browser auf\n'" + String(my_ip) + "'");
 
     /*use mdns for host name resolution*/
     char host_char[host.length() + 1];
