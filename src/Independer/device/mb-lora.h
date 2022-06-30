@@ -20,7 +20,7 @@ void i_reinit_lora(int sendGain)
 {
 
   // LoRa.end();
-  //  LoRa.sleep();
+   LoRa.sleep();
 
   // if (sendGain < c_gain_threshold_boost)
   // {

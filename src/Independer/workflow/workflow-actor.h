@@ -141,6 +141,7 @@ void i_actor_functions_menu()
       "Standby",
       "Schlaf Modus",
       "Umgebungs-Scan",
+      "Update",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -166,6 +167,8 @@ void i_actor_functions_menu()
     }
     else if (selected == 4)
       application_actor_who_is_in_my_area();
+    else if (selected == 5)
+      ota_start();
     else
       fin_flag = true;
   }
@@ -226,6 +229,27 @@ void i_setting_bg_syn_menu()
   }
 }
 
+void i_setting_wifi_menu()
+{
+  String menu_items[] = {
+      "SSID",
+      "Passwort",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+      state_wifi_ssid = gui_input_text("SSID", state_wifi_ssid);
+    else if (selected == 1)
+      state_wifi_pw = gui_input_text("Passwort", state_wifi_pw);
+    else
+      fin_flag = true;
+  }
+}
+
 void i_settings_menu()
 {
   String menu_items[] = {
@@ -234,6 +258,7 @@ void i_settings_menu()
       "LoRa Gain",
       "Helligkeit",
       "Hintergrundsync",
+      "WIFI",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -266,6 +291,8 @@ void i_settings_menu()
     }
     else if (selected == 4)
       i_setting_bg_syn_menu();
+    else if (selected == 5)
+      i_setting_wifi_menu();
     else
       fin_flag = true;
   }
