@@ -33,6 +33,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - *Who is in my area?* or *Is available?* functions
 - Over-the-Air-Update (update devices through WIFI)
 - Blinking led if you have new unseen messages
+- Persistence storage (settings and messages)
 - ...
 
 ### Included
