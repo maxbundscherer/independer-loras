@@ -30,7 +30,7 @@
  */
 // Product Config
 String c_product_version = "v.0.1.4";
-boolean c_dev_mode = false;
+boolean c_dev_mode = true;
 boolean c_actor_mode = true;
 
 /*
@@ -38,10 +38,11 @@ boolean c_actor_mode = true;
  *  State Section
  * ####################################
  */
-String state_my_id = "0x01";
-String state_gateway_id = "0g01";
-String state_wifi_ssid = "";
-String state_wifi_pw = "";
+String state_my_id = "0x01";      // Saved in db
+String state_gateway_id = "0g01"; // Saved in db
+String state_wifi_ssid = "";      // Saved in db
+String state_wifi_pw = "";        // Saved in db
+
 String state_wifi_hostname = "independer-" + state_my_id;
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN
 RTC_DATA_ATTR int boot_state_oled_brightness = 255;
@@ -51,6 +52,9 @@ RTC_DATA_ATTR int boot_state_oled_brightness = 255;
  *  Setup Section
  * ####################################
  */
+
+// Database
+#include "device/mb-database.h"
 
 // OTA
 #include "device/mb-ota.h"
