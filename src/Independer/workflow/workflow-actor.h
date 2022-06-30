@@ -18,19 +18,20 @@ void i_communication_letters_recovery_menu()
 
     if (selected == 0)
     {
-      if (db_has_stored_letter)
+      if (db_has_stored_letter())
       {
         boolean ans = application_actor_send_msg_to_gateway(db_letter_get_rec(), db_letter_get_msg());
-        if(ans) db_clear_letter();
+        if (ans)
+          db_clear_letter();
       }
       else
       {
-        gui_msg_animated("Fehler", "Keine Nachricht\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+        gui_msg_animated("Fehler", "Keine Briefe\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
       }
     }
     else if (selected == 1)
     {
-      gui_msg_animated("Hinweis", "Nachrichten werden\ngelöscht", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated("Hinweis", "Briefe werden\ngelöscht", C_GUI_DELAY_MSG_SHORT_I);
       db_clear_letter();
     }
 
@@ -58,7 +59,8 @@ void i_communication_letters_menu()
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
       String msg_tx = gui_input_text("Brief", "");
       boolean suc = application_actor_send_msg_to_gateway(msg_res, msg_tx);
-      if(!suc) db_store_letter(msg_res, msg_tx);
+      if (!suc)
+        db_store_letter(msg_res, msg_tx);
     }
     else if (selected == 1)
       application_actor_query_msgs_from_gateway();
@@ -76,12 +78,49 @@ void i_communication_letters_menu()
   }
 }
 
+void i_communication_messages_recovery_menu()
+{
+  String menu_items[] = {
+      "Erneut senden",
+      "Speicher löschen",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Rettungsmenü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+    {
+      if (db_has_stored_msg())
+      {
+        boolean ans = application_actor_send_msg_actor_to_actor(db_msg_get_rec(), db_msg_get_msg());
+        if (ans)
+          db_clear_msg();
+      }
+      else
+      {
+        gui_msg_animated("Fehler", "Keine Nachrichten\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+      }
+    }
+    else if (selected == 1)
+    {
+      gui_msg_animated("Hinweis", "Nachrichten werden\ngelöscht", C_GUI_DELAY_MSG_SHORT_I);
+      db_clear_msg();
+    }
+
+    else
+      fin_flag = true;
+  }
+}
+
 void i_communication_messages_menu()
 {
   String menu_items[] = {
       "Nachricht schreiben",
       "Nachrichten lesen",
       "Nachrichten leeren",
+      "Rettungsmenü",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -99,6 +138,8 @@ void i_communication_messages_menu()
       multi_actor_background_show_messages();
     else if (selected == 2)
       multi_actor_background_clear_messages();
+    else if (selected == 3)
+      i_communication_messages_recovery_menu();
     else
       fin_flag = true;
   }

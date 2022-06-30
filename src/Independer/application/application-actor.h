@@ -433,7 +433,7 @@ void application_actor_query_msgs_from_gateway()
  * ####################################
  */
 
-void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg)
+boolean application_actor_send_msg_actor_to_actor(String receiverId, String userMsg)
 {
 
   boolean sync_was_on_flag = multi_actor_get_state();
@@ -507,4 +507,6 @@ void application_actor_send_msg_actor_to_actor(String receiverId, String userMsg
   {
     gui_msg_animated("Fehler", "Nachricht konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
+
+  return sendSuccess;
 }
