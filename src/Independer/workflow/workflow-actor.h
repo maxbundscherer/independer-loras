@@ -246,9 +246,9 @@ void i_setting_wifi_menu()
     int selected = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected == 0)
-      state_wifi_ssid = gui_input_text("SSID", state_wifi_ssid);
+      db_save_wifi_ssid(gui_input_text("SSID", state_wifi_ssid));
     else if (selected == 1)
-      state_wifi_pw = gui_input_text("Passwort", state_wifi_pw);
+      db_save_wifi_pw(gui_input_text("Passwort", state_wifi_pw));
     else
       fin_flag = true;
   }
@@ -271,9 +271,9 @@ void i_settings_menu()
     int selected = gui_selection("Einstellungen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected == 0)
-      state_my_id = gui_input_text("Meine ID (z.B.: 0xMB)", state_my_id);
+      db_save_my_id(gui_input_text("Meine ID (z.B.: 0xMB)", state_my_id));
     else if (selected == 1)
-      state_gateway_id = gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id);
+      db_save_gateway_id(gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id));
     else if (selected == 2)
     {
       int ans = gui_input_text("LoRa Gain (1-20)", String(state_lora_gain)).toInt();
