@@ -281,7 +281,7 @@ void i_settings_menu()
         ans = 20;
       if (ans < 1)
         ans = 1;
-      state_lora_gain = ans;
+      db_save_lora_gain(ans);
     }
     else if (selected == 3)
     {

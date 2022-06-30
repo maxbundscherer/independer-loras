@@ -13,6 +13,7 @@ void db_init()
     state_gateway_id = preferences.getString("pref_gateway_id", state_gateway_id);
     state_wifi_ssid = preferences.getString("pref_wifi_ssid", state_wifi_ssid);
     state_wifi_pw = preferences.getString("pref_wifi_pw", state_wifi_pw);
+    state_lora_gain = preferences.getInt("pref_lora_gain", state_lora_gain);
 
     preferences.end();
 }
@@ -21,6 +22,13 @@ void i_db_write(char* key, String value)
 {
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.putString(key, value);
+    preferences.end();
+}
+
+void i_db_write(char* key, int value)
+{
+    preferences.begin(c_db_target_key, false); // Read and write
+    preferences.putInt(key, value);
     preferences.end();
 }
 
@@ -46,4 +54,10 @@ void db_save_wifi_pw(String value)
 {
     state_wifi_pw = value;
     i_db_write("pref_wifi_pw", value);
+}
+
+void db_save_lora_gain(int value)
+{
+    state_lora_gain = value;
+    i_db_write("pref_lora_gain", value);
 }
