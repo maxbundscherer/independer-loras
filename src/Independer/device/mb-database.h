@@ -87,3 +87,42 @@ void db_clear()
  *  Letters and Message Section
  * ####################################
  */
+
+String db_i_get_content(char *key)
+{
+    preferences.begin(c_db_target_key, true); // Read only
+    String r = preferences.getString(key, "");
+    preferences.end();
+
+    return r;
+}
+
+boolean db_has_stored_letter()
+{
+    String rec = db_i_get_content("letter_rec");
+    String msg = db_i_get_content("letter_msg");
+
+    if (rec != "" && msg != "")
+        return true;
+    else
+        return false;
+}
+
+void db_store_letter(String rec, String msg)
+{
+    preferences.begin(c_db_target_key, false); // Read and write
+    preferences.putString("letter_rec", rec);
+    preferences.putString("letter_msg", msg);
+    preferences.end();
+}
+
+void db_clear_letter()
+{
+    preferences.begin(c_db_target_key, false); // Read and write
+    preferences.remove("letter_rec");
+    preferences.remove("letter_msg");
+    preferences.end();
+}
+
+String db_letter_get_rec() { return db_i_get_content("letter_rec"); }
+String db_letter_get_msg() { return db_i_get_content("letter_msg"); }
