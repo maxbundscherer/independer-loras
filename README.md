@@ -18,7 +18,7 @@ Author: [Maximilian Bundscherer](https://bundscherer-online.de)
 
 ## Overview
 
-This repository describes the concept, the project structure, the encrypted LoraS transfer protocol (LoRaS) and the Independer application protocol. There are two type of devices: **Actor** (ID e.g. `0xMB` or `0x02`) with keyboard & accumulator and **Gateway** (ID e.g. `0gMB` or `0g02`) opt. with accumulator.
+This repository describes the concept, the project structure, the encrypted LoraS transfer protocol (LoRaS) and the Independer application protocol. There are two type of devices: **Actor** (ID e.g. `0x01` or `0x02`) with keyboard & accumulator and **Gateway** (ID e.g. `0g01` or `0g02`) opt. with accumulator.
 
 ### Features
 
@@ -33,6 +33,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - *Who is in my area?* or *Is available?* functions
 - Over-the-Air-Update (update devices through WIFI)
 - Blinking led if you have new unseen messages
+- Persistence storage (settings and messages)
 - ...
 
 ### Included
