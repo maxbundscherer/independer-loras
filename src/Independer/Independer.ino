@@ -91,10 +91,6 @@ void setup()
 void loop()
 {
 
-  // TODO
-  delay(2000);
-  ota_start();
-
   if (c_actor_mode)
   {
     multi_actor_start();

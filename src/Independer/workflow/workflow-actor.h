@@ -141,6 +141,7 @@ void i_actor_functions_menu()
       "Standby",
       "Schlaf Modus",
       "Umgebungs-Scan",
+      "Update",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -166,6 +167,8 @@ void i_actor_functions_menu()
     }
     else if (selected == 4)
       application_actor_who_is_in_my_area();
+    else if (selected == 5)
+      ota_start();
     else
       fin_flag = true;
   }
