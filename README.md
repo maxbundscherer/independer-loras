@@ -31,6 +31,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Deep Sleep Mode (battery saving)
 - Communication Actor and Gateway test functions
 - *Who is in my area?* or *Is available?* functions
+- Over-the-Air-Update (update devices through WIFI/Internet)
 - ...
 
 ### Included
