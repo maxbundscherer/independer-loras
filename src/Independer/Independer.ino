@@ -10,6 +10,10 @@
 
 // TODO: Sendekontigent mit echter Zeit
 
+// TODO: Feature Python WebServer
+// TODO: Pakete doppelt senden um empfang besser zu macen
+// TODO: Bug Senden fällt bei Actoren im Background aus
+
 // TODO: Warum Faktor 2 und 8 Multi Task Decoding
 
 // TODO: Speicherüberlauf Schutz bei Actor App Umgebung Scan und Gateway Store Message und Background Actor Empfang

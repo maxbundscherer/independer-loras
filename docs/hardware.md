@@ -7,7 +7,7 @@
 - Antenna Adapter (CAB.616) ([Mouser](https://www.mouser.de/ProductDetail/960-CAB.616)) (≈ 4 €)
 - Antenna 1 (ANT-868-CW-RCL-SMA) ([Mouser](https://www.mouser.de/ProductDetail/712-ANT-868-CWRCLSMA)) (≈ 9 €)
 - (opt.) Antenna 2 (ANT-868-CW-RH-SMA) ([Mouser](https://www.mouser.de/ProductDetail/712-ANT-868-CW-RHSMA)) (≈ 10 €)
-- (opt.) LiPo Battery (Seamuing 3.7V 3000mAh) ([tbd](https://www.amazon.de/gp/product/B08V11Z88Q/))
+- (opt.) LiPo Battery (Seamuing 3.7V 3000mAh) ([Amazon](https://www.amazon.de/gp/product/B08V11Z88Q/))
 (≈ 10 €)
 
 In total ≈ 45 - 55 € per device (without shipping).
