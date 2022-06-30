@@ -4,18 +4,18 @@
 #include <ESPmDNS.h>
 #include <Update.h>
 
-WebServer server(80);
+WebServer i_ota_server(80);
 
 /*
  * Login page
  */
 
-const char *loginIndex =
+const char *i_ota_loginIndex =
     "<form name='loginForm'>"
-    "<table width='20%' bgcolor='A09F9F' align='center'>"
+    "<table width='20%' bgcolor='#a800ab' align='center'>"
     "<tr>"
     "<td colspan=2>"
-    "<center><font size=4><b>ESP32 Login Page 15</b></font></center>"
+    "<center><font size=4><b>Independer Update Login Page</b></font></center>"
     "<br>"
     "</td>"
     "<br>"
@@ -40,7 +40,7 @@ const char *loginIndex =
     "<script>"
     "function check(form)"
     "{"
-    "if(form.userid.value=='admin' && form.pwd.value=='admin')"
+    "if(form.userid.value=='admin' && form.pwd.value=='updateindepender')"
     "{"
     "window.open('/serverIndex')"
     "}"
@@ -55,7 +55,7 @@ const char *loginIndex =
  * Server Index Page
  */
 
-const char *serverIndex =
+const char *i_ota_serverIndex =
     "<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>"
     "<form method='POST' action='#' enctype='multipart/form-data' id='upload_form'>"
     "<input type='file' name='update'>"
@@ -139,24 +139,24 @@ void i_ota_setup(String ssid, String password, String host)
     }
     Serial.println("mDNS responder started");
     /*return index page which is stored in serverIndex */
-    server.on("/", HTTP_GET, []()
-              {
-    server.sendHeader("Connection", "close");
-    server.send(200, "text/html", loginIndex); });
-    server.on("/serverIndex", HTTP_GET, []()
-              {
-    server.sendHeader("Connection", "close");
-    server.send(200, "text/html", serverIndex); });
+    i_ota_server.on("/", HTTP_GET, []()
+                    {
+    i_ota_server.sendHeader("Connection", "close");
+    i_ota_server.send(200, "text/html", i_ota_loginIndex); });
+    i_ota_server.on("/serverIndex", HTTP_GET, []()
+                    {
+    i_ota_server.sendHeader("Connection", "close");
+    i_ota_server.send(200, "text/html", i_ota_serverIndex); });
     /*handling uploading firmware file */
-    server.on(
+    i_ota_server.on(
         "/update", HTTP_POST, []()
         {
-    server.sendHeader("Connection", "close");
-    server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
+    i_ota_server.sendHeader("Connection", "close");
+    i_ota_server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
     ESP.restart(); },
         []()
         {
-            HTTPUpload &upload = server.upload();
+            HTTPUpload &upload = i_ota_server.upload();
             if (upload.status == UPLOAD_FILE_START)
             {
                 Serial.printf("Update: %s\n", upload.filename.c_str());
@@ -185,12 +185,12 @@ void i_ota_setup(String ssid, String password, String host)
                 }
             }
         });
-    server.begin();
+    i_ota_server.begin();
 }
 
 void i_ota_loop(void)
 {
-    server.handleClient();
+    i_ota_server.handleClient();
     delay(1);
 }
 
