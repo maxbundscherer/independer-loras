@@ -43,7 +43,8 @@ String state_gateway_id = "0g01"; // Saved in db
 String state_wifi_ssid = "";      // Saved in db
 String state_wifi_pw = "";        // Saved in db
 
-String state_wifi_hostname = "independer-" + state_my_id;
+String state_wifi_hostname = "independer-" + String(rand());
+
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN
 RTC_DATA_ATTR int boot_state_oled_brightness = 255;
 
