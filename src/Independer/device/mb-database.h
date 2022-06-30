@@ -61,3 +61,9 @@ void db_save_lora_gain(int value)
     state_lora_gain = value;
     i_db_write("pref_lora_gain", value);
 }
+
+void db_clear() {
+    preferences.begin(c_db_target_key, false); // Read and write
+    preferences.clear();
+    preferences.end();
+}

@@ -263,6 +263,7 @@ void i_settings_menu()
       "Helligkeit",
       "Hintergrundsync",
       "WIFI",
+      "Werkseinstellungen",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -297,6 +298,10 @@ void i_settings_menu()
       i_setting_bg_syn_menu();
     else if (selected == 5)
       i_setting_wifi_menu();
+      else if(selected == 6){
+        db_clear();
+        ESP.restart();
+      }
     else
       fin_flag = true;
   }
