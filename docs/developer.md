@@ -23,3 +23,8 @@ The application is started through `Independer.ino`. Please set up parameters be
 
 - Run ``Export compiled Binary`` in Arduino IDE.
 - Upload ``.bin`` file via webbrowser (see update-doc).
+
+### Additional Information
+
+- [Heltec LoRa API](https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/src/lora/API.md)
+- [Heltec API](https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/src/oled/API.md)
