@@ -10,9 +10,7 @@ The project is still in its initial phase. If you want to **join, or have an ide
 
 ``esp32 - lora - encryption - short-message - protocol - keyboard - 3d-printing - independent``
 
-<img src="docs/images/main.jpeg" width="600"/>
-
-<iframe src="https://www.youtube.com/embed/-8pI4nHZv2M" frameborder="0" allowfullscreen></iframe>
+[![](https://img.youtube.com/vi/-8pI4nHZv2M/0.jpg)](https://www.youtube.com/watch?v=-8pI4nHZv2M)
 
 [![shields.io](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
@@ -76,6 +74,8 @@ This repository describes the concept, the project structure, the encrypted Lora
 - [ ] ...
 
 ## More pictures
+
+<img src="docs/images/main.jpeg" width="600"/>
 
 <img src="docs/images/hardware.jpeg" width="600"/>
 
