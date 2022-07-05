@@ -10,7 +10,7 @@ The project is still in its initial phase. If you want to **join, or have an ide
 
 ``esp32 - lora - encryption - short-message - protocol - keyboard - 3d-printing - independent``
 
-[![](https://img.youtube.com/vi/-8pI4nHZv2M/0.jpg)](https://www.youtube.com/watch?v=-8pI4nHZv2M)
+[![](docs/images/play.png)](https://www.youtube.com/watch?v=-8pI4nHZv2M "Click to Watch!")
 
 [![shields.io](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
