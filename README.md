@@ -2,7 +2,7 @@
 
 This repository is about a device called **Independer**.
 
-The goal is to develop a small **open-source communication gadget** (at the beginning we start with end-to-end encrypted messages) based on LoRa (thus **independent from normal infrastructures** like mobile radio or WIFI).
+The goal is to develop a small **open-source communication gadget** (at the beginning we start with end-to-end encrypted messaging and data sharing) based on LoRa (thus **independent from normal infrastructures** like mobile network or WIFI).
 
 We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
 
@@ -25,15 +25,15 @@ This repository describes the concept, the project structure, the encrypted Lora
 - **Actor to Actor (via LoRaS)** communcation: Send messages directly between two Actors.
 - **Actor to Gateway (via LoRaS)** communcation: Send messages via a Gateway. Actors can query their messages via a gateway.
 - **Actor to Actor (via WIFI/Internet)** communcation: Send messages via a Internet. Actors can query their messages via WIFI/Internet.
-- 3D-printed and protoyped case with mini keyboard
-- Custom Software and communication protocol LoRaS
-- ESP32 with LoRa Antenna and multi-tasking features
+- 3D-printed and protoyped Case with Mini Keyboard
+- Custom Software and Communication Protocol LoRaS
+- ESP32 with LoRa Antenna and Multi-Tasking Features
 - Deep Sleep Mode (battery saving)
-- Communication Actor and Gateway test functions
-- *Who is in my area?* or *Is available?* functions
+- Communication Actor and Gateway Test Functions
+- *Who is in my area?* or *Is available?* Functions
 - Over-the-Air-Update (update devices through WIFI)
 - Blinking led if you have new unseen messages
-- Persistence storage (settings and messages)
+- Persistent storage (settings and messages)
 - ...
 
 ### Included
@@ -41,7 +41,8 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Documentation (`docs/`)
 - Sourcecode (`src/`)
 - 3D case (`case/`)
-- [Releases](https://github.com/maxbundscherer/independer-loras/releases/) 
+- [Releases](https://github.com/maxbundscherer/independer-loras/releases/)
+- [Website](https://a-sdr.org/independer)
 
 ### Documentation
 
@@ -53,23 +54,23 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 ### Project stages
 
-- [x] Antenna testing and 3D case prototyping
-- [x] Crypt baseline implementations
-- [x] Device (hardware, gui) baseline implementations
-- [x] Gateway and Actor baseline implementations
-- [x] Actor to Actor test functions
-- [x] Actor to Gateway test functions
-- [x] Gateway to Actor test functions
-- [x] *Who is in my area?* or *Is available?* functions
+- [x] Antenna Testing and 3D Case Prototyping
+- [x] Crypt Baseline Implementations
+- [x] Device (Hardware, Gui) Baseline Implementations
+- [x] Gateway and Actor Baseline Implementations
+- [x] Actor to Actor Test Functions
+- [x] Actor to Gateway Test Functions
+- [x] Gateway to Actor Test Functions
+- [x] *Who is in my area?* or *Is available?* Functions
 - [x] Over-the-Air-Update
-- [x] Inbox and outbox Actor to Gateway (via LoRaS) communcation
-- [x] Inbox and outbox Actor to Actor (via LoRaS) communcation
-- [ ] Inbox and outbox Actor to Actor (via WIFI/Internet) communcation (in progress)
-- [ ] Complete docs
-- [ ] 3D Case improvements
+- [x] Inbox and outbox Actor to Gateway (via LoRaS) Communcation
+- [x] Inbox and outbox Actor to Actor (via LoRaS) Communcation
+- [ ] Inbox and outbox Actor to Actor (via WIFI/Internet) Communcation (in progress)
+- [ ] Complete Docs
+- [ ] 3D Case Improvements
 - [ ] Code Refactoring
-- [ ] Deploy (secret keys, actor and gateway releated) configurations
-- [ ] Crypt improvements
+- [ ] Deploy (Secret keys, Actor and Gateway releated configurations)
+- [ ] Crypt Improvements
 - [ ] GUI Multilanguage
 - [ ] ...
 
