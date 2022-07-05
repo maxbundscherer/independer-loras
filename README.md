@@ -12,6 +12,8 @@ The project is still in its initial phase. If you want to **join, or have an ide
 
 <img src="docs/images/main.jpeg" width="600"/>
 
+<iframe src="https://www.youtube.com/embed/-8pI4nHZv2M" frameborder="0" allowfullscreen></iframe>
+
 [![shields.io](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 Author: [Maximilian Bundscherer](https://bundscherer-online.de)
