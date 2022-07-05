@@ -33,7 +33,7 @@
 String c_product_version = "v.0.1.6";
 boolean c_dev_mode = false;
 boolean c_actor_mode = true;
-boolean c_demo_mode = true;
+boolean c_demo_mode = false;
 
 /*
  * ####################################
@@ -41,7 +41,7 @@ boolean c_demo_mode = true;
  * ####################################
  */
 String state_my_id = "0x01";      // Saved in db
-String state_gateway_id = "0gMB"; // Saved in db
+String state_gateway_id = "0g01"; // Saved in db
 String state_wifi_ssid = "";      // Saved in db
 String state_wifi_pw = "";        // Saved in db
 
