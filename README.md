@@ -86,4 +86,6 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 <img src="docs/images/cad.png" width="600"/>
 
+<img src="docs/images/print.png" width="600"/>
+
 Also check out [Awesome/Automatic SDR](https://a-sdr.org/).
