@@ -20,6 +20,16 @@ This feature is used to clear user messages from Gateway (Actor controlled).
 
 No available check before sending (\[F23.2\]). Gateway sends no response and clears user messages.
 
+### Based on Safe message \[P1\]
+
+#### Update Gateway \[F3.1\]
+
+This feature is used to update Gateway via wifi (Actor controlled).
+
+1. For this Actor \[P1\] `[msg]` is set to `C;up;$wifiSSID;$wifiPW`. Where `$wifiSSID` is ssid from wifi and `$wifiPW` is wifi password.
+
+No available check before sending (\[F23.2\]). Gateway sends no response and goes into update mode.
+
 ### Based on Safe message \[P1\] and Unsafe single message \[P3\]
 
 #### Send Message Actor to Gateway \[F13.1\]
