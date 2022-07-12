@@ -71,6 +71,8 @@ void setup()
       if (c_demo_mode)
         delay(1000 * 60 * 10);
     }
+  } else{
+    gui_msg_animated("Info", "Dev Mode\nactive", 500);
   }
 
   if (c_actor_mode)
