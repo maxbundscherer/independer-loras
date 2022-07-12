@@ -72,7 +72,7 @@ void setup()
         delay(1000 * 60 * 10);
     }
   } else{
-    gui_msg_animated("Info", "Dev Mode\nactive", 500);
+    gui_msg_animated("Info", "Dev Mode\nactive", C_GUI_DELAY_MSG_VERY_SHORT_I);
   }
 
   if (c_actor_mode)
