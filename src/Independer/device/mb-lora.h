@@ -2,9 +2,11 @@
 
 #define C_INDEPENDER_SEND_DELAY 2000
 #define C_INDEPENDER_SEND_DELAY_REPEAT 100
+#define C_INDEPENDER_SEND_DELAY_BETWEEN_MESSAGES 500
 #define C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR 1
 #define C_INDEPENDER_RES_BETWEEN_DELAY_GATEWAY 10
 #define C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI 10
+#define C_INDEPENDER_TX_MAX_LEN_PACKET 15
 #define C_INDEPENDER_SCAN_MS 8000
 
 #define BAND 868E6 // you can set band here directly,e.g. 868E6 915E6 433E6
@@ -140,8 +142,8 @@ void lora_send_msg(String from, String to, String msg, int sendGain)
 
   i_reinit_lora(sendGain);
 
-  int c_max_length = 10;
-  int c_send_delay = C_INDEPENDER_SEND_DELAY;
+  int c_max_length = C_INDEPENDER_TX_MAX_LEN_PACKET;
+  int c_send_delay = C_INDEPENDER_SEND_DELAY_BETWEEN_MESSAGES;
 
   long msg_hash = i_adapter_lora_string_hash(msg);
   int msg_length = msg.length();

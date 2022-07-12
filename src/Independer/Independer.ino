@@ -5,32 +5,13 @@
 #include "device/mb-crypt.h"
 #include "device/mb-lora.h"
 
-// TODO: Gateway Empfangen Layout fix
-// TODO: Gateway und Actor Fehler beim Empfang irgendwo anzeigen
-
-// TODO: Sendekontigent mit echter Zeit
-
-// TODO: Feature Python WebServer
-// TODO: Pakete doppelt senden um empfang besser zu macen
-// TODO: Bug Senden fällt bei Actoren im Background aus (vielleicht mal bei Verwendung von sendLaster bei Near me ?)
-// TODO: Bug Hostname bei WIFI wird nicht übertragen
-
-// TODO: Warum Faktor 2 und 8 Multi Task Decoding
-
-// TODO: Speicherüberlauf Schutz bei Actor App Umgebung Scan und Gateway Store Message und Background Actor Empfang
-// TODO: Verbesser Start/Stop Actor Multi in Briefe abrufen
-// TODO: UI Verbessern Leerzeichen bei Long Text ausgabe und Text Eingabe
-
-// TODO: Refactoring c_id und Gateway id
-// TODO: Refactoring disableShortcuts bei gui_selection wieder ausbauen, hat nicht funktioniert
-
 /*
  * ####################################
  *  Config Section
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.1.6";
+String c_product_version = "v.0.1.7";
 boolean c_dev_mode = false;
 boolean c_actor_mode = true;
 boolean c_demo_mode = false;
@@ -113,3 +94,14 @@ void loop()
     workflow_gateway_main();
   }
 }
+
+// TODO: Bug Senden fällt bei Actoren im Background aus (vielleicht mal bei Verwendung von sendLaster bei Near me ?)
+// TODO: Bug Hostname bei WIFI wird nicht übertragen
+
+// TODO: Warum Faktor 2 und 8 Multi Task Decoding
+
+// TODO: Verbesser Start/Stop Actor Multi in Briefe abrufen
+// TODO: UI Verbessern Leerzeichen bei Long Text ausgabe und Text Eingabe
+
+// TODO: Refactoring c_id und Gateway id
+// TODO: Refactoring disableShortcuts bei gui_selection wieder ausbauen, hat nicht funktioniert
