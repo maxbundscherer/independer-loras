@@ -35,14 +35,14 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   Serial.println();
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));
 
+  Serial.println("- Init Database");
+  db_init();
+
   if (isDevMode)
   {
     Serial.println("- Init Dev Mode");
     state_lora_gain = 6;
   }
-
-  Serial.println("- Init Database");
-  db_init();
 
   Serial.println("- Init Display");
   Heltec.display->init();
