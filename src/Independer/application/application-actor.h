@@ -259,11 +259,11 @@ boolean application_actor_send_msg_to_gateway(String receiverId, String userMsg)
 
   if (sendSuccess)
   {
-    gui_msg_animated("Info", "Nachricht wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated("Info", "Brief wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
   }
   else
   {
-    gui_msg_animated("Fehler", "Nachricht konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated("Fehler", "Brief konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   return sendSuccess;
@@ -399,15 +399,15 @@ void application_actor_query_msgs_from_gateway()
           boolean hasMesageShown = false;
           while (!hasMesageShown)
           {
-            int selected = gui_selection("Nachrichten", gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
+            int selected = gui_selection("Briefe", gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
             if (selected == numMessages)
               hasMesageShown = true;
             else
-              gui_msg_long_text("Nachricht", gui_items[selected]);
+              gui_msg_long_text("Brief", gui_items[selected]);
           }
         }
         else
-          gui_msg_animated("Info", "keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
+          gui_msg_animated("Info", "keine Briefe\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
       }
       else
       {
@@ -423,7 +423,7 @@ void application_actor_query_msgs_from_gateway()
 
   if (!resSuccess)
   {
-    gui_msg_animated("Fehler", "Nachricht konnten\nnicht empfangen werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated("Fehler", "Briefe konnten\nnicht empfangen werden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 }
 
