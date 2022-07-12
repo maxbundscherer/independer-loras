@@ -122,3 +122,45 @@ int application_gateway_clear_user_msgs(String actorId)
 
   return state_gateway_messages_count;
 }
+
+/*
+ * ####################################
+ *  Update Section
+ * ####################################
+ */
+
+int application_gateway_update(String credentialsString)
+{
+
+  credentialsString = credentialsString.substring(5, credentialsString.length());
+
+  String p_ssid = "";
+  String p_pw = "";
+
+  int currentCountsDelimiter = 0;
+
+  for (int i = 0; i < credentialsString.length(); i++)
+  {
+
+    String current = credentialsString.substring(i, i + 1);
+
+    if (current == ";")
+    {
+      currentCountsDelimiter++;
+    }
+    else
+    {
+      if (currentCountsDelimiter == 0)
+        p_ssid += current;
+      if (currentCountsDelimiter == 1)
+        p_pw += current;
+    }
+  }
+
+  Serial.println("Update Mode '" + p_ssid + +" '" + p_pw + "'");
+
+  state_wifi_ssid = p_ssid;
+  state_wifi_pw = p_pw;
+
+  ota_start();
+}

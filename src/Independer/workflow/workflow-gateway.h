@@ -76,6 +76,10 @@ void workflow_gateway_main()
         state_gateway_db_items = application_gateway_store_msg(parser_ans.from, parser_ans.message);
         state_gateway_has_sth_changed = true;
       }
+      else if (parser_ans.message.startsWith("C;up;"))
+      {
+        application_gateway_update(parser_ans.message);
+      }
       else
       {
         Serial.println("Error received unknown message '" + parser_ans.message + "'");
