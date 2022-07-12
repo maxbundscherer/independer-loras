@@ -262,6 +262,7 @@ void i_gateway_functions_menu()
 {
   String menu_items[] = {
       "Schlaf Modus",
+      "Update",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -275,6 +276,10 @@ void i_gateway_functions_menu()
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
       delay(C_INDEPENDER_SEND_DELAY_REPEAT);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
+    }
+    else if(selected == 1){
+      gui_msg_animated("Info", "Aktiviere Update-Modus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
+      lora_send_msg(state_my_id, state_gateway_id, "C;up;" + state_wifi_ssid + ";" + state_wifi_pw, state_lora_gain);
     }
     else
       fin_flag = true;
