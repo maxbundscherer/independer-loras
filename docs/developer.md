@@ -20,7 +20,7 @@ The application is started through `Independer.ino`. Please set up parameters be
 #### Recommended Steps (LILYGO TTGO Board)
 
 1. Install [Arduino IDE](https://www.arduino.cc/en/software).
-2. Install [ESP32 Board](https://github.com/Heltec-Aaron-Lee/WiFi_Kit_series/releases/download/0.0.5/package_heltec_esp32_index.json) in Arduino IDE.
+2. Install ESP32 Board in Arduino IDE.
     - Add additional board-url `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
     - Change Board to `TTGO LoRa32-OLED`
     - Change Board Revision to `TTGO LoRa32 V.2.1 (1.6.1)`
