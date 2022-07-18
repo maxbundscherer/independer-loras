@@ -3,6 +3,7 @@
 ### List
 
 - Heltec ESP32 WiFi/LoRa v2 with OLED-Screen (SX1276 V2, 868-915MHz) ([Amazon](https://www.amazon.de/-/en/gp/product/B078M74NNN/)) (≈ 25 €)
+- (alternative) LILYGO TTGO ESP32 (LoRa32 V2.1 1.6.1 Version LoRa ESP-32 OLED 0.96 Inch SD Card Bluetooth WiFi Module (868 MHz) ) ([Amazon](https://www.amazon.de/gp/product/B08T984WCT/)) (≈ 27 €)
 - CardKB (U035, MEGA328P, M5Stack) ([Distrelec](https://www.distrelec.de/de/cardkb-mini-tastatureinheit-mega328p-m5stack-u035/p/30172534)) (≈ 7 €)
 - Antenna Adapter (CAB.616) ([Mouser](https://www.mouser.de/ProductDetail/960-CAB.616)) (≈ 4 €)
 - Antenna 1 (ANT-868-CW-RCL-SMA) ([Mouser](https://www.mouser.de/ProductDetail/712-ANT-868-CWRCLSMA)) (≈ 9 €)
