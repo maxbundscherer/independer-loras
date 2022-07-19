@@ -1,3 +1,9 @@
+#ifdef USE_HELTEC
+#define DISPLAY Heltec.display
+#else
+#define DISPLAY display
+#endif
+
 // Keyboard Config
 #define CARDKB_ADDR 0x5F
 
@@ -30,58 +36,58 @@ void i_gui_test_drawLines()
 {
   for (int16_t i = 0; i < DISPLAY_WIDTH; i += 4)
   {
-    Heltec.display->drawLine(0, 0, i, DISPLAY_HEIGHT - 1);
-    Heltec.display->display();
+    DISPLAY->drawLine(0, 0, i, DISPLAY_HEIGHT - 1);
+    DISPLAY->display();
     delay(10);
   }
   for (int16_t i = 0; i < DISPLAY_HEIGHT; i += 4)
   {
-    Heltec.display->drawLine(0, 0, DISPLAY_WIDTH - 1, i);
-    Heltec.display->display();
+    DISPLAY->drawLine(0, 0, DISPLAY_WIDTH - 1, i);
+    DISPLAY->display();
     delay(10);
   }
   delay(250);
 
-  Heltec.display->clear();
+  DISPLAY->clear();
   for (int16_t i = 0; i < DISPLAY_WIDTH; i += 4)
   {
-    Heltec.display->drawLine(0, DISPLAY_HEIGHT - 1, i, 0);
-    Heltec.display->display();
+    DISPLAY->drawLine(0, DISPLAY_HEIGHT - 1, i, 0);
+    DISPLAY->display();
     delay(10);
   }
   for (int16_t i = DISPLAY_HEIGHT - 1; i >= 0; i -= 4)
   {
-    Heltec.display->drawLine(0, DISPLAY_HEIGHT - 1, DISPLAY_WIDTH - 1, i);
-    Heltec.display->display();
+    DISPLAY->drawLine(0, DISPLAY_HEIGHT - 1, DISPLAY_WIDTH - 1, i);
+    DISPLAY->display();
     delay(10);
   }
   delay(250);
 
-  Heltec.display->clear();
+  DISPLAY->clear();
   for (int16_t i = DISPLAY_WIDTH - 1; i >= 0; i -= 4)
   {
-    Heltec.display->drawLine(DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 1, i, 0);
-    Heltec.display->display();
+    DISPLAY->drawLine(DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 1, i, 0);
+    DISPLAY->display();
     delay(10);
   }
   for (int16_t i = DISPLAY_HEIGHT - 1; i >= 0; i -= 4)
   {
-    Heltec.display->drawLine(DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 1, 0, i);
-    Heltec.display->display();
+    DISPLAY->drawLine(DISPLAY_WIDTH - 1, DISPLAY_HEIGHT - 1, 0, i);
+    DISPLAY->display();
     delay(10);
   }
   delay(250);
-  Heltec.display->clear();
+  DISPLAY->clear();
   for (int16_t i = 0; i < DISPLAY_HEIGHT; i += 4)
   {
-    Heltec.display->drawLine(DISPLAY_WIDTH - 1, 0, 0, i);
-    Heltec.display->display();
+    DISPLAY->drawLine(DISPLAY_WIDTH - 1, 0, 0, i);
+    DISPLAY->display();
     delay(10);
   }
   for (int16_t i = 0; i < DISPLAY_WIDTH; i += 4)
   {
-    Heltec.display->drawLine(DISPLAY_WIDTH - 1, 0, i, DISPLAY_HEIGHT - 1);
-    Heltec.display->display();
+    DISPLAY->drawLine(DISPLAY_WIDTH - 1, 0, i, DISPLAY_HEIGHT - 1);
+    DISPLAY->display();
     delay(10);
   }
   delay(250);
@@ -92,8 +98,8 @@ void i_gui_test_drawRect(void)
 {
   for (int16_t i = 0; i < DISPLAY_HEIGHT / 2; i += 2)
   {
-    Heltec.display->drawRect(i, i, DISPLAY_WIDTH - 2 * i, DISPLAY_HEIGHT - 2 * i);
-    Heltec.display->display();
+    DISPLAY->drawRect(i, i, DISPLAY_WIDTH - 2 * i, DISPLAY_HEIGHT - 2 * i);
+    DISPLAY->display();
     delay(10);
   }
 }
@@ -104,14 +110,14 @@ void i_gui_test_fillRect(void)
   uint8_t color = 1;
   for (int16_t i = 0; i < DISPLAY_HEIGHT / 2; i += 3)
   {
-    Heltec.display->setColor((color % 2 == 0) ? BLACK : WHITE); // alternate colors
-    Heltec.display->fillRect(i, i, DISPLAY_WIDTH - i * 2, DISPLAY_HEIGHT - i * 2);
-    Heltec.display->display();
+    DISPLAY->setColor((color % 2 == 0) ? BLACK : WHITE); // alternate colors
+    DISPLAY->fillRect(i, i, DISPLAY_WIDTH - i * 2, DISPLAY_HEIGHT - i * 2);
+    DISPLAY->display();
     delay(10);
     color++;
   }
   // Reset back to WHITE
-  Heltec.display->setColor(WHITE);
+  DISPLAY->setColor(WHITE);
 }
 
 // Adapted from Adafruit_SSD1306
@@ -119,12 +125,12 @@ void i_gui_test_drawCircle(void)
 {
   for (int16_t i = 0; i < DISPLAY_HEIGHT; i += 2)
   {
-    Heltec.display->drawCircle(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, i);
-    Heltec.display->display();
+    DISPLAY->drawCircle(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, i);
+    DISPLAY->display();
     delay(10);
   }
   delay(1000);
-  Heltec.display->clear();
+  DISPLAY->clear();
 
   // This will draw the part of the circel in quadrant 1
   // Quadrants are numberd like this:
@@ -132,17 +138,17 @@ void i_gui_test_drawCircle(void)
   //  ------|-----
   //   0100 | 1000
   //
-  Heltec.display->drawCircleQuads(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 4, 0b00000001);
-  Heltec.display->display();
+  DISPLAY->drawCircleQuads(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 4, 0b00000001);
+  DISPLAY->display();
   delay(200);
-  Heltec.display->drawCircleQuads(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 4, 0b00000011);
-  Heltec.display->display();
+  DISPLAY->drawCircleQuads(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 4, 0b00000011);
+  DISPLAY->display();
   delay(200);
-  Heltec.display->drawCircleQuads(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 4, 0b00000111);
-  Heltec.display->display();
+  DISPLAY->drawCircleQuads(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 4, 0b00000111);
+  DISPLAY->display();
   delay(200);
-  Heltec.display->drawCircleQuads(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 4, 0b00001111);
-  Heltec.display->display();
+  DISPLAY->drawCircleQuads(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 4, 0b00001111);
+  DISPLAY->display();
 }
 
 void i_gui_test_buffer()
@@ -150,7 +156,7 @@ void i_gui_test_buffer()
 
   // Initialize the log buffer
   // allocate memory to store 8 lines of text and 30 chars per line.
-  Heltec.display->setLogBuffer(5, 30);
+  DISPLAY->setLogBuffer(5, 30);
 
   // Some test data
   const char *test[] = {
@@ -168,13 +174,13 @@ void i_gui_test_buffer()
 
   for (uint8_t i = 0; i < 11; i++)
   {
-    Heltec.display->clear();
+    DISPLAY->clear();
     // Print to the screen
-    Heltec.display->println(test[i]);
+    DISPLAY->println(test[i]);
     // Draw it to the internal screen buffer
-    Heltec.display->drawLogBuffer(0, 0);
+    DISPLAY->drawLogBuffer(0, 0);
     // Display it on the screen
-    Heltec.display->display();
+    DISPLAY->display();
     delay(500);
   }
 }
@@ -182,27 +188,27 @@ void i_gui_test_buffer()
 void gui_test()
 {
 
-  Heltec.display->clear();
+  DISPLAY->clear();
 
   i_gui_test_drawLines();
   delay(1000);
-  Heltec.display->clear();
+  DISPLAY->clear();
 
   i_gui_test_drawRect();
   delay(1000);
-  Heltec.display->clear();
+  DISPLAY->clear();
 
   i_gui_test_fillRect();
   delay(1000);
-  Heltec.display->clear();
+  DISPLAY->clear();
 
   i_gui_test_drawCircle();
   delay(1000);
-  Heltec.display->clear();
+  DISPLAY->clear();
 
   i_gui_test_buffer();
   delay(1000);
-  Heltec.display->clear();
+  DISPLAY->clear();
 }
 
 /*
@@ -301,15 +307,15 @@ const unsigned char LOGO_bits[] PROGMEM = {
 
 void gui_logo_static(String version_string, String my_id, String gateway_id, boolean isActor)
 {
-  Heltec.display->clear();
-  Heltec.display->drawXbm(0, 0, 128, 64, LOGO_bits);
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->clear();
+  DISPLAY->drawXbm(0, 0, 128, 64, LOGO_bits);
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
   if (isActor)
-    Heltec.display->drawString(8, 35, version_string + " Actor\n" + my_id + " -> " + gateway_id);
+    DISPLAY->drawString(8, 35, version_string + " Actor\n" + my_id + " -> " + gateway_id);
   else
-    Heltec.display->drawString(8, 35, version_string + " Gateway\n" + gateway_id);
-  Heltec.display->display();
+    DISPLAY->drawString(8, 35, version_string + " Gateway\n" + gateway_id);
+  DISPLAY->display();
 }
 
 /*
@@ -320,46 +326,46 @@ void gui_logo_static(String version_string, String my_id, String gateway_id, boo
 
 void gui_msg_animated(String msg_title, String msg, int i_delay)
 {
-  Heltec.display->clear();
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 5, msg_title);
+  DISPLAY->clear();
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 5, msg_title);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
-  Heltec.display->drawString(64, 10 * 2 + 2 + 4, msg);
-  Heltec.display->display();
+  DISPLAY->setTextAlignment(TEXT_ALIGN_CENTER);
+  DISPLAY->drawString(64, 10 * 2 + 2 + 4, msg);
+  DISPLAY->display();
 
   for (int i = 1; i <= 120; i += 1)
   {
-    Heltec.display->drawLine(5, 17, 5 + i, 17);
-    Heltec.display->display();
+    DISPLAY->drawLine(5, 17, 5 + i, 17);
+    DISPLAY->display();
     delay(i_delay);
   }
 }
 
 void gui_msg_static(String msg_title, String msg)
 {
-  Heltec.display->clear();
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 5, msg_title);
-  Heltec.display->drawLine(5, 17, 5 + 120, 17);
+  DISPLAY->clear();
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 5, msg_title);
+  DISPLAY->drawLine(5, 17, 5 + 120, 17);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
-  Heltec.display->drawString(64, 10 * 2 + 2 + 4, msg);
-  Heltec.display->display();
+  DISPLAY->setTextAlignment(TEXT_ALIGN_CENTER);
+  DISPLAY->drawString(64, 10 * 2 + 2 + 4, msg);
+  DISPLAY->display();
 }
 
 void gui_msg_static_gateway(String msg_title, String msg, int global_tx_time)
 {
-  Heltec.display->clear();
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 5, msg_title);
-  Heltec.display->drawLine(5, 17, 5 + 120, 17);
+  DISPLAY->clear();
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 5, msg_title);
+  DISPLAY->drawLine(5, 17, 5 + 120, 17);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
-  Heltec.display->drawString(64, 10 * 2 + 2 + 4, msg);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_CENTER);
+  DISPLAY->drawString(64, 10 * 2 + 2 + 4, msg);
 
   int progress = (((float)global_tx_time - 0) / ((float)36000 - 0)) * (float)100;
   if (progress > 100)
@@ -367,9 +373,9 @@ void gui_msg_static_gateway(String msg_title, String msg, int global_tx_time)
   if (progress < 0)
     progress = 0;
 
-  Heltec.display->drawProgressBar(0, 0 + 53, 120, 10, progress);
+  DISPLAY->drawProgressBar(0, 0 + 53, 120, 10, progress);
 
-  Heltec.display->display();
+  DISPLAY->display();
 }
 
 /*
@@ -385,21 +391,21 @@ void gui_display_prg_animated(String menu_title, int value, int min, int max, in
     progress = 100;
   if (progress < 0)
     progress = 0;
-  Heltec.display->clear();
+  DISPLAY->clear();
 
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 5, menu_title);
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 5, menu_title);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
-  Heltec.display->drawString(64, 0 + 23, String(progress) + "%\n" + String(value) + " [" + String(min) + "; " + String(max) + "]");
-  Heltec.display->drawProgressBar(0, 0 + 53, 120, 10, progress);
-  Heltec.display->display();
+  DISPLAY->setTextAlignment(TEXT_ALIGN_CENTER);
+  DISPLAY->drawString(64, 0 + 23, String(progress) + "%\n" + String(value) + " [" + String(min) + "; " + String(max) + "]");
+  DISPLAY->drawProgressBar(0, 0 + 53, 120, 10, progress);
+  DISPLAY->display();
 
   for (int i = 1; i <= 120; i += 1)
   {
-    Heltec.display->drawLine(5, 17, 5 + i, 17);
-    Heltec.display->display();
+    DISPLAY->drawLine(5, 17, 5 + i, 17);
+    DISPLAY->display();
     delay(i_delay);
   }
 }
@@ -411,17 +417,17 @@ void gui_display_prg_static(String menu_title, int value, int min, int max)
     progress = 100;
   if (progress < 0)
     progress = 0;
-  Heltec.display->clear();
+  DISPLAY->clear();
 
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 5, menu_title);
-  Heltec.display->drawLine(5, 17, 5 + 120, 17);
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 5, menu_title);
+  DISPLAY->drawLine(5, 17, 5 + 120, 17);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_CENTER);
-  Heltec.display->drawString(64, 0 + 23, String(progress) + "%\n" + String(value) + " [" + String(min) + "; " + String(max) + "]");
-  Heltec.display->drawProgressBar(0, 0 + 53, 120, 10, progress);
-  Heltec.display->display();
+  DISPLAY->setTextAlignment(TEXT_ALIGN_CENTER);
+  DISPLAY->drawString(64, 0 + 23, String(progress) + "%\n" + String(value) + " [" + String(min) + "; " + String(max) + "]");
+  DISPLAY->drawProgressBar(0, 0 + 53, 120, 10, progress);
+  DISPLAY->display();
 }
 
 /*
@@ -440,30 +446,30 @@ void i_gui_flush_input()
 
 void i_gui_menu(String menu_title, String page, String menu0, String menu1, String menu2, String menu3, int pos)
 {
-  Heltec.display->clear();
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 5, menu_title);
+  DISPLAY->clear();
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 5, menu_title);
 
-  Heltec.display->drawLine(5, 17, 5 + 120, 17);
+  DISPLAY->drawLine(5, 17, 5 + 120, 17);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_RIGHT);
-  Heltec.display->drawString(120, 5, page);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_RIGHT);
+  DISPLAY->drawString(120, 5, page);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(15, 10 * 2 + 2, menu0);
-  Heltec.display->drawString(15, 10 * 3 + 2, menu1);
-  Heltec.display->drawString(15, 10 * 4 + 2, menu2);
-  Heltec.display->drawString(15, 10 * 5 + 2, menu3);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(15, 10 * 2 + 2, menu0);
+  DISPLAY->drawString(15, 10 * 3 + 2, menu1);
+  DISPLAY->drawString(15, 10 * 4 + 2, menu2);
+  DISPLAY->drawString(15, 10 * 5 + 2, menu3);
 
-  Heltec.display->display();
+  DISPLAY->display();
 
   pos += 2;
 
   for (int i = 1; i <= 4; i += 1)
   {
-    Heltec.display->drawCircle(7, 10 * pos + 8, i);
-    Heltec.display->display();
+    DISPLAY->drawCircle(7, 10 * pos + 8, i);
+    DISPLAY->display();
     delay(40);
   }
 
@@ -725,20 +731,20 @@ void i_gui_input_single_line(String menu_title, String val, int current_cursor)
     out = outStringLines[firstLine] + "\n" + outStringLines[secondLine];
   }
 
-  Heltec.display->clear();
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 5, menu_title);
+  DISPLAY->clear();
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 5, menu_title);
 
-  Heltec.display->drawLine(5, 17, 5 + 120, 17);
+  DISPLAY->drawLine(5, 17, 5 + 120, 17);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 10 * 2 + 2, out);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 10 * 2 + 2, out);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_RIGHT);
-  Heltec.display->drawString(128 - 5, 64 - 15, "[Enter] Ok");
+  DISPLAY->setTextAlignment(TEXT_ALIGN_RIGHT);
+  DISPLAY->drawString(128 - 5, 64 - 15, "[Enter] Ok");
 
-  Heltec.display->display();
+  DISPLAY->display();
 }
 
 String gui_input_text(String menu_title, String default_value)
@@ -807,7 +813,7 @@ String gui_input_text(String menu_title, String default_value)
 char gui_input_char_no_output()
 {
 
-  Heltec.display->displayOff();
+  DISPLAY->displayOff();
 
   i_gui_flush_input();
 
@@ -829,7 +835,7 @@ char gui_input_char_no_output()
     }
   }
 
-  Heltec.display->displayOn();
+  DISPLAY->displayOn();
   return ret_char;
 }
 
@@ -842,20 +848,20 @@ char gui_input_char_no_output()
 void i_gui_msg_long_text(String msg_title, String msg, String page)
 {
 
-  Heltec.display->clear();
-  Heltec.display->setFont(ArialMT_Plain_10);
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->clear();
+  DISPLAY->setFont(ArialMT_Plain_10);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
 
-  Heltec.display->drawString(5, 5, msg_title);
-  Heltec.display->drawLine(5, 17, 5 + 120, 17);
+  DISPLAY->drawString(5, 5, msg_title);
+  DISPLAY->drawLine(5, 17, 5 + 120, 17);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_RIGHT);
-  Heltec.display->drawString(120, 5, page);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_RIGHT);
+  DISPLAY->drawString(120, 5, page);
 
-  Heltec.display->setTextAlignment(TEXT_ALIGN_LEFT);
-  Heltec.display->drawString(5, 10 * 2 + 2, msg);
+  DISPLAY->setTextAlignment(TEXT_ALIGN_LEFT);
+  DISPLAY->drawString(5, 10 * 2 + 2, msg);
 
-  Heltec.display->display();
+  DISPLAY->display();
 }
 
 void gui_msg_long_text(String msg_title, String msg)

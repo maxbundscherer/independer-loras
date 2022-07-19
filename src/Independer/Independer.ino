@@ -1,3 +1,6 @@
+// Set if you want to use the Heltec Board
+#define USE_HELTEC true
+
 #include "heltec.h"
 #include "device/mb-utils.h"
 #include "device/mb-gui.h"
@@ -13,7 +16,7 @@
 // Product Config
 String c_product_version = "v.0.1.7i";
 boolean c_dev_mode = true;
-boolean c_actor_mode = false;
+boolean c_actor_mode = true;
 boolean c_demo_mode = false;
 
 /*
@@ -71,7 +74,9 @@ void setup()
       if (c_demo_mode)
         delay(1000 * 60 * 10);
     }
-  } else{
+  }
+  else
+  {
     gui_msg_animated("Info", "Dev Mode\nactive", C_GUI_DELAY_MSG_VERY_SHORT_I);
   }
 
