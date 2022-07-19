@@ -1,4 +1,4 @@
-#ifdef USE_HELTEC
+#if USE_HELTEC
 #define DISPLAY Heltec.display
 #else
 #define DISPLAY display
