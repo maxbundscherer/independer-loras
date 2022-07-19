@@ -1,5 +1,5 @@
 // Set if you want to use the Heltec Board
-#define USE_HELTEC true
+#define USE_HELTEC false
 
 #include "heltec.h"
 #include "device/mb-utils.h"
