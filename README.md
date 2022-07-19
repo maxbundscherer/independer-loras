@@ -90,4 +90,6 @@ The current state of development can be viewed on the [project board](https://gi
 
 <img src="docs/images/print.png" width="600"/>
 
+<img src="docs/images/print-case.png" width="600"/>
+
 Also check out [Awesome/Automatic SDR](https://a-sdr.org/).
