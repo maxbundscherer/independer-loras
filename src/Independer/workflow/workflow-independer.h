@@ -30,7 +30,19 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
     digitalWrite(KEYBOARD_POWER_PIN, HIGH);
   }
 
+  Serial.println("- Init Serial");
+
+#if USE_HELTEC
   Heltec.begin(true /*DisplayEnable Enable*/, true /*Heltec.Heltec.Heltec.LoRa Disable*/, true /*Serial Enable*/, true /*PABOOST Enable*/, BAND /*long BAND*/);
+#else
+  Serial.begin(115200);
+#endif
+
+  Serial.println("- Init Display");
+  gui_init_display();
+
+  Serial.println("- Init LoRa");
+  lora_init();
 
   Serial.println();
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));
@@ -43,11 +55,6 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
     Serial.println("- Init Dev Mode");
     state_lora_gain = 6;
   }
-
-  Serial.println("- Init Display");
-  Heltec.display->init();
-  Heltec.display->setBrightness(state_oled_brightness);
-  // Heltec.display -> flipScreenVertically();
 
   Serial.println("- Init Cipher");
   crypt_init_cipher(c_cipher_key);

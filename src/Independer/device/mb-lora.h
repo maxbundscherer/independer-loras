@@ -1,5 +1,3 @@
-#include "heltec.h"
-
 #define C_INDEPENDER_SEND_DELAY 2000
 #define C_INDEPENDER_SEND_DELAY_REPEAT 100
 #define C_INDEPENDER_SEND_DELAY_BETWEEN_MESSAGES 500
@@ -10,6 +8,25 @@
 #define C_INDEPENDER_SCAN_MS 8000
 
 #define BAND 868E6 // you can set band here directly,e.g. 868E6 915E6 433E6
+
+#if USE_HELTEC
+void lora_init()
+{
+}
+#else
+void lora_init()
+{
+#define SCK 5
+#define MISO 19
+#define MOSI 27
+#define SS 18
+#define RST 14
+#define DIO0 26
+  SPI.begin(SCK, MISO, MOSI, SS);
+  LoRa.setPins(SS, RST, DIO0);
+  LoRa.begin(BAND);
+}
+#endif
 
 /*
  * ####################################
@@ -23,7 +40,7 @@ void i_reinit_lora(int sendGain)
 {
 
   // LoRa.end();
-   LoRa.sleep();
+  LoRa.sleep();
 
   // if (sendGain < c_gain_threshold_boost)
   // {
@@ -91,7 +108,11 @@ void i_lora_trans_encrypt(String msg, int sendGain)
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
+#if USE_HELTEC
     LoRa.setTxPower(sendGain, RF_PACONFIG_PASELECT_RFO);
+#else
+    LoRa.setTxPower(sendGain);
+#endif
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
     state_du_global_tx_time += (esp_timer_get_time() - du_start);
@@ -101,7 +122,11 @@ void i_lora_trans_encrypt(String msg, int sendGain)
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_PABOOST");
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
+#if USE_HELTEC
     LoRa.setTxPower(sendGain, RF_PACONFIG_PASELECT_PABOOST);
+#else
+    LoRa.setTxPower(sendGain);
+#endif
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
     state_du_global_tx_time += (esp_timer_get_time() - du_start);

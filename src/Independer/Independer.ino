@@ -1,7 +1,21 @@
 // Set if you want to use the Heltec Board
-#define USE_HELTEC false
+#define USE_HELTEC true
 
+#if USE_HELTEC
 #include "heltec.h"
+#else
+#include <SPI.h>
+#include <Wire.h>
+#include "SSD1306Wire.h"
+#include <LoRa.h>
+#endif
+
+// TODO: LillgoGo LED GEHT NICHT
+// TODO: LillgoGo Deep Sleep geht nicht
+// TODO: LillgoGo Actor noch testen
+
+// TODO: Auch HelTec Board so kompilieren wegen HashCode (auch wegen Gain PABOOST Beachten)
+
 #include "device/mb-utils.h"
 #include "device/mb-gui.h"
 #include "Cipher.h"
@@ -16,7 +30,7 @@
 // Product Config
 String c_product_version = "v.0.1.7i";
 boolean c_dev_mode = true;
-boolean c_actor_mode = false;
+boolean c_actor_mode = true;
 boolean c_demo_mode = false;
 
 /*
