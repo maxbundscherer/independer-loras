@@ -2,8 +2,8 @@
 
 Ticker ticker_independer_send_later; // Declare Ticker object for send later
 
-String C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL = "?";
-String C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE = "!";
+#define C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL "?"
+#define C_INDEPENDER_SHORT_MESSAGE_CHAR_SINGLE "!"
 
 /*
  * ####################################
