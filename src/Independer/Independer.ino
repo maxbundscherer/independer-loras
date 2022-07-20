@@ -1,5 +1,5 @@
 // Set if you want to use the Heltec Board
-#define USE_HELTEC false
+#define USE_HELTEC true
 
 #if USE_HELTEC
 #include "heltec.h"
@@ -22,7 +22,7 @@
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.1.7i";
+String c_product_version = "v.0.1.8";
 boolean c_dev_mode = true;
 boolean c_actor_mode = false;
 boolean c_demo_mode = false;

@@ -54,14 +54,25 @@ void i_reinit_lora(int sendGain)
   // LoRa.sleep();
 }
 
-long i_lora_string_hash(char *str)
+int i_lora_string_hash(char *str, int len)
 {
 
-  long hash = 5381;
-  int c;
+  // long hash = 5381;
+  // int c;
 
-  while (c = *str++)
-    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+  // while (c = *str++)
+  //   hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+  int hash = 0;
+
+  for (int i = 0; i < len; i++)
+  {
+    char c = str[i];
+    // Serial.println("Proc now '" + String(c) + "'");
+    hash += c;
+  }
+
+  // Serial.println("Hash is " + String(hash));
 
   return hash;
 }
@@ -78,7 +89,7 @@ long i_adapter_lora_string_hash(String msg)
   // Copy it over
   msg.toCharArray(char_array, msg_len);
 
-  return i_lora_string_hash(char_array);
+  return i_lora_string_hash(char_array, msg_len);
 }
 
 /*
@@ -355,7 +366,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId, boolean disableGUI =
     else if (p_type == "-" and p_from == state_parser_from)
     {
       // End (check hashcode)
-      if (p_value == String(i_adapter_lora_string_hash(state_parser_msg)))
+      if (p_value.toInt() == i_adapter_lora_string_hash(state_parser_msg))
       {
         Serial.println("- End transmit - hashcode good");
         ret_from = state_parser_from;
