@@ -126,3 +126,5 @@ void loop()
 
 // TODO: Refactoring c_id und Gateway id
 // TODO: Refactoring disableShortcuts bei gui_selection wieder ausbauen, hat nicht funktioniert
+
+// TODO: String compare wie in workflow-actor implementieren!

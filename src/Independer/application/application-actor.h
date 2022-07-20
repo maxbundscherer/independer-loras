@@ -155,7 +155,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns, St
         l_cur_receive_attempt = 0;
       }
 
-      if (pong_ans.receivingCompleted and (!checkResponse or pong_ans.message == responseMsgCheck))
+      if (pong_ans.receivingCompleted and (!checkResponse or strcmp(pong_ans.message.c_str(), responseMsgCheck.c_str()) == 0)) // TODO: String compare wie in workflow-actor implementieren!
       {
         receivedMsg = pong_ans.message;
         receivedSuccess = true;
