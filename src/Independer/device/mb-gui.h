@@ -3,11 +3,11 @@ auto &display = *(Heltec.display);
 void gui_init_display()
 {
   display.init();
-  display->setBrightness(state_oled_brightness);
+  display.setBrightness(state_oled_brightness);
 }
 void gui_set_screen_brightness(int br)
 {
-  display->setBrightness(br);
+  display.setBrightness(br);
 }
 #else
 #define SCREEN_WIDTH 128  // OLED display width, in pixels
@@ -24,11 +24,12 @@ SSD1306Wire display(0x3c, OLED_SDA, OLED_SCL);
 void gui_init_display()
 {
   display.init();
+  display.setBrightness(state_oled_brightness);
   display.flipScreenVertically();
 }
 void gui_set_screen_brightness(int br)
 {
-  display->setBrightness(br);
+  display.setBrightness(br);
 }
 #endif
 

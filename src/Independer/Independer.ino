@@ -16,12 +16,6 @@
 
 // TODO: Auch HelTec Board so kompilieren wegen HashCode (auch wegen Gain PABOOST Beachten)
 
-#include "device/mb-utils.h"
-#include "device/mb-gui.h"
-#include "Cipher.h"
-#include "device/mb-crypt.h"
-#include "device/mb-lora.h"
-
 /*
  * ####################################
  *  Config Section
@@ -48,6 +42,12 @@ String state_wifi_hostname = "independer-" + String(esp_random());
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN - Saved in db
 
 int state_oled_brightness = 255; // saved in db
+
+#include "device/mb-utils.h"
+#include "device/mb-gui.h"
+#include "Cipher.h"
+#include "device/mb-crypt.h"
+#include "device/mb-lora.h"
 
 /*
  * ####################################
