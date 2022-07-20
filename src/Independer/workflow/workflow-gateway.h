@@ -39,6 +39,7 @@ void workflow_gateway_main()
 
       if (parser_ans.message == "C;slp")
       {
+        Serial.println("Active sleep mode");
         utils_go_to_sleep();
       }
       else if (parser_ans.message == "C;clmsg")
