@@ -542,7 +542,6 @@ void application_actor_large_data_test()
   gui_msg_static("Info", "Nachricht 4");
   delay(5000);
   lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis semper diam, sit amet egestas nunc semper sodales. Suspendisse potenti. Nunc semper ac dolor sit amet dapibus. Maecenas dui dolor, fringilla id varius at, posuere at justo. Aenean a lacinia turpis, id maximus nibh. Quisque congue vestibulum feugiat. Nullam id dui gravida nunc aliquam aliquam sed at est. Suspendisse in lacinia leo, sit amet consectetur sem.", state_lora_gain);
-  delay(5000);
 
   if (sync_was_on_flag)
   {

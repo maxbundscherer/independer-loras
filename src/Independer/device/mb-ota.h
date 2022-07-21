@@ -99,11 +99,14 @@ void i_ota_setup(String ssid, String password, String host)
 {
 
     // Connect to WiFi network
-    char ssid_char[ssid.length() + 1];
-    ssid.toCharArray(ssid_char, ssid.length() + 1);
 
-    char password_char[password.length() + 1];
-    password.toCharArray(password_char, password.length() + 1);
+    // char ssid_char[ssid.length() + 1];
+    // ssid.toCharArray(ssid_char, ssid.length() + 1);
+    char *ssid_char = const_cast<char*>(ssid.c_str());
+
+    // char password_char[password.length() + 1];
+    // password.toCharArray(password_char, password.length() + 1);
+    char *password_char = const_cast<char*>(password.c_str());
 
     Serial.println("Conntect to '" + String(ssid_char) + "' '" + ssid + "'");
     gui_msg_static("Hinweis", "Verbindet mit\n'" + String(ssid_char) + "'");
@@ -130,8 +133,10 @@ void i_ota_setup(String ssid, String password, String host)
     gui_msg_static("Update", "Gehe im Browser auf\n'" + String(my_ip) + "'\n'admin' 'updateindepender'");
 
     /*use mdns for host name resolution*/
-    char host_char[host.length() + 1];
-    host.toCharArray(host_char, host.length() + 1);
+    // char host_char[host.length() + 1];
+    // host.toCharArray(host_char, host.length() + 1);
+    char *host_char = const_cast<char*>(host.c_str());
+
     if (!MDNS.begin(host_char))
     { // http://esp32.local
         Serial.println("Error setting up MDNS responder!");

@@ -30,7 +30,8 @@ void Cipher::setKey(char * key) {
   
   if( strlen(key) > 16 ) {
     privateCipherKey = new char[17];
-    (String(key).substring(0,16)).toCharArray(privateCipherKey, 17);
+    // (String(key).substring(0,16)).toCharArray(privateCipherKey, 17);
+    privateCipherKey = const_cast<char*>(String(key).substring(0,16).c_str());
     
     #ifdef CIPHER_DEBUG
       Serial.println("[cipher] error: cipher key to long! Will be cutted to 16 characters.");

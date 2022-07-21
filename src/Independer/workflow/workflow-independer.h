@@ -24,7 +24,7 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
 {
 
   // Init before serial is ready
-  if (isActor)
+  if (isActor or true) // Some Gateways have keyboard too
   {
     pinMode(KEYBOARD_POWER_PIN, OUTPUT);
     digitalWrite(KEYBOARD_POWER_PIN, HIGH);
@@ -73,7 +73,8 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   rtc_gpio_deinit(GPIO_NUM_0);
   ++boot_state_count;
   Serial.println("Boot number: " + String(boot_state_count));
-  String(String(boot_state_msg) + String(boot_state_count)).toCharArray(boot_state_msg, BOOT_STATE_MSG_COUNT);
+  // String(String(boot_state_msg) + String(boot_state_count)).toCharArray(boot_state_msg, BOOT_STATE_MSG_COUNT);
+  char *boot_state_msg = const_cast<char *>(String(boot_state_count).c_str());
   Serial.println("Boot msg: " + String(boot_state_msg));
 
   Serial.println("- Wake up reason");

@@ -15,6 +15,7 @@
 // TODO: LillgoGo Actor noch testen
 
 // TODO: Auch HelTec Board so kompilieren wegen HashCode (auch wegen Gain PABOOST Beachten)
+// TODO: Es gibt manchmal Probleme beim Senden bei neuer Art zu Kompilieren
 
 /*
  * ####################################

@@ -83,11 +83,13 @@ long i_adapter_lora_string_hash(String msg)
   // Length (with one extra character for the null terminator)
   int msg_len = msg.length() + 1;
 
-  // Prepare the character array (the buffer)
-  char char_array[msg_len];
+  // // Prepare the character array (the buffer)
+  // char char_array[msg_len];
 
-  // Copy it over
-  msg.toCharArray(char_array, msg_len);
+  // // Copy it over
+  // msg.toCharArray(char_array, msg_len);
+
+  char *char_array = const_cast<char*>(msg.c_str());
 
   return i_lora_string_hash(char_array, msg_len);
 }
