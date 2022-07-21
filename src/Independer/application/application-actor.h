@@ -510,3 +510,42 @@ boolean application_actor_send_msg_actor_to_actor(String receiverId, String user
 
   return sendSuccess;
 }
+
+/*
+ * ####################################
+ *  Large Data Test
+ * ####################################
+ */
+
+void application_actor_large_data_test()
+{
+
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag)
+  {
+    multi_actor_stop();
+  }
+
+  gui_msg_static("Info", "Nachricht 1");
+  delay(5000);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Hi. Ich bin eine Testnachricht.", state_lora_gain);
+
+  gui_msg_static("Info", "Nachricht 2");
+  delay(5000);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Ich test jetzt einmal eine längere Nachricht um zu schauen, ob alles funktioniert hat!", state_lora_gain);
+
+  gui_msg_static("Info", "Nachricht 3");
+  delay(5000);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Hi. Wie geht es dir? Was machst du so?", state_lora_gain);
+
+  gui_msg_static("Info", "Nachricht 4");
+  delay(5000);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis semper diam, sit amet egestas nunc semper sodales. Suspendisse potenti. Nunc semper ac dolor sit amet dapibus. Maecenas dui dolor, fringilla id varius at, posuere at justo. Aenean a lacinia turpis, id maximus nibh. Quisque congue vestibulum feugiat. Nullam id dui gravida nunc aliquam aliquam sed at est. Suspendisse in lacinia leo, sit amet consectetur sem.", state_lora_gain);
+  delay(5000);
+
+  if (sync_was_on_flag)
+  {
+    multi_actor_start();
+  }
+}
