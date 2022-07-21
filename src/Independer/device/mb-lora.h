@@ -1,5 +1,3 @@
-#include "heltec.h"
-
 #define C_INDEPENDER_SEND_DELAY 2000
 #define C_INDEPENDER_SEND_DELAY_REPEAT 100
 #define C_INDEPENDER_SEND_DELAY_BETWEEN_MESSAGES 500
@@ -10,6 +8,25 @@
 #define C_INDEPENDER_SCAN_MS 8000
 
 #define BAND 868E6 // you can set band here directly,e.g. 868E6 915E6 433E6
+
+#if USE_HELTEC
+void lora_init()
+{
+}
+#else
+void lora_init()
+{
+#define SCK 5
+#define MISO 19
+#define MOSI 27
+#define SS 18
+#define RST 14
+#define DIO0 26
+  SPI.begin(SCK, MISO, MOSI, SS);
+  LoRa.setPins(SS, RST, DIO0);
+  LoRa.begin(BAND);
+}
+#endif
 
 /*
  * ####################################
@@ -23,7 +40,7 @@ void i_reinit_lora(int sendGain)
 {
 
   // LoRa.end();
-   LoRa.sleep();
+  LoRa.sleep();
 
   // if (sendGain < c_gain_threshold_boost)
   // {
@@ -37,14 +54,25 @@ void i_reinit_lora(int sendGain)
   // LoRa.sleep();
 }
 
-long i_lora_string_hash(char *str)
+int i_lora_string_hash(char *str, int len)
 {
 
-  long hash = 5381;
-  int c;
+  // long hash = 5381;
+  // int c;
 
-  while (c = *str++)
-    hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+  // while (c = *str++)
+  //   hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
+
+  int hash = 0;
+
+  for (int i = 0; i < len; i++)
+  {
+    char c = str[i];
+    // Serial.println("Proc now '" + String(c) + "'");
+    hash += c;
+  }
+
+  // Serial.println("Hash is " + String(hash));
 
   return hash;
 }
@@ -55,13 +83,15 @@ long i_adapter_lora_string_hash(String msg)
   // Length (with one extra character for the null terminator)
   int msg_len = msg.length() + 1;
 
-  // Prepare the character array (the buffer)
-  char char_array[msg_len];
+  // // Prepare the character array (the buffer)
+  // char char_array[msg_len];
 
-  // Copy it over
-  msg.toCharArray(char_array, msg_len);
+  // // Copy it over
+  // msg.toCharArray(char_array, msg_len);
 
-  return i_lora_string_hash(char_array);
+  char *char_array = const_cast<char*>(msg.c_str());
+
+  return i_lora_string_hash(char_array, msg_len);
 }
 
 /*
@@ -91,7 +121,11 @@ void i_lora_trans_encrypt(String msg, int sendGain)
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
+#if USE_HELTEC
     LoRa.setTxPower(sendGain, RF_PACONFIG_PASELECT_RFO);
+#else
+    LoRa.setTxPower(sendGain);
+#endif
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
     state_du_global_tx_time += (esp_timer_get_time() - du_start);
@@ -101,7 +135,11 @@ void i_lora_trans_encrypt(String msg, int sendGain)
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_PABOOST");
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
+#if USE_HELTEC
     LoRa.setTxPower(sendGain, RF_PACONFIG_PASELECT_PABOOST);
+#else
+    LoRa.setTxPower(sendGain);
+#endif
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
     state_du_global_tx_time += (esp_timer_get_time() - du_start);
@@ -330,7 +368,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId, boolean disableGUI =
     else if (p_type == "-" and p_from == state_parser_from)
     {
       // End (check hashcode)
-      if (p_value == String(i_adapter_lora_string_hash(state_parser_msg)))
+      if (p_value.toInt() == i_adapter_lora_string_hash(state_parser_msg))
       {
         Serial.println("- End transmit - hashcode good");
         ret_from = state_parser_from;

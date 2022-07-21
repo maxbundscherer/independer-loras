@@ -24,13 +24,19 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
 {
 
   // Init before serial is ready
-  if (isActor)
+  if (isActor or true) // Some Gateways have keyboard too
   {
     pinMode(KEYBOARD_POWER_PIN, OUTPUT);
     digitalWrite(KEYBOARD_POWER_PIN, HIGH);
   }
 
+  Serial.println("- Init Serial");
+
+#if USE_HELTEC
   Heltec.begin(true /*DisplayEnable Enable*/, true /*Heltec.Heltec.Heltec.LoRa Disable*/, true /*Serial Enable*/, true /*PABOOST Enable*/, BAND /*long BAND*/);
+#else
+  Serial.begin(115200);
+#endif
 
   Serial.println();
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));
@@ -38,16 +44,17 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   Serial.println("- Init Database");
   db_init();
 
+  Serial.println("- Init Display");
+  gui_init_display();
+
+  Serial.println("- Init LoRa");
+  lora_init();
+
   if (isDevMode)
   {
     Serial.println("- Init Dev Mode");
     state_lora_gain = 6;
   }
-
-  Serial.println("- Init Display");
-  Heltec.display->init();
-  Heltec.display->setBrightness(state_oled_brightness);
-  // Heltec.display -> flipScreenVertically();
 
   Serial.println("- Init Cipher");
   crypt_init_cipher(c_cipher_key);
@@ -66,7 +73,8 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   rtc_gpio_deinit(GPIO_NUM_0);
   ++boot_state_count;
   Serial.println("Boot number: " + String(boot_state_count));
-  String(String(boot_state_msg) + String(boot_state_count)).toCharArray(boot_state_msg, BOOT_STATE_MSG_COUNT);
+  // String(String(boot_state_msg) + String(boot_state_count)).toCharArray(boot_state_msg, BOOT_STATE_MSG_COUNT);
+  char *boot_state_msg = const_cast<char *>(String(boot_state_count).c_str());
   Serial.println("Boot msg: " + String(boot_state_msg));
 
   Serial.println("- Wake up reason");

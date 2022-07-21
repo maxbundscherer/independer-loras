@@ -11,7 +11,7 @@ TaskHandle_t Core1TaskHnd;
 
 String state_ticker_multi_actor_rec_actor_id = "";
 
-String state_multi_actor_msgs[100] = "";
+String state_multi_actor_msgs[100];
 int state_multi_actor_msgs_counter = 0;
 
 void i_multi_res_proc_actor_rec_message_from_actor(void *parameter)

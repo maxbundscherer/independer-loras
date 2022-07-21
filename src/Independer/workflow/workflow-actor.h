@@ -198,6 +198,7 @@ void i_actor_functions_test_function_menu()
   String menu_items[] = {
       "Erreichbar-Check",
       "Test Ausgabe",
+      "Test Datenaustausch",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -212,6 +213,8 @@ void i_actor_functions_test_function_menu()
     }
     else if (selected == 1)
       gui_test();
+    else if (selected == 2)
+      application_actor_large_data_test();
     else
       fin_flag = true;
   }
@@ -277,9 +280,11 @@ void i_gateway_functions_menu()
       delay(C_INDEPENDER_SEND_DELAY_REPEAT);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
     }
-    else if(selected == 1){
+    else if (selected == 1)
+    {
       gui_msg_animated("Info", "Aktiviere Update-Modus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
-      lora_send_msg(state_my_id, state_gateway_id, "C;up;" + state_wifi_ssid + ";" + state_wifi_pw, state_lora_gain);
+      String sendString = "C;up;" + state_wifi_ssid + ";" + state_wifi_pw;
+      lora_send_msg(state_my_id, state_gateway_id, sendString, state_lora_gain);
     }
     else
       fin_flag = true;
@@ -379,7 +384,7 @@ void i_settings_menu()
       if (ans < 0)
         ans = 0;
       db_save_oled_brightness(ans);
-      Heltec.display->setBrightness(state_oled_brightness);
+      gui_set_screen_brightness(ans);
     }
     else if (selected == 4)
       i_setting_bg_syn_menu();

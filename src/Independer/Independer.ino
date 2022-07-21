@@ -1,9 +1,21 @@
+// Set if you want to use the Heltec Board
+#define USE_HELTEC true
+
+#if USE_HELTEC
 #include "heltec.h"
-#include "device/mb-utils.h"
-#include "device/mb-gui.h"
-#include "Cipher.h"
-#include "device/mb-crypt.h"
-#include "device/mb-lora.h"
+#else
+#include <SPI.h>
+#include <Wire.h>
+#include "SSD1306Wire.h"
+#include <LoRa.h>
+#endif
+
+// TODO: LillgoGo LED GEHT NICHT
+// TODO: LillgoGo Deep Sleep geht nicht
+// TODO: LillgoGo Actor noch testen
+
+// TODO: Auch HelTec Board so kompilieren wegen HashCode (auch wegen Gain PABOOST Beachten)
+// TODO: Es gibt manchmal Probleme beim Senden bei neuer Art zu Kompilieren
 
 /*
  * ####################################
@@ -11,7 +23,7 @@
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.1.7";
+String c_product_version = "v.0.1.8";
 boolean c_dev_mode = false;
 boolean c_actor_mode = true;
 boolean c_demo_mode = false;
@@ -31,6 +43,12 @@ String state_wifi_hostname = "independer-" + String(esp_random());
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN - Saved in db
 
 int state_oled_brightness = 255; // saved in db
+
+#include "device/mb-utils.h"
+#include "device/mb-gui.h"
+#include "Cipher.h"
+#include "device/mb-crypt.h"
+#include "device/mb-lora.h"
 
 /*
  * ####################################
@@ -71,7 +89,9 @@ void setup()
       if (c_demo_mode)
         delay(1000 * 60 * 10);
     }
-  } else{
+  }
+  else
+  {
     gui_msg_animated("Info", "Dev Mode\nactive", C_GUI_DELAY_MSG_VERY_SHORT_I);
   }
 
@@ -107,3 +127,5 @@ void loop()
 
 // TODO: Refactoring c_id und Gateway id
 // TODO: Refactoring disableShortcuts bei gui_selection wieder ausbauen, hat nicht funktioniert
+
+// TODO: String compare wie in workflow-actor implementieren!
