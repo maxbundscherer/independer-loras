@@ -24,7 +24,8 @@ The application is started through [PlatformIO](https://platformio.org/). Please
 - Select no PlatformIO-Enviroment (global).
 - Run Task `Clean`
 - Run Task `Compile`
-- Run Script `./package.sh`
+- Run Script `independer-app/package.sh`
+- View files in `independer-app/export/`
 
 ### Upload code via WIFI
 
