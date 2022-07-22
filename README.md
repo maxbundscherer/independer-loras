@@ -6,9 +6,9 @@ The goal is to develop a small **open-source communication gadget** (at the begi
 
 We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
 
-The project is still in its initial phase. If you want to **join, or have an idea**, feel free to [write us](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions). The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
+The project is still in its development phase. If you want to **join, or have an idea**, feel free to [write us](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions). The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
 
-``esp32 - lora - encryption - short-message - protocol - keyboard - 3d-printing - independent``
+``esp32 - lora - encryption - short-message - protocol - keyboard - platformio - 3d-printing - independent``
 
 [![](docs/images/play.png)](https://www.youtube.com/watch?v=-8pI4nHZv2M "Click to Watch!")
 
@@ -31,6 +31,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Deep Sleep Mode (battery saving)
 - Communication Actor and Gateway Test Functions
 - *Who is in my area?* or *Is available?* Functions
+- Large Data Test Functions
 - Over-the-Air-Update (update devices through WIFI)
 - Blinking led if you have new unseen messages
 - Persistent storage (settings and messages)
@@ -52,44 +53,32 @@ This repository describes the concept, the project structure, the encrypted Lora
 - [LoraS-Protocol](docs/loras-protocol.md)
 - [Independer-Protocol](docs/independer-protocol.md)
 
-### Project stages
-
-- [x] Antenna Testing and 3D Case Prototyping
-- [x] Crypt Baseline Implementations
-- [x] Device (Hardware, Gui) Baseline Implementations
-- [x] Gateway and Actor Baseline Implementations
-- [x] Actor to Actor Test Functions
-- [x] Actor to Gateway Test Functions
-- [x] Gateway to Actor Test Functions
-- [x] *Who is in my area?* or *Is available?* Functions
-- [x] Over-the-Air-Update
-- [x] Inbox and outbox Actor to Gateway (via LoRaS) Communcation
-- [x] Inbox and outbox Actor to Actor (via LoRaS) Communcation
-- [ ] Inbox and outbox Actor to Actor (via WIFI/Internet) Communcation (in progress)
-- [ ] Complete Docs
-- [ ] 3D Case Improvements
-- [ ] Code Refactoring
-- [ ] Deploy (Secret keys, Actor and Gateway releated configurations)
-- [ ] Crypt Improvements
-- [ ] GUI Multilanguage
-- [ ] ...
-
 The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
 
 ## More pictures
+
+### Devices
 
 <img src="docs/images/main.jpeg" width="600"/>
 
 <img src="docs/images/hardware.jpeg" width="600"/>
 
-<img src="docs/images/ui_actor.jpeg" width="600"/>
+<img src="docs/images/new_board.jpeg" width="600"/>
 
-<img src="docs/images/ui_gateway.jpeg" width="600"/>
+### 3D Printing
 
 <img src="docs/images/cad.png" width="600"/>
 
 <img src="docs/images/print.png" width="600"/>
 
 <img src="docs/images/print-case.png" width="600"/>
+
+### UI
+
+<img src="docs/images/ui_actor.jpeg" width="600"/>
+
+<img src="docs/images/ui_gateway.jpeg" width="600"/>
+
+## Other
 
 Also check out [Awesome/Automatic SDR](https://a-sdr.org/).

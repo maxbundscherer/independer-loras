@@ -8,9 +8,9 @@ The application is started through [PlatformIO](https://platformio.org/). Please
 - `workflow/`: Baseline workflow and examples for Actor and Gateway.
 - `application/`: Baseline Independer application.
 
-#### Run Tasks
+### Run Tasks
 
-- Enviroment label describes board-type (e.g. Heltec or TTGO) and contains developer flag (release or developer).
+- Enviroment label describes board-type (e.g. Heltec or TTGO), contains developer flag (release or developer) and contains device-mode (actor or gateway).
 
 ### Upload code via WIFI
 
