@@ -7,6 +7,18 @@
 #include <LoRa.h>
 #endif
 
+#if IS_RELEASE
+boolean c_dev_mode = false;
+#else
+boolean c_dev_mode = true;
+#endif
+
+#if IS_ACTOR
+boolean c_actor_mode = true;
+#else
+boolean c_actor_mode = false;
+#endif
+
 // TODO: LillgoGo LED GEHT NICHT
 // TODO: LillgoGo Deep Sleep geht nicht
 // TODO: LillgoGo Actor noch testen
@@ -21,8 +33,6 @@
  */
 // Product Config
 String c_product_version = "v.0.1.8";
-boolean c_dev_mode = false;
-boolean c_actor_mode = true;
 boolean c_demo_mode = false;
 
 /*
