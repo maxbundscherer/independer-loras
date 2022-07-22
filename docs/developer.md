@@ -29,7 +29,7 @@ The application is started through [PlatformIO](https://platformio.org/). Please
 
 ### Upload code via WIFI
 
-- Run `Compile` or use steps from above.
+- Run Task `Compile` or use steps from above.
 - Upload ``independer-app/.pio/build/<BUILD-TYPE>/firmware.bin`` file via webbrowser (see update-doc).
 
 ### Additional Information

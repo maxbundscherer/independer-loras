@@ -32,7 +32,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.1.8";
+String c_product_version = "v.0.1.9";
 boolean c_demo_mode = false;
 
 /*
