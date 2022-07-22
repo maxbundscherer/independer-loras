@@ -11,9 +11,6 @@ char *c_cipher_key = "kjew50fkjriowdj6";
 // Keyboard Power Pin
 #define KEYBOARD_POWER_PIN 13
 
-// LED Power Pin
-#define LED 25
-
 // Boot State
 RTC_DATA_ATTR int boot_state_count = 0;
 #define BOOT_STATE_MSG_COUNT 20
