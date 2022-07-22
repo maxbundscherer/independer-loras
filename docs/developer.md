@@ -16,20 +16,20 @@ The application is started through [PlatformIO](https://platformio.org/). Please
 
 - Select your specific PlatformIO-Enviroment.
 - Run Task `Clean`
-- Run Task `Compile`
+- Run Task `Build`
 - Run Task `Upload`
 
 #### Complete (all devices and all modes)
 
 - Select no PlatformIO-Enviroment (global).
 - Run Task `Clean`
-- Run Task `Compile`
+- Run Task `Build`
 - Run Script `independer-app/package.sh`
 - View files in `independer-app/export/`
 
 ### Upload code via WIFI
 
-- Run Task `Compile` or use steps from above.
+- See steps above.
 - Upload ``independer-app/.pio/build/<BUILD-TYPE>/firmware.bin`` file via webbrowser (see update-doc).
 
 ### Additional Information
