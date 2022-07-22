@@ -1,6 +1,3 @@
-// Set if you want to use the Heltec Board
-#define USE_HELTEC true
-
 #if USE_HELTEC
 #include "heltec.h"
 #else
@@ -8,6 +5,18 @@
 #include <Wire.h>
 #include "SSD1306Wire.h"
 #include <LoRa.h>
+#endif
+
+#if IS_RELEASE
+boolean c_dev_mode = false;
+#else
+boolean c_dev_mode = true;
+#endif
+
+#if IS_ACTOR
+boolean c_actor_mode = true;
+#else
+boolean c_actor_mode = false;
 #endif
 
 // TODO: LillgoGo LED GEHT NICHT
@@ -23,9 +32,7 @@
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.1.8";
-boolean c_dev_mode = false;
-boolean c_actor_mode = true;
+String c_product_version = "v.0.1.9";
 boolean c_demo_mode = false;
 
 /*
