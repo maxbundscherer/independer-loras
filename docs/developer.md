@@ -8,14 +8,28 @@ The application is started through [PlatformIO](https://platformio.org/). Please
 - `workflow/`: Baseline workflow and examples for Actor and Gateway.
 - `application/`: Baseline Independer application.
 
-### Run Tasks
+### Environments
 
-- Enviroment label describes board-type (e.g. Heltec or TTGO), contains developer flag (release or developer) and contains device-mode (actor or gateway).
+- Environment label describes board-type (e.g. Heltec or TTGO), contains developer flag (release or developer) and contains device-mode (actor or gateway).
+
+#### Build and upload (single device)
+
+- Select your specific PlatformIO-Enviroment.
+- Run Task `Clean`
+- Run Task `Compile`
+- Run Task `Upload`
+
+#### Complete (all devices and all modes)
+
+- Select no PlatformIO-Enviroment (global).
+- Run Task `Clean`
+- Run Task `Compile`
+- Run Script `./package.sh`
 
 ### Upload code via WIFI
 
-- Run `Compile`.
-- Upload ``independer-app/.pio/build/<BOARD>/firmware.bin`` file via webbrowser (see update-doc).
+- Run `Compile` or use steps from above.
+- Upload ``independer-app/.pio/build/<BUILD-TYPE>/firmware.bin`` file via webbrowser (see update-doc).
 
 ### Additional Information
 
