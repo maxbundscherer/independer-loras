@@ -11,6 +11,9 @@ char *c_cipher_key = "kjew50fkjriowdj6";
 // Keyboard Power Pin
 #define KEYBOARD_POWER_PIN 13
 
+// LED Power Pin
+#define LED 25
+
 // Boot State
 RTC_DATA_ATTR int boot_state_count = 0;
 #define BOOT_STATE_MSG_COUNT 20
@@ -31,12 +34,7 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   }
 
   Serial.println("- Init Serial");
-
-#if USE_HELTEC
-  Heltec.begin(true /*DisplayEnable Enable*/, true /*Heltec.Heltec.Heltec.LoRa Disable*/, true /*Serial Enable*/, true /*PABOOST Enable*/, BAND /*long BAND*/);
-#else
-  Serial.begin(115200);
-#endif
+  Serial.begin(9600);
 
   Serial.println();
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));

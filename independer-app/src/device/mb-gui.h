@@ -1,37 +1,46 @@
-#if USE_HELTEC
-auto &display = *(Heltec.display);
-void gui_init_display()
-{
-  display.init();
-  display.setBrightness(state_oled_brightness);
-}
-void gui_set_screen_brightness(int br)
-{
-  display.setBrightness(br);
-}
-#else
 #define SCREEN_WIDTH 128  // OLED display width, in pixels
 #define DISPLAY_WIDTH 128 // OLED display width, in pixels
 
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
 #define DISPLAY_HEIGHT 64 // OLED display height, in pixels
 
-#define LED 25 // TOOD: Led funktioniert nicht
+#if USE_HELTEC
+#define OLED_RESET 16
+#define OLED_SDA 4
+#define OLED_SCL 15
+SSD1306Wire display(0x3c, OLED_SDA, OLED_SCL);
+void gui_init_display()
+{
+  pinMode(OLED_RESET, OUTPUT);
+  digitalWrite(OLED_RESET, HIGH);
+
+  pinMode(LED, OUTPUT);
+
+  display.init();
+  display.setBrightness(state_oled_brightness);
+  display.flipScreenVertically();
+}
+#else
+
 #define OLED_RESET 4
 #define OLED_SDA 21
 #define OLED_SCL 22
 SSD1306Wire display(0x3c, OLED_SDA, OLED_SCL);
 void gui_init_display()
 {
+
+  pinMode(LED, OUTPUT);
+
   display.init();
   display.setBrightness(state_oled_brightness);
   display.flipScreenVertically();
 }
+#endif
+
 void gui_set_screen_brightness(int br)
 {
   display.setBrightness(br);
 }
-#endif
 
 // Keyboard Config
 #define CARDKB_ADDR 0x5F
@@ -501,12 +510,6 @@ void i_gui_menu(String menu_title, String page, String menu0, String menu1, Stri
     display.display();
     delay(40);
   }
-
-  //  for (int i = 1; i <= 6; i += 1) {
-  //    Heltec.display -> drawLine(5, 10 * pos + 8, 5 + i, 10 * pos + 8);
-  //    Heltec.display -> display();
-  //    delay(20);
-  //  }
 }
 
 int gui_selection(String menu_title, String menu_items[], int count_items, boolean disableShortcuts = false)

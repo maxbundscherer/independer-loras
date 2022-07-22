@@ -1,11 +1,7 @@
-#if USE_HELTEC
-#include "heltec.h"
-#else
 #include <SPI.h>
 #include <Wire.h>
 #include "SSD1306Wire.h"
 #include <LoRa.h>
-#endif
 
 #if IS_RELEASE
 boolean c_dev_mode = false;
@@ -32,7 +28,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.1.9";
+String c_product_version = "v.0.1.10";
 boolean c_demo_mode = false;
 
 /*

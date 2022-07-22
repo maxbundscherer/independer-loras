@@ -9,11 +9,6 @@
 
 #define BAND 868E6 // you can set band here directly,e.g. 868E6 915E6 433E6
 
-#if USE_HELTEC
-void lora_init()
-{
-}
-#else
 void lora_init()
 {
 #define SCK 5
@@ -26,7 +21,6 @@ void lora_init()
   LoRa.setPins(SS, RST, DIO0);
   LoRa.begin(BAND);
 }
-#endif
 
 /*
  * ####################################
@@ -89,7 +83,7 @@ long i_adapter_lora_string_hash(String msg)
   // // Copy it over
   // msg.toCharArray(char_array, msg_len);
 
-  char *char_array = const_cast<char*>(msg.c_str());
+  char *char_array = const_cast<char *>(msg.c_str());
 
   return i_lora_string_hash(char_array, msg_len);
 }
@@ -121,11 +115,7 @@ void i_lora_trans_encrypt(String msg, int sendGain)
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
-#if USE_HELTEC
-    LoRa.setTxPower(sendGain, RF_PACONFIG_PASELECT_RFO);
-#else
     LoRa.setTxPower(sendGain);
-#endif
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
     state_du_global_tx_time += (esp_timer_get_time() - du_start);
@@ -135,11 +125,7 @@ void i_lora_trans_encrypt(String msg, int sendGain)
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_PABOOST");
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
-#if USE_HELTEC
-    LoRa.setTxPower(sendGain, RF_PACONFIG_PASELECT_PABOOST);
-#else
     LoRa.setTxPower(sendGain);
-#endif
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
     state_du_global_tx_time += (esp_timer_get_time() - du_start);
