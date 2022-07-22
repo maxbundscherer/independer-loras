@@ -1,11 +1,7 @@
-#if USE_HELTEC
-#include "heltec.h"
-#else
 #include <SPI.h>
 #include <Wire.h>
 #include "SSD1306Wire.h"
 #include <LoRa.h>
-#endif
 
 #if IS_RELEASE
 boolean c_dev_mode = false;
