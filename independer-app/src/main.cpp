@@ -1,6 +1,3 @@
-// Set if you want to use the Heltec Board
-#define USE_HELTEC true
-
 #if USE_HELTEC
 #include "heltec.h"
 #else
