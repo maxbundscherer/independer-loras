@@ -4,6 +4,9 @@
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
 #define DISPLAY_HEIGHT 64 // OLED display height, in pixels
 
+// LED Power Pin
+#define LED 25
+
 #if USE_HELTEC
 #define OLED_RESET 16
 #define OLED_SDA 4
