@@ -15,19 +15,31 @@ String i_independer_send_later_from = "";
 String i_independer_send_later_to = "";
 String i_independer_send_later_message = "";
 
+boolean state_send_late_is_already_active = false;
+
 void i_callback_send_later() // Callback function
 {
   lora_send_msg_single_unsafe(i_independer_send_later_from, i_independer_send_later_to, i_independer_send_later_message, state_lora_gain);
   i_independer_send_later_from = "";
   i_independer_send_later_to = "";
   i_independer_send_later_message = "";
+  state_send_late_is_already_active = false;
 }
 
 void application_independer_send_later_single_unsafe(String from, String to, String msg, int delay_ms)
 {
+  if (state_send_late_is_already_active)
+  {
+    Serial.println("IGNORE SEND LATER, is already active");
+    return;
+  }
+
+  state_send_late_is_already_active = true;
+
   i_independer_send_later_from = from;
   i_independer_send_later_to = to;
   i_independer_send_later_message = msg;
+
   Serial.println("Schedule send later in " + String(delay_ms) + " millis");
   ticker_independer_send_later.once_ms(delay_ms, i_callback_send_later);
 }
