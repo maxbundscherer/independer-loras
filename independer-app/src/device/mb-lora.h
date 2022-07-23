@@ -112,13 +112,8 @@ void i_lora_trans_encrypt(String msg, int sendGain)
 
   if (sendGain < c_gain_threshold_boost)
   {
-#if USE_HELTEC
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
     LoRa.setTxPower(sendGain, 0);
-#else
-    Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with NO PARAM");
-    LoRa.setTxPower(sendGain);
-#endif
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
     LoRa.print(crypt_encrypt(msg));
@@ -127,13 +122,8 @@ void i_lora_trans_encrypt(String msg, int sendGain)
   }
   else
   {
-#if USE_HELTEC
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_PABOOST");
     LoRa.setTxPower(sendGain, 1);
-#else
-    Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with NO PARAM");
-    LoRa.setTxPower(sendGain);
-#endif
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
     LoRa.print(crypt_encrypt(msg));
