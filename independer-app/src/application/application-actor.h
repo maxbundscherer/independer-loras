@@ -51,9 +51,9 @@ void application_actor_who_is_in_my_area()
       {
 
         String i_res = "";
-        for (int i = 0; i < packetSize; i++)
+        while (LoRa.available())
         {
-          i_res += (char)LoRa.read();
+          i_res += LoRa.readString();
         }
 
         ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_my_id);
@@ -529,11 +529,11 @@ void application_actor_large_data_test()
 
   gui_msg_static("Info", "Nachricht 1");
   delay(5000);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Hi. Ich bin eine Testnachricht.", state_lora_gain);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Du bist mein Sonnenschein!", state_lora_gain);
 
   gui_msg_static("Info", "Nachricht 2");
   delay(5000);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Ich test jetzt einmal eine längere Nachricht um zu schauen, ob alles funktioniert hat!", state_lora_gain);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Hey. Wie geht es dir?", state_lora_gain);
 
   gui_msg_static("Info", "Nachricht 3");
   delay(5000);

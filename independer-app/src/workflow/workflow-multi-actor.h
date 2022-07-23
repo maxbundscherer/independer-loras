@@ -152,9 +152,9 @@ void i_multi_Task1_short_message(void *parameter)
       {
 
         String i_res = "";
-        for (int i = 0; i < packetSize; i++)
+        while (LoRa.available())
         {
-          i_res += (char)LoRa.read();
+          i_res += LoRa.readString();
         }
 
         ShortMessageAndTuple parser_ans = lora_short_message_parse(i_res, state_my_id);

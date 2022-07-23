@@ -25,9 +25,9 @@ void workflow_gateway_main()
     state_gateway_has_sth_changed = true;
 
     String i_res = "";
-    for (int i = 0; i < packetSize; i++)
+    while (LoRa.available())
     {
-      i_res += (char)LoRa.read();
+      i_res += LoRa.readString();
     }
 
     ParserAnsTuple parser_ans = lora_stateful_parse(i_res, state_gateway_id);
