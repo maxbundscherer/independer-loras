@@ -34,5 +34,6 @@ The application is started through [PlatformIO](https://platformio.org/). Please
 
 ### Additional Information
 
+- [LoRa API](https://github.com/sandeepmistry/arduino-LoRa/blob/master/API.md)
 - [Heltec LoRa API](https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/src/lora/API.md)
 - [Heltec API](https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/src/oled/API.md)

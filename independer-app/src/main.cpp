@@ -16,10 +16,7 @@ boolean c_actor_mode = false;
 #endif
 
 // TODO: LillgoGo Actor noch testen
-
 // TODO: Hashcode Check verbessern
-// TODO: Auch HelTec Board neuer Kompiler (auch wegen Gain PABOOST Beachten)
-// TODO: Gateway Deep Sleep geht nicht
 
 /*
  * ####################################
@@ -27,7 +24,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.2.2";
+String c_product_version = "v.0.2.3";
 boolean c_demo_mode = false;
 
 /*
