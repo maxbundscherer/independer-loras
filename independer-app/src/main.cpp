@@ -15,12 +15,11 @@ boolean c_actor_mode = true;
 boolean c_actor_mode = false;
 #endif
 
-// TODO: LillgoGo LED GEHT NICHT
-// TODO: LillgoGo Deep Sleep geht nicht
 // TODO: LillgoGo Actor noch testen
 
-// TODO: Auch HelTec Board so kompilieren wegen HashCode (auch wegen Gain PABOOST Beachten)
-// TODO: Es gibt manchmal Probleme beim Senden bei neuer Art zu Kompilieren
+// TODO: Hashcode Check verbessern
+// TODO: Auch HelTec Board neuer Kompiler (auch wegen Gain PABOOST Beachten)
+// TODO: Gateway Deep Sleep geht nicht
 
 /*
  * ####################################
@@ -28,7 +27,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.2.1";
+String c_product_version = "v.0.2.2";
 boolean c_demo_mode = false;
 
 /*
@@ -47,9 +46,9 @@ int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT
 
 int state_oled_brightness = 255; // saved in db
 
+#include "device/mb-base64.h"
 #include "device/mb-utils.h"
 #include "device/mb-gui.h"
-#include "Cipher.h"
 #include "device/mb-crypt.h"
 #include "device/mb-lora.h"
 
