@@ -112,20 +112,30 @@ void i_lora_trans_encrypt(String msg, int sendGain)
 
   if (sendGain < c_gain_threshold_boost)
   {
+#if USE_HELTEC
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_RFO");
+    LoRa.setTxPower(sendGain, 0);
+#else
+    Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with NO PARAM");
+    LoRa.setTxPower(sendGain);
+#endif
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
-    LoRa.setTxPower(sendGain);
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
     state_du_global_tx_time += (esp_timer_get_time() - du_start);
   }
   else
   {
+#if USE_HELTEC
     Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with RF_PACONFIG_PASELECT_PABOOST");
+    LoRa.setTxPower(sendGain, 1);
+#else
+    Serial.println("Send now '" + msg + "' with gain " + String(sendGain) + " with NO PARAM");
+    LoRa.setTxPower(sendGain);
+#endif
     uint64_t du_start = esp_timer_get_time();
     LoRa.beginPacket();
-    LoRa.setTxPower(sendGain);
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
     state_du_global_tx_time += (esp_timer_get_time() - du_start);
@@ -236,7 +246,7 @@ ShortMessageAndTuple lora_short_message_parse(String msg, String myId)
   int msg_len = msg.length();
 
   Serial.println("(Received raw message) '" + msg + "'");
-  Serial.println("Message Debug Info RSSI=" + String(LoRa.packetRssi()) + " SNR=" + String(LoRa.packetSnr()));
+  Serial.println("Message Debug Info RSSI=" + String(LoRa.packetRssi()) + " SNR=" + String(LoRa.packetSnr()) + " FreqError=" + String(LoRa.packetFrequencyError()));
 
   if (msg_len > 50)
   {
@@ -306,7 +316,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId, boolean disableGUI =
   msg = crypt_decrypt(msg);
 
   Serial.println("(Received raw message) '" + msg + "'");
-  Serial.println("Message Debug Info RSSI=" + String(LoRa.packetRssi()) + " SNR=" + String(LoRa.packetSnr()));
+  Serial.println("Message Debug Info RSSI=" + String(LoRa.packetRssi()) + " SNR=" + String(LoRa.packetSnr()) + " FreqError=" + String(LoRa.packetFrequencyError()));
 
   String p_from = "";
   String p_to = "";
