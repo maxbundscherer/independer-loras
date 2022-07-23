@@ -42,6 +42,10 @@ void utils_print_wakeup_reason()
 
 void utils_go_to_sleep()
 {
+
+  Serial.println("Activate sleep mode");
+  delay(1000); // is required
+
   /*
   First we configure the wake up source
   We set our ESP32 to wake up for an external trigger.
