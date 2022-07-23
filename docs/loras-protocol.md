@@ -1,6 +1,6 @@
 ## LoRaS Protocol
 
-This protocol is based on the **LoRa radio standard** and the transmission is currently **encrypted** with AES. The goal will be an **asymmetric protocol like GPG**. Attention has always been paid to **low overhead**, **transmission security** and **energy saving**. The three protocols in this section are for LoRa receive and transmit (non-application level).
+This protocol is based on the **LoRa radio standard** and the transmission is currently **encrypted** with [boseji/xxtea-iot-crypt](https://registry.platformio.org/libraries/boseji/xxtea-iot-crypt). The goal will be an **asymmetric protocol like GPG**. Attention has always been paid to **low overhead**, **transmission security** and **energy saving**. The three protocols in this section are for LoRa receive and transmit (non-application level).
 
 Currently the frequency **868 MHz** is used, but in the future the frequency **433 MHz** will also be usable. The frequencies are currently designed for the German area, but **can be freely selected**. Possible legal restrictions, such as the specified duty cycle and transmit power, can be taken into account, for example, using the *Send quota* and *Send gain* settings.
 

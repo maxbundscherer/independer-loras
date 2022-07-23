@@ -37,7 +37,10 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));
 
   Serial.println("- Init Database");
-  db_init();
+  if (isActor)
+  {
+    db_init();
+  }
 
   Serial.println("- Init Display");
   gui_init_display();
