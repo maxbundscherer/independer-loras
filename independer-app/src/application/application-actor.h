@@ -551,15 +551,38 @@ void application_actor_large_data_test()
  * ####################################
  */
 
-String application_actor_query_msgs_from_internet(String myId)
+void application_actor_query_msgs_from_internet(String myId)
 {
 
   gui_msg_static("Hinweis", "Nachrichten werden\nabgerufen");
   String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
-  Serial.println("\nQuery Messages from Internet: '" + ret + "'");
+  Serial.println("Query Messages from Internet: '" + ret + "'");
 
   if (ret != "")
   {
-    Serial.println("TODO");
+
+    int startPos = 0;
+
+    for (int i = 0; i < ret.length() and startPos == 0; i++)
+    {
+
+      String current = ret.substring(i, i + 1);
+
+      if (current == "{")
+      {
+        startPos = i;
+      }
+    }
+
+    if (startPos != 0)
+    {
+      ret = ret.substring(startPos);
+      Serial.println("Should proc: '" + ret + "'");
+      return;
+    }
   }
+
+  gui_msg_animated("Fehler", "Chat konnte nicht\nabgerufen werden", C_GUI_DELAY_MSG_MIDDLE_I);
+
+  return;
 }
