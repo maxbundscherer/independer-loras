@@ -1,3 +1,7 @@
+## Independer App Server
+
+PostgreSQL Database is required.
+
 ## Install
 
 Edit Database Configuration in `config.py`.

@@ -24,7 +24,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 - **Actor to Actor (via LoRaS)** communcation: Send messages directly between two Actors.
 - **Actor to Gateway (via LoRaS)** communcation: Send messages via a Gateway. Actors can query their messages via a gateway.
-- **Actor to Actor (via WIFI/Internet)** communcation: Send messages via a Internet. Actors can query their messages via WIFI/Internet.
+- **Actor to Actor (via WIFI/Internet)** communcation: Send messages via Internet. Actors can query their messages via WIFI/Internet.
 - 3D-printed and protoyped Case with Mini Keyboard
 - Custom Software and Communication Protocol LoRaS
 - ESP32 with LoRa Antenna and Multi-Tasking Features
@@ -35,12 +35,14 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Over-the-Air-Update (update devices through WIFI)
 - Blinking led if you have new unseen messages
 - Persistent storage (settings and messages)
+- Python Flask Server included (messages via WIFI/Internet)
 - ...
 
 ### Included
 
 - Documentation (`docs/`)
-- Sourcecode (`src/`)
+- Sourcecode Independer ESP32 (C/C++) (`independer-app/`)
+- Sourcecode Independer Server (Python Flask Application) (`independer-server/`)
 - 3D case (`case/`)
 - [Releases](https://github.com/maxbundscherer/independer-loras/releases/)
 - [Website](https://a-sdr.org/independer)
@@ -52,6 +54,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - [Developer Overview](docs/developer.md)
 - [LoraS-Protocol](docs/loras-protocol.md)
 - [Independer-Protocol](docs/independer-protocol.md)
+- [Server-Protocol](docs/server-protocol.md)
 
 The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
 

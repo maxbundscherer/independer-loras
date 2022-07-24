@@ -16,7 +16,7 @@ def get_db_connection():
     return conn
 
 
-@app.route('/')
+@app.route('/v1/msg')
 def index():
     conn = get_db_connection()
     cur = conn.cursor()
@@ -35,7 +35,7 @@ def index():
     return retDict
 
 
-@app.route('/msg', methods=['POST'])
+@app.route('/v1/msg', methods=['POST'])
 def process_json():
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
