@@ -557,4 +557,9 @@ String application_actor_query_msgs_from_internet(String myId)
   gui_msg_static("Hinweis", "Nachrichten werden\nabgerufen");
   String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
   Serial.println("\nQuery Messages from Internet: '" + ret + "'");
+
+  if (ret != "")
+  {
+    Serial.println("TODO");
+  }
 }

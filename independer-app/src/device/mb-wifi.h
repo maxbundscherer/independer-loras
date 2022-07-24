@@ -109,10 +109,14 @@ boolean wifi_send_chat_message(String receiver, String author, String msg, Strin
             }
             Serial.println("\n[Waiting for response] STOP");
 
-            String line = i_wifi_client.readStringUntil('\r');
+            String line = "";
+            while (i_wifi_client.available())
+            {
+                line += i_wifi_client.readStringUntil('\r');
+            }
             Serial.print("Response '" + line + "'");
 
-            if (line == "HTTP/1.1 200 OK")
+            if (line.endsWith("OK"))
             {
                 ret_status = true;
             }
@@ -191,7 +195,11 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
             }
             Serial.println("\n[Waiting for response] STOP");
 
-            String line = i_wifi_client.readStringUntil('\r');
+            String line = "";
+            while (i_wifi_client.available())
+            {
+                line += i_wifi_client.readStringUntil('\r');
+            }
             Serial.print("Response '" + line + "'");
 
             ret_status = line;
