@@ -24,7 +24,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.2.5";
+String c_product_version = "v.0.2.6";
 boolean c_demo_mode = false;
 
 /*
@@ -101,8 +101,6 @@ void setup()
 
   if (c_actor_mode)
     multi_actor_start();
-
-  // wifi_send_chat_message("0xMB", state_my_id, "Hello World", state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
 }
 
 /*
