@@ -177,7 +177,7 @@ void i_communication_chat_menu()
       }
     }
     else if (selected == 1)
-      gui_msg_animated("Info", "Leider ist die Funktion\n'Chat abrufen'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
+      application_actor_query_msgs_from_internet(state_my_id);
     else if (selected == 2)
       gui_msg_animated("Info", "Leider ist die Funktion\n'Chat leeren'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
     else
