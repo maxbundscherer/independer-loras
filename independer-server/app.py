@@ -16,11 +16,12 @@ def get_db_connection():
     return conn
 
 
-@app.route('/v1/msg')
-def index():
+@app.route('/v1/msg/<receiverId>')
+def routeGetMessages(receiverId):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM messages WHERE active is true;')
+    cur.execute(
+        "SELECT * FROM messages WHERE active is true AND receiver = '" + receiverId + "';")
     messages = cur.fetchall()
     cur.close()
     conn.close()
@@ -36,7 +37,8 @@ def index():
 
 
 @app.route('/v1/msg', methods=['POST'])
-def process_json():
+def routeWriteMessage():
+
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         json = request.json
