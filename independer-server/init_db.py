@@ -1,6 +1,5 @@
 import config as conf
 
-import os
 import psycopg2
 
 conn = psycopg2.connect(

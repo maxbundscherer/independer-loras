@@ -1,8 +1,7 @@
 import config as conf
 
-import os
 import psycopg2
-from flask import Flask, render_template
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -33,3 +32,18 @@ def index():
         retDict[i] = book[2]
 
     return retDict
+
+
+@app.route('/msg', methods=['POST'])
+def process_json():
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+
+        print(json["receiver"])
+        print(json["author"])
+        print(json["msg"])
+
+        return "OK"
+    else:
+        return 'Content-Type not supported!'
