@@ -346,6 +346,36 @@ void i_setting_wifi_menu()
   }
 }
 
+void i_setting_server_menu()
+{
+  String menu_items[] = {
+      "URL",
+      "Port",
+      "Timeout",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Server", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+      db_save_wifi_server_url(gui_input_text("URL", state_wifi_server_url));
+    else if (selected == 1)
+    {
+      int ans = gui_input_text("Port (z.B. 5000)", String(state_wifi_server_port)).toInt();
+      db_save_wifi_server_port(ans);
+    }
+    else if (selected == 2)
+    {
+      int ans = gui_input_text("Timeout (z.B. 5000)", String(state_wifi_server_timeout)).toInt();
+      db_save_wifi_server_timeout(ans);
+    }
+    else
+      fin_flag = true;
+  }
+}
+
 void i_settings_menu()
 {
   String menu_items[] = {
@@ -355,6 +385,7 @@ void i_settings_menu()
       "Helligkeit",
       "Hintergrundsync",
       "WIFI",
+      "Server",
       "Werkseinstellungen",
       "[zurück]"};
 
@@ -391,6 +422,10 @@ void i_settings_menu()
     else if (selected == 5)
       i_setting_wifi_menu();
     else if (selected == 6)
+    {
+      i_setting_server_menu();
+    }
+    else if (selected == 7)
     {
       db_clear();
       ESP.restart();

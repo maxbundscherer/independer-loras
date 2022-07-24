@@ -4,10 +4,6 @@
 WiFiClient i_wifi_client;
 // WiFiClientSecure i_wifi_client; (https)
 
-char *c_wifi_server_url = "192.168.0.115";
-int c_wifi_server_port = 5000;
-int c_wifi_timeout = 5000;
-
 boolean i_wifi_connect()
 {
 
@@ -55,8 +51,12 @@ boolean wifi_check_status()
     return connection_flag;
 }
 
-boolean wifi_send_chat_message(String receiver, String author, String msg)
+boolean wifi_send_chat_message(String receiver, String author, String msg, String serverUrl, int serverPort, int serverTimeout)
 {
+
+    char *c_wifi_server_url = const_cast<char *>(serverUrl.c_str());
+    int c_wifi_server_port = serverPort;
+    int c_wifi_timeout = serverTimeout;
 
     boolean ret_status = false;
 

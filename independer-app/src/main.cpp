@@ -43,11 +43,16 @@ int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT
 
 int state_oled_brightness = 255; // saved in db
 
+String state_wifi_server_url = "0.0.0.0"; // saved in db
+int state_wifi_server_port = 5000;        // saved in db
+int state_wifi_server_timeout = 5000;     // saved in db
+
 #include "device/mb-base64.h"
 #include "device/mb-utils.h"
 #include "device/mb-gui.h"
 #include "device/mb-crypt.h"
 #include "device/mb-lora.h"
+#include "device/mb-wifi.h"
 
 /*
  * ####################################
@@ -96,6 +101,8 @@ void setup()
 
   if (c_actor_mode)
     multi_actor_start();
+
+  // wifi_send_chat_message("0xMB", state_my_id, "Hello World", state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
 }
 
 /*
