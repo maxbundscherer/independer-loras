@@ -20,16 +20,17 @@ def get_db_connection():
 def index():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM books;')
-    books = cur.fetchall()
+    cur.execute('SELECT * FROM messages WHERE active is true;')
+    messages = cur.fetchall()
     cur.close()
     conn.close()
 
     retDict = {}
 
-    for i, book in enumerate(books):
-        print(i, book[2])
-        retDict[i] = book[2]
+    for i, messageWrapper in enumerate(messages):
+        e = {"receiver": messageWrapper[1],
+             "author": messageWrapper[2], "msg": messageWrapper[3]}
+        retDict[i] = e
 
     return retDict
 
