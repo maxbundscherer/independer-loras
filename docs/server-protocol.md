@@ -3,6 +3,7 @@
 JSON-API Independer Server.
 
 - `<server-url>/v1/msg/<receiverId>` (GET): Get all messages
+    - Response `OK`
 
 - `<server-url>/v1/msg` (POST): Write a message
     - `receiver`: Receiver of the message

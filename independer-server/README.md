@@ -11,4 +11,4 @@ Edit Database Configuration in `config.py`.
 
 ## Run
 
-- `flask run`
+- `flask run --host <YOUR_HOSTNAME>`

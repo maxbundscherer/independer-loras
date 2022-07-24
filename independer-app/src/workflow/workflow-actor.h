@@ -147,11 +147,50 @@ void i_communication_messages_menu()
   }
 }
 
+void i_communication_chat_menu()
+{
+  String menu_items[] = {
+      "Nachricht schreiben",
+      "Chat abrufen",
+      "Chat leeren",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Chat", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+    {
+      String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      String msg_tx = gui_input_text("Inhalt", "");
+
+      gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
+      boolean suc = wifi_send_chat_message(msg_res, state_my_id, msg_tx, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+      if (suc)
+      {
+        gui_msg_animated("Info", "Nachricht gesendet", C_GUI_DELAY_MSG_SHORT_I);
+      }
+      else
+      {
+        gui_msg_animated("Info", "Nachricht konnte\nnicht versendet werden", C_GUI_DELAY_MSG_SHORT_I);
+      }
+    }
+    else if (selected == 1)
+      application_actor_query_msgs_from_internet(state_my_id);
+    else if (selected == 2)
+      gui_msg_animated("Info", "Leider ist die Funktion\n'Chat leeren'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
+    else
+      fin_flag = true;
+  }
+}
+
 void i_communication_menu()
 {
   String menu_items[] = {
       "Briefe (Gateway)",
       "Nachrichten (Actor)",
+      "Chat (Internet)",
       "Kontakte",
       "[zurück]"};
 
@@ -165,6 +204,8 @@ void i_communication_menu()
     else if (selected == 1)
       i_communication_messages_menu();
     else if (selected == 2)
+      i_communication_chat_menu();
+    else if (selected == 3)
       gui_msg_animated("Info", "Leider ist die Funktion\n'Kontakte'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
 
     else
@@ -346,6 +387,36 @@ void i_setting_wifi_menu()
   }
 }
 
+void i_setting_server_menu()
+{
+  String menu_items[] = {
+      "URL",
+      "Port",
+      "Timeout",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    int selected = gui_selection("Server", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected == 0)
+      db_save_wifi_server_url(gui_input_text("URL", state_wifi_server_url));
+    else if (selected == 1)
+    {
+      int ans = gui_input_text("Port (z.B. 5000)", String(state_wifi_server_port)).toInt();
+      db_save_wifi_server_port(ans);
+    }
+    else if (selected == 2)
+    {
+      int ans = gui_input_text("Timeout (z.B. 5000)", String(state_wifi_server_timeout)).toInt();
+      db_save_wifi_server_timeout(ans);
+    }
+    else
+      fin_flag = true;
+  }
+}
+
 void i_settings_menu()
 {
   String menu_items[] = {
@@ -355,6 +426,7 @@ void i_settings_menu()
       "Helligkeit",
       "Hintergrundsync",
       "WIFI",
+      "Server",
       "Werkseinstellungen",
       "[zurück]"};
 
@@ -391,6 +463,10 @@ void i_settings_menu()
     else if (selected == 5)
       i_setting_wifi_menu();
     else if (selected == 6)
+    {
+      i_setting_server_menu();
+    }
+    else if (selected == 7)
     {
       db_clear();
       ESP.restart();
