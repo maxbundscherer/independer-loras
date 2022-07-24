@@ -1,12 +1,14 @@
+import config as conf
+
 import os
 import psycopg2
 
 conn = psycopg2.connect(
-    host="localhost",
-    database="testdb",
-    user="myuser",
-    password="mysecretpassword",
-    port=5499)
+    host=conf.getDbConfigHost(),
+    database=conf.getDbConfigDatabase(),
+    user=conf.getDbConfigUser(),
+    password=conf.getDbConfigPassword(),
+    port=conf.getDbConfigPort())
 
 # Open a cursor to perform database operations
 cur = conn.cursor()
