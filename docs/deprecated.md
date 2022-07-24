@@ -1,3 +1,5 @@
+## Deprecated
+
 ### Install (Deprecated - Arduino IDE)
 
 #### Recommended Steps (Heltec Board) Deprecated
