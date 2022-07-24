@@ -1,3 +1,5 @@
+#include <ArduinoJson.h>
+
 /*
  * ####################################
  *  Who is near? Section
@@ -556,7 +558,7 @@ void application_actor_query_msgs_from_internet(String myId)
 
   gui_msg_static("Hinweis", "Nachrichten werden\nabgerufen");
   String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
-  Serial.println("Query Messages from Internet: '" + ret + "'");
+  // Serial.println("Query Messages from Internet: '" + ret + "'");
 
   if (ret != "")
   {
@@ -577,7 +579,61 @@ void application_actor_query_msgs_from_internet(String myId)
     if (startPos != 0)
     {
       ret = ret.substring(startPos);
-      Serial.println("Should proc: '" + ret + "'");
+      // Serial.println("Should proc: '" + ret + "'");
+
+      DynamicJsonDocument doc(1024 * 10);
+
+      deserializeJson(doc, ret);
+      JsonObject obj = doc.as<JsonObject>();
+
+      // TODO: Speicherüberlaufschutz
+      int c_max_messages = 100;
+      int i_msg_count = 0;
+      boolean hasAllMessages = false;
+      String messages_buffer[c_max_messages];
+
+      for (int i = 0; i < c_max_messages and hasAllMessages == false; i++)
+      {
+
+        String tString = obj[String(i)];
+
+        if (tString != "null")
+        {
+          DynamicJsonDocument doc1(1024 * 10);
+          deserializeJson(doc1, tString);
+          JsonObject d = doc1.as<JsonObject>();
+          String m = d["msg"];
+          String a = d["author"];
+          // Serial.println("Message: " + m + " from " + a);
+          messages_buffer[i] = "(" + a + ") " + m;
+          i_msg_count += 1;
+        }
+        else
+        {
+          hasAllMessages = true;
+        }
+      }
+
+      if (i_msg_count > 0)
+      {
+
+        messages_buffer[i_msg_count] = "[zurück]"; // Add go back item
+
+        boolean hasMesageShown = false;
+        while (!hasMesageShown)
+        {
+          int selected = gui_selection("Chats", messages_buffer, i_msg_count - 1 + 1, false); // Add + 1 (go back item)
+          if (selected == i_msg_count)
+            hasMesageShown = true;
+          else
+            gui_msg_long_text("Chat", messages_buffer[selected]);
+        }
+      }
+      else
+      {
+        gui_msg_animated("Hinweis", "Keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
+      }
+
       return;
     }
   }
