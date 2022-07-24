@@ -41,9 +41,18 @@ def process_json():
     if (content_type == 'application/json'):
         json = request.json
 
-        print(json["receiver"])
-        print(json["author"])
-        print(json["msg"])
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('INSERT INTO messages (receiver, author, msg, active)'
+                    'VALUES (%s, %s, %s, %s)',
+                    (json["receiver"],
+                     json["author"],
+                        json["msg"],
+                        True)
+                    )
+        conn.commit()
+        cur.close()
+        conn.close()
 
         return "OK"
     else:
