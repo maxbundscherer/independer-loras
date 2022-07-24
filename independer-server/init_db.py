@@ -15,7 +15,7 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 # Execute a command: this creates a new table
-cur.execute('DROP TABLE IF EXISTS books;')
+cur.execute('DROP TABLE IF EXISTS messages;')
 cur.execute('CREATE TABLE messages (id serial PRIMARY KEY,'
             'receiver varchar (5) NOT NULL,'
             'author varchar (5) NOT NULL,'
