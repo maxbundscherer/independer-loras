@@ -2,13 +2,13 @@
 
 PostgreSQL Database is required.
 
-## Install
+### Install
 
 Edit Database Configuration in `config.py`.
 
 - `pip install -r requirements.txt`
 - `python init_db.py`
 
-## Run
+### Run
 
 - `flask run --host <YOUR_HOSTNAME>`

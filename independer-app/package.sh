@@ -14,3 +14,6 @@ mv ./.pio/build/heltec-gateway-release/firmware.bin "export/$versiontag-heltec-g
 
 mv ./.pio/build/heltec-actor-release/firmware.bin "export/$versiontag-heltec-actor-release".bin
 mv ./.pio/build/heltec-gateway-developer/firmware.bin "export/$versiontag-heltec-gateway-developer".bin
+
+mv ./.pio/build/ttgo-actor-release/firmware.bin "export/$versiontag-ttgo-actor-release".bin
+mv ./.pio/build/ttgo-actor-developer/firmware.bin "export/$versiontag-ttgo-actor-developer".bin
