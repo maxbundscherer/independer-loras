@@ -50,6 +50,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 ### Documentation
 
 - [Hardware, Cost Overview, and How-to](docs/hardware.md)
+- [Antenna Measurements](docs/antenna-measurements.md)
 - [Update over WIFI](docs/update.md)
 - [Developer Overview](docs/developer.md)
 - [LoraS-Protocol](docs/loras-protocol.md)
