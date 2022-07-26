@@ -15,6 +15,14 @@ In total ≈ 45 - 55 € per device (without shipping).
 
 ### How to connect pins
 
+#### Heltec Board
+
 <img src="images/hardware_how_to.jpeg" width="600"/>
+
+#### TTGO Board
+
+<img src="images/hardware_how_to_2.jpeg" width="600"/>
+
+#### Keyboard
 
 <img src="images/ui_actor.jpeg" width="600"/>
