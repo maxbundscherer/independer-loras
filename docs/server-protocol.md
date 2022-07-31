@@ -1,6 +1,6 @@
 ## Server Protocol
 
-JSON-API Independer Server.
+JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
 
 - `<server-url>/v1/msg/<receiverId>` (GET): Get all messages
     - Response `OK`

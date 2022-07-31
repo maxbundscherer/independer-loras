@@ -64,3 +64,69 @@ void utils_go_to_sleep()
 
   esp_deep_sleep_start();
 }
+
+String utils_encode_data(String data)
+{
+  data.replace("`", "");
+
+  data.replace(":", "`1`");
+  data.replace(";", "`2`");
+  data.replace("!", "`3`");
+
+  data.replace("[", "`4`");
+  data.replace("]", "`5`");
+
+  data.replace("{", "`6`");
+  data.replace("}", "`7`");
+
+  data.replace("+", "`8`");
+  data.replace("$", "`9`");
+  data.replace("%", "`10`");
+
+  data.replace("-", "`11`");
+  data.replace("_", "`12`");
+
+  return data;
+}
+
+String utils_decode_data(String data)
+{
+  data.replace("`1`", ":");
+  data.replace("`2`", ";");
+  data.replace("`3`", "!");
+
+  data.replace("`4`", "[");
+  data.replace("`5`", "]");
+
+  data.replace("`6`", "{");
+  data.replace("`7`", "}");
+
+  data.replace("`8`", "+");
+  data.replace("`9`", "$");
+  data.replace("`10`", "%");
+
+  data.replace("`11`", "-");
+  data.replace("`12`", "_");
+
+  return data;
+}
+
+boolean utils_is_valid_receiver(String input)
+{
+  boolean is_valid = false;
+
+  if (input.length() == 4)
+  {
+
+    String v = input.substring(0, 1);
+    String t = input.substring(1, 2);
+    String id = input.substring(2, 4);
+
+    if (t == "x" or t == "g")
+    {
+      is_valid = true;
+    }
+  }
+
+  return is_valid;
+}

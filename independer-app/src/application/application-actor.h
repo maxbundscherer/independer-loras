@@ -384,7 +384,7 @@ void application_actor_query_msgs_from_gateway()
                 {
 
                   // Write message
-                  r = "(" + m_buffer_author + ") " + m_buffer_msg;
+                  r = "(" + m_buffer_author + ") " + utils_decode_data(m_buffer_msg);
 
                   lastDelimiterIndex = lastDelimiterIndex + i_char_t;
                   finParser = true;
@@ -530,16 +530,16 @@ void application_actor_large_data_test()
   }
 
   gui_msg_animated("Info", "Nachricht 1", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Du bist mein Sonnenschein!", state_lora_gain);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Du bist mein Sonnenschein!"), state_lora_gain);
 
   gui_msg_animated("Info", "Nachricht 2", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Hey. Wie geht es dir?", state_lora_gain);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hey. Wie geht es dir?"), state_lora_gain);
 
   gui_msg_animated("Info", "Nachricht 3", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Hi. Wie geht es dir? Was machst du so?", state_lora_gain);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hi. Wie geht es dir? Was machst du so?") , state_lora_gain);
 
   gui_msg_animated("Info", "Nachricht 4", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis semper diam, sit amet egestas nunc semper sodales. Suspendisse potenti. Nunc semper ac dolor sit amet dapibus. Maecenas dui dolor, fringilla id varius at, posuere at justo. Aenean a lacinia turpis, id maximus nibh. Quisque congue vestibulum feugiat. Nullam id dui gravida nunc aliquam aliquam sed at est. Suspendisse in lacinia leo, sit amet consectetur sem.", state_lora_gain);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis semper diam, sit amet egestas nunc semper sodales. Suspendisse potenti. Nunc semper ac dolor sit amet dapibus. Maecenas dui dolor, fringilla id varius at, posuere at justo. Aenean a lacinia turpis, id maximus nibh. Quisque congue vestibulum feugiat. Nullam id dui gravida nunc aliquam aliquam sed at est. Suspendisse in lacinia leo, sit amet consectetur sem."), state_lora_gain);
 
   if (sync_was_on_flag)
   {
@@ -605,7 +605,7 @@ void application_actor_query_msgs_from_internet(String myId)
           String m = d["msg"];
           String a = d["author"];
           // Serial.println("Message: " + m + " from " + a);
-          messages_buffer[i] = "(" + a + ") " + m;
+          messages_buffer[i] = "(" + a + ") " + utils_decode_data(m);
           i_msg_count += 1;
         }
         else

@@ -159,8 +159,8 @@ int application_gateway_update(String credentialsString)
 
   Serial.println("Update Mode '" + p_ssid + +" '" + p_pw + "'");
 
-  state_wifi_ssid = p_ssid;
-  state_wifi_pw = p_pw;
+  state_wifi_ssid = utils_decode_data(p_ssid);
+  state_wifi_pw = utils_decode_data(p_pw);
 
   ota_start();
 }
