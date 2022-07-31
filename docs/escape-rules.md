@@ -1,8 +1,8 @@
 ## Escape Rules
 
-- ` is escaped char
+- ` is escape char
 - ` has to be removed from the input completly
-- <ESCAPE_CHAR>CHAR<ESCAPE_CHAR>
+- <ESCAPE_CHAR>ID<ESCAPE_CHAR>
 
 - 1 - `:`
 - 2 - `;`
