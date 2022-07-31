@@ -400,8 +400,9 @@ void i_setting_bg_syn_menu()
 void i_setting_wifi_menu()
 {
   String menu_items[] = {
-      "SSID",
-      "Passwort",
+      "Automatisch",
+      "(Manuell) SSID",
+      "(Manuell) Passwort",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -410,8 +411,10 @@ void i_setting_wifi_menu()
     int selected = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected == 0)
-      db_save_wifi_ssid(gui_input_text("SSID", state_wifi_ssid));
+      application_actor_automatic_wifi();
     else if (selected == 1)
+      db_save_wifi_ssid(gui_input_text("SSID", state_wifi_ssid));
+    else if (selected == 2)
       db_save_wifi_pw(gui_input_text("Passwort", state_wifi_pw));
     else
       fin_flag = true;

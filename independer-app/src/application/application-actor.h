@@ -536,7 +536,7 @@ void application_actor_large_data_test()
   lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hey. Wie geht es dir?"), state_lora_gain);
 
   gui_msg_animated("Info", "Nachricht 3", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hi. Wie geht es dir? Was machst du so?") , state_lora_gain);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hi. Wie geht es dir? Was machst du so?"), state_lora_gain);
 
   gui_msg_animated("Info", "Nachricht 4", 100);
   lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis semper diam, sit amet egestas nunc semper sodales. Suspendisse potenti. Nunc semper ac dolor sit amet dapibus. Maecenas dui dolor, fringilla id varius at, posuere at justo. Aenean a lacinia turpis, id maximus nibh. Quisque congue vestibulum feugiat. Nullam id dui gravida nunc aliquam aliquam sed at est. Suspendisse in lacinia leo, sit amet consectetur sem."), state_lora_gain);
@@ -639,6 +639,61 @@ void application_actor_query_msgs_from_internet(String myId)
   }
 
   gui_msg_animated("Fehler", "Chat konnte nicht\nabgerufen werden", C_GUI_DELAY_MSG_MIDDLE_I);
+
+  return;
+}
+
+/*
+ * ####################################
+ *  WIFI Automatic Wifi Section
+ * ####################################
+ */
+
+void application_actor_automatic_wifi()
+{
+
+  gui_msg_static("Hinweis", "Scanne...");
+  Serial.print("Scan start ... ");
+  int n = WiFi.scanNetworks();
+  Serial.print(n);
+  Serial.println(" network(s) found");
+
+  if (n > 0)
+  {
+
+    String gui_items[n];
+
+    gui_items[0] = "[abbrechen]"; // Add go back item
+
+    for (int i = 0; i < n; i++)
+    {
+      String s = WiFi.SSID(i);
+      gui_items[i + 1] = s;
+      Serial.println("Found " + s);
+    }
+
+    boolean hasMesageShown = false;
+    while (!hasMesageShown)
+    {
+      int selected = gui_selection("SSIDs", gui_items, n - 1 + 1, false); // Add + 1 (go back item)
+      if (selected == 0)
+        hasMesageShown = true;
+      else
+      {
+        String t_ssid = gui_items[selected];
+        String t_password = gui_input_text("Passwort", "");
+
+        db_save_wifi_settings(t_ssid, t_password);
+
+        gui_msg_animated("Info", "Einstellungen\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+        return;
+      }
+    }
+  }
+  else
+  {
+    gui_msg_animated("Info", "Keine Netzwerke\ngefunden", C_GUI_DELAY_MSG_MIDDLE_I);
+  }
 
   return;
 }

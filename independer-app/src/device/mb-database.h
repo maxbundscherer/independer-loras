@@ -55,6 +55,17 @@ void db_save_gateway_id(String value)
     i_db_write("pref_gateway_id", value);
 }
 
+void db_save_wifi_settings(String ssid, String pw)
+{
+    state_wifi_ssid = ssid;
+    state_wifi_pw = pw;
+
+    preferences.begin(c_db_target_key, false); // Read and write
+    preferences.putString("pref_wifi_ssid", ssid);
+    preferences.putString("pref_wifi_pw", pw);
+    preferences.end();
+}
+
 void db_save_wifi_ssid(String value)
 {
     state_wifi_ssid = value;
