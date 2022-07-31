@@ -1,6 +1,6 @@
 ## Independer Protocol
 
-Application level protocol is based on the LoRaS Protocol \[P1\], \[P2\], and\[P3\].
+Application level protocol is based on the [LoRaS Protocol](loras-protocol.md) \[P1\], \[P2\], and\[P3\]. Please also visit [escape rules](escape-rules.md).
 
 ### Based on Unsafe single message \[P3\]
 

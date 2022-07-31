@@ -6,7 +6,7 @@ Currently the frequency **868 MHz** is used, but in the future the frequency **4
 
 `[from]` and `[to]` in this section are realated to hardware-IDs, not application IDs. 
 
-\[P1\] and \[P3\] are not suitable for background processing on actors.
+\[P1\] and \[P3\] are not suitable for background processing on actors. Please also visit [escape rules](escape-rules.md).
 
 ### Safe message \[P1\]
 
