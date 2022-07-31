@@ -110,3 +110,23 @@ String utils_decode_data(String data)
 
   return data;
 }
+
+boolean utils_is_valid_receiver(String input)
+{
+  boolean is_valid = false;
+
+  if (input.length() == 4)
+  {
+
+    String v = input.substring(0, 1);
+    String t = input.substring(1, 2);
+    String id = input.substring(2, 4);
+
+    if (t == "x" or t == "g")
+    {
+      is_valid = true;
+    }
+  }
+
+  return is_valid;
+}

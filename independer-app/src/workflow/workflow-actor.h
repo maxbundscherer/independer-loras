@@ -57,11 +57,18 @@ void i_communication_letters_menu()
     if (selected == 0)
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      String msg_tx = gui_input_text("Brief", "");
-      msg_tx = utils_encode_data(msg_tx);
-      boolean suc = application_actor_send_msg_to_gateway(msg_res, msg_tx);
-      if (!suc)
-        db_store_letter(msg_res, msg_tx);
+      if (utils_is_valid_receiver(msg_res))
+      {
+        String msg_tx = gui_input_text("Brief", "");
+        msg_tx = utils_encode_data(msg_tx);
+        boolean suc = application_actor_send_msg_to_gateway(msg_res, msg_tx);
+        if (!suc)
+          db_store_letter(msg_res, msg_tx);
+      }
+      else
+      {
+        gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+      }
     }
     else if (selected == 1)
       application_actor_query_msgs_from_gateway();
@@ -132,11 +139,18 @@ void i_communication_messages_menu()
     if (selected == 0)
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      String msg_tx = gui_input_text("Nachricht", "");
-      msg_tx = utils_encode_data(msg_tx);
-      boolean suc = application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
-      if (!suc)
-        db_store_msg(msg_res, msg_tx);
+      if (utils_is_valid_receiver(msg_res))
+      {
+        String msg_tx = gui_input_text("Nachricht", "");
+        msg_tx = utils_encode_data(msg_tx);
+        boolean suc = application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
+        if (!suc)
+          db_store_msg(msg_res, msg_tx);
+      }
+      else
+      {
+        gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+      }
     }
     else if (selected == 1)
       multi_actor_background_show_messages();
@@ -165,18 +179,25 @@ void i_communication_chat_menu()
     if (selected == 0)
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      String msg_tx = gui_input_text("Inhalt", "");
-      msg_tx = utils_encode_data(msg_tx);
-
-      gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
-      boolean suc = wifi_send_chat_message(msg_res, state_my_id, msg_tx, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
-      if (suc)
+      if (utils_is_valid_receiver(msg_res))
       {
-        gui_msg_animated("Info", "Nachricht gesendet", C_GUI_DELAY_MSG_SHORT_I);
+        String msg_tx = gui_input_text("Inhalt", "");
+        msg_tx = utils_encode_data(msg_tx);
+
+        gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
+        boolean suc = wifi_send_chat_message(msg_res, state_my_id, msg_tx, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+        if (suc)
+        {
+          gui_msg_animated("Info", "Nachricht gesendet", C_GUI_DELAY_MSG_SHORT_I);
+        }
+        else
+        {
+          gui_msg_animated("Info", "Nachricht konnte\nnicht versendet werden", C_GUI_DELAY_MSG_SHORT_I);
+        }
       }
       else
       {
-        gui_msg_animated("Info", "Nachricht konnte\nnicht versendet werden", C_GUI_DELAY_MSG_SHORT_I);
+        gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
       }
     }
     else if (selected == 1)
@@ -252,8 +273,15 @@ void i_actor_functions_test_function_menu()
 
     if (selected == 0)
     {
-      String ans = gui_input_text("Empfänger ID (z.B.: 0gMB)", state_gateway_id);
-      application_actor_is_available(ans, false);
+      String ans = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      if (utils_is_valid_receiver(ans))
+      {
+        application_actor_is_available(ans, false);
+      }
+      else
+      {
+        gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+      }
     }
     else if (selected == 1)
       gui_test();
@@ -439,9 +467,29 @@ void i_settings_menu()
     int selected = gui_selection("Einstellungen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected == 0)
-      db_save_my_id(gui_input_text("Meine ID (z.B.: 0xMB)", state_my_id));
+    {
+      String m = gui_input_text("Meine ID (z.B.: 0xMB)", state_my_id);
+      if (utils_is_valid_receiver(m))
+      {
+        db_save_my_id(m);
+      }
+      else
+      {
+        gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+      }
+    }
     else if (selected == 1)
-      db_save_gateway_id(gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id));
+    {
+      String m = gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id);
+      if (utils_is_valid_receiver(m))
+      {
+        db_save_gateway_id(m);
+      }
+      else
+      {
+        gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+      }
+    }
     else if (selected == 2)
     {
       int ans = gui_input_text("LoRa Gain (1-20)", String(state_lora_gain)).toInt();
