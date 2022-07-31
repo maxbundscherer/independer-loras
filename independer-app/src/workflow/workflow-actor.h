@@ -58,6 +58,7 @@ void i_communication_letters_menu()
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
       String msg_tx = gui_input_text("Brief", "");
+      msg_tx = utils_encode_data(msg_tx);
       boolean suc = application_actor_send_msg_to_gateway(msg_res, msg_tx);
       if (!suc)
         db_store_letter(msg_res, msg_tx);
@@ -132,6 +133,7 @@ void i_communication_messages_menu()
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
       String msg_tx = gui_input_text("Nachricht", "");
+      msg_tx = utils_encode_data(msg_tx);
       boolean suc = application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
       if (!suc)
         db_store_msg(msg_res, msg_tx);
@@ -164,6 +166,7 @@ void i_communication_chat_menu()
     {
       String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
       String msg_tx = gui_input_text("Inhalt", "");
+      msg_tx = utils_encode_data(msg_tx);
 
       gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
       boolean suc = wifi_send_chat_message(msg_res, state_my_id, msg_tx, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);

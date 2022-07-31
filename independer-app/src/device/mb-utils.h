@@ -67,46 +67,46 @@ void utils_go_to_sleep()
 
 String utils_encode_data(String data)
 {
-  data.replace("\\", "");
+  data.replace("`", "");
 
-  data.replace(":", "\\1\\");
-  data.replace(";", "\\2\\");
-  data.replace("!", "\\3\\");
+  data.replace(":", "`1`");
+  data.replace(";", "`2`");
+  data.replace("!", "`3`");
 
-  data.replace("[", "\\4\\");
-  data.replace("]", "\\5\\");
+  data.replace("[", "`4`");
+  data.replace("]", "`5`");
 
-  data.replace("{", "\\6\\");
-  data.replace("}", "\\7\\");
+  data.replace("{", "`6`");
+  data.replace("}", "`7`");
 
-  data.replace("+", "\\8\\");
-  data.replace("$", "\\9\\");
-  data.replace("%", "\\10\\");
+  data.replace("+", "`8`");
+  data.replace("$", "`9`");
+  data.replace("%", "`10`");
 
-  data.replace("-", "\\11\\");
-  data.replace("_", "\\12\\");
+  data.replace("-", "`11`");
+  data.replace("_", "`12`");
 
   return data;
 }
 
 String utils_decode_data(String data)
 {
-  data.replace("\\1\\", ":");
-  data.replace("\\2\\", ";");
-  data.replace("\\3\\", "!");
+  data.replace("`1`", ":");
+  data.replace("`2`", ";");
+  data.replace("`3`", "!");
 
-  data.replace("\\4\\", "[");
-  data.replace("\\5\\", "]");
+  data.replace("`4`", "[");
+  data.replace("`5`", "]");
 
-  data.replace("\\6\\", "{");
-  data.replace("\\7\\", "}");
+  data.replace("`6`", "{");
+  data.replace("`7`", "}");
 
-  data.replace("\\8\\", "+");
-  data.replace("\\9\\", "$");
-  data.replace("\\10\\", "%");
+  data.replace("`8`", "+");
+  data.replace("`9`", "$");
+  data.replace("`10`", "%");
 
-  data.replace("\\11\\", "-");
-  data.replace("\\12\\", "_");
+  data.replace("`11`", "-");
+  data.replace("`12`", "_");
 
   return data;
 }

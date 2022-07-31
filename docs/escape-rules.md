@@ -1,15 +1,18 @@
 ## Escape Rules
 
-- `\` has to be removed from the input completly.
-- `\1\` - `:`
-- `\2\` - `;`
-- `\3\` - `!`
-- `\4\` - `[`
-- `\5\` - `]`
-- `\6\` - `{`
-- `\7\` - `}`
-- `\8\` - `+`
-- `\9\` - `$`
-- `\10\` - `%`
-- `\11\` - `-`
-- `\12\` - `_`
+- ` is escaped char
+- ` has to be removed from the input completly
+- <ESCAPE_CHAR>CHAR<ESCAPE_CHAR>
+
+- 1 - `:`
+- 2 - `;`
+- 3 - `!`
+- 4 - `[`
+- 5 - `]`
+- 6 - `{`
+- 7 - `}`
+- 8 - `+`
+- 9 - `$`
+- 10 - `%`
+- 11 - `-`
+- 12 - `_`

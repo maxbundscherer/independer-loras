@@ -63,7 +63,7 @@ void i_multi_res_proc_actor_rec_message_from_actor(void *parameter)
           lora_send_msg_single_unsafe(state_my_id, actorId, "N", state_lora_gain);
           Serial.println("Save Direct msg from " + actorId + ": '" + pong_ans.message + "'");
           multi_actor_start_blinking();
-          state_multi_actor_msgs[state_multi_actor_msgs_counter] = "(" + actorId + ") " + pong_ans.message;
+          state_multi_actor_msgs[state_multi_actor_msgs_counter] = "(" + actorId + ") " + utils_decode_data(pong_ans.message);
           state_multi_actor_msgs_counter++;
           sendSuccess = true;
         }
