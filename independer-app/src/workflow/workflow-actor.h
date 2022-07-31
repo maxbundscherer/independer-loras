@@ -324,7 +324,7 @@ void i_gateway_functions_menu()
     else if (selected == 1)
     {
       gui_msg_animated("Info", "Aktiviere Update-Modus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
-      String sendString = "C;up;" + state_wifi_ssid + ";" + state_wifi_pw;
+      String sendString = "C;up;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw);
       lora_send_msg(state_my_id, state_gateway_id, sendString, state_lora_gain);
     }
     else
