@@ -36,6 +36,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Blinking led if you have new unseen messages
 - Persistent storage (settings and messages)
 - Python Flask Server included (messages via WIFI/Internet)
+- Multiple ESP32 Boards Supported
 - ...
 
 ### Included
