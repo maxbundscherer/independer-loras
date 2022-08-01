@@ -515,7 +515,13 @@ void i_gui_menu(String menu_title, String page, String menu0, String menu1, Stri
   }
 }
 
-int gui_selection(String menu_title, String menu_items[], int count_items, boolean disableShortcuts = false)
+struct S_GUI_SELECTION_ITEM
+{
+  boolean success;
+  int value;
+};
+
+S_GUI_SELECTION_ITEM gui_selection(String menu_title, String menu_items[], int count_items, boolean disableShortcuts = false)
 {
 
   // Serial.println("Got " + String(count_items) + " in menu onl");
@@ -690,11 +696,13 @@ int gui_selection(String menu_title, String menu_items[], int count_items, boole
           curSelected = 8;
           hasSelected = true;
         }
+        if (c == 0x1B) // Press Escape
+          return S_GUI_SELECTION_ITEM{false, -1};
       }
     }
   }
 
-  return curSelected;
+  return S_GUI_SELECTION_ITEM{true, curSelected};
 }
 
 /*
@@ -782,7 +790,13 @@ void i_gui_input_single_line(String menu_title, String val, int current_cursor)
   display.display();
 }
 
-String gui_input_text(String menu_title, String default_value)
+struct S_GUI_INPUT_TEXT
+{
+  boolean success;
+  String value;
+};
+
+S_GUI_INPUT_TEXT gui_input_text(String menu_title, String default_value)
 {
 
   i_gui_flush_input();
@@ -831,6 +845,8 @@ String gui_input_text(String menu_title, String default_value)
         }
         else if (c == 0xD) // Press Enter
           hasSelected = true;
+        else if (c == 0x1B) // Press Escape
+          return S_GUI_INPUT_TEXT{false, ""};
         else if (c != 0xB5 and c != 0xB6) // Ignore Down and Up
         {
           // current += c;
@@ -842,7 +858,7 @@ String gui_input_text(String menu_title, String default_value)
     }
   }
 
-  return current;
+  return S_GUI_INPUT_TEXT{true, current};
 }
 
 char gui_input_char_no_output()
@@ -971,7 +987,7 @@ void gui_msg_long_text(String msg_title, String msg)
           else if (currentPage > num_pages - 1)
             currentPage = num_pages - 1;
         }
-        else if (c == 0xD) // Press Enter
+        else if (c == 0xD or c == 0x1B) // Press Enter or Escape
           hasSelected = true;
       }
     }

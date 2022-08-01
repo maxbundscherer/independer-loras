@@ -109,11 +109,11 @@ void multi_actor_background_show_messages()
   boolean hasMesageShown = false;
   while (!hasMesageShown)
   {
-    int selected = gui_selection("Nachrichten", gui_items, state_multi_actor_msgs_counter - 1 + 1, false); // Add + 1 (go back item)
-    if (selected == state_multi_actor_msgs_counter)
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Nachrichten", gui_items, state_multi_actor_msgs_counter - 1 + 1, false); // Add + 1 (go back item)
+    if (selected_wrapper.success == false or selected_wrapper.value == state_multi_actor_msgs_counter)
       hasMesageShown = true;
     else
-      gui_msg_long_text("Nachricht", gui_items[selected]);
+      gui_msg_long_text("Nachricht", gui_items[selected_wrapper.value]);
   }
 }
 
