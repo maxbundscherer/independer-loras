@@ -92,11 +92,11 @@ void application_actor_who_is_in_my_area()
     boolean hasComp = false;
     while (!hasComp)
     {
-      int selected = gui_selection("Scan Ausgabe", gui_items, collected_counter - 1 + 1, false); // Add + 1 (go back item)
-      if (selected == collected_counter)
+      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Scan Ausgabe", gui_items, collected_counter - 1 + 1, false); // Add + 1 (go back item)
+      if (selected_wrapper.success == false or selected_wrapper.value == collected_counter)
         hasComp = true;
       else
-        gui_msg_long_text("Scan Detail", gui_items[selected]);
+        gui_msg_long_text("Scan Detail", gui_items[selected_wrapper.value]);
     }
   }
 
@@ -401,11 +401,11 @@ void application_actor_query_msgs_from_gateway()
           boolean hasMesageShown = false;
           while (!hasMesageShown)
           {
-            int selected = gui_selection("Briefe", gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
-            if (selected == numMessages)
+            S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Briefe", gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
+            if (selected_wrapper.success == false or selected_wrapper.value == numMessages)
               hasMesageShown = true;
             else
-              gui_msg_long_text("Brief", gui_items[selected]);
+              gui_msg_long_text("Brief", gui_items[selected_wrapper.value]);
           }
         }
         else
@@ -622,11 +622,11 @@ void application_actor_query_msgs_from_internet(String myId)
         boolean hasMesageShown = false;
         while (!hasMesageShown)
         {
-          int selected = gui_selection("Chats", messages_buffer, i_msg_count - 1 + 1, false); // Add + 1 (go back item)
-          if (selected == i_msg_count)
+          S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Chats", messages_buffer, i_msg_count - 1 + 1, false); // Add + 1 (go back item)
+          if (selected_wrapper.success == false or selected_wrapper.value == i_msg_count)
             hasMesageShown = true;
           else
-            gui_msg_long_text("Chat", messages_buffer[selected]);
+            gui_msg_long_text("Chat", messages_buffer[selected_wrapper.value]);
         }
       }
       else
@@ -675,15 +675,19 @@ void application_actor_automatic_wifi()
     boolean hasMesageShown = false;
     while (!hasMesageShown)
     {
-      int selected = gui_selection("SSIDs", gui_items, n - 1 + 1, false); // Add + 1 (go back item)
-      if (selected == 0)
+      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("SSIDs", gui_items, n - 1 + 1, false); // Add + 1 (go back item)
+      if (selected_wrapper.success == false or selected_wrapper.value == 0)
         hasMesageShown = true;
       else
       {
-        String t_ssid = gui_items[selected];
-        String t_password = gui_input_text("Passwort", "");
+        String t_ssid = gui_items[selected_wrapper.value];
 
-        db_save_wifi_settings(t_ssid, t_password);
+        S_GUI_INPUT_TEXT t_password_wrapper = gui_input_text("Passwort", "");
+
+        if (t_password_wrapper.success == false)
+          return;
+
+        db_save_wifi_settings(t_ssid, t_password_wrapper.value);
 
         gui_msg_animated("Info", "Einstellungen\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
         return;
