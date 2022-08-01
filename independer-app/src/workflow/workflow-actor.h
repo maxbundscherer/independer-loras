@@ -14,9 +14,9 @@ void i_communication_letters_recovery_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Rettungsmenü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Rettungsmenü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
       if (db_has_stored_letter())
       {
@@ -29,7 +29,7 @@ void i_communication_letters_recovery_menu()
         gui_msg_animated("Fehler", "Keine Briefe\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
       }
     }
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       gui_msg_animated("Hinweis", "Briefe werden\ngelöscht", C_GUI_DELAY_MSG_SHORT_I);
       db_clear_letter();
@@ -52,34 +52,40 @@ void i_communication_letters_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Briefe", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Briefe", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      if (utils_is_valid_receiver(msg_res))
+      S_GUI_INPUT_TEXT msg_res_wrapper = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      if (msg_res_wrapper.success)
       {
-        String msg_tx = gui_input_text("Brief", "");
-        msg_tx = utils_encode_data(msg_tx);
-        boolean suc = application_actor_send_msg_to_gateway(msg_res, msg_tx);
-        if (!suc)
-          db_store_letter(msg_res, msg_tx);
-      }
-      else
-      {
-        gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+        if (utils_is_valid_receiver(msg_res_wrapper.value))
+        {
+          S_GUI_INPUT_TEXT msg_tx_wrapper = gui_input_text("Brief", "");
+          if (msg_tx_wrapper.success)
+          {
+            msg_tx_wrapper.value = utils_encode_data(msg_tx_wrapper.value);
+            boolean suc = application_actor_send_msg_to_gateway(msg_res_wrapper.value, msg_tx_wrapper.value);
+            if (!suc)
+              db_store_letter(msg_res_wrapper.value, msg_tx_wrapper.value);
+          }
+        }
+        else
+        {
+          gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+        }
       }
     }
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
       application_actor_query_msgs_from_gateway();
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
       gui_msg_animated("Info", "Leere Briefe\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clmsg", state_lora_gain);
       delay(C_INDEPENDER_SEND_DELAY_REPEAT);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clmsg", state_lora_gain);
     }
-    else if (selected == 3)
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
       i_communication_letters_recovery_menu();
     else
       fin_flag = true;
@@ -96,9 +102,9 @@ void i_communication_messages_recovery_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Rettungsmenü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Rettungsmenü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
       if (db_has_stored_msg())
       {
@@ -111,7 +117,7 @@ void i_communication_messages_recovery_menu()
         gui_msg_animated("Fehler", "Keine Nachrichten\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
       }
     }
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       gui_msg_animated("Hinweis", "Nachrichten werden\ngelöscht", C_GUI_DELAY_MSG_SHORT_I);
       db_clear_msg();
@@ -134,29 +140,37 @@ void i_communication_messages_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Nachrichten", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Nachrichten", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      if (utils_is_valid_receiver(msg_res))
+      S_GUI_INPUT_TEXT msg_res_wrapper = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+
+      if (msg_res_wrapper.success)
       {
-        String msg_tx = gui_input_text("Nachricht", "");
-        msg_tx = utils_encode_data(msg_tx);
-        boolean suc = application_actor_send_msg_actor_to_actor(msg_res, msg_tx);
-        if (!suc)
-          db_store_msg(msg_res, msg_tx);
-      }
-      else
-      {
-        gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+
+        if (utils_is_valid_receiver(msg_res_wrapper.value))
+        {
+          S_GUI_INPUT_TEXT msg_tx_wrapper = gui_input_text("Nachricht", "");
+          if (msg_tx_wrapper.success)
+          {
+            msg_tx_wrapper.value = utils_encode_data(msg_tx_wrapper.value);
+            boolean suc = application_actor_send_msg_actor_to_actor(msg_res_wrapper.value, msg_tx_wrapper.value);
+            if (!suc)
+              db_store_msg(msg_res_wrapper.value, msg_tx_wrapper.value);
+          }
+        }
+        else
+        {
+          gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+        }
       }
     }
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
       multi_actor_background_show_messages();
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
       multi_actor_background_clear_messages();
-    else if (selected == 3)
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
       i_communication_messages_recovery_menu();
     else
       fin_flag = true;
@@ -174,35 +188,42 @@ void i_communication_chat_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Chat", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Chat", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      String msg_res = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      if (utils_is_valid_receiver(msg_res))
+      S_GUI_INPUT_TEXT msg_res_wrapper = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      if (msg_res_wrapper.success)
       {
-        String msg_tx = gui_input_text("Inhalt", "");
-        msg_tx = utils_encode_data(msg_tx);
-
-        gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
-        boolean suc = wifi_send_chat_message(msg_res, state_my_id, msg_tx, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
-        if (suc)
+        if (utils_is_valid_receiver(msg_res_wrapper.value))
         {
-          gui_msg_animated("Info", "Nachricht gesendet", C_GUI_DELAY_MSG_SHORT_I);
+          S_GUI_INPUT_TEXT msg_tx_wrapper = gui_input_text("Inhalt", "");
+          if (msg_tx_wrapper.success)
+          {
+
+            msg_tx_wrapper.value = utils_encode_data(msg_tx_wrapper.value);
+
+            gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
+            boolean suc = wifi_send_chat_message(msg_res_wrapper.value, state_my_id, msg_tx_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+            if (suc)
+            {
+              gui_msg_animated("Info", "Nachricht gesendet", C_GUI_DELAY_MSG_SHORT_I);
+            }
+            else
+            {
+              gui_msg_animated("Info", "Nachricht konnte\nnicht versendet werden", C_GUI_DELAY_MSG_SHORT_I);
+            }
+          }
         }
         else
         {
-          gui_msg_animated("Info", "Nachricht konnte\nnicht versendet werden", C_GUI_DELAY_MSG_SHORT_I);
+          gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
         }
       }
-      else
-      {
-        gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
-      }
     }
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
       application_actor_query_msgs_from_internet(state_my_id);
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
       gui_msg_animated("Info", "Leider ist die Funktion\n'Chat leeren'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
     else
       fin_flag = true;
@@ -221,15 +242,15 @@ void i_communication_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Kommunikation", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Kommunikation", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
       i_communication_letters_menu();
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
       i_communication_messages_menu();
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
       i_communication_chat_menu();
-    else if (selected == 3)
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
       gui_msg_animated("Info", "Leider ist die Funktion\n'Kontakte'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
 
     else
@@ -247,11 +268,12 @@ void i_actor_functions_status_function_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Status Menü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Status Menü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected_wrapper.success and selected_wrapper.value == 0)
       gui_display_prg_animated("Batterie Status (mV)", utils_get_battery(), 1950, 3100, C_GUI_DELAY_MSG_SHORT_I);
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
       gui_display_prg_animated("Sendekontingent (millis)", lora_get_global_tx_time_millis(), 0, 36000, C_GUI_DELAY_MSG_SHORT_I);
     else
       fin_flag = true;
@@ -269,23 +291,26 @@ void i_actor_functions_test_function_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Test Menü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Test Menü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      String ans = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
-      if (utils_is_valid_receiver(ans))
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      if (ans_wrapper.success)
       {
-        application_actor_is_available(ans, false);
-      }
-      else
-      {
-        gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+        if (utils_is_valid_receiver(ans_wrapper.value))
+        {
+          application_actor_is_available(ans_wrapper.value, false);
+        }
+        else
+        {
+          gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+        }
       }
     }
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
       gui_test();
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
       application_actor_large_data_test();
     else
       fin_flag = true;
@@ -306,27 +331,27 @@ void i_actor_functions_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Actor Funktionen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Actor Funktionen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
       i_actor_functions_status_function_menu();
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       i_actor_functions_test_function_menu();
     }
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
       gui_input_char_no_output();
       fin_flag = true;
     }
-    else if (selected == 3)
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Actor)", C_GUI_DELAY_MSG_SHORT_I);
       utils_go_to_sleep();
     }
-    else if (selected == 4)
+    else if (selected_wrapper.success and selected_wrapper.value == 4)
       application_actor_who_is_in_my_area();
-    else if (selected == 5)
+    else if (selected_wrapper.success and selected_wrapper.value == 5)
       ota_start();
     else
       fin_flag = true;
@@ -343,16 +368,16 @@ void i_gateway_functions_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Gateway Funktionen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Gateway Funktionen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
       delay(C_INDEPENDER_SEND_DELAY_REPEAT);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
     }
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       gui_msg_animated("Info", "Aktiviere Update-Modus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       String sendString = "C;up;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw);
@@ -374,19 +399,19 @@ void i_setting_bg_syn_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Hintergrundsync", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Hintergrundsync", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
       gui_msg_animated("Info", "Status Hintergrundsync\n" + multi_actor_get_state_string(), C_GUI_DELAY_MSG_SHORT_I);
     }
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       gui_msg_animated("Info", "Aktiviere Hintergrundsync", C_GUI_DELAY_MSG_SHORT_I);
       if (!multi_actor_get_state())
         multi_actor_start();
     }
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
       gui_msg_animated("Info", "Deaktiviere Hintergrundsync", C_GUI_DELAY_MSG_SHORT_I);
       if (multi_actor_get_state())
@@ -409,11 +434,11 @@ void i_setting_wifi_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
       application_actor_automatic_wifi();
-    else if (selected == 1)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
       if (wifi_check_status())
@@ -425,10 +450,18 @@ void i_setting_wifi_menu()
         gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
       }
     }
-    else if (selected == 2)
-      db_save_wifi_ssid(gui_input_text("SSID", state_wifi_ssid));
-    else if (selected == 3)
-      db_save_wifi_pw(gui_input_text("Passwort", state_wifi_pw));
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
+    {
+      S_GUI_INPUT_TEXT s = gui_input_text("SSID", state_wifi_ssid);
+      if (s.success)
+        db_save_wifi_ssid(s.value);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
+    {
+      S_GUI_INPUT_TEXT s = gui_input_text("Passwort", state_wifi_pw);
+      if (s.success)
+        db_save_wifi_pw(s.value);
+    }
     else
       fin_flag = true;
   }
@@ -445,19 +478,26 @@ void i_setting_server_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Server", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Server", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
-      db_save_wifi_server_url(gui_input_text("URL", state_wifi_server_url));
-    else if (selected == 1)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      int ans = gui_input_text("Port (z.B. 5000)", String(state_wifi_server_port)).toInt();
-      db_save_wifi_server_port(ans);
+      S_GUI_INPUT_TEXT s = gui_input_text("URL", state_wifi_server_url);
+      if (s.success)
+        db_save_wifi_server_url(s.value);
     }
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      int ans = gui_input_text("Timeout (z.B. 5000)", String(state_wifi_server_timeout)).toInt();
-      db_save_wifi_server_timeout(ans);
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Port (z.B. 5000)", String(state_wifi_server_port));
+      if (ans_wrapper.success)
+        db_save_wifi_server_port(ans_wrapper.value.toInt());
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
+    {
+
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Timeout (z.B. 5000)", String(state_wifi_server_timeout));
+      if (ans_wrapper.success)
+        db_save_wifi_server_timeout(ans_wrapper.value.toInt());
     }
     else
       fin_flag = true;
@@ -480,60 +520,73 @@ void i_settings_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    int selected = gui_selection("Einstellungen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Einstellungen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-    if (selected == 0)
+    if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      String m = gui_input_text("Meine ID (z.B.: 0xMB)", state_my_id);
-      if (utils_is_valid_receiver(m))
+      S_GUI_INPUT_TEXT m_wrapper = gui_input_text("Meine ID (z.B.: 0xMB)", state_my_id);
+      if (m_wrapper.success)
       {
-        db_save_my_id(m);
-      }
-      else
-      {
-        gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
-      }
-    }
-    else if (selected == 1)
-    {
-      String m = gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id);
-      if (utils_is_valid_receiver(m))
-      {
-        db_save_gateway_id(m);
-      }
-      else
-      {
-        gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+        if (utils_is_valid_receiver(m_wrapper.value))
+        {
+          db_save_my_id(m_wrapper.value);
+        }
+        else
+        {
+          gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+        }
       }
     }
-    else if (selected == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      int ans = gui_input_text("LoRa Gain (1-20)", String(state_lora_gain)).toInt();
-      if (ans > 20)
-        ans = 20;
-      if (ans < 1)
-        ans = 1;
-      db_save_lora_gain(ans);
+      S_GUI_INPUT_TEXT m_wrapper = gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id);
+      if (m_wrapper.success)
+      {
+        if (utils_is_valid_receiver(m_wrapper.value))
+        {
+          db_save_gateway_id(m_wrapper.value);
+        }
+        else
+        {
+          gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+        }
+      }
     }
-    else if (selected == 3)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
-      int ans = gui_input_text("Helligkeit (0-255)", String(state_oled_brightness)).toInt();
-      if (ans > 255)
-        ans = 255;
-      if (ans < 0)
-        ans = 0;
-      db_save_oled_brightness(ans);
-      gui_set_screen_brightness(ans);
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("LoRa Gain (1-20)", String(state_lora_gain));
+
+      if (ans_wrapper.success)
+      {
+        if (ans_wrapper.value.toInt() > 20)
+          ans_wrapper.value = String(20);
+        if (ans_wrapper.value.toInt() < 1)
+          ans_wrapper.value = String(1);
+        db_save_lora_gain(ans_wrapper.value.toInt());
+      }
     }
-    else if (selected == 4)
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
+    {
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Helligkeit (0-255)", String(state_oled_brightness));
+      if (ans_wrapper.success)
+      {
+        if (ans_wrapper.value.toInt() > 255)
+          ans_wrapper.value = String(255);
+        if (ans_wrapper.value.toInt() < 0)
+          ans_wrapper.value = String(0);
+        db_save_oled_brightness(ans_wrapper.value.toInt());
+        gui_set_screen_brightness(ans_wrapper.value.toInt());
+      }
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 4)
       i_setting_bg_syn_menu();
-    else if (selected == 5)
+    else if (selected_wrapper.success and selected_wrapper.value == 5)
       i_setting_wifi_menu();
-    else if (selected == 6)
+    else if (selected_wrapper.success and selected_wrapper.value == 6)
     {
       i_setting_server_menu();
     }
-    else if (selected == 7)
+    else if (selected_wrapper.success and selected_wrapper.value == 7)
     {
       db_clear();
       ESP.restart();
@@ -552,21 +605,24 @@ void workflow_actor_main_menu()
       "Einstellungen",
       "Info"};
 
-  int selected = gui_selection("Independer", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+  S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Independer", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
-  if (selected == 0)
+  if (selected_wrapper.success and selected_wrapper.value == 0)
     i_communication_menu();
-  else if (selected == 1)
+  else if (selected_wrapper.success and selected_wrapper.value == 1)
     i_actor_functions_menu();
-  else if (selected == 2)
+  else if (selected_wrapper.success and selected_wrapper.value == 2)
     i_gateway_functions_menu();
-  else if (selected == 3)
+  else if (selected_wrapper.success and selected_wrapper.value == 3)
     i_settings_menu();
-  else if (selected == 4)
+  else if (selected_wrapper.success and selected_wrapper.value == 4)
   {
     gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode);
     delay(C_GUI_DELAY_STATIC);
   }
+  else if (selected_wrapper.success == false)
+  {
+  }
   else
-    gui_msg_animated("Fehler", "Auswahl " + String(selected) + "\nnicht verfügbar.", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated("Fehler", "Auswahl " + String(selected_wrapper.value) + "\nnicht verfügbar.", C_GUI_DELAY_MSG_MIDDLE_I);
 }
