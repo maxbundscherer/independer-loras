@@ -2,13 +2,9 @@
 
 This repository is about a device called **Independer**.
 
-Encrypted messaging & data sharing via LoRaS & inexpensive hardware (ESP32). Independent from mobile network & WIFI.
+Encrypted messaging & data sharing via LoRaS & inexpensive hardware (ESP32). Independent from mobile network & WIFI. We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
 
-We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
-
-**This page is intended for developers** - please visit the [official website](https://a-sdr.org/independer) for more information. Also visit [project presentation (PDF)](http://a-sdr.org/independer/independer.pdf).
-
-If you want to **join, or have an idea**, feel free to [write us](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions). The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
+**This page is intended for developers** - please visit the [official website](https://a-sdr.org/independer) for more information. Also visit [project presentation (PDF)](http://a-sdr.org/independer/independer.pdf). If you want to **join, or have an idea**, feel free to [write us](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions). The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
 
 ``esp32 - lora - encryption - short-message - protocol - keyboard - platformio - 3d-printing - independent``
 
