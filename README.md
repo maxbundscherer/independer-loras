@@ -10,7 +10,7 @@ This repository is about a device called **Independer**.
 
 Presentation             |  Prototype-Video
 :-------------------------:|:-------------------------:
-[![](docs/images/openpdf.png)](http://a-sdr.org/independer/independer.pdf "Click to Watch!")  | [![](docs/images/play.png)](https://www.youtube.com/watch?v=-8pI4nHZv2M "Click to Watch!")
+<a href="http://a-sdr.org/independer/independer.pdf" target="_blank"><img src="docs/images/openpdf.png" width="40%"/></a> | <a href="https://www.youtube.com/watch?v=-8pI4nHZv2M" target="_blank"><img src="docs/images/play.png" width="40%"/></a>
 
 [![shields.io](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
