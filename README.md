@@ -6,11 +6,11 @@ This repository is about a device called **Independer**.
 
 **This page is intended for developers** - please visit the [official website](https://a-sdr.org/independer) for more information. Also visit [project presentation (PDF)](http://a-sdr.org/independer/independer.pdf). If you want to **join, or have an idea**, feel free to [write us](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions). The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
 
-``esp32 - lora - encryption - short-message - protocol - keyboard - platformio - 3d-printing - independent``
-
 Presentation             |  Prototype-Video
 :-------------------------:|:-------------------------:
-<a href="http://a-sdr.org/independer/independer.pdf" target="_blank"><img src="docs/images/openpdf.png" style="max-height:300px" /></a> | <a href="https://www.youtube.com/watch?v=-8pI4nHZv2M" target="_blank"><img src="docs/images/play.png" style="max-height:300px"/></a>
+<a href="http://a-sdr.org/independer/independer.pdf" target="_blank"><img src="docs/images/openpdf.png" style="max-height:250px" /></a> | <a href="https://www.youtube.com/watch?v=-8pI4nHZv2M" target="_blank"><img src="docs/images/play.png" style="max-height:250px"/></a>
+
+``esp32 - lora - encryption - short-message - protocol - keyboard - platformio - 3d-printing - independent``
 
 [![shields.io](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
