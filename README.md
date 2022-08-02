@@ -1,19 +1,5 @@
 # Independer
 
-## Test 1
-
-<object data="http://a-sdr.org/independer/independer.pdf" type="application/pdf" width="700px" height="700px">
-    <embed src="http://a-sdr.org/independer/independer.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="http://a-sdr.org/independer/independer.pdf">Download PDF</a>.</p>
-    </embed>
-</object>
-
-## Test 2
-
-<embed src="http://a-sdr.org/independer/independer.pdf" type="application/pdf">
-
-## About
-
 This repository is about a device called **Independer**.
 
 The goal is to develop a small **open-source communication gadget** (at the beginning we start with end-to-end encrypted messaging and data sharing) based on LoRa (thus **independent from normal infrastructures** like mobile network or WIFI).
