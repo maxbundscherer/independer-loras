@@ -2,7 +2,7 @@
 
 This repository is about a device called **Independer**.
 
-Encrypted messaging & data sharing via LoRaS & inexpensive hardware (ESP32). Independent from mobile network & WIFI. We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
+**Encrypted messaging & data sharing** via LoRaS & inexpensive hardware (ESP32). **Independent from mobile network & WIFI**. We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
 
 **This page is intended for developers** - please visit the [official website](https://a-sdr.org/independer) for more information. Also visit [project presentation (PDF)](http://a-sdr.org/independer/independer.pdf). If you want to **join, or have an idea**, feel free to [write us](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions). The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
 
@@ -20,7 +20,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 ### Open-Source Project
 
-Anyone can contribute to the project and build their own device. Many more features like GPS visualization, environment scanner, touch screen, alternative transmission and encryption functions are waiting in the future!
+Anyone can **contribute to the project** and **build their own device**. Many more features like GPS visualization, environment scanner, touch screen, alternative transmission and encryption functions are waiting **in the future**!
 
 ### Features
 
@@ -45,12 +45,12 @@ Anyone can contribute to the project and build their own device. Many more featu
 
 ### Included
 
-- Documentation (`docs/`)
-- Sourcecode Independer ESP32 (C/C++) (`independer-app/`)
-- Sourcecode Independer Server (Python Flask Application) (`independer-server/`)
-- 3D case (`case/`)
-- [Releases](https://github.com/maxbundscherer/independer-loras/releases/)
 - [Website](https://a-sdr.org/independer)
+- [Documentation](docs/)
+- [Sourcecode Independer ESP32 (C/C++)](independer-app/)
+- [Sourcecode Independer Server (Python Flask Application)](independer-server/)
+- [3D-printed Case](case/)
+- [Releases](https://github.com/maxbundscherer/independer-loras/releases/)
 
 ### Documentation
 
