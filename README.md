@@ -8,7 +8,9 @@ This repository is about a device called **Independer**.
 
 ``esp32 - lora - encryption - short-message - protocol - keyboard - platformio - 3d-printing - independent``
 
-[![](docs/images/play.png)](https://www.youtube.com/watch?v=-8pI4nHZv2M "Click to Watch!")
+Presentation             |  Prototype-Video
+:-------------------------:|:-------------------------:
+[![](docs/images/openpdf.png)](http://a-sdr.org/independer/independer.pdf "Click to Watch!")  | [![](docs/images/play.png)](https://www.youtube.com/watch?v=-8pI4nHZv2M "Click to Watch!")
 
 [![shields.io](https://img.shields.io/badge/license-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.txt)
 
