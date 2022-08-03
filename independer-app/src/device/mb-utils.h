@@ -1,5 +1,11 @@
 #include "driver/rtc_io.h" //Low Power Mode
 
+void utils_init_battery_meas()
+{
+  pinMode(21, OUTPUT);
+  digitalWrite(21, LOW);
+}
+
 int utils_get_battery()
 {
 

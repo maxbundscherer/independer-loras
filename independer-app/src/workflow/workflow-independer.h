@@ -64,7 +64,7 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
 
   Serial.println("- Init Battery Meas");
-  // utils_init_battery_meas();
+  utils_init_battery_meas();
   Serial.println("First Meas " + String(utils_get_battery()) + " mV");
 
   Serial.println("- Init Low Power Mode");
