@@ -16,7 +16,7 @@ services:
     image: postgres
     container_name: independer-db
     ports:
-      - "5499:5432"
+      - "5450:5432"
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mysecretpassword
