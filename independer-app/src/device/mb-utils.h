@@ -92,6 +92,11 @@ String utils_encode_data(String data)
   data.replace("-", "`11`");
   data.replace("_", "`12`");
 
+  data.replace("\"", "`13`");
+  data.replace("'", "`14`");
+
+  data.replace("\\", "`15`");
+
   return data;
 }
 
@@ -113,6 +118,11 @@ String utils_decode_data(String data)
 
   data.replace("`11`", "-");
   data.replace("`12`", "_");
+
+  data.replace("`13`", "\"");
+  data.replace("`14`", "'");
+
+  data.replace("`15`", "\\");
 
   return data;
 }
