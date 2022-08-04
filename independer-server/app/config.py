@@ -1,9 +1,9 @@
 def getDbConfigHost():
-    return "localhost"
+    return "db"
 
 
 def getDbConfigDatabase():
-    return "testdb"
+    return "independer-db"
 
 
 def getDbConfigUser():
@@ -15,4 +15,4 @@ def getDbConfigPassword():
 
 
 def getDbConfigPort():
-    return 5499
+    return 5432
