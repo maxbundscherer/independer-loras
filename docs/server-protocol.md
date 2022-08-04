@@ -9,3 +9,6 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
     - `receiver`: Receiver of the message
     - `author`: Author of the message
     - `msg`: Content of the message
+
+- `<server-url>/v1/clearmsg/<receiverId>` (GET): Clear all messages
+    - Response `OK`

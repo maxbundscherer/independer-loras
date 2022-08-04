@@ -35,6 +35,18 @@ def routeGetMessages(receiverId):
 
     return retDict
 
+@app.route('/v1/clearmsg/<receiverId>')
+def routeClearMessages(receiverId):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE messages SET active = false WHERE receiver = '" + receiverId + "';")
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return "OK"
+
 
 @app.route('/v1/msg', methods=['POST'])
 def routeWriteMessage():

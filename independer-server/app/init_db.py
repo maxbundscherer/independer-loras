@@ -19,9 +19,9 @@ cur = conn.cursor()
 cur.execute('CREATE TABLE  IF NOT EXISTS messages (id serial PRIMARY KEY,'
             'receiver varchar (5) NOT NULL,'
             'author varchar (5) NOT NULL,'
-            'msg text,'
-            'active boolean,'
-            'date_added date DEFAULT CURRENT_TIMESTAMP);'
+            'msg text NOT NULL,'
+            'active boolean NOT NULL,'
+            'date_added date DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 
 # Insert data into the table
