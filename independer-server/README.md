@@ -1,14 +1,22 @@
 ## Independer App Server
 
-PostgreSQL Database is required.
+Docker is required.
 
-### Install
+### Commands
 
-Edit Database Configuration in `config.py`.
+#### Run and Install
 
-- `pip install -r requirements.txt`
-- `python init_db.py`
+- `docker-compose up`
 
-### Run
+#### Status
 
-- `flask run --host <YOUR_HOSTNAME>`
+- `docker ps -a`
+- `docker compose ls`
+
+#### Stop and Clean
+
+- `docker compose stop`
+
+- `docker stop independer-app independer-db`
+- `docker rm independer-app independer-db`
+- `docker rmi independer-app-img`

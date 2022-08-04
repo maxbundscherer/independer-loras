@@ -1,0 +1,28 @@
+version: "3"
+services:
+  app:
+    build: ./
+    container_name: independer-app
+    image: independer-app-img
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+    ports:
+      - "5001:5000"
+
+  db:
+    image: postgres
+    container_name: independer-db
+    ports:
+      - "5499:5432"
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_DB: independer-db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
