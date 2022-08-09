@@ -36,14 +36,13 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   Serial.println();
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));
 
-  Serial.println("- Init Database");
-  if (isActor)
-  {
-    db_init();
-  }
-
   Serial.println("- Init Display");
   gui_init_display();
+
+  Serial.println("- Init Database");
+  db_init(isActor);
+
+  display.setBrightness(state_oled_brightness); // Set brightness after db
 
   Serial.println("- Init LoRa");
   lora_init();

@@ -10,21 +10,41 @@ Preferences preferences;
  * ####################################
  */
 
-void db_init()
+void db_init(boolean is_actor)
 {
 
     preferences.begin(c_db_target_key, true); // Read only
 
-    state_my_id = preferences.getString("pref_my_id", state_my_id);
-    state_gateway_id = preferences.getString("pref_gateway_id", state_gateway_id);
-    state_wifi_ssid = preferences.getString("pref_wifi_ssid", state_wifi_ssid);
-    state_wifi_pw = preferences.getString("pref_wifi_pw", state_wifi_pw);
-    state_lora_gain = preferences.getInt("pref_lora_gain", state_lora_gain);
-    state_oled_brightness = preferences.getInt("pref_oled_bri", state_oled_brightness);
+    String current_db_version = preferences.getString("pref_my_db_version", "null");
 
-    state_wifi_server_url = preferences.getString("pref_ws_url", state_wifi_server_url);
-    state_wifi_server_port = preferences.getInt("pref_ws_port", state_wifi_server_port);
-    state_wifi_server_timeout = preferences.getInt("pref_ws_to", state_wifi_server_timeout);
+    if (current_db_version == c_product_version)
+    {
+        Serial.println("Load from DB");
+        state_my_id = preferences.getString("pref_my_id", state_my_id);
+        state_gateway_id = preferences.getString("pref_gateway_id", state_gateway_id);
+        state_wifi_ssid = preferences.getString("pref_wifi_ssid", state_wifi_ssid);
+        state_wifi_pw = preferences.getString("pref_wifi_pw", state_wifi_pw);
+        state_lora_gain = preferences.getInt("pref_lora_gain", state_lora_gain);
+        state_oled_brightness = preferences.getInt("pref_oled_bri", state_oled_brightness);
+
+        state_wifi_server_url = preferences.getString("pref_ws_url", state_wifi_server_url);
+        state_wifi_server_port = preferences.getInt("pref_ws_port", state_wifi_server_port);
+        state_wifi_server_timeout = preferences.getInt("pref_ws_to", state_wifi_server_timeout);
+    }
+    else
+    {
+        Serial.println("Init DB"); // TODO
+        if (is_actor)
+        {
+            gui_msg_animated("Independer", "Danke das du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
+            gui_msg_long_text("Einrichtungsmodus", "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.");
+        }
+        else
+        {
+            gui_msg_static("Einrichtungsmodus", "Auf dem Actor:\n G. Funktionen->Einrichtung\nID: 0x00");
+            delay(100000);
+        }
+    }
 
     preferences.end();
 }
