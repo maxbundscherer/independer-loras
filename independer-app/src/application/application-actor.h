@@ -652,18 +652,29 @@ void application_actor_query_msgs_from_internet(String myId)
 S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
 {
 
+   boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag)
+  {
+    multi_actor_stop();
+  }
+
   gui_msg_static("Hinweis", "Scanne...");
   Serial.println("WiFI AutoSave=" + String(s_autoSave));
   Serial.print("Scan start ... ");
   int n = WiFi.scanNetworks();
-  n = n + 1;
   Serial.print(n);
   Serial.println(" network(s) found");
+
+  if (sync_was_on_flag)
+  {
+    multi_actor_start();
+  }
 
   if (n > 0)
   {
 
-    String gui_items[n];
+    String gui_items[n + 1];
 
     gui_items[0] = "[abbrechen]"; // Add go back item
 

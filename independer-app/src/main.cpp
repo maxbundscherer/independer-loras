@@ -32,10 +32,10 @@ boolean c_demo_mode = false;
  *  State Section
  * ####################################
  */
-String state_my_id = "0x01";      // Saved in db
-String state_gateway_id = "0g01"; // Saved in db
-String state_wifi_ssid = "";      // Saved in db
-String state_wifi_pw = "";        // Saved in db
+String state_my_id = "0x01";      // Saved in db and INIT CONFIG
+String state_gateway_id = "0g01"; // Saved in db and INIT CONFIG
+String state_wifi_ssid = "";      // Saved in db and INIT CONFIG
+String state_wifi_pw = "";        // Saved in db and INIT CONFIG
 
 String state_wifi_hostname = "independer-" + String(esp_random());
 
