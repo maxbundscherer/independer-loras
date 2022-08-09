@@ -226,7 +226,7 @@ void i_communication_chat_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
       gui_msg_static("Hinweis", "Chat wird\ngelöscht...");
-      if (wifi_clear_message(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout))
+      if (wifi_clear_message(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token))
         gui_msg_animated("Info", "Chat wurde\ngelöscht.", C_GUI_DELAY_MSG_SHORT_I);
       else
         gui_msg_animated("Info", "Chat konnte nicht\ngelöscht werden.", C_GUI_DELAY_MSG_SHORT_I);
