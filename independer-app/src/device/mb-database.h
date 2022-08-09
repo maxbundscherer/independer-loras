@@ -41,6 +41,8 @@ void db_init(boolean is_actor, boolean isDevMode)
         state_wifi_server_port = preferences.getInt("pref_ws_port", state_wifi_server_port);
         state_wifi_server_timeout = preferences.getInt("pref_ws_to", state_wifi_server_timeout);
 
+        state_wifi_server_device_token = preferences.getString("pref_ws_dt", state_wifi_server_device_token);
+
         preferences.end();
     }
     else
@@ -155,6 +157,7 @@ void db_save_init_config(String wifi_ssid, String wifi_pw, String my_id, String 
     preferences.putString("pref_my_id", my_id);
     preferences.putString("pref_gateway_id", gateway_id);
     preferences.putString("pref_c_ver", c_product_version);
+    preferences.putString("pref_ws_dt", device_token);
     preferences.end();
 }
 
