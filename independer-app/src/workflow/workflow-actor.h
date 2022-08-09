@@ -204,7 +204,7 @@ void i_communication_chat_menu()
             msg_tx_wrapper.value = utils_encode_data(msg_tx_wrapper.value);
 
             gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
-            boolean suc = wifi_send_chat_message(msg_res_wrapper.value, state_my_id, msg_tx_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+            boolean suc = wifi_send_chat_message(msg_res_wrapper.value, state_my_id, msg_tx_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
             if (suc)
             {
               gui_msg_animated("Info", "Nachricht gesendet", C_GUI_DELAY_MSG_SHORT_I);
