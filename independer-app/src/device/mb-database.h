@@ -34,7 +34,7 @@ void db_init(boolean is_actor)
     else
     {
         Serial.println("Init DB"); // TODO
-        gui_msg_animated("Independer", "Danke das du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
+        gui_msg_animated("Independer", "Danke, dass du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
         if (is_actor)
         {
             gui_msg_long_text("Einrichtungsmodus", "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.");
