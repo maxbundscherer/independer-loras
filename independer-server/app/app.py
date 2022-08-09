@@ -74,17 +74,26 @@ def routeGetMessages():
             # Auth not passed
             return "Unauthorized"    
 
-@app.route('/v1/clearmsg/<receiverId>')
-def routeClearMessages(receiverId):
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute(
-        "UPDATE messages SET active = false WHERE receiver = '" + receiverId + "';")
-    conn.commit()
-    cur.close()
-    conn.close()
+@app.route('/v1/clearmsg', methods=['POST'])
+def routeClearMessages():
 
-    return "OK"
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        if i_check_auth(json["auth-id"], json["auth-token"]):
+            # Auth passed
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute(
+                "UPDATE messages SET active = false WHERE receiver = %s;", (json["auth-id"],)))
+            conn.commit()
+            cur.close()
+            conn.close()
+
+            return "OK"
+        else:
+            # Auth not passed
+            return "Unauthorized"
 
 @app.route('/v1/msg', methods=['POST'])
 def routeWriteMessage():

@@ -23,7 +23,7 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
     - `msg`: Content of the message
     - Response `OK` (string, no json)
 
-- `<server-url>/v1/clearmsg/<receiverId>` (POST): Clear all messages
+- `<server-url>/v1/clearmsg` (POST): Clear all messages
     - `auth-id`: Independer-ID
     - `auth-token`: Token
     - Response `OK` (string, no json)
