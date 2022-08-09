@@ -649,12 +649,14 @@ void application_actor_query_msgs_from_internet(String myId)
  * ####################################
  */
 
-void application_actor_automatic_wifi()
+S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
 {
 
   gui_msg_static("Hinweis", "Scanne...");
+  Serial.println("WiFI AutoSave=" + String(s_autoSave));
   Serial.print("Scan start ... ");
   int n = WiFi.scanNetworks();
+  n = n + 1;
   Serial.print(n);
   Serial.println(" network(s) found");
 
@@ -685,12 +687,22 @@ void application_actor_automatic_wifi()
         S_GUI_INPUT_TEXT t_password_wrapper = gui_input_text("Passwort", "");
 
         if (t_password_wrapper.success == false)
-          return;
+        {
+          return S_WIFI_CONFIG_WRAPPER{false, "", ""};
+        }
 
-        db_save_wifi_settings(t_ssid, t_password_wrapper.value);
+        if (s_autoSave)
+        {
+          Serial.println("Save now WIFI Config");
+          db_save_wifi_settings(t_ssid, t_password_wrapper.value);
+          gui_msg_animated("Info", "Einstellungen\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+        }
+        else
+        {
+          Serial.println("Skip now Save WIFI Config");
+        }
 
-        gui_msg_animated("Info", "Einstellungen\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
-        return;
+        return S_WIFI_CONFIG_WRAPPER{true, t_ssid, t_password_wrapper.value};
       }
     }
   }
@@ -699,5 +711,5 @@ void application_actor_automatic_wifi()
     gui_msg_animated("Info", "Keine Netzwerke\ngefunden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
-  return;
+  return S_WIFI_CONFIG_WRAPPER{false, "", ""};
 }

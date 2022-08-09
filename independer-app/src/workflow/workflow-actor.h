@@ -443,7 +443,7 @@ void i_setting_wifi_menu()
     S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
-      application_actor_automatic_wifi();
+      application_actor_automatic_wifi(true);
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");

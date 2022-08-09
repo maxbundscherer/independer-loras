@@ -10,6 +10,16 @@ Preferences preferences;
  * ####################################
  */
 
+void i_db_interactive_setup_actor();
+
+struct S_WIFI_CONFIG_WRAPPER
+{
+    boolean success;
+    String ssid;
+    String password;
+};
+S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean autoSave);
+
 void db_init(boolean is_actor)
 {
 
@@ -30,11 +40,14 @@ void db_init(boolean is_actor)
         state_wifi_server_url = preferences.getString("pref_ws_url", state_wifi_server_url);
         state_wifi_server_port = preferences.getInt("pref_ws_port", state_wifi_server_port);
         state_wifi_server_timeout = preferences.getInt("pref_ws_to", state_wifi_server_timeout);
+
+        preferences.end();
     }
     else
     {
-        Serial.println("Init DB"); // TODO
-        gui_msg_animated("Independer", "Danke, dass du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
+        preferences.end();
+        Serial.println("Init DB");
+         gui_msg_animated("Independer", "Danke, dass du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
         if (is_actor)
         {
             gui_msg_long_text("Einrichtungsmodus", "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.");
@@ -219,3 +232,65 @@ void db_clear_msg()
 
 String db_msg_get_rec() { return db_i_get_content("msg_rec"); }
 String db_msg_get_msg() { return db_i_get_content("msg_msg"); }
+
+/*
+ * ####################################
+ *  Interactive Section
+ * ####################################
+ */
+
+void i_db_interactive_setup_actor()
+{
+
+    String t_wifi_ssid = "";
+    String t_wifi_pw = "";
+
+    String menu_items[] = {
+        "Automatisch",
+        "(Manuell) SSID",
+        "(Manuell) Passwort",
+        "[Bestätigen]"};
+
+    bool fin_flag = false;
+    while (!fin_flag)
+    {
+        S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+        if (selected_wrapper.success and selected_wrapper.value == 0)
+        {
+            S_WIFI_CONFIG_WRAPPER ans = application_actor_automatic_wifi(false);
+            if (ans.success)
+            {
+                t_wifi_ssid = ans.ssid;
+                t_wifi_pw = ans.password;
+            }
+        }
+        else if (selected_wrapper.success and selected_wrapper.value == 1)
+        {
+            S_GUI_INPUT_TEXT s = gui_input_text("SSID", t_wifi_ssid);
+            if (s.success)
+                t_wifi_ssid = s.value;
+        }
+        else if (selected_wrapper.success and selected_wrapper.value == 2)
+        {
+            S_GUI_INPUT_TEXT s = gui_input_text("Passwort", t_wifi_pw);
+            if (s.success)
+                t_wifi_pw = s.value;
+        }
+        else
+        {
+            state_wifi_ssid = t_wifi_ssid;
+            state_wifi_pw = t_wifi_pw;
+            gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
+            if (wifi_check_status())
+            {
+                gui_msg_animated("Info", "WiFi\nOk", C_GUI_DELAY_MSG_SHORT_I);
+                fin_flag = true;
+            }
+            else
+            {
+                gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
+            }
+        }
+    }
+}
