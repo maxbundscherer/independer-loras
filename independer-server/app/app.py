@@ -133,7 +133,7 @@ def routRegister():
         # Auth Check
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute("SELECT * FROM users WHERE active is true AND appid = '" + t_app_id + "' AND secret = '" + t_app_secret + "';")
+        cur.execute('SELECT * FROM users WHERE active is true AND appid = %s AND secret = %s;', (t_app_id, t_app_secret))
         data = cur.fetchall()
         cur.close()
         conn.close()
@@ -143,7 +143,7 @@ def routRegister():
             # Disable old devices
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute("UPDATE devices SET active = false WHERE appid = '" + t_app_id + "';")
+            cur.execute("UPDATE devices SET active = false WHERE appid = %s;", (t_app_id,))
             conn.commit()
             cur.close()
             conn.close()
