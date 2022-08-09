@@ -38,11 +38,15 @@ void db_init(boolean is_actor)
         if (is_actor)
         {
             gui_msg_long_text("Einrichtungsmodus", "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.");
+            i_db_interactive_setup_actor();
         }
         else
         {
             gui_msg_static("Einrichtungsmodus", "Auf dem Actor:\n G. Funktionen->Einrichtung\nID: 0x00");
-            delay(100000);
+            while (true)
+            {
+                delay(100);
+            }
         }
     }
 
