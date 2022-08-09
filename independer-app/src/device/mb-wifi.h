@@ -81,7 +81,14 @@ S_WIFI_REGISTER wifi_register_device(String device_id, String secret, String ser
         {
             Serial.println("Connected to server!");
 
+            DynamicJsonDocument doc(1024 * 10);
+
+            doc["id"] = device_id;
+            doc["secret"] = secret;
+
             String body = "";
+
+            serializeJson(doc, body);
 
             String send_string = String("POST ") + "/v1/register" + " HTTP/1.1\r\n" +
                                  "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +

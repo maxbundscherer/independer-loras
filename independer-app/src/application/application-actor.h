@@ -1,5 +1,3 @@
-#include <ArduinoJson.h>
-
 /*
  * ####################################
  *  Who is near? Section
