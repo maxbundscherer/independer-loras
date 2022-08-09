@@ -74,7 +74,7 @@ def routeGetMessages():
             # Auth not passed
             return "Unauthorized"    
 
-@app.route('/v1/clearmsg', methods=['POST'])
+@app.route('/v1/clearmsgs', methods=['POST'])
 def routeClearMessages():
 
     content_type = request.headers.get('Content-Type')
@@ -94,29 +94,31 @@ def routeClearMessages():
             # Auth not passed
             return "Unauthorized"
 
-@app.route('/v1/msg', methods=['POST'])
+@app.route('/v1/writemsg', methods=['POST'])
 def routeWriteMessage():
 
     content_type = request.headers.get('Content-Type')
     if (content_type == 'application/json'):
         json = request.json
+        if i_check_auth(json["auth-id"], json["auth-token"]):
+            # Auth passed
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO messages (receiver, author, msg, active)'
+                        'VALUES (%s, %s, %s, %s)',
+                        (json["receiver"],
+                        json["auth-id"],
+                            json["msg"],
+                            True)
+                        )
+            conn.commit()
+            cur.close()
+            conn.close()
 
-        conn = get_db_connection()
-        cur = conn.cursor()
-        cur.execute('INSERT INTO messages (receiver, author, msg, active)'
-                    'VALUES (%s, %s, %s, %s)',
-                    (json["receiver"],
-                     json["author"],
-                        json["msg"],
-                        True)
-                    )
-        conn.commit()
-        cur.close()
-        conn.close()
-
-        return "OK"
-    else:
-        return 'Content-Type not supported!'
+            return "OK"
+        else:
+            # Auth not passed
+            return "Unauthorized"
 
 @app.route('/v1/register', methods=['POST'])
 def routRegister():

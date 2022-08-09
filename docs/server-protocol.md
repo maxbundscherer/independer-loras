@@ -15,15 +15,14 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
         - `author`: Author of the message
         - `msg`: Content of the message
 
-- `<server-url>/v1/msg` (POST): Write a message
+- `<server-url>/v1/writemsg` (POST): Write a message
     - `auth-id`: Independer-ID
     - `auth-token`: Token
     - `receiver`: Receiver of the message
-    - `author`: Author of the message
     - `msg`: Content of the message
     - Response `OK` (string, no json)
 
-- `<server-url>/v1/clearmsg` (POST): Clear all messages
+- `<server-url>/v1/clearmsgs` (POST): Clear all messages
     - `auth-id`: Independer-ID
     - `auth-token`: Token
     - Response `OK` (string, no json)
