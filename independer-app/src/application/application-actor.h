@@ -555,7 +555,7 @@ void application_actor_query_msgs_from_internet(String myId)
 {
 
   gui_msg_static("Hinweis", "Nachrichten werden\nabgerufen");
-  String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+  String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
   // Serial.println("Query Messages from Internet: '" + ret + "'");
 
   if (ret != "")
@@ -650,7 +650,7 @@ void application_actor_query_msgs_from_internet(String myId)
 S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
 {
 
-   boolean sync_was_on_flag = multi_actor_get_state();
+  boolean sync_was_on_flag = multi_actor_get_state();
 
   if (sync_was_on_flag)
   {

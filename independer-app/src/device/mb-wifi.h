@@ -240,35 +240,38 @@ boolean wifi_send_chat_message(String receiver, String author, String msg, Strin
  * ####################################
  */
 
-String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int serverTimeout)
+String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int serverTimeout, String serverDeviceToken)
 {
 
     char *c_wifi_server_url = const_cast<char *>(serverUrl.c_str());
     int c_wifi_server_port = serverPort;
     int c_wifi_timeout = serverTimeout;
 
-    String ret_status = "";
+    String ret = "";
 
     if (i_wifi_connect())
     {
-
-        // Code Start
-        Serial.println("[Send GET REQUEST] START");
         Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ")");
         if (!i_wifi_client.connect(c_wifi_server_url, c_wifi_server_port, c_wifi_timeout))
-        {
             Serial.println("Connection failed!");
-        }
         else
         {
             Serial.println("Connected to server!");
-            /* create HTTP request */
 
-            // TODO: Improve json writer
+            DynamicJsonDocument doc(1024 * 10);
 
-            String send_string = String("GET ") + "/v1/msg/" + myId + " HTTP/1.1\r\n" +
+            doc["auth-id"] = myId;
+            doc["auth-token"] = serverDeviceToken;
+
+            String body = "";
+
+            serializeJson(doc, body);
+
+            String send_string = String("POST ") + "/v1/getmsgs" + " HTTP/1.1\r\n" +
                                  "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +
                                  "Content-Type: application/json" + "\r\n" +
+                                 "Content-Length: " + body.length() + "\r\n\r\n" +
+                                 body + "\r\n" +
                                  "Connection: close\r\n\r\n";
 
             Serial.println("Send String is '" + send_string + "'");
@@ -284,7 +287,7 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
             {
                 mail_fail_connect_counter++;
                 Serial.print("AM=" + String(mail_fail_connect_counter) + "/" + String(c_mail_max_fails) + " ");
-                delay(50); //
+                delay(50);
             }
             Serial.println("\n[Waiting for response] STOP");
 
@@ -295,7 +298,7 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
             }
             Serial.print("Response '" + line + "'");
 
-            ret_status = line;
+            ret = line;
 
             /* if the server disconnected, stop the client */
             if (!i_wifi_client.connected())
@@ -306,15 +309,13 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
 
             i_wifi_client.stop();
         }
-        Serial.println("[Send GET Request] STOP");
-        // Mail Cod Stop
     }
     else
-        Serial.println("Could not get mail: WiFi is not connected");
+        Serial.println("Could not send: Not connected");
 
     i_wifi_disconnect();
 
-    return ret_status;
+    return ret;
 }
 
 /*
