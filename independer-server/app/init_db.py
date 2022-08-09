@@ -14,20 +14,18 @@ conn = psycopg2.connect(
 # Open a cursor to perform database operations
 cur = conn.cursor()
 
-# Execute a command: this creates a new table
-# cur.execute('DROP TABLE IF EXISTS messages;')
-cur.execute('CREATE TABLE  IF NOT EXISTS messages (id serial PRIMARY KEY,'
-            'receiver varchar (5) NOT NULL,'
-            'author varchar (5) NOT NULL,'
-            'msg text NOT NULL,'
+cur.execute('CREATE TABLE  IF NOT EXISTS users (id serial PRIMARY KEY,'
+            'appid varchar (5) NOT NULL UNIQUE,'
+            'secret varchar (50) NOT NULL,'
             'active boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 conn.commit()
 
-cur.execute('CREATE TABLE  IF NOT EXISTS users (id serial PRIMARY KEY,'
-            'appid varchar (5) NOT NULL UNIQUE,'
-            'secret varchar (50) NOT NULL,'
+cur.execute('CREATE TABLE  IF NOT EXISTS messages (id serial PRIMARY KEY,'
+            'receiver varchar (5) NOT NULL references users(appid),'
+            'author varchar (5) NOT NULL references users(appid),'
+            'msg text NOT NULL,'
             'active boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )

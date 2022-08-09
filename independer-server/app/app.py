@@ -26,7 +26,7 @@ def get_db_connection():
 def i_check_auth(appid, token):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM devices WHERE active is true AND appid = %s AND token = %s', (appid, token))
+    cur.execute('SELECT * FROM devices WHERE active is true AND appid = %s AND token = %s;', (appid, token))
     
     if cur.rowcount == 1:
         cur.close()
@@ -57,8 +57,7 @@ def routeGetMessages():
             # Auth passed
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute(
-                "SELECT * FROM messages WHERE active is true AND receiver = '" + json["auth-id"] + "';")
+            cur.execute('SELECT * FROM messages WHERE active is true AND receiver = %s;', (json["auth-id"],))
             messages = cur.fetchall()
             cur.close()
             conn.close()
