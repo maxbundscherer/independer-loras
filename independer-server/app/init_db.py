@@ -23,13 +23,23 @@ cur.execute('CREATE TABLE  IF NOT EXISTS messages (id serial PRIMARY KEY,'
             'active boolean NOT NULL,'
             'date_added date DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
+conn.commit()
 
 cur.execute('CREATE TABLE  IF NOT EXISTS users (id serial PRIMARY KEY,'
-            'appid varchar (5) NOT NULL,'
+            'appid varchar (5) NOT NULL UNIQUE,'
             'secret varchar (15) NOT NULL,'
             'active boolean NOT NULL,'
             'date_added date DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
+conn.commit()
+
+cur.execute('CREATE TABLE  IF NOT EXISTS devices (id serial PRIMARY KEY,'
+            'appid varchar (5) NOT NULL references users(appid),'
+            'token varchar (15) NOT NULL,'
+            'active boolean NOT NULL,'
+            'date_added date DEFAULT CURRENT_TIMESTAMP NOT NULL);'
+            )
+conn.commit()
 
 # Insert data into the table
 
@@ -40,24 +50,6 @@ cur.execute('CREATE TABLE  IF NOT EXISTS users (id serial PRIMARY KEY,'
 #              'Hello world!',
 #              True)
 #             )
-
-# cur.execute('INSERT INTO messages (receiver, author, msg, active)'
-#             'VALUES (%s, %s, %s, %s)',
-#             ('0xM2',
-#              '0xMB',
-#              'Hello world 2!',
-#              False)
-#             )
-
-# cur.execute('INSERT INTO messages (receiver, author, msg, active)'
-#             'VALUES (%s, %s, %s, %s)',
-#             ('0xMB',
-#              '0xM2',
-#              'Hello world 3!',
-#              True)
-#             )
-
-conn.commit()
 
 cur.close()
 conn.close()
