@@ -40,7 +40,7 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   gui_init_display();
 
   Serial.println("- Init Database");
-  db_init(isActor);
+  db_init(isActor, isDevMode);
 
   display.setBrightness(state_oled_brightness); // Set brightness after db
 

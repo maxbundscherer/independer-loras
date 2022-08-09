@@ -20,7 +20,7 @@ struct S_WIFI_CONFIG_WRAPPER
 };
 S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean autoSave);
 
-void db_init(boolean is_actor)
+void db_init(boolean is_actor, boolean isDevMode)
 {
 
     preferences.begin(c_db_target_key, true); // Read only
@@ -47,7 +47,8 @@ void db_init(boolean is_actor)
     {
         preferences.end();
         Serial.println("Init DB");
-         gui_msg_animated("Independer", "Danke, dass du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
+        if (!isDevMode)
+            gui_msg_animated("Independer", "Danke, dass du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
         if (is_actor)
         {
             gui_msg_long_text("Einrichtungsmodus", "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.");
