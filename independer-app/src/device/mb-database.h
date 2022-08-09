@@ -25,7 +25,7 @@ void db_init(boolean is_actor, boolean isDevMode)
 
     preferences.begin(c_db_target_key, true); // Read only
 
-    String current_db_version = preferences.getString("pref_my_db_version", "null");
+    String current_db_version = preferences.getString("pref_c_ver", "null");
 
     if (current_db_version == c_product_version)
     {
@@ -45,8 +45,9 @@ void db_init(boolean is_actor, boolean isDevMode)
     }
     else
     {
-        preferences.end();
         Serial.println("Init DB");
+        preferences.clear();
+        preferences.end();
         if (!isDevMode)
             gui_msg_animated("Independer", "Danke, dass du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
         if (is_actor)
@@ -144,6 +145,17 @@ void db_save_wifi_server_timeout(int value)
 {
     state_wifi_server_timeout = value;
     i_db_write("pref_ws_to", value);
+}
+
+void db_save_init_config(String wifi_ssid, String wifi_pw, String my_id, String gateway_id)
+{
+    preferences.begin(c_db_target_key, false); // Read and write
+    preferences.putString("pref_wifi_ssid", wifi_ssid);
+    preferences.putString("pref_wifi_pw", wifi_pw);
+    preferences.putString("pref_my_id", my_id);
+    preferences.putString("pref_gateway_id", gateway_id);
+    preferences.putString("pref_c_ver", c_product_version);
+    preferences.end();
 }
 
 void db_clear()
@@ -270,7 +282,6 @@ void i_db_interactive_setup_actor()
                 gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
                 if (wifi_check_status())
                 {
-                    gui_msg_animated("Info", "WiFi\nOk", C_GUI_DELAY_MSG_SHORT_I);
                     fin_wifi_config = true;
                 }
                 else
@@ -298,7 +309,6 @@ void i_db_interactive_setup_actor()
             gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
             if (wifi_check_status())
             {
-                gui_msg_animated("Info", "WiFi\nOk", C_GUI_DELAY_MSG_SHORT_I);
                 fin_wifi_config = true;
             }
             else
@@ -312,5 +322,42 @@ void i_db_interactive_setup_actor()
         }
     }
 
-    // TODO: WIFI Check is completed
+    // WIFI Check is completed
+
+    String t_my_id = "";
+    String t_gateway_id = "";
+    bool fin_id_config = false;
+    while (!fin_id_config)
+    {
+
+        S_GUI_INPUT_TEXT t_my_id_wrapper = gui_input_text("Meine ID (z.B.: 0xMB)", "0x");
+        if (t_my_id_wrapper.success)
+        {
+            if (utils_is_valid_receiver(t_my_id_wrapper.value))
+            {
+                S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text("Gateway ID (z.B.: 0gMB)", "0g");
+                if (t_g_id_wrapper.success)
+                {
+                    if (utils_is_valid_receiver(t_g_id_wrapper.value))
+                    {
+                        t_my_id = t_my_id_wrapper.value;
+                        t_gateway_id = t_g_id_wrapper.value;
+                        fin_id_config = true;
+                    }
+                    else
+                        gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+                }
+            }
+            else
+                gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+        }
+    }
+
+    // Save WIFI Config and ID and Gateway ID
+
+    db_save_init_config(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id);
+
+    gui_msg_animated("Hinweis", "Einrichtung\nabgeschlossen!", C_GUI_DELAY_MSG_SHORT_I);
+
+    ESP.restart();
 }
