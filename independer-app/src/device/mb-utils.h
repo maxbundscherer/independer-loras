@@ -1,5 +1,8 @@
 #include "driver/rtc_io.h" //Low Power Mode
 
+// Welcome MSG Config
+#define C_TEMPLATE_STRING_THX "Danke, dass du dich\nfür den Independer\nentschieden hast!"
+
 void utils_init_battery_meas()
 {
   pinMode(21, OUTPUT);

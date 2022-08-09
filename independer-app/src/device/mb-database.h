@@ -51,7 +51,7 @@ void db_init(boolean is_actor, boolean isDevMode)
         preferences.clear();
         preferences.end();
         if (!isDevMode)
-            gui_msg_animated("Independer", "Danke, dass du dich\nfür den Independer\nentschieden hast!", C_GUI_DELAY_MSG_LONG_I);
+            gui_msg_animated("Independer", C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
         if (is_actor)
         {
             gui_msg_long_text("Einrichtungsmodus", "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.");
@@ -373,6 +373,8 @@ void i_db_interactive_setup_actor()
     db_save_init_config(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id, t_device_token);
 
     gui_msg_animated("Hinweis", "Einrichtung\nabgeschlossen!", C_GUI_DELAY_MSG_SHORT_I);
+
+    gui_msg_animated("Independer", C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
 
     ESP.restart();
 }
