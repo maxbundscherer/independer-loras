@@ -24,6 +24,13 @@ cur.execute('CREATE TABLE  IF NOT EXISTS messages (id serial PRIMARY KEY,'
             'date_added date DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 
+cur.execute('CREATE TABLE  IF NOT EXISTS users (id serial PRIMARY KEY,'
+            'appid varchar (5) NOT NULL,'
+            'secret varchar (15) NOT NULL,'
+            'active boolean NOT NULL,'
+            'date_added date DEFAULT CURRENT_TIMESTAMP NOT NULL);'
+            )
+
 # Insert data into the table
 
 # cur.execute('INSERT INTO messages (receiver, author, msg, active)'
