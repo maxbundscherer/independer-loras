@@ -55,7 +55,6 @@ def routeClearMessages(receiverId):
 
     return "OK"
 
-
 @app.route('/v1/msg', methods=['POST'])
 def routeWriteMessage():
 
