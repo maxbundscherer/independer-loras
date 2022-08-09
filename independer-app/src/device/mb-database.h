@@ -251,7 +251,7 @@ void i_db_interactive_setup_actor()
         "(Manuell) SSID",
         "(Manuell) Passwort",
         "[Bestätigen]",
-        "[Abbrechen]"};
+        "[Ausschalten]"};
 
     bool fin_wifi_config = false;
     while (!fin_wifi_config)
@@ -291,11 +291,7 @@ void i_db_interactive_setup_actor()
             if (s.success)
                 t_wifi_pw = s.value;
         }
-        else if (selected_wrapper.success and selected_wrapper.value == 4)
-        {
-            utils_go_to_sleep();
-        }
-        else
+        else if (selected_wrapper.success and selected_wrapper.value == 3)
         {
             state_wifi_ssid = t_wifi_ssid;
             state_wifi_pw = t_wifi_pw;
@@ -309,6 +305,10 @@ void i_db_interactive_setup_actor()
             {
                 gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
             }
+        }
+        else
+        {
+            utils_go_to_sleep();
         }
     }
 
