@@ -9,12 +9,12 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
 
 - `<server-url>/v1/msg/<receiverId>` (POST): Get all messages
     - `auth-id`: Independer-ID
-    - `auth-token`: TOKEN
+    - `auth-token`: Token
     - Response `OK` (string, no json)
 
 - `<server-url>/v1/msg` (POST): Write a message
     - `auth-id`: Independer-ID
-    - `auth-token`: TOKEN
+    - `auth-token`: Token
     - `receiver`: Receiver of the message
     - `author`: Author of the message
     - `msg`: Content of the message
@@ -22,5 +22,5 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
 
 - `<server-url>/v1/clearmsg/<receiverId>` (POST): Clear all messages
     - `auth-id`: Independer-ID
-    - `auth-token`: TOKEN
+    - `auth-token`: Token
     - Response `OK` (string, no json)
