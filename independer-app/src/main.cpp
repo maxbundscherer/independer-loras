@@ -25,7 +25,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.3.2";
+String c_product_version = "v.0.3.2i";
 boolean c_demo_mode = false;
 
 /*
@@ -44,9 +44,10 @@ int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT
 
 int state_oled_brightness = 255; // saved in db
 
-String state_wifi_server_url = "0.0.0.0"; // saved in db
-int state_wifi_server_port = 5001;        // saved in db
-int state_wifi_server_timeout = 5000;     // saved in db
+String state_wifi_server_url = "0.0.0.0";   // saved in db
+int state_wifi_server_port = 5001;          // saved in db
+int state_wifi_server_timeout = 5000;       // saved in db
+String state_wifi_server_device_token = ""; // saved in db and INIT CONFIG
 
 #include "device/mb-base64.h"
 #include "device/mb-utils.h"
