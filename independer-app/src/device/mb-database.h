@@ -147,7 +147,7 @@ void db_save_wifi_server_timeout(int value)
     i_db_write("pref_ws_to", value);
 }
 
-void db_save_init_config(String wifi_ssid, String wifi_pw, String my_id, String gateway_id)
+void db_save_init_config(String wifi_ssid, String wifi_pw, String my_id, String gateway_id, String device_token)
 {
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.putString("pref_wifi_ssid", wifi_ssid);
@@ -326,27 +326,39 @@ void i_db_interactive_setup_actor()
 
     String t_my_id = "";
     String t_gateway_id = "";
+    String t_device_token = "";
     bool fin_id_config = false;
     while (!fin_id_config)
     {
 
         S_GUI_INPUT_TEXT t_my_id_wrapper = gui_input_text("Meine ID (z.B.: 0xMB)", "0x");
-        if (t_my_id_wrapper.success)
+        S_GUI_INPUT_TEXT t_device_secret = gui_input_text("Independer Passwort", "");
+        if (t_my_id_wrapper.success and t_device_secret.success)
         {
             if (utils_is_valid_receiver(t_my_id_wrapper.value))
             {
-                S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text("Gateway ID (z.B.: 0gMB)", "0g");
-                if (t_g_id_wrapper.success)
+
+                gui_msg_static("Info", "Prüfe Anmeldung\nID\n'" + t_my_id_wrapper.value + "'\n...");
+                S_WIFI_REGISTER login_ans = wifi_register_device(t_my_id_wrapper.value, t_device_secret.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+
+                if (login_ans.success)
                 {
-                    if (utils_is_valid_receiver(t_g_id_wrapper.value))
+                    S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text("Gateway ID (z.B.: 0gMB)", "0g");
+                    if (t_g_id_wrapper.success)
                     {
-                        t_my_id = t_my_id_wrapper.value;
-                        t_gateway_id = t_g_id_wrapper.value;
-                        fin_id_config = true;
+                        if (utils_is_valid_receiver(t_g_id_wrapper.value))
+                        {
+                            t_my_id = t_my_id_wrapper.value;
+                            t_gateway_id = t_g_id_wrapper.value;
+                            t_device_token = login_ans.token;
+                            fin_id_config = true;
+                        }
+                        else
+                            gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
                     }
-                    else
-                        gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
                 }
+                else
+                    gui_msg_animated("Fehler", "ID konnte nicht\nangemeldet werden.", C_GUI_DELAY_MSG_SHORT_I);
             }
             else
                 gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
@@ -355,7 +367,7 @@ void i_db_interactive_setup_actor()
 
     // Save WIFI Config and ID and Gateway ID
 
-    db_save_init_config(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id);
+    db_save_init_config(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id, t_device_token);
 
     gui_msg_animated("Hinweis", "Einrichtung\nabgeschlossen!", C_GUI_DELAY_MSG_SHORT_I);
 

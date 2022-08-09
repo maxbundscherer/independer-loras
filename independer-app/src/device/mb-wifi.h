@@ -124,7 +124,7 @@ S_WIFI_REGISTER wifi_register_device(String device_id, String secret, String ser
             if (line.indexOf("OK-") > 0)
             {
                 ret.success = true;
-                ret.token = "tbd";
+                ret.token = line.substring(line.indexOf("OK-") + 3);
             }
 
             /* if the server disconnected, stop the client */
