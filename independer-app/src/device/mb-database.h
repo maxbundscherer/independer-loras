@@ -252,8 +252,8 @@ void i_db_interactive_setup_actor()
         "(Manuell) Passwort",
         "[Bestätigen]"};
 
-    bool fin_flag = false;
-    while (!fin_flag)
+    bool fin_wifi_config = false;
+    while (!fin_wifi_config)
     {
         S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
@@ -264,6 +264,18 @@ void i_db_interactive_setup_actor()
             {
                 t_wifi_ssid = ans.ssid;
                 t_wifi_pw = ans.password;
+                state_wifi_ssid = t_wifi_ssid;
+                state_wifi_pw = t_wifi_pw;
+                gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
+                if (wifi_check_status())
+                {
+                    gui_msg_animated("Info", "WiFi\nOk", C_GUI_DELAY_MSG_SHORT_I);
+                    fin_wifi_config = true;
+                }
+                else
+                {
+                    gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
+                }
             }
         }
         else if (selected_wrapper.success and selected_wrapper.value == 1)
@@ -286,7 +298,7 @@ void i_db_interactive_setup_actor()
             if (wifi_check_status())
             {
                 gui_msg_animated("Info", "WiFi\nOk", C_GUI_DELAY_MSG_SHORT_I);
-                fin_flag = true;
+                fin_wifi_config = true;
             }
             else
             {
@@ -294,4 +306,6 @@ void i_db_interactive_setup_actor()
             }
         }
     }
+
+    // TODO: WIFI Check is completed
 }
