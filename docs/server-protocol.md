@@ -2,6 +2,11 @@
 
 JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
 
+- `<server-url>/v1/register` (POST): Register Device
+    - `id`: Independer-ID
+    - `secret`: Secret
+    - Response `OK-<deviceToken>`
+
 - `<server-url>/v1/msg/<receiverId>` (GET): Get all messages
     - Response `OK`
 
