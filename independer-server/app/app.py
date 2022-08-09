@@ -84,8 +84,7 @@ def routeClearMessages():
             # Auth passed
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute(
-                "UPDATE messages SET active = false WHERE receiver = %s;", (json["auth-id"],)))
+            cur.execute('UPDATE messages SET active = false WHERE receiver = %s;', (json["auth-id"],))
             conn.commit()
             cur.close()
             conn.close()
