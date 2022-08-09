@@ -250,7 +250,8 @@ void i_db_interactive_setup_actor()
         "Automatisch",
         "(Manuell) SSID",
         "(Manuell) Passwort",
-        "[Bestätigen]"};
+        "[Bestätigen]",
+        "[Abbrechen]"};
 
     bool fin_wifi_config = false;
     while (!fin_wifi_config)
@@ -289,6 +290,10 @@ void i_db_interactive_setup_actor()
             S_GUI_INPUT_TEXT s = gui_input_text("Passwort", t_wifi_pw);
             if (s.success)
                 t_wifi_pw = s.value;
+        }
+        else if (selected_wrapper.success and selected_wrapper.value == 4)
+        {
+            utils_go_to_sleep();
         }
         else
         {
