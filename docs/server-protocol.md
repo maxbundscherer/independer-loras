@@ -7,7 +7,7 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
     - `secret`: Secret
     - Response `OK-<token>` (string, no json)
 
-- `<server-url>/v1/msg/<receiverId>` (POST): Get all messages
+- `<server-url>/v1/getmsgs` (POST): Get all messages
     - `auth-id`: Independer-ID
     - `auth-token`: Token
     - Response (JSON-Array)

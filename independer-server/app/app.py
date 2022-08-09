@@ -23,25 +23,57 @@ def get_db_connection():
         port=conf.getDbConfigPort())
     return conn
 
-
-@app.route('/v1/msg/<receiverId>')
-def routeGetMessages(receiverId):
+def i_check_auth(appid, token):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute(
-        "SELECT * FROM messages WHERE active is true AND receiver = '" + receiverId + "';")
-    messages = cur.fetchall()
-    cur.close()
-    conn.close()
+    cur.execute('SELECT * FROM devices WHERE active is true AND appid = %s AND token = %s', (appid, token))
+    
+    if cur.rowcount == 1:
+        cur.close()
+        conn.close()
+        return True
+    else:
+        cur.close()
+        conn.close()
+        return False
 
-    retDict = {}
+# content_type = request.headers.get('Content-Type')
+# if (content_type == 'application/json'):
+#     json = request.json
+#     if i_check_auth(json["auth-id"], json["auth-token"]):
+#         # Auth passed
+#         pass
+#     else:
+#         # Auth not passed
+#         return "Unauthorized"
 
-    for i, messageWrapper in enumerate(messages):
-        e = {"receiver": messageWrapper[1],
-             "author": messageWrapper[2], "msg": messageWrapper[3]}
-        retDict[i] = e
+@app.route('/v1/getmsgs', methods=['POST'])
+def routeGetMessages():
 
-    return retDict
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        if i_check_auth(json["auth-id"], json["auth-token"]):
+            # Auth passed
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute(
+                "SELECT * FROM messages WHERE active is true AND receiver = '" + json["auth-id"] + "';")
+            messages = cur.fetchall()
+            cur.close()
+            conn.close()
+
+            retDict = {}
+
+            for i, messageWrapper in enumerate(messages):
+                e = {"receiver": messageWrapper[1],
+                    "author": messageWrapper[2], "msg": messageWrapper[3]}
+                retDict[i] = e
+
+            return retDict
+        else:
+            # Auth not passed
+            return "Unauthorized"    
 
 @app.route('/v1/clearmsg/<receiverId>')
 def routeClearMessages(receiverId):
