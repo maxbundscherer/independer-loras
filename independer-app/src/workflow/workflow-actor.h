@@ -369,6 +369,7 @@ void i_gateway_functions_menu()
   String menu_items[] = {
       "Schlaf Modus",
       "Update",
+      "Einrichtung",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -388,6 +389,29 @@ void i_gateway_functions_menu()
       gui_msg_animated("Info", "Aktiviere Update-Modus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       String sendString = "C;up;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw);
       lora_send_msg(state_my_id, state_gateway_id, sendString, state_lora_gain);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
+    {
+      S_GUI_INPUT_TEXT msg_showed_id_wrapper = gui_input_text("Angezeigte ID (z.B.: 0g01)", "0g");
+      if (msg_showed_id_wrapper.success)
+      {
+        if (utils_is_valid_receiver(msg_showed_id_wrapper.value))
+        {
+          S_GUI_INPUT_TEXT msg_gateway_id_wrapper = gui_input_text("Gateway ID (z.B.: 0g01)", "0g");
+          if (msg_gateway_id_wrapper.success)
+          {
+            if (utils_is_valid_receiver(msg_gateway_id_wrapper.value))
+            {
+              String sendString = "C;init;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw) + ";" + utils_encode_data(msg_gateway_id_wrapper.value);
+              lora_send_msg(state_my_id, msg_showed_id_wrapper.value, sendString, state_lora_gain);
+            }
+            else
+              gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+          }
+        }
+        else
+          gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+      }
     }
     else
       fin_flag = true;
