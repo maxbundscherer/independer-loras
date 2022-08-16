@@ -65,7 +65,7 @@ struct S_WIFI_REGISTER
     String token;
 };
 
-S_WIFI_REGISTER wifi_register_device(String device_id, String secret, String serverUrl, int serverPort, int serverTimeout)
+S_WIFI_REGISTER wifi_register_device_actor(String device_id, String secret, String serverUrl, int serverPort, int serverTimeout)
 {
 
     char *c_wifi_server_url = const_cast<char *>(serverUrl.c_str());
@@ -128,6 +128,88 @@ S_WIFI_REGISTER wifi_register_device(String device_id, String secret, String ser
             {
                 ret.success = true;
                 ret.token = line.substring(line.indexOf("OK-") + 3);
+            }
+
+            /* if the server disconnected, stop the client */
+            if (!i_wifi_client.connected())
+            {
+                Serial.println();
+                Serial.println("Server disconnected");
+            }
+
+            i_wifi_client.stop();
+        }
+    }
+    else
+        Serial.println("Could not send: Not connected");
+
+    i_wifi_disconnect();
+
+    return ret;
+}
+
+boolean wifi_register_device_gateway(String my_id, String gateway_id, String serverUrl, int serverPort, int serverTimeout, String serverDeviceToken)
+{
+
+    char *c_wifi_server_url = const_cast<char *>(serverUrl.c_str());
+    int c_wifi_server_port = serverPort;
+    int c_wifi_timeout = serverTimeout;
+
+    boolean ret = false;
+
+    if (i_wifi_connect())
+    {
+        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ") (" + String(serverPort) + ")");
+        if (!i_wifi_client.connect(c_wifi_server_url, c_wifi_server_port, c_wifi_timeout))
+            Serial.println("Connection failed!");
+        else
+        {
+            Serial.println("Connected to server!");
+
+            DynamicJsonDocument doc(1024 * 10);
+
+            doc["auth-id"] = my_id;
+            doc["auth-token"] = serverDeviceToken;
+            doc["gateway-id"] = gateway_id;
+
+            String body = "";
+
+            serializeJson(doc, body);
+
+            String send_string = String("POST ") + "/v1/gatewayregister" + " HTTP/1.1\r\n" +
+                                 "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +
+                                 "Content-Type: application/json" + "\r\n" +
+                                 "Content-Length: " + body.length() + "\r\n\r\n" +
+                                 body + "\r\n" +
+                                 "Connection: close\r\n\r\n";
+
+            Serial.println("Send String is '" + send_string + "'");
+
+            i_wifi_client.print(send_string);
+
+            int c_mail_max_fails = c_wifi_server_max_attempts;
+
+            int mail_fail_connect_counter = 0;
+
+            Serial.println("[Waiting for response] START");
+            while (!i_wifi_client.available() and mail_fail_connect_counter < c_mail_max_fails)
+            {
+                mail_fail_connect_counter++;
+                Serial.print("AM=" + String(mail_fail_connect_counter) + "/" + String(c_mail_max_fails) + " ");
+                delay(50);
+            }
+            Serial.println("\n[Waiting for response] STOP");
+
+            String line = "";
+            while (i_wifi_client.available())
+            {
+                line += i_wifi_client.readStringUntil('\r');
+            }
+            Serial.print("Response '" + line + "'");
+
+            if (line.endsWith("OK"))
+            {
+                ret = true;
             }
 
             /* if the server disconnected, stop the client */

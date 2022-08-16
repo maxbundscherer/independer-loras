@@ -354,7 +354,7 @@ void i_db_interactive_setup_actor()
             {
 
                 gui_msg_static("Info", "Prüfe Anmeldung\nID\n'" + t_my_id_wrapper.value + "'\n...");
-                S_WIFI_REGISTER login_ans = wifi_register_device(t_my_id_wrapper.value, t_device_secret.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+                S_WIFI_REGISTER login_ans = wifi_register_device_actor(t_my_id_wrapper.value, t_device_secret.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
 
                 if (login_ans.success)
                 {

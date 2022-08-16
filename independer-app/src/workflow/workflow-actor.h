@@ -403,8 +403,17 @@ void i_gateway_functions_menu()
           {
             if (utils_is_valid_receiver(msg_gateway_id_wrapper.value))
             {
-              String sendString = "C;init;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw) + ";" + utils_encode_data(msg_gateway_id_wrapper.value);
-              lora_send_msg(state_my_id, msg_showed_id_wrapper.value, sendString, state_lora_gain);
+              gui_msg_static("Info", "Prüfe ID");
+              if (wifi_register_device_gateway(state_my_id, msg_gateway_id_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token))
+              {
+                gui_msg_static("Info", "Sende Konfiguration");
+                String sendString = "C;init;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw) + ";" + utils_encode_data(msg_gateway_id_wrapper.value);
+                lora_send_msg(state_my_id, msg_showed_id_wrapper.value, sendString, state_lora_gain);
+              }
+              else
+              {
+                gui_msg_animated("Fehler", "ID nicht im\ngültig!", C_GUI_DELAY_MSG_SHORT_I);
+              }
             }
             else
               gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
