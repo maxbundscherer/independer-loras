@@ -59,7 +59,8 @@ void db_init(boolean is_actor, boolean isDevMode)
         }
         else
         {
-            gui_msg_static("Einrichtungsmodus", "Auf dem Actor:\n G. Funktionen->Einrichtung\nID: 0x00");
+            String randId = "0g" + utils_random_char() + utils_random_char();
+            gui_msg_static("Einrichtungsmodus", "Auf dem Actor:\n G. Funktionen->Einrichtung\nZufällige ID: '" + randId + "'");
             while (true)
             {
                 delay(100);

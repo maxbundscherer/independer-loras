@@ -150,6 +150,14 @@ boolean utils_is_valid_receiver(String input)
   return is_valid;
 }
 
-int utils_random_int(int max_value) {
+int utils_random_int(int max_value)
+{
   return esp_random() % max_value;
+}
+
+String utils_random_char()
+{
+  char randomletter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[esp_random() % 26];
+
+  return String(randomletter);
 }
