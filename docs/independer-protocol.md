@@ -12,7 +12,7 @@ This feature is used to set Gateway in sleep mode (Actor controlled).
 
 No available check before sending (\[F23.2\]). Gateway sends no response and goes into sleep mode.
 
-#### Clear User Messages on Gateway \[F3.1\]
+#### Clear User Messages on Gateway \[F3.2\]
 
 This feature is used to clear user messages from Gateway (Actor controlled).
 
@@ -22,13 +22,21 @@ No available check before sending (\[F23.2\]). Gateway sends no response and cle
 
 ### Based on Safe message \[P1\]
 
-#### Update Gateway \[F3.1\]
+#### Update Gateway \[F1.1\]
 
 This feature is used to update Gateway via wifi (Actor controlled).
 
 1. For this Actor \[P1\] `[msg]` is set to `C;up;$wifiSSID;$wifiPW`. Where `$wifiSSID` is ssid from wifi and `$wifiPW` is wifi password.
 
 No available check before sending (\[F23.2\]). Gateway sends no response and goes into update mode.
+
+#### Init Gateway \[F1.2\]
+
+This feature is used to init Gateway via wifi (Actor controlled).
+
+1. For this Actor \[P1\] `[msg]` is set to `C;init;$wifiSSID;$wifiPW;$id`. Where `$wifiSSID` is ssid from wifi, `$wifiPW` is wifi password and `$id` is gateway-id.
+
+No available check before sending (\[F23.2\]). Gateway sends no response and initializes. Gateway-Owner is set from `[from]`.
 
 ### Based on Safe message \[P1\] and Unsafe single message \[P3\]
 
