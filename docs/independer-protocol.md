@@ -10,7 +10,7 @@ This feature is used to set Gateway in sleep mode (Actor controlled).
 
 1. For this Actor \[P3\] `[msg]` is set to `C;slp`. (send twice)
 
-No available check before sending (\[F23.2\]). Gateway sends no response and goes into sleep mode.
+No available check before sending (\[F23.2\]). Gateway sends no response and goes into sleep mode. Gateway accepts these commands only from Gateway-Owner.
 
 #### Clear User Messages on Gateway \[F3.2\]
 
@@ -26,7 +26,7 @@ This feature is used to reset Gateway.
 
 1. For this Actor \[P3\] `[msg]` is set to `C;clgat`. (send twice)
 
-No available check before sending (\[F23.2\]). Gateway sends no response and reset settings.
+No available check before sending (\[F23.2\]). Gateway sends no response and reset settings. Gateway accepts these commands only from Gateway-Owner.
 
 ### Based on Safe message \[P1\]
 
@@ -36,7 +36,7 @@ This feature is used to update Gateway via wifi (Actor controlled).
 
 1. For this Actor \[P1\] `[msg]` is set to `C;up;$wifiSSID;$wifiPW`. Where `$wifiSSID` is ssid from wifi and `$wifiPW` is wifi password.
 
-No available check before sending (\[F23.2\]). Gateway sends no response and goes into update mode.
+No available check before sending (\[F23.2\]). Gateway sends no response and goes into update mode. Gateway accepts these commands only from Gateway-Owner.
 
 #### Init Gateway \[F1.2\]
 

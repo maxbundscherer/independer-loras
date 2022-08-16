@@ -39,7 +39,10 @@ void workflow_gateway_main()
 
       if (parser_ans.message == "C;slp")
       {
-        utils_go_to_sleep();
+        if (parser_ans.from == state_gateway_owner)
+          utils_go_to_sleep();
+        else
+          Serial.println("Gateway owner is not correct");
       }
       else if (parser_ans.message == "C;clmsg")
       {
@@ -78,11 +81,20 @@ void workflow_gateway_main()
       }
       else if (parser_ans.message.startsWith("C;up;"))
       {
-        application_gateway_update(parser_ans.message);
+        if (parser_ans.from == state_gateway_owner)
+          application_gateway_update(parser_ans.message);
+        else
+          Serial.println("Gateway owner is not correct");
       }
-      else if(parser_ans.message == "C;clgat") {
-        db_clear();
-        ESP.restart();
+      else if (parser_ans.message == "C;clgat")
+      {
+        if (parser_ans.from == state_gateway_owner)
+        {
+          db_clear();
+          ESP.restart();
+        }
+        else
+          Serial.println("Gateway owner is not correct");
       }
       else
       {
