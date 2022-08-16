@@ -169,7 +169,7 @@ def routRegister():
             conn = get_db_connection()
             cur = conn.cursor()
             cur.execute('INSERT INTO actors (appid, token, version, active)'
-                        'VALUES (%s, %s, %s)',
+                        'VALUES (%s, %s, %s, %s)',
                         (t_app_id,
                             rand_token,
                             t_app_version,

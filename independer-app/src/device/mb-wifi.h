@@ -87,6 +87,7 @@ S_WIFI_REGISTER wifi_register_device(String device_id, String secret, String ser
 
             doc["id"] = device_id;
             doc["secret"] = secret;
+            doc["version"] = c_product_version;
 
             String body = "";
 
