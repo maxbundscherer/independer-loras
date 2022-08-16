@@ -91,7 +91,7 @@ void setup()
   {
     if (isFirstBoot or !c_actor_mode)
     { // Show every boot on gateway
-      gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode);
+      gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
       delay(C_GUI_DELAY_STATIC);
       if (c_demo_mode)
         delay(1000 * 60 * 10);

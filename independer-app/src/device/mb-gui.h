@@ -346,7 +346,7 @@ const unsigned char LOGO_bits[] PROGMEM = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00};
 
-void gui_logo_static(String version_string, String my_id, String gateway_id, boolean isActor)
+void gui_logo_static(String version_string, String my_id, String gateway_id, boolean isActor, String gateway_owner)
 {
   display.clear();
   display.drawXbm(0, 0, 128, 64, LOGO_bits);
@@ -355,7 +355,7 @@ void gui_logo_static(String version_string, String my_id, String gateway_id, boo
   if (isActor)
     display.drawString(8, 35, version_string + " Actor\n" + my_id + " -> " + gateway_id);
   else
-    display.drawString(8, 35, version_string + " Gateway\n" + gateway_id);
+    display.drawString(8, 35, version_string + " Gateway\n" + gateway_id + " by " + gateway_owner);
   display.display();
 }
 

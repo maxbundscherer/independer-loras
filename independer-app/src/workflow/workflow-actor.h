@@ -655,7 +655,7 @@ void workflow_actor_main_menu()
     i_settings_menu();
   else if (selected_wrapper.success and selected_wrapper.value == 4)
   {
-    gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode);
+    gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
     delay(C_GUI_DELAY_STATIC);
   }
   else if (selected_wrapper.success == false)
