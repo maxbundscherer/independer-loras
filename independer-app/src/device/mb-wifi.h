@@ -4,6 +4,8 @@
 WiFiClient i_wifi_client;
 // WiFiClientSecure i_wifi_client; (https)
 
+int c_wifi_server_max_attempts = 500;
+
 boolean i_wifi_connect()
 {
 
@@ -13,7 +15,7 @@ boolean i_wifi_connect()
     WiFi.begin(char_array_ssid, char_array_pw);
     Serial.println("[Should connect to WIFI] START");
 
-    int c_wifi_max_fails = 150;
+    int c_wifi_max_fails = c_wifi_server_max_attempts;
 
     int wifi_fail_connect_counter = 0;
 
@@ -101,7 +103,7 @@ S_WIFI_REGISTER wifi_register_device(String device_id, String secret, String ser
 
             i_wifi_client.print(send_string);
 
-            int c_mail_max_fails = 150;
+            int c_mail_max_fails = c_wifi_server_max_attempts;
 
             int mail_fail_connect_counter = 0;
 
@@ -191,7 +193,7 @@ boolean wifi_send_chat_message(String receiver, String author, String msg, Strin
 
             i_wifi_client.print(send_string);
 
-            int c_mail_max_fails = 150;
+            int c_mail_max_fails = c_wifi_server_max_attempts;
 
             int mail_fail_connect_counter = 0;
 
@@ -278,7 +280,7 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
 
             i_wifi_client.print(send_string);
 
-            int c_mail_max_fails = 150;
+            int c_mail_max_fails = c_wifi_server_max_attempts;
 
             int mail_fail_connect_counter = 0;
 
@@ -362,7 +364,7 @@ boolean wifi_clear_message(String myId, String serverUrl, int serverPort, int se
 
             i_wifi_client.print(send_string);
 
-            int c_mail_max_fails = 150;
+            int c_mail_max_fails = c_wifi_server_max_attempts;
 
             int mail_fail_connect_counter = 0;
 
