@@ -60,13 +60,47 @@ void db_init(boolean is_actor, boolean isDevMode)
         else
         {
             String randId = "0g" + utils_random_char() + utils_random_char();
-            int timeout = 120;
+            int timeout = 120 * 1000;
+            int old_showed_value = -1;
 
             while (timeout > 0)
             {
-                gui_msg_static("Einrichtungsmodus", "Auf dem Actor:\n G. Funktionen->Einrichtung\nID: '" + randId + "' (" + timeout + "s)");
-                delay(1000);
-                timeout--;
+                int new_value = int(timeout / 1000);
+                if (new_value != old_showed_value)
+                {
+                    old_showed_value = new_value;
+                    gui_msg_static("Einrichtungsmodus", "Auf dem Actor:\n G. Funktionen->Einrichtung\nID: '" + randId + "' (" + String(old_showed_value) + "s)");
+                }
+
+                int packetSize = LoRa.parsePacket();
+
+                if (packetSize)
+                {
+
+                    Serial.println("\n\n Got Packet");
+
+                    String i_res = "";
+                    while (LoRa.available())
+                    {
+                        i_res += LoRa.readString();
+                    }
+
+                    ParserAnsTuple parser_ans = lora_stateful_parse(i_res, randId);
+
+                    if (parser_ans.message != "")
+                    {
+
+                        if (parser_ans.message.startsWith("C;init"))
+                        {
+                            Serial.println("Should init gateway");
+                        }
+                        else
+                            Serial.println("Error received unknown message '" + parser_ans.message + "'");
+                    }
+                }
+
+                delay(C_INDEPENDER_RES_BETWEEN_DELAY_GATEWAY);
+                timeout -= C_INDEPENDER_RES_BETWEEN_DELAY_GATEWAY;
             }
 
             utils_go_to_sleep();
