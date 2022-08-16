@@ -169,6 +169,30 @@ def routRegister():
     else:
         return 'Content-Type not supported!'
 
+@app.route('/v1/gatewayregister', methods=['POST'])
+def routeGatewayRegister():
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        if i_check_auth(json["auth-id"], json["auth-token"]):
+            # Auth passed
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM gateways WHERE active is true AND appid = %s AND gatewayid = %s;', (json["auth-id"], json["gateway-id"]))
+            
+            if cur.rowcount == 1:
+                cur.close()
+                conn.close()
+                return "OK"
+            else:
+                cur.close()
+                conn.close()
+                return "Failure"
+        else:
+            # Auth not passed
+            return "Unauthorized"
+
 import os
 if __name__ == "__main__":
   app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

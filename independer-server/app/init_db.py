@@ -41,6 +41,7 @@ conn.commit()
 
 cur.execute('CREATE TABLE  IF NOT EXISTS gateways (id serial PRIMARY KEY,'
             'appid varchar (5) NOT NULL references users(appid),'
+            'gatewayid varchar (5) NOT NULL,'
             'active boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
