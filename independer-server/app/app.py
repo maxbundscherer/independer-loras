@@ -37,6 +37,17 @@ def i_check_auth(appid, token):
         conn.close()
         return False
 
+def i_write_history(appid, token, url):
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('INSERT INTO history (appid, token, url)'
+                        'VALUES (%s, %s, %s)',
+                        (appid, token, url)
+                        )
+    conn.commit()
+    cur.close()
+    conn.close()
+
 # content_type = request.headers.get('Content-Type')
 # if (content_type == 'application/json'):
 #     json = request.json
@@ -55,6 +66,7 @@ def routeGetMessages():
         json = request.json
         if i_check_auth(json["auth-id"], json["auth-token"]):
             # Auth passed
+            i_write_history(json["auth-id"], json["auth-token"], "/v1/getmsgs")
             conn = get_db_connection()
             cur = conn.cursor()
             cur.execute('SELECT * FROM messages WHERE active is true AND receiver = %s;', (json["auth-id"],))
@@ -82,12 +94,13 @@ def routeClearMessages():
         json = request.json
         if i_check_auth(json["auth-id"], json["auth-token"]):
             # Auth passed
+            i_write_history(json["auth-id"], json["auth-token"], "/v1/clearmsgs")
             conn = get_db_connection()
             cur = conn.cursor()
             cur.execute('UPDATE messages SET active = false WHERE receiver = %s;', (json["auth-id"],))
             conn.commit()
             cur.close()
-            conn.close()
+            conn.close()        
 
             return "OK"
         else:
@@ -102,6 +115,7 @@ def routeWriteMessage():
         json = request.json
         if i_check_auth(json["auth-id"], json["auth-token"]):
             # Auth passed
+            i_write_history(json["auth-id"], json["auth-token"], "/v1/writemsg")
             conn = get_db_connection()
             cur = conn.cursor()
             cur.execute('INSERT INTO messages (receiver, author, msg, active)'
@@ -164,7 +178,6 @@ def routRegister():
             conn.commit()
             cur.close()
             conn.close()
-
             return "OK-" + rand_token
         else:
             return "No User Found"
@@ -179,10 +192,11 @@ def routeGatewayRegister():
         json = request.json
         if i_check_auth(json["auth-id"], json["auth-token"]):
             # Auth passed
+            i_write_history(json["auth-id"], json["auth-token"], "/v1/gatewayregister")
             conn = get_db_connection()
             cur = conn.cursor()
             cur.execute('SELECT * FROM gateways WHERE active is true AND appid = %s AND gatewayid = %s;', (json["auth-id"], json["gateway-id"]))
-            
+
             if cur.rowcount == 1:
                 cur.close()
                 conn.close()
