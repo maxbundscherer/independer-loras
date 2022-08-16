@@ -31,9 +31,16 @@ cur.execute('CREATE TABLE  IF NOT EXISTS messages (id serial PRIMARY KEY,'
             )
 conn.commit()
 
-cur.execute('CREATE TABLE  IF NOT EXISTS devices (id serial PRIMARY KEY,'
+cur.execute('CREATE TABLE  IF NOT EXISTS actors (id serial PRIMARY KEY,'
             'appid varchar (5) NOT NULL references users(appid),'
             'token varchar (50) NOT NULL,'
+            'active boolean NOT NULL,'
+            'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
+            )
+conn.commit()
+
+cur.execute('CREATE TABLE  IF NOT EXISTS gateways (id serial PRIMARY KEY,'
+            'appid varchar (5) NOT NULL references users(appid),'
             'active boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )

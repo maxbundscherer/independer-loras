@@ -26,3 +26,9 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
     - `auth-id`: Independer-ID
     - `auth-token`: Token
     - Response `OK` (string, no json)
+
+- `<server-url>/v1/gatewayregister` (POST): Check if Gateway is owned by the user
+    - `auth-id`: Independer-ID
+    - `auth-token`: Token
+    - `gateway-id`: ID of Gateway
+    - Response `OK` (string, no json) if allowed

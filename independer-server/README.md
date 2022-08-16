@@ -7,6 +7,7 @@ Docker is required.
 #### Run and Install
 
 - `docker-compose up`
+- Add Users and Gateways in table `users` and `gateways`
 
 #### Status
 

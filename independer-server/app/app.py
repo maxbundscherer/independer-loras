@@ -26,7 +26,7 @@ def get_db_connection():
 def i_check_auth(appid, token):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM devices WHERE active is true AND appid = %s AND token = %s;', (appid, token))
+    cur.execute('SELECT * FROM actors WHERE active is true AND appid = %s AND token = %s;', (appid, token))
     
     if cur.rowcount == 1:
         cur.close()
@@ -143,7 +143,7 @@ def routRegister():
             # Disable old devices
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute("UPDATE devices SET active = false WHERE appid = %s;", (t_app_id,))
+            cur.execute("UPDATE actors SET active = false WHERE appid = %s;", (t_app_id,))
             conn.commit()
             cur.close()
             conn.close()
@@ -153,7 +153,7 @@ def routRegister():
             # Register new device
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('INSERT INTO devices (appid, token, active)'
+            cur.execute('INSERT INTO actors (appid, token, active)'
                         'VALUES (%s, %s, %s)',
                         (t_app_id,
                             rand_token,
