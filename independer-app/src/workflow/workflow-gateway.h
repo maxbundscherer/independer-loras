@@ -80,6 +80,10 @@ void workflow_gateway_main()
       {
         application_gateway_update(parser_ans.message);
       }
+      else if(parser_ans.message == "C;clgat") {
+        db_clear();
+        ESP.restart();
+      }
       else
       {
         Serial.println("Error received unknown message '" + parser_ans.message + "'");

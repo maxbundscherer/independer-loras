@@ -370,6 +370,7 @@ void i_gateway_functions_menu()
       "Schlaf Modus",
       "Update",
       "Einrichtung",
+      "Werkseinstellungen",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -412,6 +413,13 @@ void i_gateway_functions_menu()
         else
           gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
       }
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
+    {
+      gui_msg_animated("Info", "Werkseinstellungen\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
+      delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
     }
     else
       fin_flag = true;
