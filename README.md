@@ -1,6 +1,6 @@
 # Independer
 
-This repository is about a device called **Independer**.
+This repository is about a device called **Independer**. An Open-Source Project.
 
 **Encrypted messaging & data sharing** via LoRaS & inexpensive hardware (ESP32). **Independent from mobile network & WIFI**. We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
 
@@ -19,10 +19,6 @@ Maintainer: [Maximilian Bundscherer](https://bundscherer-online.de)
 ## Overview
 
 This repository describes the concept, the project structure, the encrypted LoraS transfer protocol (LoRaS) and the Independer application protocol. There are two type of devices: **Actor** (ID e.g. `0x01` or `0x02`) with keyboard & accumulator and **Gateway** (ID e.g. `0g01` or `0g02`) opt. with accumulator.
-
-### Open-Source Project
-
-Anyone can **contribute to the project** and **build their own device**. Many more features like GPS visualization, environment scanner, touch screen, alternative transmission and encryption functions are waiting **in the future**!
 
 ### Features
 
@@ -44,6 +40,10 @@ Anyone can **contribute to the project** and **build their own device**. Many mo
 - Mini Keyboard (QWERTY)
 - 3000mAh LiPo Battery
 - USB Charging (Micro-USB)
+
+### Open-Source Project
+
+Anyone can **contribute to the project** and **build their own device**. Many more features like GPS visualization, environment scanner, touch screen, alternative transmission and encryption functions are waiting **in the future**!
 
 ### Included
 
