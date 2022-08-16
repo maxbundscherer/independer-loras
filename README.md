@@ -20,10 +20,6 @@ Maintainer: [Maximilian Bundscherer](https://bundscherer-online.de)
 
 This repository describes the concept, the project structure, the encrypted LoraS transfer protocol (LoRaS) and the Independer application protocol. There are two type of devices: **Actor** (ID e.g. `0x01` or `0x02`) with keyboard & accumulator and **Gateway** (ID e.g. `0g01` or `0g02`) opt. with accumulator.
 
-### Open-Source Project
-
-Anyone can **contribute to the project** and **build their own device**. Many more features like GPS visualization, environment scanner, touch screen, alternative transmission and encryption functions are waiting **in the future**!
-
 ### Features
 
 - **Actor to Actor (via LoRaS)**: Send messages directly between two Actors.
@@ -44,6 +40,10 @@ Anyone can **contribute to the project** and **build their own device**. Many mo
 - Mini Keyboard (QWERTY)
 - 3000mAh LiPo Battery
 - USB Charging (Micro-USB)
+
+### Open-Source Project
+
+Anyone can **contribute to the project** and **build their own device**. Many more features like GPS visualization, environment scanner, touch screen, alternative transmission and encryption functions are waiting **in the future**!
 
 ### Included
 
