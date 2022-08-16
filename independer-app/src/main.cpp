@@ -3,6 +3,7 @@
 #include "SSD1306Wire.h"
 #include <LoRa.h>
 #include <ArduinoJson.h>
+#include "device/mb-utils.h"
 
 #if IS_RELEASE
 boolean c_dev_mode = false;
@@ -38,7 +39,7 @@ String state_gateway_id = "0g01"; // Saved in db and INIT CONFIG
 String state_wifi_ssid = "";      // Saved in db and INIT CONFIG
 String state_wifi_pw = "";        // Saved in db and INIT CONFIG
 
-String state_wifi_hostname = "independer-" + String(esp_random());
+String state_wifi_hostname = "independer-" + String(utils_random_int(10000));
 
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN - Saved in db
 
@@ -50,7 +51,6 @@ int state_wifi_server_timeout = 5000;       // saved in db
 String state_wifi_server_device_token = ""; // saved in db and INIT CONFIG
 
 #include "device/mb-base64.h"
-#include "device/mb-utils.h"
 #include "device/mb-gui.h"
 #include "device/mb-crypt.h"
 #include "device/mb-lora.h"

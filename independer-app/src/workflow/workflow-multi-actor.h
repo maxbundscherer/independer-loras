@@ -173,7 +173,7 @@ void i_multi_Task1_short_message(void *parameter)
               // application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY);
             }
             else
-              application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + (esp_random() % (C_INDEPENDER_SCAN_MS - 500)));
+              application_independer_send_later_single_unsafe(state_my_id, parser_ans.from, msg, C_INDEPENDER_SEND_DELAY + utils_random_int(C_INDEPENDER_SCAN_MS - 500));
           }
           else if (parser_ans.message = "T")
           {
