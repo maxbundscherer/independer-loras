@@ -1,5 +1,17 @@
 #include "driver/rtc_io.h" //Low Power Mode
 
+#define C_INDEPENDER_SEND_DELAY 2000
+#define C_INDEPENDER_SEND_DELAY_REPEAT 100
+#define C_INDEPENDER_SEND_DELAY_BETWEEN_MESSAGES 500
+#define C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR 1
+#define C_INDEPENDER_RES_BETWEEN_DELAY_GATEWAY 10
+#define C_INDEPENDER_RES_BETWEEN_DELAY_ACTOR_MULTI 10
+#define C_INDEPENDER_TX_MAX_LEN_PACKET 15
+#define C_INDEPENDER_SCAN_MS 8000
+
+// Welcome MSG Config
+#define C_TEMPLATE_STRING_THX "Danke, dass du dich\nfür den Independer\nentschieden hast!"
+
 void utils_init_battery_meas()
 {
   pinMode(21, OUTPUT);
@@ -145,4 +157,16 @@ boolean utils_is_valid_receiver(String input)
   }
 
   return is_valid;
+}
+
+int utils_random_int(int max_value)
+{
+  return esp_random() % max_value;
+}
+
+String utils_random_char()
+{
+  char randomletter = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[esp_random() % 26];
+
+  return String(randomletter);
 }

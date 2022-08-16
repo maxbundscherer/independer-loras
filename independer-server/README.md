@@ -7,6 +7,7 @@ Docker is required.
 #### Run and Install
 
 - `docker-compose up`
+- Add Users and Gateways in table `users` and `gateways`
 
 #### Status
 
@@ -20,3 +21,5 @@ Docker is required.
 - `docker stop independer-app independer-db`
 - `docker rm independer-app independer-db`
 - `docker rmi independer-app-img`
+
+or run `./clean-docker.sh`

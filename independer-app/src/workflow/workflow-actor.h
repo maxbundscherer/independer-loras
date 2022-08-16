@@ -204,7 +204,7 @@ void i_communication_chat_menu()
             msg_tx_wrapper.value = utils_encode_data(msg_tx_wrapper.value);
 
             gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
-            boolean suc = wifi_send_chat_message(msg_res_wrapper.value, state_my_id, msg_tx_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+            boolean suc = wifi_send_chat_message(msg_res_wrapper.value, state_my_id, msg_tx_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
             if (suc)
             {
               gui_msg_animated("Info", "Nachricht gesendet", C_GUI_DELAY_MSG_SHORT_I);
@@ -226,7 +226,7 @@ void i_communication_chat_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
       gui_msg_static("Hinweis", "Chat wird\ngelöscht...");
-      if (wifi_clear_message(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout))
+      if (wifi_clear_message(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token))
         gui_msg_animated("Info", "Chat wurde\ngelöscht.", C_GUI_DELAY_MSG_SHORT_I);
       else
         gui_msg_animated("Info", "Chat konnte nicht\ngelöscht werden.", C_GUI_DELAY_MSG_SHORT_I);
@@ -369,6 +369,8 @@ void i_gateway_functions_menu()
   String menu_items[] = {
       "Schlaf Modus",
       "Update",
+      "Einrichtung",
+      "Werkseinstellungen",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -388,6 +390,45 @@ void i_gateway_functions_menu()
       gui_msg_animated("Info", "Aktiviere Update-Modus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       String sendString = "C;up;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw);
       lora_send_msg(state_my_id, state_gateway_id, sendString, state_lora_gain);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
+    {
+      S_GUI_INPUT_TEXT msg_showed_id_wrapper = gui_input_text("Angezeigte ID (z.B.: 0g01)", "0g");
+      if (msg_showed_id_wrapper.success)
+      {
+        if (utils_is_valid_receiver(msg_showed_id_wrapper.value))
+        {
+          S_GUI_INPUT_TEXT msg_gateway_id_wrapper = gui_input_text("Gateway ID (z.B.: 0g01)", "0g");
+          if (msg_gateway_id_wrapper.success)
+          {
+            if (utils_is_valid_receiver(msg_gateway_id_wrapper.value))
+            {
+              gui_msg_static("Info", "Prüfe ID");
+              if (wifi_register_device_gateway(state_my_id, msg_gateway_id_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token))
+              {
+                gui_msg_static("Info", "Sende Konfiguration");
+                String sendString = "C;init;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw) + ";" + utils_encode_data(msg_gateway_id_wrapper.value);
+                lora_send_msg(state_my_id, msg_showed_id_wrapper.value, sendString, state_lora_gain);
+              }
+              else
+              {
+                gui_msg_animated("Fehler", "ID nicht im\ngültig!", C_GUI_DELAY_MSG_SHORT_I);
+              }
+            }
+            else
+              gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+          }
+        }
+        else
+          gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+      }
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
+    {
+      gui_msg_animated("Info", "Werkseinstellungen\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
+      delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
     }
     else
       fin_flag = true;
@@ -443,7 +484,7 @@ void i_setting_wifi_menu()
     S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
-      application_actor_automatic_wifi();
+      application_actor_automatic_wifi(true);
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
@@ -623,7 +664,7 @@ void workflow_actor_main_menu()
     i_settings_menu();
   else if (selected_wrapper.success and selected_wrapper.value == 4)
   {
-    gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode);
+    gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
     delay(C_GUI_DELAY_STATIC);
   }
   else if (selected_wrapper.success == false)

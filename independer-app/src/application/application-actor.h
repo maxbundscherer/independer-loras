@@ -1,5 +1,3 @@
-#include <ArduinoJson.h>
-
 /*
  * ####################################
  *  Who is near? Section
@@ -557,7 +555,7 @@ void application_actor_query_msgs_from_internet(String myId)
 {
 
   gui_msg_static("Hinweis", "Nachrichten werden\nabgerufen");
-  String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
+  String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
   // Serial.println("Query Messages from Internet: '" + ret + "'");
 
   if (ret != "")
@@ -649,19 +647,32 @@ void application_actor_query_msgs_from_internet(String myId)
  * ####################################
  */
 
-void application_actor_automatic_wifi()
+S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
 {
 
+  boolean sync_was_on_flag = multi_actor_get_state();
+
+  if (sync_was_on_flag)
+  {
+    multi_actor_stop();
+  }
+
   gui_msg_static("Hinweis", "Scanne...");
+  Serial.println("WiFI AutoSave=" + String(s_autoSave));
   Serial.print("Scan start ... ");
   int n = WiFi.scanNetworks();
   Serial.print(n);
   Serial.println(" network(s) found");
 
+  if (sync_was_on_flag)
+  {
+    multi_actor_start();
+  }
+
   if (n > 0)
   {
 
-    String gui_items[n];
+    String gui_items[n + 1];
 
     gui_items[0] = "[abbrechen]"; // Add go back item
 
@@ -685,12 +696,22 @@ void application_actor_automatic_wifi()
         S_GUI_INPUT_TEXT t_password_wrapper = gui_input_text("Passwort", "");
 
         if (t_password_wrapper.success == false)
-          return;
+        {
+          return S_WIFI_CONFIG_WRAPPER{false, "", ""};
+        }
 
-        db_save_wifi_settings(t_ssid, t_password_wrapper.value);
+        if (s_autoSave)
+        {
+          Serial.println("Save now WIFI Config");
+          db_save_wifi_settings(t_ssid, t_password_wrapper.value);
+          gui_msg_animated("Info", "Einstellungen\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+        }
+        else
+        {
+          Serial.println("Skip now Save WIFI Config");
+        }
 
-        gui_msg_animated("Info", "Einstellungen\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
-        return;
+        return S_WIFI_CONFIG_WRAPPER{true, t_ssid, t_password_wrapper.value};
       }
     }
   }
@@ -699,5 +720,5 @@ void application_actor_automatic_wifi()
     gui_msg_animated("Info", "Keine Netzwerke\ngefunden", C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
-  return;
+  return S_WIFI_CONFIG_WRAPPER{false, "", ""};
 }

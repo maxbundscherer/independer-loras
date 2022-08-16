@@ -2,6 +2,8 @@
 #include <Wire.h>
 #include "SSD1306Wire.h"
 #include <LoRa.h>
+#include <ArduinoJson.h>
+#include "device/mb-utils.h"
 
 #if IS_RELEASE
 boolean c_dev_mode = false;
@@ -24,7 +26,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.3.2";
+String c_product_version = "v.0.3.3";
 boolean c_demo_mode = false;
 
 /*
@@ -32,23 +34,24 @@ boolean c_demo_mode = false;
  *  State Section
  * ####################################
  */
-String state_my_id = "0x01";      // Saved in db
-String state_gateway_id = "0g01"; // Saved in db
-String state_wifi_ssid = "";      // Saved in db
-String state_wifi_pw = "";        // Saved in db
+String state_my_id = "0x01";         // Saved in db and INIT CONFIG
+String state_gateway_id = "0g01";    // Saved in db and INIT CONFIG
+String state_gateway_owner = "0x01"; // Saved in db and INIT CONFIG
+String state_wifi_ssid = "";         // Saved in db and INIT CONFIG
+String state_wifi_pw = "";           // Saved in db and INIT CONFIG
 
-String state_wifi_hostname = "independer-" + String(esp_random());
+String state_wifi_hostname = "independer-" + String(utils_random_int(10000));
 
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN - Saved in db
 
 int state_oled_brightness = 255; // saved in db
 
-String state_wifi_server_url = "0.0.0.0"; // saved in db
-int state_wifi_server_port = 5001;        // saved in db
-int state_wifi_server_timeout = 5000;     // saved in db
+String state_wifi_server_url = "0.0.0.0";   // saved in db
+int state_wifi_server_port = 5001;          // saved in db
+int state_wifi_server_timeout = 10000;      // saved in db
+String state_wifi_server_device_token = ""; // saved in db and INIT CONFIG
 
 #include "device/mb-base64.h"
-#include "device/mb-utils.h"
 #include "device/mb-gui.h"
 #include "device/mb-crypt.h"
 #include "device/mb-lora.h"
@@ -88,7 +91,7 @@ void setup()
   {
     if (isFirstBoot or !c_actor_mode)
     { // Show every boot on gateway
-      gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode);
+      gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
       delay(C_GUI_DELAY_STATIC);
       if (c_demo_mode)
         delay(1000 * 60 * 10);

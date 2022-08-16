@@ -36,32 +36,11 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   Serial.println();
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));
 
-  Serial.println("- Init Database");
-  if (isActor)
-  {
-    db_init();
-  }
-
   Serial.println("- Init Display");
   gui_init_display();
 
-  Serial.println("- Init LoRa");
-  lora_init();
-
-  if (isDevMode)
-  {
-    Serial.println("- Init Dev Mode");
-    state_lora_gain = 6;
-  }
-
   Serial.println("- Init Cipher");
   crypt_init_cipher(c_cipher_key);
-
-  Serial.println("- Init LoRa");
-  LoRa.setSyncWord(LORA_SYNC_WORD);
-  LoRa.setSpreadingFactor(LORA_SPREAD);
-  LoRa.setSignalBandwidth(LORA_SIG_BANDWIDTH);
-  LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
 
   Serial.println("- Init Battery Meas");
   utils_init_battery_meas();
@@ -77,6 +56,24 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
 
   Serial.println("- Wake up reason");
   utils_print_wakeup_reason();
+
+  Serial.println("- Init LoRa");
+  lora_init();
+  LoRa.setSyncWord(LORA_SYNC_WORD);
+  LoRa.setSpreadingFactor(LORA_SPREAD);
+  LoRa.setSignalBandwidth(LORA_SIG_BANDWIDTH);
+  LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
+
+  Serial.println("- Init Database");
+  db_init(isActor, isDevMode);
+
+  display.setBrightness(state_oled_brightness); // Set brightness after db
+
+  if (isDevMode)
+  {
+    Serial.println("- Init Dev Mode");
+    state_lora_gain = 6;
+  }
 
   Serial.println("[Finished Startup]");
   Serial.println();
