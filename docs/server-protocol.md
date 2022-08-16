@@ -5,6 +5,7 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
 - `<server-url>/v1/register` (POST): Register Device
     - `id`: Independer-ID
     - `secret`: Secret
+    - `version`: Version-String of Actor
     - Response `OK-<token>` (string, no json)
 
 - `<server-url>/v1/getmsgs` (POST): Get all messages

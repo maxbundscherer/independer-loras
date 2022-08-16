@@ -33,7 +33,8 @@ conn.commit()
 
 cur.execute('CREATE TABLE  IF NOT EXISTS actors (id serial PRIMARY KEY,'
             'appid varchar (5) NOT NULL references users(appid),'
-            'token varchar (50) NOT NULL,'
+            'token varchar (50) NOT NULL UNIQUE,'
+            'version varchar (50) NOT NULL,'
             'active boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
@@ -43,6 +44,14 @@ cur.execute('CREATE TABLE  IF NOT EXISTS gateways (id serial PRIMARY KEY,'
             'appid varchar (5) NOT NULL references users(appid),'
             'gatewayid varchar (5) NOT NULL,'
             'active boolean NOT NULL,'
+            'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
+            )
+conn.commit()
+
+cur.execute('CREATE TABLE  IF NOT EXISTS history (id serial PRIMARY KEY,'
+            'appid varchar (5) NOT NULL references users(appid),'
+            'token varchar (50) NOT NULL references actors(token),'
+            'url varchar (50) NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 conn.commit()

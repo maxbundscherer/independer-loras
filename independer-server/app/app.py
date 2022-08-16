@@ -129,6 +129,7 @@ def routRegister():
 
         t_app_id = json["id"]
         t_app_secret = json["secret"]
+        t_app_version = json["version"]
 
         # Auth Check
         conn = get_db_connection()
@@ -153,10 +154,11 @@ def routRegister():
             # Register new device
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('INSERT INTO actors (appid, token, active)'
+            cur.execute('INSERT INTO actors (appid, token, version, active)'
                         'VALUES (%s, %s, %s)',
                         (t_app_id,
                             rand_token,
+                            t_app_version,
                             True)
                         )
             conn.commit()
