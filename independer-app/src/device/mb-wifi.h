@@ -76,7 +76,7 @@ S_WIFI_REGISTER wifi_register_device(String device_id, String secret, String ser
 
     if (i_wifi_connect())
     {
-        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ")");
+        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ") (" + String(serverPort) + ")");
         if (!i_wifi_client.connect(c_wifi_server_url, c_wifi_server_port, c_wifi_timeout))
             Serial.println("Connection failed!");
         else
@@ -164,7 +164,7 @@ boolean wifi_send_chat_message(String receiver, String author, String msg, Strin
 
     if (i_wifi_connect())
     {
-        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ")");
+        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ") (" + String(serverPort) + ")");
         if (!i_wifi_client.connect(c_wifi_server_url, c_wifi_server_port, c_wifi_timeout))
             Serial.println("Connection failed!");
         else
@@ -253,7 +253,7 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
 
     if (i_wifi_connect())
     {
-        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ")");
+        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ") (" + String(serverPort) + ")");
         if (!i_wifi_client.connect(c_wifi_server_url, c_wifi_server_port, c_wifi_timeout))
             Serial.println("Connection failed!");
         else
@@ -337,7 +337,7 @@ boolean wifi_clear_message(String myId, String serverUrl, int serverPort, int se
 
     if (i_wifi_connect())
     {
-        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ")");
+        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ") (" + String(serverPort) + ")");
         if (!i_wifi_client.connect(c_wifi_server_url, c_wifi_server_port, c_wifi_timeout))
             Serial.println("Connection failed!");
         else
