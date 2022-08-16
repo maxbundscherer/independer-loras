@@ -20,6 +20,14 @@ This feature is used to clear user messages from Gateway (Actor controlled).
 
 No available check before sending (\[F23.2\]). Gateway sends no response and clears user messages.
 
+#### Reset Gateway \[F3.3\]
+
+This feature is used to reset Gateway.
+
+1. For this Actor \[P3\] `[msg]` is set to `C;clgat`. (send twice)
+
+No available check before sending (\[F23.2\]). Gateway sends no response and reset settings.
+
 ### Based on Safe message \[P1\]
 
 #### Update Gateway \[F1.1\]
