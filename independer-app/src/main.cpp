@@ -34,7 +34,7 @@ boolean c_demo_mode = false;
  *  State Section
  * ####################################
  */
-String state_my_id = "0x01";         // Saved in db and INIT CONFIG
+String state_my_id = "0x01";         // Saved in db and INIT CONFIG (fixed)
 String state_gateway_id = "0g01";    // Saved in db and INIT CONFIG
 String state_gateway_owner = "0x01"; // Saved in db and INIT CONFIG
 String state_wifi_ssid = "";         // Saved in db and INIT CONFIG
@@ -46,8 +46,8 @@ int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT
 
 int state_oled_brightness = 255; // saved in db
 
-String state_wifi_server_url = "independer.ddns.net"; // saved in db
-int state_wifi_server_port = 5001;                    // saved in db
+String state_wifi_server_url = "independer.ddns.net"; // saved in db (fixed)
+int state_wifi_server_port = 5001;                    // saved in db (fixed)
 int state_wifi_server_timeout = 10000;                // saved in db
 String state_wifi_server_device_token = "";           // saved in db and INIT CONFIG
 

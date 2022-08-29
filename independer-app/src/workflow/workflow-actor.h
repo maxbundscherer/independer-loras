@@ -517,8 +517,8 @@ void i_setting_wifi_menu()
 void i_setting_server_menu()
 {
   String menu_items[] = {
-      "URL",
-      "Port",
+      // "URL",
+      // "Port",
       "Timeout",
       "[zurück]"};
 
@@ -527,19 +527,19 @@ void i_setting_server_menu()
   {
     S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Server", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
+    // if (selected_wrapper.success and selected_wrapper.value == 0)
+    // {
+    //   S_GUI_INPUT_TEXT s = gui_input_text("URL", state_wifi_server_url);
+    //   if (s.success)
+    //     db_save_wifi_server_url(s.value);
+    // }
+    // else if (selected_wrapper.success and selected_wrapper.value == 1)
+    // {
+    //   S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Port (z.B. 5000)", String(state_wifi_server_port));
+    //   if (ans_wrapper.success)
+    //     db_save_wifi_server_port(ans_wrapper.value.toInt());
+    // }
     if (selected_wrapper.success and selected_wrapper.value == 0)
-    {
-      S_GUI_INPUT_TEXT s = gui_input_text("URL", state_wifi_server_url);
-      if (s.success)
-        db_save_wifi_server_url(s.value);
-    }
-    else if (selected_wrapper.success and selected_wrapper.value == 1)
-    {
-      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Port (z.B. 5000)", String(state_wifi_server_port));
-      if (ans_wrapper.success)
-        db_save_wifi_server_port(ans_wrapper.value.toInt());
-    }
-    else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
 
       S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Timeout (z.B. 5000)", String(state_wifi_server_timeout));
@@ -554,7 +554,7 @@ void i_setting_server_menu()
 void i_settings_menu()
 {
   String menu_items[] = {
-      "Meine ID",
+      // "Meine ID",
       "Gateway ID",
       "LoRa Gain",
       "Helligkeit",
@@ -569,22 +569,22 @@ void i_settings_menu()
   {
     S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Einstellungen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
+    // if (selected_wrapper.success and selected_wrapper.value == 0)
+    // {
+    //   S_GUI_INPUT_TEXT m_wrapper = gui_input_text("Meine ID (z.B.: 0xMB)", state_my_id);
+    //   if (m_wrapper.success)
+    //   {
+    //     if (utils_is_valid_receiver(m_wrapper.value))
+    //     {
+    //       db_save_my_id(m_wrapper.value);
+    //     }
+    //     else
+    //     {
+    //       gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+    //     }
+    //   }
+    // }
     if (selected_wrapper.success and selected_wrapper.value == 0)
-    {
-      S_GUI_INPUT_TEXT m_wrapper = gui_input_text("Meine ID (z.B.: 0xMB)", state_my_id);
-      if (m_wrapper.success)
-      {
-        if (utils_is_valid_receiver(m_wrapper.value))
-        {
-          db_save_my_id(m_wrapper.value);
-        }
-        else
-        {
-          gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
-        }
-      }
-    }
-    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       S_GUI_INPUT_TEXT m_wrapper = gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id);
       if (m_wrapper.success)
@@ -599,7 +599,7 @@ void i_settings_menu()
         }
       }
     }
-    else if (selected_wrapper.success and selected_wrapper.value == 2)
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("LoRa Gain (1-20)", String(state_lora_gain));
 
@@ -612,7 +612,7 @@ void i_settings_menu()
         db_save_lora_gain(ans_wrapper.value.toInt());
       }
     }
-    else if (selected_wrapper.success and selected_wrapper.value == 3)
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
       S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Helligkeit (0-255)", String(state_oled_brightness));
       if (ans_wrapper.success)
@@ -625,15 +625,15 @@ void i_settings_menu()
         gui_set_screen_brightness(ans_wrapper.value.toInt());
       }
     }
-    else if (selected_wrapper.success and selected_wrapper.value == 4)
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
       i_setting_bg_syn_menu();
-    else if (selected_wrapper.success and selected_wrapper.value == 5)
+    else if (selected_wrapper.success and selected_wrapper.value == 4)
       i_setting_wifi_menu();
-    else if (selected_wrapper.success and selected_wrapper.value == 6)
+    else if (selected_wrapper.success and selected_wrapper.value == 5)
     {
       i_setting_server_menu();
     }
-    else if (selected_wrapper.success and selected_wrapper.value == 7)
+    else if (selected_wrapper.success and selected_wrapper.value == 6)
     {
       db_clear();
       ESP.restart();
