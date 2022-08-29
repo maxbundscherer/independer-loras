@@ -1,16 +1,5 @@
 version: "3"
 services:
-  app:
-    build: ./
-    container_name: independer-app
-    image: independer-app-img
-    depends_on:
-      db:
-        condition: service_healthy
-    links:
-      - db
-    ports:
-      - "5001:5000"
 
   db:
     image: postgres
@@ -26,3 +15,26 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      
+  app:
+    build: ./
+    container_name: independer-app
+    image: independer-app-img
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+
+  reverse:
+    container_name: independer-reverse
+    image: nginx
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 5001:443 # 443
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./key.pem:/root/ssl/key.pem:ro
+      - ./cert.pem:/root/ssl/cert.pem:ro
