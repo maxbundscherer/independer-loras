@@ -7,7 +7,7 @@ Docker is required.
 #### Run and Install
 
 - Generate SSL Certificate
-    - `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -nodes`
+    - `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -nodes` (set CN/FQDN to hostname)
     - (Move `key.pem` and `cert.perm` to `./`)
 - `docker-compose up`
 - Add Users and Gateways in table `users` and `gateways`

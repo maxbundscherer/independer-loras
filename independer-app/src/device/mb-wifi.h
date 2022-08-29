@@ -1,8 +1,47 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-WiFiClient i_wifi_client;
-// WiFiClientSecure i_wifi_client; (https)
+const char root_ca[] PROGMEM = R"=====(
+-----BEGIN CERTIFICATE-----
+MIIGTTCCBDWgAwIBAgIUEuWTf64/OkGlC9DGTY2d2174M34wDQYJKoZIhvcNAQEL
+BQAwgbUxCzAJBgNVBAYTAkRFMRAwDgYDVQQIDAdCYXZhcmlhMQ8wDQYDVQQHDAZN
+dW5pY2gxHzAdBgNVBAoMFk1heGltaWxpYW4gQnVuZHNjaGVyZXIxEzARBgNVBAsM
+CkluZGVwZW5kZXIxHDAaBgNVBAMME2luZGVwZW5kZXIuZGRucy5uZXQxLzAtBgkq
+hkiG9w0BCQEWIG1heGltaWxpYW5AYnVuZHNjaGVyZXItb25saW5lLmRlMB4XDTIy
+MDgyOTE4MDMyMVoXDTIyMDkyODE4MDMyMVowgbUxCzAJBgNVBAYTAkRFMRAwDgYD
+VQQIDAdCYXZhcmlhMQ8wDQYDVQQHDAZNdW5pY2gxHzAdBgNVBAoMFk1heGltaWxp
+YW4gQnVuZHNjaGVyZXIxEzARBgNVBAsMCkluZGVwZW5kZXIxHDAaBgNVBAMME2lu
+ZGVwZW5kZXIuZGRucy5uZXQxLzAtBgkqhkiG9w0BCQEWIG1heGltaWxpYW5AYnVu
+ZHNjaGVyZXItb25saW5lLmRlMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKC
+AgEApz7BvdHki4l+/p6ZFF6YGiEco2wJvZptpNqO6x5+EZMo/7jjYGISkiNl1obo
+iIoQjzUg64GVcXMS9yNqwSXKQvoevKLHmMfVdvfHUIIQPNx0ykP9+qxEiCqqkaaz
+Nf3N7IZ2y5uvrLCdzbE6VhXBwdOzdFSY+S1XlzKdSfje0kbcCgw1qi40i517PeVr
+LQYjmdpVd2hplFh9OwEYNR/UO0G6PILwb/yAY4OuVPeK1AU517UnIo8wfstgbI5s
+Zjv+tGBKkSRHdB8KpwRSvfEA5YM/Q/UZCo6nnIIMWUr2wYU7gbZ3BVLzjLboDv33
+h73DmPIqXsxcq0OHyE4VEZhGWsHqd3Ao/5OyvCMnl3D2qTr3mT2cnU9Jvf4glZuX
+M5khAA7iQnOX2HmTKVO3vvGF6e2Suiry/0UkLICSypXf9fscVSXgv6A6tHdNAUFa
+GOSRNXYJSDHdrpoE5xdDY6pJjYGSS3AqduesLb4ivnMkqxZsp0FHoYQ8jSGa2kh+
+mLAukpJkzSr5mfxUKNO93guPs/McD2UaDrzahlOrcfeZsCIODo2Hj5ifh5K9mb2g
+KDRl1Er3vD99VJFC/5WcYUWXfaORTsrEsHoibscK3Knyvf/5lfz+BKE6jmEqNBG0
+WuK7oF7bcSKpTF7IPOEkq6SzCzV5QbZv2t8IWfupy0OvdPUCAwEAAaNTMFEwHQYD
+VR0OBBYEFOKrEr8njFGdhayja8l9t9Lc2UUZMB8GA1UdIwQYMBaAFOKrEr8njFGd
+hayja8l9t9Lc2UUZMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggIB
+AC6Yi77LJq7nb7PA3NICPn/4ebyyUwqX8/nrLoLYois96Vc9tJ+fPduKoUIDeQaz
+Og5cA9XEzWJz8S/2+IDFBTzognYwhOK6IPwLmDaPEJH/ujV7phNFMG0JiYmrYoxU
+6iNFnrE1pMEJbE0fcJqPxnpeCIesxM+fmR7+0JuVjbnETZbZ8Tg37QxnwsaiWRF7
+RxZE2iAip26NnKuMIKAHU+DmcUJtGIDZNbdkAhb5keypwgO4aDpyexhygGaGEN7e
+1TnhYfVvzrkIhG3DGwd0eHVri/KO1ylgM15xsY7vVfKgWi2vNZ6YGXzQ5R6Gp1uM
+0x6cPgscBbb6Ky6imKZFZVljdyAbjP3fZ2xzi8LRbt6X4rSvZIcmtYr1bOEQ1LDj
+0Dsros3tj5D1PkzHWB/v8XoIQbVhrFDevB7miPrLMsJ6AMFFNyGbJEjDCXzxnutc
+AQNTaB6C2gDGZt02aDydYAkJkew92LAMJVUcqYOuT5yFQovr0XymJ4pkWBI8SCf0
+3L3WACsw6h5WTSL/3ulAhS0lqF84til3P+2YhIumbNTr6NDOgaXeCLapc00Cs/Ln
+Gm3BWCDptsdYqT0ACFdMOk41etItJZYluGo3Y5aPCd3nMrz5184Hfh20ZnaV+7Cq
+bV1o5tfAMh8lFOsxTPD3TZuhBciWhL9nkaSwuH7XhjSe
+-----END CERTIFICATE-----
+)=====";
+
+// WiFiClient i_wifi_client;
+WiFiClientSecure i_wifi_client;
 
 int c_wifi_server_max_attempts = 500;
 
@@ -31,7 +70,7 @@ boolean i_wifi_connect()
 
     if (WiFi.status() == WL_CONNECTED)
     {
-        // i_wifi_client.setCACert(i_root_ca);
+        i_wifi_client.setCACert(root_ca);
         return true;
     }
     else
@@ -97,8 +136,8 @@ S_WIFI_REGISTER wifi_register_device_actor(String device_id, String secret, Stri
                                  "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +
                                  "Content-Type: application/json" + "\r\n" +
                                  "Content-Length: " + body.length() + "\r\n\r\n" +
-                                 body + "\r\n" +
-                                 "Connection: close\r\n\r\n";
+                                 body; // + "\r\n" +
+                                       //  "Connection: close\r\n\r\n";
 
             Serial.println("Send String is '" + send_string + "'");
 
@@ -180,8 +219,8 @@ boolean wifi_register_device_gateway(String my_id, String gateway_id, String ser
                                  "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +
                                  "Content-Type: application/json" + "\r\n" +
                                  "Content-Length: " + body.length() + "\r\n\r\n" +
-                                 body + "\r\n" +
-                                 "Connection: close\r\n\r\n";
+                                 body; // + "\r\n" +
+                                       //  "Connection: close\r\n\r\n";
 
             Serial.println("Send String is '" + send_string + "'");
 
@@ -269,8 +308,8 @@ boolean wifi_send_chat_message(String receiver, String author, String msg, Strin
                                  "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +
                                  "Content-Type: application/json" + "\r\n" +
                                  "Content-Length: " + body.length() + "\r\n\r\n" +
-                                 body + "\r\n" +
-                                 "Connection: close\r\n\r\n";
+                                 body; // + "\r\n" +
+                                       //  "Connection: close\r\n\r\n";
 
             Serial.println("Send String is '" + send_string + "'");
 
@@ -356,8 +395,8 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
                                  "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +
                                  "Content-Type: application/json" + "\r\n" +
                                  "Content-Length: " + body.length() + "\r\n\r\n" +
-                                 body + "\r\n" +
-                                 "Connection: close\r\n\r\n";
+                                 body; // + "\r\n" +
+                                       //  "Connection: close\r\n\r\n";
 
             Serial.println("Send String is '" + send_string + "'");
 
@@ -440,8 +479,8 @@ boolean wifi_clear_message(String myId, String serverUrl, int serverPort, int se
                                  "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +
                                  "Content-Type: application/json" + "\r\n" +
                                  "Content-Length: " + body.length() + "\r\n\r\n" +
-                                 body + "\r\n" +
-                                 "Connection: close\r\n\r\n";
+                                 body; // + "\r\n" +
+                                       //  "Connection: close\r\n\r\n";
 
             Serial.println("Send String is '" + send_string + "'");
 
