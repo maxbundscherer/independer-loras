@@ -347,7 +347,7 @@ void i_actor_functions_menu()
     }
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
-      gui_input_char_no_output();
+      gui_input_char_no_output(true);
       fin_flag = true;
     }
     else if (selected_wrapper.success and selected_wrapper.value == 3)
@@ -643,6 +643,14 @@ void i_settings_menu()
   }
 }
 
+String i_workflow_rewrite_boolean(boolean value)
+{
+  if (value)
+    return "Aktiv";
+  else
+    return "Inaktiv";
+}
+
 void workflow_actor_main_menu()
 {
   String menu_items[] = {
@@ -665,7 +673,19 @@ void workflow_actor_main_menu()
   else if (selected_wrapper.success and selected_wrapper.value == 4)
   {
     gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
-    delay(C_GUI_DELAY_STATIC);
+    gui_input_char_no_output(false);
+
+    gui_msg_static("Info (1/4)", "Version: " + c_product_version + "\nID: " + state_my_id + "\nGateway ID: " + state_gateway_id);
+    gui_input_char_no_output(false);
+
+    gui_msg_static("Info (2/4)", "Actor-Modus: " + i_workflow_rewrite_boolean(c_actor_mode) + "\nEntwickler: " + i_workflow_rewrite_boolean(c_dev_mode) + "\nLoRa-Gain: " + state_lora_gain);
+    gui_input_char_no_output(false);
+
+    gui_msg_static("Info (3/4)", "Helligkeit: " + String(state_oled_brightness) + "\nWIFI: " + state_wifi_ssid + "\nWIFI-Timeout: " + state_wifi_server_timeout);
+    gui_input_char_no_output(false);
+
+    gui_msg_static("Info (4/4)", "Hintergrund-Sync: " + i_workflow_rewrite_boolean(multi_actor_get_state()));
+    gui_input_char_no_output(false);
   }
   else if (selected_wrapper.success == false)
   {
