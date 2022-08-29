@@ -684,7 +684,7 @@ void workflow_actor_main_menu()
     gui_msg_static("Info (3/4)", "Helligkeit: " + String(state_oled_brightness) + "\nWIFI: " + state_wifi_ssid + "\nWIFI-Timeout: " + state_wifi_server_timeout);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (4/4)", "Hintergrund-Sync: " + i_workflow_rewrite_boolean(multi_actor_get_state()));
+    gui_msg_static("Info (4/4)", "Hintergrundsync: " + i_workflow_rewrite_boolean(multi_actor_get_state()) + "\nBatterie: " + String(utils_get_battery()) + "mV");
     gui_input_char_no_output(false);
   }
   else if (selected_wrapper.success == false)
