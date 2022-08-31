@@ -10,6 +10,9 @@ NTPClient timeClient(ntpUDP);
 
 UnixTime stamp(2); // UTC+2
 
+unsigned long i_time_last_update_esp_time = 0; // millis
+unsigned long i_time_last_update_unix_time = 0;
+
 String i_time_convert_unix_time_to_string(int unixTime)
 {
     stamp.getDateTime(unixTime);
@@ -42,11 +45,21 @@ String time_get_from_ntp()
     timeClient.begin();
     timeClient.update();
     // Serial.println(timeClient.getFormattedTime() + " or " + timeClient.getEpochTime());
-    ret = i_time_convert_unix_time_to_string(timeClient.getEpochTime());
+    i_time_last_update_esp_time = millis();
+    i_time_last_update_unix_time = timeClient.getEpochTime();
+    ret = i_time_convert_unix_time_to_string(i_time_last_update_unix_time);
     timeClient.end();
 
     // disconnect WiFi as it's no longer needed
     WiFi.disconnect(true);
 
     return ret;
+}
+
+String time_get_from_local()
+{
+    unsigned long delta = millis() - i_time_last_update_esp_time;
+    delta = delta / 1000;
+
+    return i_time_convert_unix_time_to_string(i_time_last_update_unix_time + delta);
 }

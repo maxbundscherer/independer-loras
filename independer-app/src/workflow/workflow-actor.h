@@ -292,7 +292,8 @@ void i_actor_functions_test_function_menu()
       "Erreichbar-Check",
       "Test Ausgabe",
       "Test Datenaustausch",
-      "Zeit abfragen",
+      "Zeit sync/anzeigen",
+      "Zeit anzeigen",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -324,6 +325,11 @@ void i_actor_functions_test_function_menu()
       gui_msg_static("Hinweis", "Frage Zeit\nab ...");
       String r = time_get_from_ntp();
       gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 4)
+    {
+      String r = time_get_from_local();
+      gui_msg_animated("Zeit", "Lokal\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
     }
     else
       fin_flag = true;
