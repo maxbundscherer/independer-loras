@@ -1,5 +1,6 @@
 #include <WiFi.h>
 #include <NTPClient.h>
+#include <UnixTime.h>
 
 WiFiUDP ntpUDP;
 
@@ -7,8 +8,18 @@ WiFiUDP ntpUDP;
 // no offset
 NTPClient timeClient(ntpUDP);
 
-void time_sync_ntp()
+UnixTime stamp(2); // UTC+2
+
+String i_time_convert_unix_time_to_string(int unixTime)
 {
+    stamp.getDateTime(unixTime);
+    return String(stamp.year) + "-" + String(stamp.month) + "-" + String(stamp.day) + " " + String(stamp.hour) + ":" + String(stamp.minute) + ":" + String(stamp.second);
+}
+
+String time_get_from_ntp()
+{
+
+    String ret = "";
 
     Serial.println("(Sync NTP now)");
 
@@ -30,9 +41,12 @@ void time_sync_ntp()
 
     timeClient.begin();
     timeClient.update();
-    Serial.println(timeClient.getFormattedTime());
+    // Serial.println(timeClient.getFormattedTime() + " or " + timeClient.getEpochTime());
+    ret = i_time_convert_unix_time_to_string(timeClient.getEpochTime());
     timeClient.end();
 
     // disconnect WiFi as it's no longer needed
     WiFi.disconnect(true);
+
+    return ret;
 }

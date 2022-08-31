@@ -292,6 +292,7 @@ void i_actor_functions_test_function_menu()
       "Erreichbar-Check",
       "Test Ausgabe",
       "Test Datenaustausch",
+      "Zeit abfragen",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -318,6 +319,12 @@ void i_actor_functions_test_function_menu()
       gui_test();
     else if (selected_wrapper.success and selected_wrapper.value == 2)
       application_actor_large_data_test();
+    else if (selected_wrapper.success and selected_wrapper.value == 3)
+    {
+      gui_msg_static("Hinweis", "Frage Zeit\nab ...");
+      String r = time_get_from_ntp();
+      gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
+    }
     else
       fin_flag = true;
   }
