@@ -51,6 +51,7 @@ Anyone can **contribute to the project** and **build their own device**. Many mo
 - [Documentation](docs/)
 - [Sourcecode Independer ESP32 (C/C++)](independer-app/)
 - [Sourcecode Independer Server (Python Flask Application)](independer-server/)
+- [Docker Image Independer Server for Linux & Raspberry Pi](independer-server/)
 - [3D-printed Case](case/)
 - [Releases](https://github.com/maxbundscherer/independer-loras/releases/)
 

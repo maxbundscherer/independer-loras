@@ -2,21 +2,27 @@
 
 Docker is required.
 
-### Commands
+### Run and Install
 
-#### Run and Install
+#### PreStep: Generate SSL Certificate
 
-- Generate SSL Certificate
-    - `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -nodes` (set CN/FQDN to hostname)
-    - (Move `key.pem` and `cert.perm` to `./`)
-- `docker-compose up`
+- `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -sha256 -nodes` (set CN/FQDN to hostname)
+- (Move `key.pem` and `cert.perm` to `./`)
+
+#### Run
+
+- Run `./run-raspbery.sh` on Raspberry Pi
+- Run `./run-linux.sh` on Linux, macOs, etc.
+
+#### Add Data
+
 - Add Users and Gateways in table `users` and `gateways`
 
-#### Status
+### Status
 
 - `docker ps -a`
 - `docker compose ls`
 
-#### Stop and Clean
+### Stop and Clean
 
 - Run `./clean-docker.sh`
