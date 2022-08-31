@@ -65,6 +65,9 @@ String state_wifi_server_device_token = "";           // saved in db and INIT CO
 // Database
 #include "device/mb-database.h"
 
+// Time
+#include "device/mb-time.h"
+
 // OTA
 #include "device/mb-ota.h"
 

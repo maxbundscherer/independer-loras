@@ -69,6 +69,12 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
 
   display.setBrightness(state_oled_brightness); // Set brightness after db
 
+  // if (isActor and false)
+  // {
+  //   Serial.println("- Sync NTP");
+  //   time_sync_ntp();
+  // }
+
   if (isDevMode)
   {
     Serial.println("- Init Dev Mode");
