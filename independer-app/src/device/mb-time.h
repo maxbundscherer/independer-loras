@@ -1,6 +1,7 @@
 #include <WiFi.h>
 #include <NTPClient.h>
 #include <UnixTime.h>
+#include <ESP32Time.h>
 
 WiFiUDP ntpUDP;
 
@@ -9,17 +10,15 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP);
 
 UnixTime stamp(2); // UTC+2
+ESP32Time rtc(0);  // Offset is already in stamp (else 3600 * 2)
 
-unsigned long i_time_last_update_esp_time = 0; // millis
-unsigned long i_time_last_update_unix_time = 0;
-
-String i_time_convert_unix_time_to_string(int unixTime)
+String i_time_convert_current_time_to_string()
 {
-    stamp.getDateTime(unixTime);
+    stamp.getDateTime(rtc.getEpoch());
     return String(stamp.year) + "-" + String(stamp.month) + "-" + String(stamp.day) + " " + String(stamp.hour) + ":" + String(stamp.minute) + ":" + String(stamp.second);
 }
 
-String time_get_from_ntp()
+String time_sync_get_ntp()
 {
 
     String ret = "";
@@ -44,10 +43,9 @@ String time_get_from_ntp()
 
     timeClient.begin();
     timeClient.update();
-    // Serial.println(timeClient.getFormattedTime() + " or " + timeClient.getEpochTime());
-    i_time_last_update_esp_time = millis();
-    i_time_last_update_unix_time = timeClient.getEpochTime();
-    ret = i_time_convert_unix_time_to_string(i_time_last_update_unix_time);
+    rtc.setTime(timeClient.getEpochTime());
+    // rtc.offset = 3600 * 2; //Offset is already in stamp
+    ret = i_time_convert_current_time_to_string();
     timeClient.end();
 
     // disconnect WiFi as it's no longer needed
@@ -58,8 +56,13 @@ String time_get_from_ntp()
 
 String time_get_from_local()
 {
-    unsigned long delta = millis() - i_time_last_update_esp_time;
-    delta = delta / 1000;
 
-    return i_time_convert_unix_time_to_string(i_time_last_update_unix_time + delta);
+    String ret = i_time_convert_current_time_to_string();
+
+    return ret;
+}
+
+void time_debug_console_output()
+{
+    Serial.println("Current Time: '" + i_time_convert_current_time_to_string() + "'");
 }

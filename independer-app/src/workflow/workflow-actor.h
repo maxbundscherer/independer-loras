@@ -323,7 +323,7 @@ void i_actor_functions_test_function_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
       gui_msg_static("Hinweis", "Frage Zeit\nab ...");
-      String r = time_get_from_ntp();
+      String r = time_sync_get_ntp();
       gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 4)
@@ -697,7 +697,7 @@ void workflow_actor_main_menu()
     gui_msg_static("Info (3/4)", "Helligkeit: " + String(state_oled_brightness) + "\nWIFI: " + state_wifi_ssid + "\nWIFI-Timeout: " + state_wifi_server_timeout);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (4/4)", "Hintergrundsync: " + i_workflow_rewrite_boolean(multi_actor_get_state()) + "\nBatterie: " + String(utils_get_battery()) + "mV");
+    gui_msg_static("Info (4/4)", "Hintergrundsync: " + i_workflow_rewrite_boolean(multi_actor_get_state()) + "\nBatterie: " + String(utils_get_battery()) + "mV\n" + time_get_from_local());
     gui_input_char_no_output(false);
   }
   else if (selected_wrapper.success == false)
