@@ -18,10 +18,10 @@ Docker is required.
 
 If Postgres-Container does not sync time with Raspberry-Host - on Raspberry:
 
-- sudo vim /etc/apt/sources.list
-- Add `deb http://raspbian.raspberrypi.org/raspbian/ testing main`
-- sudo apt-get update
-- sudo apt-get install libseccomp2/testing
+- `sudo vim /etc/apt/sources.list`
+    - Add `deb http://raspbian.raspberrypi.org/raspbian/ testing main`
+- `sudo apt-get update`
+- `sudo apt-get install libseccomp2/testing`
 
 #### Add Data
 
