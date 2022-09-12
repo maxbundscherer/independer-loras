@@ -26,7 +26,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.3.4";
+String c_product_version = "v.0.3.5";
 
 /*
  * ####################################
