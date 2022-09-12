@@ -18,6 +18,11 @@ Docker is required.
 
 - Add Users and Gateways in table `users` and `gateways`
 
+#### Config Network
+
+- Config Router DNS to server (local ip)
+- Config Router to forward port to server
+
 ### Status
 
 - `docker ps -a`

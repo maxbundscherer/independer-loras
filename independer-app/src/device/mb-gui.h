@@ -861,10 +861,11 @@ S_GUI_INPUT_TEXT gui_input_text(String menu_title, String default_value)
   return S_GUI_INPUT_TEXT{true, current};
 }
 
-char gui_input_char_no_output()
+char gui_input_char_no_output(boolean displayOffFlag)
 {
 
-  display.displayOff();
+  if (displayOffFlag)
+    display.displayOff();
 
   i_gui_flush_input();
 
@@ -886,7 +887,8 @@ char gui_input_char_no_output()
     }
   }
 
-  display.displayOn();
+  if (displayOffFlag)
+    display.displayOn();
   return ret_char;
 }
 

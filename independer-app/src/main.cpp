@@ -26,8 +26,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.3.4";
-boolean c_demo_mode = false;
+String c_product_version = "v.0.3.5";
 
 /*
  * ####################################
@@ -66,6 +65,9 @@ String state_wifi_server_device_token = "";           // saved in db and INIT CO
 // Database
 #include "device/mb-database.h"
 
+// Time
+#include "device/mb-time.h"
+
 // OTA
 #include "device/mb-ota.h"
 
@@ -93,8 +95,6 @@ void setup()
     { // Show every boot on gateway
       gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
       delay(C_GUI_DELAY_STATIC);
-      if (c_demo_mode)
-        delay(1000 * 60 * 10);
     }
   }
   else

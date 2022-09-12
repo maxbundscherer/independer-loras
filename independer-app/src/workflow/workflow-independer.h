@@ -73,6 +73,9 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   {
     Serial.println("- Init Dev Mode");
     state_lora_gain = 6;
+
+    Serial.println("- Dev Mode Output");
+    time_debug_console_output();
   }
 
   Serial.println("[Finished Startup]");
