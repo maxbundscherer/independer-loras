@@ -14,6 +14,15 @@ Docker is required.
 - Run `./run-raspbery.sh` on Raspberry Pi
 - Run `./run-linux.sh` on Linux, macOs, etc.
 
+##### Bugfix Raspberry TimeZone
+
+If Postgres-Container does not sync time with Raspberry-Host - on Raspberry:
+
+- `sudo vim /etc/apt/sources.list`
+    - Add `deb http://raspbian.raspberrypi.org/raspbian/ testing main`
+- `sudo apt-get update`
+- `sudo apt-get install libseccomp2/testing`
+
 #### Add Data
 
 - Add Users and Gateways in table `users` and `gateways`
