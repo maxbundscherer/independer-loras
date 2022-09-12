@@ -50,6 +50,7 @@ int state_wifi_server_port = 5001;                    // saved in db (fixed)
 int state_wifi_server_timeout = 10000;                // saved in db
 String state_wifi_server_device_token = "";           // saved in db and INIT CONFIG
 
+#include "device/mb-time.h"
 #include "device/mb-base64.h"
 #include "device/mb-gui.h"
 #include "device/mb-crypt.h"
@@ -64,9 +65,6 @@ String state_wifi_server_device_token = "";           // saved in db and INIT CO
 
 // Database
 #include "device/mb-database.h"
-
-// Time
-#include "device/mb-time.h"
 
 // OTA
 #include "device/mb-ota.h"

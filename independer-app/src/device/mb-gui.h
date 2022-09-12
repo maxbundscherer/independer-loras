@@ -397,7 +397,7 @@ void gui_msg_static(String msg_title, String msg)
   display.display();
 }
 
-void gui_msg_static_gateway(String msg_title, String msg, int global_tx_time)
+void gui_msg_static_gateway(String msg_title, String msg, int tx_time)
 {
   display.clear();
   display.setFont(ArialMT_Plain_10);
@@ -408,7 +408,7 @@ void gui_msg_static_gateway(String msg_title, String msg, int global_tx_time)
   display.setTextAlignment(TEXT_ALIGN_CENTER);
   display.drawString(64, 10 * 2 + 2 + 4, msg);
 
-  int progress = (((float)global_tx_time - 0) / ((float)36000 - 0)) * (float)100;
+  int progress = (((float)tx_time - 0) / ((float)(C_LORA_QUOTA_CONTINGENT_SECONDS * 1000) - 0)) * (float)100;
   if (progress > 100)
     progress = 100;
   if (progress < 0)
