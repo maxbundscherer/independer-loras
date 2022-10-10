@@ -13,8 +13,6 @@ char *c_cipher_key = "kjew50fkjriowdj6";
 
 // Boot State
 RTC_DATA_ATTR int boot_state_count = 0;
-#define BOOT_STATE_MSG_COUNT 20
-RTC_DATA_ATTR char boot_state_msg[BOOT_STATE_MSG_COUNT] = "Boot-Msg ";
 
 /**
  *
@@ -50,9 +48,6 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   rtc_gpio_deinit(GPIO_NUM_0);
   ++boot_state_count;
   Serial.println("Boot number: " + String(boot_state_count));
-  // String(String(boot_state_msg) + String(boot_state_count)).toCharArray(boot_state_msg, BOOT_STATE_MSG_COUNT);
-  char *boot_state_msg = const_cast<char *>(String(boot_state_count).c_str());
-  Serial.println("Boot msg: " + String(boot_state_msg));
 
   Serial.println("- Wake up reason");
   utils_print_wakeup_reason();

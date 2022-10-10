@@ -280,7 +280,7 @@ void i_actor_functions_status_function_menu()
     if (selected_wrapper.success and selected_wrapper.value == 0)
       gui_display_prg_animated("Batterie Status (mV)", utils_get_battery(), 1950, 3100, C_GUI_DELAY_MSG_SHORT_I);
     else if (selected_wrapper.success and selected_wrapper.value == 1)
-      gui_display_prg_animated("Sendekontingent (millis)", lora_get_global_tx_time_millis(), 0, 36000, C_GUI_DELAY_MSG_SHORT_I);
+      gui_display_prg_animated("Sendekontingent (millis)", time_lora_quota_update_get_millis(), 0, (C_LORA_QUOTA_CONTINGENT_SECONDS * 1000), C_GUI_DELAY_MSG_SHORT_I);
     else
       fin_flag = true;
   }
@@ -323,7 +323,7 @@ void i_actor_functions_test_function_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
       gui_msg_static("Hinweis", "Frage Zeit\nab ...");
-      String r = time_sync_get_ntp();
+      String r = time_sync_get_ntp_and_connect();
       gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 4)

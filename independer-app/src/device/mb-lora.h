@@ -84,18 +84,6 @@ long i_adapter_lora_string_hash(String msg)
  *  Trans Section
  * ####################################
  */
-uint64_t state_du_global_tx_time = 0;
-
-int lora_get_global_tx_time_millis()
-{
-  return state_du_global_tx_time / 1000;
-}
-
-int lora_get_global_tx_time_seconds()
-{
-  return lora_get_global_tx_time_millis() / 1000;
-}
-
 void i_lora_trans_encrypt(String msg, int sendGain)
 {
 
@@ -109,7 +97,7 @@ void i_lora_trans_encrypt(String msg, int sendGain)
     LoRa.beginPacket();
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
-    state_du_global_tx_time += (esp_timer_get_time() - du_start);
+    time_lora_quota_add(esp_timer_get_time() - du_start);
   }
   else
   {
@@ -119,10 +107,10 @@ void i_lora_trans_encrypt(String msg, int sendGain)
     LoRa.beginPacket();
     LoRa.print(crypt_encrypt(msg));
     LoRa.endPacket();
-    state_du_global_tx_time += (esp_timer_get_time() - du_start);
+    time_lora_quota_add(esp_timer_get_time() - du_start);
   }
 
-  Serial.println("Send Duration " + String(lora_get_global_tx_time_millis()) + " millis " + String(lora_get_global_tx_time_seconds()) + " seconds");
+  Serial.println("Send Duration " + String(time_lora_quota_update_get_millis()) + " millis ");
 
   digitalWrite(LED, LOW);
 }
