@@ -4,7 +4,7 @@ This repository is about a device called **Independer**. An Open-Source Project.
 
 **Encrypted messaging & data sharing** via LoRaS & inexpensive hardware (ESP32). **Independent from mobile network & WIFI**. We use cheap *ESP32s*, *LoRa antennas*, *3D prototyping*, *mini keyboards* and develop our own encrypted *protocol* together with *software*.
 
-**This page is intended for developers** - please visit the [official website](https://a-sdr.org/independer) for more information. Also visit [project presentation (PDF)](http://a-sdr.org/independer/independer.pdf). If you want to **join, or have an idea**, feel free to [write us](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions). The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
+**This page is intended for developers** - please visit the [official website](https://a-sdr.org/independer) for more information. If you want to **join, or have an idea**, feel free to [write us](mailto:maximilian@bundscherer-online.de) or [start a discussion](https://github.com/maxbundscherer/independer-loras/discussions). The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
 
 Presentation             |  Prototype-Video
 :-------------------------:|:-------------------------:
@@ -26,7 +26,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - **Actor to Gateway (via LoRaS)**: Send messages via Gateway. Actors can query their messages from Gateways.
 - **Actor to Actor (via WIFI/Internet)**: Send messages via Internet. Actors can query their messages from WIFI/Internet.
 - **Who is near me?** Scan the environment to find other Independers.
-- **Many other functions**: Various test functions (Reachability Check, Reception & Transmission Evaluation), Update via WIFI, Notification LED, Deep Sleep Mode, Background-Sync, Battery Status, Send Quota & Gain, Contacts...
+- **Many other functions**: Various test functions (Reachability Check, Reception & Transmission Evaluation), Update via WIFI, Notification LED, Deep Sleep Mode, Background-Sync, Battery Status, Send Quota & Gain, NTP-Time-Sync, Contacts...
 
 ### Specifications
 
