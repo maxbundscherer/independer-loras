@@ -323,7 +323,7 @@ void i_actor_functions_test_function_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
       gui_msg_static("Hinweis", "Frage Zeit\nab ...");
-      String r = time_sync_get_ntp();
+      String r = time_sync_get_ntp_and_connect();
       gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 4)

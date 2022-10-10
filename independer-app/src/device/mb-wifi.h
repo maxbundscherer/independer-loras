@@ -121,6 +121,7 @@ S_WIFI_REGISTER wifi_register_device_actor(String device_id, String secret, Stri
         else
         {
             Serial.println("Connected to server!");
+            time_update_time_and_quota_connected();
 
             DynamicJsonDocument doc(1024 * 10);
 
@@ -204,6 +205,7 @@ boolean wifi_register_device_gateway(String my_id, String gateway_id, String ser
         else
         {
             Serial.println("Connected to server!");
+            time_update_time_and_quota_connected();
 
             DynamicJsonDocument doc(1024 * 10);
 
@@ -292,6 +294,7 @@ boolean wifi_send_chat_message(String receiver, String author, String msg, Strin
         else
         {
             Serial.println("Connected to server!");
+            time_update_time_and_quota_connected();
 
             DynamicJsonDocument doc(1024 * 10);
 
@@ -381,6 +384,7 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
         else
         {
             Serial.println("Connected to server!");
+            time_update_time_and_quota_connected();
 
             DynamicJsonDocument doc(1024 * 10);
 
@@ -465,6 +469,7 @@ boolean wifi_clear_message(String myId, String serverUrl, int serverPort, int se
         else
         {
             Serial.println("Connected to server!");
+            time_update_time_and_quota_connected();
 
             DynamicJsonDocument doc(1024 * 10);
 

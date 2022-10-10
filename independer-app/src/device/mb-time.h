@@ -26,10 +26,34 @@ String i_time_convert_current_time_to_string()
     return String(stamp.year) + "-" + String(stamp.month) + "-" + String(stamp.day) + " " + String(stamp.hour) + ":" + String(stamp.minute) + ":" + String(stamp.second);
 }
 
-String time_sync_get_ntp()
+/**
+ * @return boolean update success
+ */
+boolean i_time_update()
+{
+    timeClient.begin();
+    timeClient.update();
+
+    if (timeClient.getEpochTime() < 500)
+    {
+        Serial.println("Could not update time");
+        return false;
+    }
+    else
+    {
+        Serial.println("Could update time");
+        rtc.setTime(timeClient.getEpochTime());
+        // rtc.offset = 3600 * 2; //Offset is already in stamp
+        return true;
+    }
+
+    timeClient.end();
+}
+
+String time_sync_get_ntp_and_connect()
 {
 
-    String ret = "";
+    String ret = "(Fehler)";
 
     Serial.println("(Sync NTP now)");
 
@@ -49,12 +73,10 @@ String time_sync_get_ntp()
     Serial.println("");
     Serial.println("WiFi connected.");
 
-    timeClient.begin();
-    timeClient.update();
-    rtc.setTime(timeClient.getEpochTime());
-    // rtc.offset = 3600 * 2; //Offset is already in stamp
-    ret = i_time_convert_current_time_to_string();
-    timeClient.end();
+    if (i_time_update())
+    {
+        ret = i_time_convert_current_time_to_string();
+    }
 
     // disconnect WiFi as it's no longer needed
     WiFi.disconnect(true);
@@ -138,4 +160,39 @@ int time_lora_quota_update_get_millis()
     }
 
     return tx_duration_microseconds / 1000;
+}
+
+void time_update_time_and_quota_connected()
+{
+    Serial.println("Update Time Start");
+    if (i_time_update())
+    {
+
+        DynamicJsonDocument doc(1024 * 10);
+
+        deserializeJson(doc, String(boot_state_lora_quota_data));
+
+        JsonObject root = doc.as<JsonObject>();
+
+        for (JsonPair kv : root)
+        {
+
+            const char *orgKey = kv.key().c_str();
+            char *ptr;
+
+            unsigned long t = strtoul(orgKey, &ptr, 10);
+            int d = kv.value().as<int>();
+
+            if (t >= i_time_get_current_unix_time())
+            {
+                // Is not in range
+                doc.remove(orgKey);
+            }
+
+            String data = "";
+            serializeJson(doc, data);
+            strcpy(boot_state_lora_quota_data, data.c_str());
+        }
+    }
+    Serial.println("Update Time End");
 }
