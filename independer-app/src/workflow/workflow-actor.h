@@ -366,7 +366,7 @@ void i_actor_functions_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Actor)", C_GUI_DELAY_MSG_SHORT_I);
-      utils_go_to_sleep();
+      utils_go_to_sleep(true);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 4)
       application_actor_who_is_in_my_area();

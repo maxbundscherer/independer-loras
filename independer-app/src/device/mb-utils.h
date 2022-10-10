@@ -29,7 +29,7 @@ int utils_get_battery()
   return c;
 }
 
-void utils_print_wakeup_reason()
+boolean utils_wakeup_reason_and_sync_flag()
 {
   esp_sleep_wakeup_cause_t wakeup_reason;
 
@@ -44,7 +44,7 @@ void utils_print_wakeup_reason()
     Serial.println("Wakeup caused by external signal using RTC_CNTL");
     break;
   case ESP_SLEEP_WAKEUP_TIMER:
-    Serial.println("Wakeup caused by timer");
+    return true;
     break;
   case ESP_SLEEP_WAKEUP_TOUCHPAD:
     Serial.println("Wakeup caused by touchpad");
@@ -56,31 +56,32 @@ void utils_print_wakeup_reason()
     Serial.printf("Wakeup was not caused by deep sleep: %d\n", wakeup_reason);
     break;
   }
+
+  return false;
 }
 
-void utils_go_to_sleep()
+void utils_go_to_sleep(boolean activateAuto = false)
 {
 
-  Serial.println("Activate sleep mode");
+  Serial.println("Activate sleep mode, activateAuto=" + String(activateAuto));
   delay(1000); // is required
 
-  /*
-  First we configure the wake up source
-  We set our ESP32 to wake up for an external trigger.
-  There are two types for ESP32, ext0 and ext1 .
-  ext0 uses RTC_IO to wakeup thus requires RTC peripherals
-  to be on while ext1 uses RTC Controller so doesnt need
-  peripherals to be powered on.
-  Note that using internal pullups/pulldowns also requires
-  RTC peripherals to be turned on.
-  */
-  rtc_gpio_pulldown_en(GPIO_NUM_0);
-  esp_sleep_enable_ext0_wakeup(GPIO_NUM_0, 0); // 1 = High, 0 = Low
+  if (!activateAuto)
+  {
 
-  // If you were to use ext1, you would use it like
-  // esp_sleep_enable_ext1_wakeup(BUTTON_PIN_BITMASK,ESP_EXT1_WAKEUP_ANY_HIGH);
+    rtc_gpio_pulldown_en(GPIO_NUM_0);
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_0, 0); // 1 = High, 0 = Low
 
-  esp_deep_sleep_start();
+    esp_deep_sleep_start();
+  }
+  else
+  {
+    rtc_gpio_pulldown_en(GPIO_NUM_0);
+    esp_sleep_enable_ext0_wakeup(GPIO_NUM_0, 0); // 1 = High, 0 = Low
+
+    esp_sleep_enable_timer_wakeup(C_TIME_TO_SLEEP * uS_TO_S_FACTOR);
+    esp_deep_sleep_start();
+  }
 }
 
 String utils_encode_data(String data)
