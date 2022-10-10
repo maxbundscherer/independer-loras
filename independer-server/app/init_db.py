@@ -56,6 +56,17 @@ cur.execute('CREATE TABLE  IF NOT EXISTS history (id serial PRIMARY KEY,'
             )
 conn.commit()
 
+cur.execute('CREATE TABLE  IF NOT EXISTS autosync (id serial PRIMARY KEY,'
+            'appid varchar (5) NOT NULL references users(appid),'
+            'token varchar (50) NOT NULL references actors(token),'
+            'version varchar (50) NOT NULL,'
+            'time_before_sync bigint NOT NULL,'
+            'time_after_sync bigint NOT NULL,'
+            'battery integer NOT NULL,'
+            'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
+            )
+conn.commit()
+
 # Insert data into the table
 
 # cur.execute('INSERT INTO messages (receiver, author, msg, active)'
