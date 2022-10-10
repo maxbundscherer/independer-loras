@@ -92,6 +92,11 @@ String time_get_from_local()
     return ret;
 }
 
+unsigned long time_get_current_unix_time()
+{
+    return i_time_get_current_unix_time();
+}
+
 void time_debug_console_output()
 {
     Serial.println("Current Time: '" + i_time_convert_current_time_to_string() + "'");

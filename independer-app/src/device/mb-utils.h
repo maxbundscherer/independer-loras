@@ -9,6 +9,9 @@
 #define C_INDEPENDER_TX_MAX_LEN_PACKET 15
 #define C_INDEPENDER_SCAN_MS 8000
 
+#define uS_TO_S_FACTOR 1000000ULL /* Conversion factor for micro seconds to seconds */
+#define C_TIME_TO_SLEEP 60 * 30   /* Time ESP32 will go to sleep (in seconds) */
+
 // Welcome MSG Config
 #define C_TEMPLATE_STRING_THX "Danke, dass du dich\nfür den Independer\nentschieden hast!"
 
