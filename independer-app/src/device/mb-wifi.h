@@ -557,7 +557,7 @@ String wifi_auto_sync(String myId, String serverUrl, int serverPort, int serverT
         else
         {
             Serial.println("Connected to server!");
-            time_update_time_and_quota_connected();
+            // time_update_time_and_quota_connected(); below
 
             DynamicJsonDocument doc(1024 * 10);
 
