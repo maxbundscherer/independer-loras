@@ -209,6 +209,35 @@ def routeGatewayRegister():
             # Auth not passed
             return "Unauthorized"
 
+@app.route('/v1/autosync', methods=['POST'])
+def routeAutoSync():
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        if i_check_auth(json["auth-id"], json["auth-token"]):
+            # Auth passed
+            i_write_history(json["auth-id"], json["auth-token"], "/v1/autosync")
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO autosync (appid, token, version, battery, time_before_sync, time_after_sync)'
+                        'VALUES (%s, %s, %s, %s, %s, %s)',
+                        (json["auth-id"],
+                        json["auth-token"],
+                            json["version"],
+                            json["battery"],
+                            json["time_before_sync"],
+                            json["time_after_sync"])
+                        )
+            conn.commit()
+            cur.close()
+            conn.close()
+
+            return "OK"
+        else:
+            # Auth not passed
+            return "Unauthorized"
+
 #import os
 #if __name__ == "__main__":
 #  app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
