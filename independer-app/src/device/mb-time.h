@@ -37,6 +37,7 @@ boolean i_time_update()
     if (timeClient.getEpochTime() < 500)
     {
         Serial.println("Could not update time");
+        timeClient.end();
         return false;
     }
     else
@@ -44,10 +45,9 @@ boolean i_time_update()
         Serial.println("Could update time");
         rtc.setTime(timeClient.getEpochTime());
         // rtc.offset = 3600 * 2; //Offset is already in stamp
+        timeClient.end();
         return true;
     }
-
-    timeClient.end();
 }
 
 String time_sync_get_ntp_and_connect()
