@@ -59,10 +59,11 @@ conn.commit()
 cur.execute('CREATE TABLE  IF NOT EXISTS autosync (id serial PRIMARY KEY,'
             'appid varchar (5) NOT NULL references users(appid),'
             'token varchar (50) NOT NULL references actors(token),'
-            'version varchar (50) NOT NULL,'
-            'time_before_sync bigint NOT NULL,'
-            'time_after_sync bigint NOT NULL,'
-            'battery integer NOT NULL,'
+            'tx_version varchar (50) NOT NULL,'
+            'tx_time_before_sync bigint NOT NULL,'
+            'tx_time_after_sync bigint NOT NULL,'
+            'tx_battery integer NOT NULL,'
+            'tx_dev_mode boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 conn.commit()

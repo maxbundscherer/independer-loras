@@ -41,4 +41,9 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
     - `battery`: Battery mV of Actor
     - `time_before_sync`: Device time Actor before ntp sync
     - `time_after_sync`: Device time Actor after ntp sync
-    - Response `OK` (string, no json)
+    - `dev_mode`: Dev mode activated
+    - `is_actor`: IsActor
+    - Response (JSON-Array)
+        - `num_msg`: Number of unread messages
+        - `status_msg`: Status Broadcast
+        - `act_version`: Independer-Version (last release) 

@@ -220,14 +220,16 @@ def routeAutoSync():
             i_write_history(json["auth-id"], json["auth-token"], "/v1/autosync")
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('INSERT INTO autosync (appid, token, version, battery, time_before_sync, time_after_sync)'
+            cur.execute('INSERT INTO autosync (appid, token, tx_version, tx_battery, tx_time_before_sync, tx_time_after_sync, tx_dev_mode, tx_is_actor)'
                         'VALUES (%s, %s, %s, %s, %s, %s)',
                         (json["auth-id"],
                         json["auth-token"],
                             json["version"],
                             json["battery"],
                             json["time_before_sync"],
-                            json["time_after_sync"])
+                            json["time_after_sync"],
+                            json["dev_mode"],
+                            json["is_actor"])
                         )
             conn.commit()
             cur.close()
