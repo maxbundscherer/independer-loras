@@ -81,6 +81,14 @@ def routeGetMessages():
                     "author": messageWrapper[2], "msg": messageWrapper[3]}
                 retDict[i] = e
 
+            # Mark old messages as read
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute("UPDATE messages SET has_read = true WHERE receiver = %s;", (json["auth-id"],))
+            conn.commit()
+            cur.close()
+            conn.close()
+
             return retDict
         else:
             # Auth not passed
@@ -118,11 +126,12 @@ def routeWriteMessage():
             i_write_history(json["auth-id"], json["auth-token"], "/v1/writemsg")
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('INSERT INTO messages (receiver, author, msg, active)'
-                        'VALUES (%s, %s, %s, %s)',
+            cur.execute('INSERT INTO messages (receiver, author, msg, has_read, active)'
+                        'VALUES (%s, %s, %s, %s, %s)',
                         (json["receiver"],
                         json["auth-id"],
                             json["msg"],
+                            False,
                             True)
                         )
             conn.commit()
@@ -235,7 +244,32 @@ def routeAutoSync():
             cur.close()
             conn.close()
 
-            return "OK"
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM systemdata')
+            data = cur.fetchall()
+            cur.close()
+            conn.close()
+
+            status_msg = "";
+            act_version = "";
+
+            for row in data:
+                if(row[1] == "status_msg"):
+                    status_msg = row[2]
+                elif(row[1] == "act_version"):
+                    act_version = row[2]
+
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM messages WHERE active is %s AND has_read is %s AND receiver = %s;', (True, False, json["auth-id"]))
+            num_msg = cur.rowcount
+            cur.close()
+            conn.close()
+
+            return {"num_msg": num_msg,
+            "status_msg": status_msg,
+            "act_version": act_version}
         else:
             # Auth not passed
             return "Unauthorized"

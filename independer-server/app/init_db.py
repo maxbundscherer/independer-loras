@@ -27,6 +27,7 @@ cur.execute('CREATE TABLE  IF NOT EXISTS messages (id serial PRIMARY KEY,'
             'author varchar (5) NOT NULL references users(appid),'
             'msg text NOT NULL,'
             'active boolean NOT NULL,'
+            'has_read boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 conn.commit()
