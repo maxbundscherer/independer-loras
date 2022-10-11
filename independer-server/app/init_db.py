@@ -70,8 +70,8 @@ cur.execute('CREATE TABLE  IF NOT EXISTS autosync (id serial PRIMARY KEY,'
 conn.commit()
 
 cur.execute('CREATE TABLE  IF NOT EXISTS systemdata (id serial PRIMARY KEY,'
-            'key varchar (10) NOT NULL UNIQUE,'
-            'value varchar (500) NOT NULL'
+            'key varchar (100) NOT NULL UNIQUE,'
+            'value text NOT NULL);'
             )
 conn.commit()
 
