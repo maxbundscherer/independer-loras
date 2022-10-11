@@ -221,7 +221,7 @@ def routeAutoSync():
             conn = get_db_connection()
             cur = conn.cursor()
             cur.execute('INSERT INTO autosync (appid, token, tx_version, tx_battery, tx_time_before_sync, tx_time_after_sync, tx_dev_mode, tx_is_actor)'
-                        'VALUES (%s, %s, %s, %s, %s, %s)',
+                        'VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
                         (json["auth-id"],
                         json["auth-token"],
                             json["version"],
