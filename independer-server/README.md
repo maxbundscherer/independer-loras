@@ -26,6 +26,9 @@ If Postgres-Container does not sync time with Raspberry-Host - on Raspberry:
 #### Add Data
 
 - Add Users and Gateways in table `users` and `gateways`
+- Add System Info in table `systemdata`
+    - `act_version`
+    - `status_msg`
 
 #### Config Network
 

@@ -69,15 +69,25 @@ cur.execute('CREATE TABLE  IF NOT EXISTS autosync (id serial PRIMARY KEY,'
             )
 conn.commit()
 
-# Insert data into the table
+cur.execute('CREATE TABLE  IF NOT EXISTS systemdata (id serial PRIMARY KEY,'
+            'key varchar (10) NOT NULL UNIQUE,'
+            'value varchar (500) NOT NULL'
+            )
+conn.commit()
 
-# cur.execute('INSERT INTO messages (receiver, author, msg, active)'
-#             'VALUES (%s, %s, %s, %s)',
-#             ('0xM2',
-#              '0xMB',
-#              'Hello world!',
-#              True)
-#             )
+cur.execute('INSERT INTO systemdata (key, value)'
+            'VALUES (%s, %s)',
+            ('act_version',
+             'v.0.0.1')
+            )
+conn.commit()
+
+cur.execute('INSERT INTO systemdata (key, value)'
+            'VALUES (%s, %s)',
+            ('status_msg',
+             '')
+            )
+conn.commit()
 
 cur.close()
 conn.close()
