@@ -64,6 +64,7 @@ cur.execute('CREATE TABLE  IF NOT EXISTS autosync (id serial PRIMARY KEY,'
             'tx_time_after_sync bigint NOT NULL,'
             'tx_battery integer NOT NULL,'
             'tx_dev_mode boolean NOT NULL,'
+            'tx_is_actor boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 conn.commit()
