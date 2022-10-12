@@ -292,8 +292,6 @@ void i_actor_functions_test_function_menu()
       "Erreichbar-Check",
       "Test Ausgabe",
       "Test Datenaustausch",
-      "Zeit sync/anzeigen",
-      "Zeit anzeigen",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -320,17 +318,6 @@ void i_actor_functions_test_function_menu()
       gui_test();
     else if (selected_wrapper.success and selected_wrapper.value == 2)
       application_actor_large_data_test();
-    else if (selected_wrapper.success and selected_wrapper.value == 3)
-    {
-      gui_msg_static("Hinweis", "Frage Zeit\nab ...");
-      String r = time_sync_get_ntp_and_connect();
-      gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
-    }
-    else if (selected_wrapper.success and selected_wrapper.value == 4)
-    {
-      String r = time_get_from_local();
-      gui_msg_animated("Zeit", "Lokal\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
-    }
     else
       fin_flag = true;
   }
@@ -344,6 +331,7 @@ void i_actor_functions_menu()
       "Standby",
       "Schlaf Modus",
       "Umgebungs-Scan",
+      "Sync",
       "Update",
       "[zurück]"};
 
@@ -371,6 +359,18 @@ void i_actor_functions_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 4)
       application_actor_who_is_in_my_area();
     else if (selected_wrapper.success and selected_wrapper.value == 5)
+    {
+      String d = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token, boot_state_count);
+      if (d != "")
+      {
+        gui_msg_long_text("Auto-Sync", d);
+      }
+      else
+      {
+        gui_msg_animated("Info", "Keine Daten", C_GUI_DELAY_MSG_SHORT_I);
+      }
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 6)
       ota_start();
     else
       fin_flag = true;
@@ -564,6 +564,34 @@ void i_setting_server_menu()
   }
 }
 
+void i_setting_time()
+{
+  String menu_items[] = {
+      "Zeit sync/anzeigen",
+      "Zeit anzeigen",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Zeit", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected_wrapper.success and selected_wrapper.value == 0)
+    {
+      gui_msg_static("Hinweis", "Frage Zeit\nab ...");
+      String r = time_sync_get_ntp_and_connect();
+      gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
+    {
+      String r = time_get_from_local();
+      gui_msg_animated("Zeit", "Lokal\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
+    }
+    else
+      fin_flag = true;
+  }
+}
+
 void i_settings_menu()
 {
   String menu_items[] = {
@@ -574,6 +602,7 @@ void i_settings_menu()
       "Hintergrundsync",
       "WIFI",
       "Server",
+      "Zeit",
       "Werkseinstellungen",
       "[zurück]"};
 
@@ -647,6 +676,10 @@ void i_settings_menu()
       i_setting_server_menu();
     }
     else if (selected_wrapper.success and selected_wrapper.value == 6)
+    {
+      i_setting_time();
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 7)
     {
       db_clear();
       ESP.restart();
