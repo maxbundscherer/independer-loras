@@ -735,6 +735,14 @@ String i_workflow_rewrite_boolean(boolean value)
     return "Inaktiv";
 }
 
+String i_workflow_rewrite_int(int value)
+{
+  if (1)
+    return "Aktiv";
+  else
+    return "Inaktiv";
+}
+
 void workflow_actor_main_menu()
 {
   String menu_items[] = {
@@ -759,16 +767,19 @@ void workflow_actor_main_menu()
     gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (1/4)", "Version: " + c_product_version + "\nID: " + state_my_id + "\nGateway ID: " + state_gateway_id);
+    gui_msg_static("Info (1/5)", "Version: " + c_product_version + "\nID: " + state_my_id + "\nGateway ID: " + state_gateway_id);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (2/4)", "Actor-Modus: " + i_workflow_rewrite_boolean(c_actor_mode) + "\nEntwickler: " + i_workflow_rewrite_boolean(c_dev_mode) + "\nLoRa-Gain: " + state_lora_gain);
+    gui_msg_static("Info (2/5)", "Actor-Modus: " + i_workflow_rewrite_boolean(c_actor_mode) + "\nEntwickler: " + i_workflow_rewrite_boolean(c_dev_mode) + "\nLoRa-Gain: " + state_lora_gain);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (3/4)", "Helligkeit: " + String(state_oled_brightness) + "\nWIFI: " + state_wifi_ssid + "\nWIFI-Timeout: " + state_wifi_server_timeout);
+    gui_msg_static("Info (3/5)", "Helligkeit: " + String(state_oled_brightness) + "\nWIFI: " + state_wifi_ssid + "\nWIFI-Timeout: " + state_wifi_server_timeout);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (4/4)", "Hintergrundsync: " + i_workflow_rewrite_boolean(multi_actor_get_state()) + "\nBatterie: " + String(utils_get_battery()) + "mV\n" + time_get_from_local());
+    gui_msg_static("Info (4/5)", "Hintergrundsync: " + i_workflow_rewrite_boolean(multi_actor_get_state()) + "\nAuto-Schlaf: " + i_workflow_rewrite_int(state_auto_sleep_enabled) + "\nBatterie: " + String(utils_get_battery()) + "mV");
+    gui_input_char_no_output(false);
+
+    gui_msg_static("Info (5/5)", "Zeit:\n" + time_get_from_local());
     gui_input_char_no_output(false);
   }
   else if (selected_wrapper.success == false)
