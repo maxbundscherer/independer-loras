@@ -26,7 +26,9 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.3.6";
+String c_product_version = "v.0.3.7";
+
+// TODO: Nachricht anzeigen, max delay auto sync, teste error handling, auto sleep
 
 /*
  * ####################################

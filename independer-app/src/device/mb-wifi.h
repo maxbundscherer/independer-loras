@@ -540,6 +540,67 @@ boolean wifi_clear_message(String myId, String serverUrl, int serverPort, int se
  * ####################################
  */
 
+String i_wifi_auto_sync_proc(String ret)
+{
+    if (ret != "")
+    {
+
+        int startPos = 0;
+
+        for (int i = 0; i < ret.length() and startPos == 0; i++)
+        {
+
+            String current = ret.substring(i, i + 1);
+
+            if (current == "{")
+            {
+                startPos = i;
+            }
+        }
+
+        if (startPos != 0)
+        {
+            ret = ret.substring(startPos);
+
+            DynamicJsonDocument doc(1024 * 10);
+
+            deserializeJson(doc, ret);
+            JsonObject obj = doc.as<JsonObject>();
+            JsonObject d = doc.as<JsonObject>();
+
+            // Serial.println("Got RET Object '" + String(ret) + "'");
+            // Serial.println("Got JSON Object '" + String(obj) + "'");
+
+            String act_version = d["act_version"];
+            String status_msg = d["status_msg"];
+            int num_msg = d["num_msg"];
+
+            Serial.println("Version '" + String(act_version) + "'");
+            Serial.println("Num_msg '" + String(num_msg) + "'");
+            Serial.println("status_msg '" + String(status_msg) + "'");
+
+            String r = "";
+
+            if (act_version != c_product_version)
+            {
+                r += "Neues Update verfügbar (" + act_version + "). ";
+            }
+            if (num_msg > 0)
+            {
+                r += "Neue Chat-Nachrichten verfügbar (" + String(num_msg) + "). ";
+            }
+            if (status_msg != "")
+            {
+                r += "Status-Nachricht: [" + status_msg + "]";
+            }
+
+            return r;
+        }
+    }
+
+    return "";
+}
+
 String wifi_auto_sync(String myId, String serverUrl, int serverPort, int serverTimeout, String serverDeviceToken)
 {
 
@@ -609,7 +670,7 @@ String wifi_auto_sync(String myId, String serverUrl, int serverPort, int serverT
             }
             Serial.print("Response '" + line + "'");
 
-            ret = line;
+            ret = i_wifi_auto_sync_proc(line);
 
             /* if the server disconnected, stop the client */
             if (!i_wifi_client.connected())
