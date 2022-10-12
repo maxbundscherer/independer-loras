@@ -44,6 +44,7 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
     - `dev_mode`: Dev mode activated
     - `is_actor`: IsActor
     - `wifi_ssid`: Wifi SSID
+    - `boot_counts`: Boot Counts
     - Response (JSON-Array)
         - `num_msg`: Number of unread messages
         - `status_msg`: Status Broadcast

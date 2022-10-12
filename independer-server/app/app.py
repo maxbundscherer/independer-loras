@@ -250,8 +250,8 @@ def routeAutoSync():
                             json["auth-token"], "/v1/autosync")
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('INSERT INTO autosync (appid, token, tx_version, tx_battery, tx_time_before_sync, tx_time_after_sync, tx_dev_mode, tx_is_actor, tx_wifi_ssid)'
-                        'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
+            cur.execute('INSERT INTO autosync (appid, token, tx_version, tx_battery, tx_time_before_sync, tx_time_after_sync, tx_dev_mode, tx_is_actor, tx_wifi_ssid, tx_boot_counts)'
+                        'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (json["auth-id"],
                          json["auth-token"],
                             json["version"],
@@ -260,7 +260,9 @@ def routeAutoSync():
                             json["time_after_sync"],
                             json["dev_mode"],
                             json["is_actor"],
-                            json["wifi_ssid"])
+                            json["wifi_ssid"],
+                            json["boot_counts"]
+                            )
                         )
             conn.commit()
             cur.close()

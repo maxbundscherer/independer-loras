@@ -67,6 +67,7 @@ cur.execute('CREATE TABLE  IF NOT EXISTS autosync (id serial PRIMARY KEY,'
             'tx_dev_mode boolean NOT NULL,'
             'tx_is_actor boolean NOT NULL,'
             'tx_wifi_ssid varchar (50) NOT NULL,'
+            'tx_boot_counts integer NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 conn.commit()

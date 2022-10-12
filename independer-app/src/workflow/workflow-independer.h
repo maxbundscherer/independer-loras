@@ -19,7 +19,7 @@ RTC_DATA_ATTR char boot_state_auto_sync_msg[500];
 void i_workflow_independer_auto_sync()
 {
   gui_msg_static("Auto-Sync", "Gleiche Daten ab\n...");
-  String ans = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
+  String ans = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token, boot_state_count);
   if (ans != "")
   {
     strcpy(boot_state_auto_sync_msg, ans.c_str());

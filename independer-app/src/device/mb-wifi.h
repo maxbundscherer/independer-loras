@@ -601,7 +601,7 @@ String i_wifi_auto_sync_proc(String ret)
     return "";
 }
 
-String wifi_auto_sync(String myId, String serverUrl, int serverPort, int serverTimeout, String serverDeviceToken)
+String wifi_auto_sync(String myId, String serverUrl, int serverPort, int serverTimeout, String serverDeviceToken, int boot_state_counts)
 {
 
     char *c_wifi_server_url = const_cast<char *>(serverUrl.c_str());
@@ -634,6 +634,7 @@ String wifi_auto_sync(String myId, String serverUrl, int serverPort, int serverT
             doc["dev_mode"] = c_dev_mode;
             doc["is_actor"] = c_actor_mode;
             doc["wifi_ssid"] = state_wifi_ssid;
+            doc["boot_counts"] = boot_state_counts;
 
             String body = "";
 
