@@ -482,6 +482,41 @@ void i_setting_bg_syn_menu()
   }
 }
 
+void i_setting_auto_sleep_menu()
+{
+  String menu_items[] = {
+      "Status",
+      "Aktivieren",
+      "Deaktivieren",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Auto-Schlaf", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected_wrapper.success and selected_wrapper.value == 0)
+    {
+      String f = "Inaktiv";
+      if (state_auto_sleep_enabled)
+        f = "Aktiv";
+      gui_msg_animated("Info", "Status Auto-Schlaf\n" + f, C_GUI_DELAY_MSG_SHORT_I);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
+    {
+      gui_msg_animated("Info", "Aktiviere Auto-Schlaf", C_GUI_DELAY_MSG_SHORT_I);
+      db_save_auto_sleep_enabled(1);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
+    {
+      gui_msg_animated("Info", "Deaktiviere Auto-Schlaf", C_GUI_DELAY_MSG_SHORT_I);
+      db_save_auto_sleep_enabled(0);
+    }
+    else
+      fin_flag = true;
+  }
+}
+
 void i_setting_wifi_menu()
 {
   String menu_items[] = {
@@ -600,6 +635,7 @@ void i_settings_menu()
       "LoRa Gain",
       "Helligkeit",
       "Hintergrundsync",
+      "Auto-Schlaf",
       "WIFI",
       "Server",
       "Zeit",
@@ -670,16 +706,18 @@ void i_settings_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 3)
       i_setting_bg_syn_menu();
     else if (selected_wrapper.success and selected_wrapper.value == 4)
-      i_setting_wifi_menu();
+      i_setting_auto_sleep_menu();
     else if (selected_wrapper.success and selected_wrapper.value == 5)
+      i_setting_wifi_menu();
+    else if (selected_wrapper.success and selected_wrapper.value == 6)
     {
       i_setting_server_menu();
     }
-    else if (selected_wrapper.success and selected_wrapper.value == 6)
+    else if (selected_wrapper.success and selected_wrapper.value == 7)
     {
       i_setting_time();
     }
-    else if (selected_wrapper.success and selected_wrapper.value == 7)
+    else if (selected_wrapper.success and selected_wrapper.value == 8)
     {
       db_clear();
       ESP.restart();
