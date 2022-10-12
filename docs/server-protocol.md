@@ -43,6 +43,7 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
     - `time_after_sync`: Device time Actor after ntp sync
     - `dev_mode`: Dev mode activated
     - `is_actor`: IsActor
+    - `wifi_ssid`: Wifi SSID
     - Response (JSON-Array)
         - `num_msg`: Number of unread messages
         - `status_msg`: Status Broadcast

@@ -570,6 +570,10 @@ String wifi_auto_sync(String myId, String serverUrl, int serverPort, int serverT
             time_update_time_and_quota_connected();
             doc["time_after_sync"] = time_get_current_unix_time();
 
+            doc["dev_mode"] = c_dev_mode;
+            doc["is_actor"] = c_actor_mode;
+            doc["wifi_ssid"] = state_wifi_ssid;
+
             String body = "";
 
             serializeJson(doc, body);
