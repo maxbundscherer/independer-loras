@@ -14,10 +14,16 @@ char *c_cipher_key = "kjew50fkjriowdj6";
 // Boot State
 RTC_DATA_ATTR int boot_state_count = 0;
 
+RTC_DATA_ATTR char boot_state_auto_sync_msg[500];
+
 void i_workflow_independer_auto_sync()
 {
   gui_msg_static("Auto-Sync", "Gleiche Daten ab\n...");
-  wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
+  String ans = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
+  if (ans != "")
+  {
+    strcpy(boot_state_auto_sync_msg, ans.c_str());
+  }
 }
 
 /**
@@ -83,6 +89,14 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
     {
       i_workflow_independer_auto_sync();
       utils_go_to_sleep(true);
+    }
+  }
+  else
+  {
+    if (String(boot_state_auto_sync_msg) != "")
+    {
+      gui_msg_long_text("Auto-Sync", String(boot_state_auto_sync_msg));
+      strcpy(boot_state_auto_sync_msg, String("").c_str());
     }
   }
 
