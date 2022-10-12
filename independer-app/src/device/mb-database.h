@@ -38,6 +38,7 @@ void db_init(boolean is_actor, boolean isDevMode)
         state_wifi_pw = preferences.getString("pref_wifi_pw", state_wifi_pw);
         state_lora_gain = preferences.getInt("pref_lora_gain", state_lora_gain);
         state_oled_brightness = preferences.getInt("pref_oled_bri", state_oled_brightness);
+        state_auto_sleep_enabled = preferences.getInt("pref_aslp_en", state_auto_sleep_enabled);
 
         state_wifi_server_url = preferences.getString("pref_ws_url", state_wifi_server_url);
         state_wifi_server_port = preferences.getInt("pref_ws_port", state_wifi_server_port);
@@ -127,6 +128,12 @@ void db_save_oled_brightness(int value)
 {
     state_oled_brightness = value;
     i_db_write("pref_oled_bri", value);
+}
+
+void db_save_auto_sleep_enabled(int value)
+{
+    state_auto_sleep_enabled = value;
+    i_db_write("pref_aslp_en", value);
 }
 
 void db_save_wifi_server_url(String value)

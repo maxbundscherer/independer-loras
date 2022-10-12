@@ -400,7 +400,7 @@ String wifi_get_chat_messages(String myId, String serverUrl, int serverPort, int
                                  "Content-Type: application/json" + "\r\n" +
                                  "Content-Length: " + body.length() + "\r\n\r\n" +
                                  body; // + "\r\n" +
-                                       //  "Connection: close\r\n\r\n";
+            //  "Connection: close\r\n\r\n";
 
             Serial.println("Send String is '" + send_string + "'");
 
@@ -515,6 +515,165 @@ boolean wifi_clear_message(String myId, String serverUrl, int serverPort, int se
             {
                 ret = true;
             }
+
+            /* if the server disconnected, stop the client */
+            if (!i_wifi_client.connected())
+            {
+                Serial.println();
+                Serial.println("Server disconnected");
+            }
+
+            i_wifi_client.stop();
+        }
+    }
+    else
+        Serial.println("Could not send: Not connected");
+
+    i_wifi_disconnect();
+
+    return ret;
+}
+
+/*
+ * ####################################
+ *  Auto Sync Section
+ * ####################################
+ */
+
+String i_wifi_auto_sync_proc(String ret)
+{
+    if (ret != "")
+    {
+
+        int startPos = 0;
+
+        for (int i = 0; i < ret.length() and startPos == 0; i++)
+        {
+
+            String current = ret.substring(i, i + 1);
+
+            if (current == "{")
+            {
+                startPos = i;
+            }
+        }
+
+        if (startPos != 0)
+        {
+            ret = ret.substring(startPos);
+
+            DynamicJsonDocument doc(1024 * 10);
+
+            deserializeJson(doc, ret);
+            JsonObject obj = doc.as<JsonObject>();
+            JsonObject d = doc.as<JsonObject>();
+
+            // Serial.println("Got RET Object '" + String(ret) + "'");
+            // Serial.println("Got JSON Object '" + String(obj) + "'");
+
+            String act_version = d["act_version"];
+            String status_msg = d["status_msg"];
+            int num_msg = d["num_msg"];
+
+            Serial.println("Version '" + String(act_version) + "'");
+            Serial.println("Num_msg '" + String(num_msg) + "'");
+            Serial.println("status_msg '" + String(status_msg) + "'");
+
+            String r = "";
+
+            if (act_version != c_product_version)
+            {
+                r += "Neues Update verfügbar (" + act_version + "). ";
+            }
+            if (num_msg > 0)
+            {
+                r += "Neue Chat-Nachrichten verfügbar (" + String(num_msg) + "). ";
+            }
+            if (status_msg != "")
+            {
+                r += "Status-Nachricht: [" + status_msg + "]";
+            }
+
+            return r;
+        }
+    }
+
+    return "";
+}
+
+String wifi_auto_sync(String myId, String serverUrl, int serverPort, int serverTimeout, String serverDeviceToken, int boot_state_counts)
+{
+
+    gui_msg_static("Auto-Sync", "Gleiche Daten ab\n...");
+
+    char *c_wifi_server_url = const_cast<char *>(serverUrl.c_str());
+    int c_wifi_server_port = serverPort;
+    int c_wifi_timeout = serverTimeout;
+
+    String ret = "";
+
+    if (i_wifi_connect())
+    {
+        Serial.println("Connect to server (timeout " + String(c_wifi_timeout) + ") (" + c_wifi_server_url + ") (" + String(serverPort) + ")");
+        if (!i_wifi_client.connect(c_wifi_server_url, c_wifi_server_port, c_wifi_timeout))
+            Serial.println("Connection failed!");
+        else
+        {
+            Serial.println("Connected to server!");
+            // time_update_time_and_quota_connected(); below
+
+            DynamicJsonDocument doc(1024 * 10);
+
+            doc["auth-id"] = myId;
+            doc["auth-token"] = serverDeviceToken;
+
+            doc["version"] = c_product_version;
+            doc["battery"] = utils_get_battery();
+            doc["time_before_sync"] = time_get_current_unix_time();
+            time_update_time_and_quota_connected();
+            doc["time_after_sync"] = time_get_current_unix_time();
+
+            doc["dev_mode"] = c_dev_mode;
+            doc["is_actor"] = c_actor_mode;
+            doc["wifi_ssid"] = state_wifi_ssid;
+            doc["boot_counts"] = boot_state_counts;
+
+            String body = "";
+
+            serializeJson(doc, body);
+
+            String send_string = String("POST ") + "/v1/autosync" + " HTTP/1.1\r\n" +
+                                 "Host: " + String(c_wifi_server_url) + ":" + String(c_wifi_server_port) + "\r\n" +
+                                 "Content-Type: application/json" + "\r\n" +
+                                 "Content-Length: " + body.length() + "\r\n\r\n" +
+                                 body; // + "\r\n" +
+                                       //  "Connection: close\r\n\r\n";
+
+            Serial.println("Send String is '" + send_string + "'");
+
+            i_wifi_client.print(send_string);
+
+            int c_mail_max_fails = c_wifi_server_max_attempts;
+
+            int mail_fail_connect_counter = 0;
+
+            Serial.println("[Waiting for response] START");
+            while (!i_wifi_client.available() and mail_fail_connect_counter < c_mail_max_fails)
+            {
+                mail_fail_connect_counter++;
+                Serial.print("AM=" + String(mail_fail_connect_counter) + "/" + String(c_mail_max_fails) + " ");
+                delay(50);
+            }
+            Serial.println("\n[Waiting for response] STOP");
+
+            String line = "";
+            while (i_wifi_client.available())
+            {
+                line += i_wifi_client.readStringUntil('\r');
+            }
+            Serial.print("Response '" + line + "'");
+
+            ret = i_wifi_auto_sync_proc(line);
 
             /* if the server disconnected, stop the client */
             if (!i_wifi_client.connected())

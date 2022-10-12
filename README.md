@@ -26,7 +26,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - **Actor to Gateway (via LoRaS)**: Send messages via Gateway. Actors can query their messages from Gateways.
 - **Actor to Actor (via WIFI/Internet)**: Send messages via Internet. Actors can query their messages from WIFI/Internet.
 - **Who is near me?** Scan the environment to find other Independers.
-- **Many other functions**: Various test functions (Reachability Check, Reception & Transmission Evaluation), Update via WIFI, Notification LED, Deep Sleep Mode, Background-Sync, Battery Status, Send Quota & Gain, NTP-Time-Sync, Contacts...
+- **Many other functions**: Various test functions (Reachability Check, Reception & Transmission Evaluation), Update via WIFI, Notification LED, Deep Sleep Mode, Background-Sync, Battery Status, Send Quota & Gain, NTP-Time-Sync, Auto-Sync, Auto-Sleep, Contacts...
 
 ### Specifications
 

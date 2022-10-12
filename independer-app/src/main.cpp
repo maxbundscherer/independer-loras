@@ -26,7 +26,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.3.6";
+String c_product_version = "v.0.3.7";
 
 /*
  * ####################################
@@ -43,7 +43,8 @@ String state_wifi_hostname = "independer-" + String(utils_random_int(10000));
 
 int state_lora_gain = 20; // Supported values are between 2 and 17 for PA_OUTPUT_PA_BOOST_PIN, 0 and 14 for PA_OUTPUT_RFO_PIN - Saved in db
 
-int state_oled_brightness = 255; // saved in db
+int state_oled_brightness = 255;  // saved in db
+int state_auto_sleep_enabled = 1; // saved in db
 
 String state_wifi_server_url = "independer.ddns.net"; // saved in db (fixed)
 int state_wifi_server_port = 5001;                    // saved in db (fixed)

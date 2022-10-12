@@ -27,6 +27,7 @@ cur.execute('CREATE TABLE  IF NOT EXISTS messages (id serial PRIMARY KEY,'
             'author varchar (5) NOT NULL references users(appid),'
             'msg text NOT NULL,'
             'active boolean NOT NULL,'
+            'has_read boolean NOT NULL,'
             'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
             )
 conn.commit()
@@ -56,15 +57,40 @@ cur.execute('CREATE TABLE  IF NOT EXISTS history (id serial PRIMARY KEY,'
             )
 conn.commit()
 
-# Insert data into the table
+cur.execute('CREATE TABLE  IF NOT EXISTS autosync (id serial PRIMARY KEY,'
+            'appid varchar (5) NOT NULL references users(appid),'
+            'token varchar (50) NOT NULL references actors(token),'
+            'tx_version varchar (50) NOT NULL,'
+            'tx_time_before_sync bigint NOT NULL,'
+            'tx_time_after_sync bigint NOT NULL,'
+            'tx_battery integer NOT NULL,'
+            'tx_dev_mode boolean NOT NULL,'
+            'tx_is_actor boolean NOT NULL,'
+            'tx_wifi_ssid varchar (50) NOT NULL,'
+            'tx_boot_counts integer NOT NULL,'
+            'date_added timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL);'
+            )
+conn.commit()
 
-# cur.execute('INSERT INTO messages (receiver, author, msg, active)'
-#             'VALUES (%s, %s, %s, %s)',
-#             ('0xM2',
-#              '0xMB',
-#              'Hello world!',
-#              True)
-#             )
+cur.execute('CREATE TABLE  IF NOT EXISTS systemdata (id serial PRIMARY KEY,'
+            'key varchar (100) NOT NULL UNIQUE,'
+            'value text NOT NULL);'
+            )
+conn.commit()
+
+cur.execute('INSERT INTO systemdata (key, value)'
+            'VALUES (%s, %s)',
+            ('act_version',
+             'v.0.0.1')
+            )
+conn.commit()
+
+cur.execute('INSERT INTO systemdata (key, value)'
+            'VALUES (%s, %s)',
+            ('status_msg',
+             '')
+            )
+conn.commit()
 
 cur.close()
 conn.close()

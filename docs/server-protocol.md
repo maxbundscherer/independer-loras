@@ -33,3 +33,19 @@ JSON-API Independer Server. Please also visit [escape rules](escape-rules.md).
     - `auth-token`: Token
     - `gateway-id`: ID of Gateway
     - Response `OK` (string, no json) if allowed
+
+- `<server-url>/v1/autosync` (POST): Get all messages
+    - `auth-id`: Independer-ID
+    - `auth-token`: Token
+    - `version`: Version-String of Actor
+    - `battery`: Battery mV of Actor
+    - `time_before_sync`: Device time Actor before ntp sync
+    - `time_after_sync`: Device time Actor after ntp sync
+    - `dev_mode`: Dev mode activated
+    - `is_actor`: IsActor
+    - `wifi_ssid`: Wifi SSID
+    - `boot_counts`: Boot Counts
+    - Response (JSON-Array)
+        - `num_msg`: Number of unread messages
+        - `status_msg`: Status Broadcast
+        - `act_version`: Independer-Version (last release) 

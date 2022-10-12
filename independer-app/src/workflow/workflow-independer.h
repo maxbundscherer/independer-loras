@@ -14,6 +14,17 @@ char *c_cipher_key = "kjew50fkjriowdj6";
 // Boot State
 RTC_DATA_ATTR int boot_state_count = 0;
 
+RTC_DATA_ATTR char boot_state_auto_sync_msg[500];
+
+void i_workflow_independer_auto_sync()
+{
+  String ans = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token, boot_state_count);
+  if (ans != "")
+  {
+    strcpy(boot_state_auto_sync_msg, ans.c_str());
+  }
+}
+
 /**
  *
  * @return boolean isFirstBoot
@@ -49,9 +60,6 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   ++boot_state_count;
   Serial.println("Boot number: " + String(boot_state_count));
 
-  Serial.println("- Wake up reason");
-  utils_print_wakeup_reason();
-
   Serial.println("- Init LoRa");
   lora_init();
   LoRa.setSyncWord(LORA_SYNC_WORD);
@@ -71,6 +79,24 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
 
     Serial.println("- Dev Mode Output");
     time_debug_console_output();
+  }
+
+  Serial.println("- Wake up reason and sync");
+  if (utils_wakeup_reason_and_sync_flag())
+  {
+    if (isActor)
+    {
+      i_workflow_independer_auto_sync();
+      utils_go_to_sleep(true);
+    }
+  }
+  else
+  {
+    if (String(boot_state_auto_sync_msg) != "")
+    {
+      gui_msg_long_text("Auto-Sync", String(boot_state_auto_sync_msg));
+      strcpy(boot_state_auto_sync_msg, String("").c_str());
+    }
   }
 
   Serial.println("[Finished Startup]");

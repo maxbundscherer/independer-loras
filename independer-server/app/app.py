@@ -9,10 +9,12 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+
 def get_random_string(length):
     letters = string.ascii_lowercase
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
+
 
 def get_db_connection():
     conn = psycopg2.connect(
@@ -23,11 +25,13 @@ def get_db_connection():
         port=conf.getDbConfigPort())
     return conn
 
+
 def i_check_auth(appid, token):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT * FROM actors WHERE active is true AND appid = %s AND token = %s;', (appid, token))
-    
+    cur.execute(
+        'SELECT * FROM actors WHERE active is true AND appid = %s AND token = %s;', (appid, token))
+
     if cur.rowcount == 1:
         cur.close()
         conn.close()
@@ -37,13 +41,14 @@ def i_check_auth(appid, token):
         conn.close()
         return False
 
+
 def i_write_history(appid, token, url):
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute('INSERT INTO history (appid, token, url)'
-                        'VALUES (%s, %s, %s)',
-                        (appid, token, url)
-                        )
+                'VALUES (%s, %s, %s)',
+                (appid, token, url)
+                )
     conn.commit()
     cur.close()
     conn.close()
@@ -58,6 +63,7 @@ def i_write_history(appid, token, url):
 #         # Auth not passed
 #         return "Unauthorized"
 
+
 @app.route('/v1/getmsgs', methods=['POST'])
 def routeGetMessages():
 
@@ -69,7 +75,8 @@ def routeGetMessages():
             i_write_history(json["auth-id"], json["auth-token"], "/v1/getmsgs")
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('SELECT * FROM messages WHERE active is true AND receiver = %s;', (json["auth-id"],))
+            cur.execute(
+                'SELECT * FROM messages WHERE active is true AND receiver = %s;', (json["auth-id"],))
             messages = cur.fetchall()
             cur.close()
             conn.close()
@@ -78,13 +85,23 @@ def routeGetMessages():
 
             for i, messageWrapper in enumerate(messages):
                 e = {"receiver": messageWrapper[1],
-                    "author": messageWrapper[2], "msg": messageWrapper[3]}
+                     "author": messageWrapper[2], "msg": messageWrapper[3]}
                 retDict[i] = e
+
+            # Mark old messages as read
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute(
+                "UPDATE messages SET has_read = true WHERE receiver = %s;", (json["auth-id"],))
+            conn.commit()
+            cur.close()
+            conn.close()
 
             return retDict
         else:
             # Auth not passed
-            return "Unauthorized"    
+            return "Unauthorized"
+
 
 @app.route('/v1/clearmsgs', methods=['POST'])
 def routeClearMessages():
@@ -94,18 +111,21 @@ def routeClearMessages():
         json = request.json
         if i_check_auth(json["auth-id"], json["auth-token"]):
             # Auth passed
-            i_write_history(json["auth-id"], json["auth-token"], "/v1/clearmsgs")
+            i_write_history(json["auth-id"],
+                            json["auth-token"], "/v1/clearmsgs")
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('UPDATE messages SET active = false WHERE receiver = %s;', (json["auth-id"],))
+            cur.execute(
+                'UPDATE messages SET active = false WHERE receiver = %s;', (json["auth-id"],))
             conn.commit()
             cur.close()
-            conn.close()        
+            conn.close()
 
             return "OK"
         else:
             # Auth not passed
             return "Unauthorized"
+
 
 @app.route('/v1/writemsg', methods=['POST'])
 def routeWriteMessage():
@@ -115,14 +135,16 @@ def routeWriteMessage():
         json = request.json
         if i_check_auth(json["auth-id"], json["auth-token"]):
             # Auth passed
-            i_write_history(json["auth-id"], json["auth-token"], "/v1/writemsg")
+            i_write_history(json["auth-id"],
+                            json["auth-token"], "/v1/writemsg")
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('INSERT INTO messages (receiver, author, msg, active)'
-                        'VALUES (%s, %s, %s, %s)',
+            cur.execute('INSERT INTO messages (receiver, author, msg, has_read, active)'
+                        'VALUES (%s, %s, %s, %s, %s)',
                         (json["receiver"],
-                        json["auth-id"],
+                         json["auth-id"],
                             json["msg"],
+                            False,
                             True)
                         )
             conn.commit()
@@ -133,6 +155,7 @@ def routeWriteMessage():
         else:
             # Auth not passed
             return "Unauthorized"
+
 
 @app.route('/v1/register', methods=['POST'])
 def routRegister():
@@ -148,7 +171,8 @@ def routRegister():
         # Auth Check
         conn = get_db_connection()
         cur = conn.cursor()
-        cur.execute('SELECT * FROM users WHERE active is true AND appid = %s AND secret = %s;', (t_app_id, t_app_secret))
+        cur.execute(
+            'SELECT * FROM users WHERE active is true AND appid = %s AND secret = %s;', (t_app_id, t_app_secret))
         data = cur.fetchall()
         cur.close()
         conn.close()
@@ -158,7 +182,8 @@ def routRegister():
             # Disable old devices
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute("UPDATE actors SET active = false WHERE appid = %s;", (t_app_id,))
+            cur.execute(
+                "UPDATE actors SET active = false WHERE appid = %s;", (t_app_id,))
             conn.commit()
             cur.close()
             conn.close()
@@ -184,6 +209,7 @@ def routRegister():
     else:
         return 'Content-Type not supported!'
 
+
 @app.route('/v1/gatewayregister', methods=['POST'])
 def routeGatewayRegister():
 
@@ -192,10 +218,12 @@ def routeGatewayRegister():
         json = request.json
         if i_check_auth(json["auth-id"], json["auth-token"]):
             # Auth passed
-            i_write_history(json["auth-id"], json["auth-token"], "/v1/gatewayregister")
+            i_write_history(json["auth-id"],
+                            json["auth-token"], "/v1/gatewayregister")
             conn = get_db_connection()
             cur = conn.cursor()
-            cur.execute('SELECT * FROM gateways WHERE active is true AND appid = %s AND gatewayid = %s;', (json["auth-id"], json["gateway-id"]))
+            cur.execute('SELECT * FROM gateways WHERE active is true AND appid = %s AND gatewayid = %s;',
+                        (json["auth-id"], json["gateway-id"]))
 
             if cur.rowcount == 1:
                 cur.close()
@@ -209,9 +237,71 @@ def routeGatewayRegister():
             # Auth not passed
             return "Unauthorized"
 
+
+@app.route('/v1/autosync', methods=['POST'])
+def routeAutoSync():
+
+    content_type = request.headers.get('Content-Type')
+    if (content_type == 'application/json'):
+        json = request.json
+        if i_check_auth(json["auth-id"], json["auth-token"]):
+            # Auth passed
+            i_write_history(json["auth-id"],
+                            json["auth-token"], "/v1/autosync")
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute('INSERT INTO autosync (appid, token, tx_version, tx_battery, tx_time_before_sync, tx_time_after_sync, tx_dev_mode, tx_is_actor, tx_wifi_ssid, tx_boot_counts)'
+                        'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (json["auth-id"],
+                         json["auth-token"],
+                            json["version"],
+                            json["battery"],
+                            json["time_before_sync"],
+                            json["time_after_sync"],
+                            json["dev_mode"],
+                            json["is_actor"],
+                            json["wifi_ssid"],
+                            json["boot_counts"]
+                            )
+                        )
+            conn.commit()
+            cur.close()
+            conn.close()
+
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM systemdata')
+            data = cur.fetchall()
+            cur.close()
+            conn.close()
+
+            status_msg = ""
+            act_version = ""
+
+            for row in data:
+                if(row[1] == "status_msg"):
+                    status_msg = row[2]
+                elif(row[1] == "act_version"):
+                    act_version = row[2]
+
+            conn = get_db_connection()
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM messages WHERE active is %s AND has_read is %s AND receiver = %s;',
+                        (True, False, json["auth-id"]))
+            num_msg = cur.rowcount
+            cur.close()
+            conn.close()
+
+            return {"num_msg": num_msg,
+                    "status_msg": status_msg,
+                    "act_version": act_version}
+        else:
+            # Auth not passed
+            return "Unauthorized"
+
 #import os
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #  app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 
-application = app
 
+application = app

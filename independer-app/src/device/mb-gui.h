@@ -4,6 +4,8 @@
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
 #define DISPLAY_HEIGHT 64 // OLED display height, in pixels
 
+long c_patience_s = 5*60; // MAX TIME NO INPUT BEFORE SLEEP
+
 // LED Power Pin
 #define LED 25
 
@@ -546,6 +548,9 @@ S_GUI_SELECTION_ITEM gui_selection(String menu_title, String menu_items[], int c
   //  Serial.println("Num Items " + String(count_items));
   //  Serial.println("Num Pages " + String(numPages));
 
+  long patience_duration = 20; // millis
+  long patience_counter = 0;
+
   boolean hasSelected = false;
   boolean hasChanged = true;
   int curSelected = 0;
@@ -633,6 +638,8 @@ S_GUI_SELECTION_ITEM gui_selection(String menu_title, String menu_items[], int c
       char c = Wire.read();
       if (c != 0)
       {
+        // Input
+        patience_counter = 0;
         if (c == 0xB6)
         { // Press Up
           curSelected += 1;
@@ -698,6 +705,17 @@ S_GUI_SELECTION_ITEM gui_selection(String menu_title, String menu_items[], int c
         }
         if (c == 0x1B) // Press Escape
           return S_GUI_SELECTION_ITEM{false, -1};
+      }
+    }
+
+    // No input
+    if (state_auto_sleep_enabled)
+    {
+      delay(patience_duration);
+      patience_counter = patience_counter + 1;
+      if ((patience_counter * patience_duration) > (c_patience_s * 1000))
+      {
+        utils_go_to_sleep(true);
       }
     }
   }
@@ -805,6 +823,9 @@ S_GUI_INPUT_TEXT gui_input_text(String menu_title, String default_value)
   int current_length = current.length();
   int current_cursor = current_length;
 
+  long patience_duration = 20; // millis
+  long patience_counter = 0;
+
   boolean hasSelected = false;
   while (!hasSelected)
   {
@@ -817,6 +838,8 @@ S_GUI_INPUT_TEXT gui_input_text(String menu_title, String default_value)
       char c = Wire.read();
       if (c != 0)
       {
+        // Input
+        patience_counter = 0;
         // Serial.println();
         // Serial.println(c, HEX);
         // Serial.println("Current Length: " + String(current_length));
@@ -854,6 +877,17 @@ S_GUI_INPUT_TEXT gui_input_text(String menu_title, String default_value)
           current_length++;
           current_cursor++;
         }
+      }
+    }
+
+    // No input
+    if (state_auto_sleep_enabled)
+    {
+      delay(patience_duration);
+      patience_counter = patience_counter + 1;
+      if ((patience_counter * patience_duration) > (c_patience_s * 1000))
+      {
+        utils_go_to_sleep(true);
       }
     }
   }
@@ -958,6 +992,9 @@ void gui_msg_long_text(String msg_title, String msg)
   //   Serial.println("Line " + String(i) + ": '" + outStringLines[i] + "'");
   // }
 
+  long patience_duration = 20; // millis
+  long patience_counter = 0;
+
   int currentPage = 0;
   boolean hasSelected = false;
   while (!hasSelected)
@@ -977,6 +1014,8 @@ void gui_msg_long_text(String msg_title, String msg)
       char c = Wire.read();
       if (c != 0)
       {
+        // Input
+        patience_counter = 0;
         if (c == 0xB5 or c == 0xB6) // Press Down or Up
         {
           if (c == 0xB5) // Press Down
@@ -991,6 +1030,17 @@ void gui_msg_long_text(String msg_title, String msg)
         }
         else if (c == 0xD or c == 0x1B) // Press Enter or Escape
           hasSelected = true;
+      }
+    }
+
+    // No input
+    if (state_auto_sleep_enabled)
+    {
+      delay(patience_duration);
+      patience_counter = patience_counter + 1;
+      if ((patience_counter * patience_duration) > (c_patience_s * 1000))
+      {
+        utils_go_to_sleep(true);
       }
     }
   }

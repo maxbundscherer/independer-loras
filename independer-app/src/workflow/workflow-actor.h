@@ -292,8 +292,6 @@ void i_actor_functions_test_function_menu()
       "Erreichbar-Check",
       "Test Ausgabe",
       "Test Datenaustausch",
-      "Zeit sync/anzeigen",
-      "Zeit anzeigen",
       "[zurück]"};
 
   bool fin_flag = false;
@@ -320,17 +318,6 @@ void i_actor_functions_test_function_menu()
       gui_test();
     else if (selected_wrapper.success and selected_wrapper.value == 2)
       application_actor_large_data_test();
-    else if (selected_wrapper.success and selected_wrapper.value == 3)
-    {
-      gui_msg_static("Hinweis", "Frage Zeit\nab ...");
-      String r = time_sync_get_ntp_and_connect();
-      gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
-    }
-    else if (selected_wrapper.success and selected_wrapper.value == 4)
-    {
-      String r = time_get_from_local();
-      gui_msg_animated("Zeit", "Lokal\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
-    }
     else
       fin_flag = true;
   }
@@ -344,6 +331,7 @@ void i_actor_functions_menu()
       "Standby",
       "Schlaf Modus",
       "Umgebungs-Scan",
+      "Sync",
       "Update",
       "[zurück]"};
 
@@ -366,11 +354,23 @@ void i_actor_functions_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
       gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Actor)", C_GUI_DELAY_MSG_SHORT_I);
-      utils_go_to_sleep();
+      utils_go_to_sleep(true);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 4)
       application_actor_who_is_in_my_area();
     else if (selected_wrapper.success and selected_wrapper.value == 5)
+    {
+      String d = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token, boot_state_count);
+      if (d != "")
+      {
+        gui_msg_long_text("Auto-Sync", d);
+      }
+      else
+      {
+        gui_msg_animated("Info", "Keine Daten", C_GUI_DELAY_MSG_SHORT_I);
+      }
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 6)
       ota_start();
     else
       fin_flag = true;
@@ -482,6 +482,41 @@ void i_setting_bg_syn_menu()
   }
 }
 
+void i_setting_auto_sleep_menu()
+{
+  String menu_items[] = {
+      "Status",
+      "Aktivieren",
+      "Deaktivieren",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Auto-Schlaf", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected_wrapper.success and selected_wrapper.value == 0)
+    {
+      String f = "Inaktiv";
+      if (state_auto_sleep_enabled)
+        f = "Aktiv";
+      gui_msg_animated("Info", "Status Auto-Schlaf\n" + f, C_GUI_DELAY_MSG_SHORT_I);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
+    {
+      gui_msg_animated("Info", "Aktiviere Auto-Schlaf", C_GUI_DELAY_MSG_SHORT_I);
+      db_save_auto_sleep_enabled(1);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 2)
+    {
+      gui_msg_animated("Info", "Deaktiviere Auto-Schlaf", C_GUI_DELAY_MSG_SHORT_I);
+      db_save_auto_sleep_enabled(0);
+    }
+    else
+      fin_flag = true;
+  }
+}
+
 void i_setting_wifi_menu()
 {
   String menu_items[] = {
@@ -564,6 +599,34 @@ void i_setting_server_menu()
   }
 }
 
+void i_setting_time()
+{
+  String menu_items[] = {
+      "Zeit sync/anzeigen",
+      "Zeit anzeigen",
+      "[zurück]"};
+
+  bool fin_flag = false;
+  while (!fin_flag)
+  {
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Zeit", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (selected_wrapper.success and selected_wrapper.value == 0)
+    {
+      gui_msg_static("Hinweis", "Frage Zeit\nab ...");
+      String r = time_sync_get_ntp_and_connect();
+      gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 1)
+    {
+      String r = time_get_from_local();
+      gui_msg_animated("Zeit", "Lokal\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
+    }
+    else
+      fin_flag = true;
+  }
+}
+
 void i_settings_menu()
 {
   String menu_items[] = {
@@ -572,8 +635,10 @@ void i_settings_menu()
       "LoRa Gain",
       "Helligkeit",
       "Hintergrundsync",
+      "Auto-Schlaf",
       "WIFI",
       "Server",
+      "Zeit",
       "Werkseinstellungen",
       "[zurück]"};
 
@@ -641,12 +706,18 @@ void i_settings_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 3)
       i_setting_bg_syn_menu();
     else if (selected_wrapper.success and selected_wrapper.value == 4)
-      i_setting_wifi_menu();
+      i_setting_auto_sleep_menu();
     else if (selected_wrapper.success and selected_wrapper.value == 5)
+      i_setting_wifi_menu();
+    else if (selected_wrapper.success and selected_wrapper.value == 6)
     {
       i_setting_server_menu();
     }
-    else if (selected_wrapper.success and selected_wrapper.value == 6)
+    else if (selected_wrapper.success and selected_wrapper.value == 7)
+    {
+      i_setting_time();
+    }
+    else if (selected_wrapper.success and selected_wrapper.value == 8)
     {
       db_clear();
       ESP.restart();
@@ -659,6 +730,14 @@ void i_settings_menu()
 String i_workflow_rewrite_boolean(boolean value)
 {
   if (value)
+    return "Aktiv";
+  else
+    return "Inaktiv";
+}
+
+String i_workflow_rewrite_int(int value)
+{
+  if (1)
     return "Aktiv";
   else
     return "Inaktiv";
@@ -688,16 +767,19 @@ void workflow_actor_main_menu()
     gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (1/4)", "Version: " + c_product_version + "\nID: " + state_my_id + "\nGateway ID: " + state_gateway_id);
+    gui_msg_static("Info (1/5)", "Version: " + c_product_version + "\nID: " + state_my_id + "\nGateway ID: " + state_gateway_id);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (2/4)", "Actor-Modus: " + i_workflow_rewrite_boolean(c_actor_mode) + "\nEntwickler: " + i_workflow_rewrite_boolean(c_dev_mode) + "\nLoRa-Gain: " + state_lora_gain);
+    gui_msg_static("Info (2/5)", "Actor-Modus: " + i_workflow_rewrite_boolean(c_actor_mode) + "\nEntwickler: " + i_workflow_rewrite_boolean(c_dev_mode) + "\nLoRa-Gain: " + state_lora_gain);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (3/4)", "Helligkeit: " + String(state_oled_brightness) + "\nWIFI: " + state_wifi_ssid + "\nWIFI-Timeout: " + state_wifi_server_timeout);
+    gui_msg_static("Info (3/5)", "Helligkeit: " + String(state_oled_brightness) + "\nWIFI: " + state_wifi_ssid + "\nWIFI-Timeout: " + state_wifi_server_timeout);
     gui_input_char_no_output(false);
 
-    gui_msg_static("Info (4/4)", "Hintergrundsync: " + i_workflow_rewrite_boolean(multi_actor_get_state()) + "\nBatterie: " + String(utils_get_battery()) + "mV\n" + time_get_from_local());
+    gui_msg_static("Info (4/5)", "Hintergrundsync: " + i_workflow_rewrite_boolean(multi_actor_get_state()) + "\nAuto-Schlaf: " + i_workflow_rewrite_int(state_auto_sleep_enabled) + "\nBatterie: " + String(utils_get_battery()) + "mV");
+    gui_input_char_no_output(false);
+
+    gui_msg_static("Info (5/5)", "Zeit:\n" + time_get_from_local());
     gui_input_char_no_output(false);
   }
   else if (selected_wrapper.success == false)
