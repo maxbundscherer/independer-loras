@@ -82,7 +82,7 @@ S_APP_PONG application_independer_pong(String check_from_id, boolean addDebugDat
       String msg = parser_ans.message;
       if (addDebugDataToMsg)
       {
-        msg = "'" + parser_ans.message + "'\nfrom '" + parser_ans.from + "'\nRS=" + String(LoRa.packetRssi(), DEC) + " PK=" + String(parser_ans.numPackets);
+        msg = "'" + parser_ans.message + I18N_APPLICATION_FROM + parser_ans.from + I18N_APPLICATION_RS + String(LoRa.packetRssi(), DEC) + I18N_APPLICATION_PK + String(parser_ans.numPackets);
       }
 
       return S_APP_PONG{

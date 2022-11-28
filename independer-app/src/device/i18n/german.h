@@ -13,6 +13,11 @@ const String I18N_MENU_GO_BACK = "[zurück]";
 const String I18N_REWRITE_BOOL_ACTIV = "Aktiv";
 const String I18N_REWRITE_BOOL_INACTIV = "Inaktiv";
 
+const String I18N_APPLICATION_FROM = "'\nvon '";
+const String I18N_APPLICATION_RS = "'\nRS=";
+const String I18N_APPLICATION_PK = " PK=";
+
+
 // Actor
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";
