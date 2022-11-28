@@ -10,6 +10,7 @@ const String I18N_HINT_TITLE = "Hinweis";
 const String I18N_INFO_TITLE = "Info";
 const String I18N_ANS_TITLE = "Antwort";
 const String I18N_MENU_GO_BACK = "[zurück]";
+const String I18N_MENU_ABORT = "[abbrechen]";
 
 const String I18N_REWRITE_BOOL_ACTIV = "Aktiv";
 const String I18N_REWRITE_BOOL_INACTIV = "Inaktiv";
@@ -207,6 +208,12 @@ const String I18N_ACTOR_APP_QUERY_INTERNET_CHATS = "Chats";
 const String I18N_ACTOR_APP_QUERY_INTERNET_CHAT = "Chat";
 const String I18N_ACTOR_APP_QUERY_INTERNET_GET_NO_MSGS = "Keine Nachrichten\nvorhanden";
 const String I18N_ACTOR_APP_QUERY_INTERNET_GET_ERR = "Chat konnte nicht\nabgerufen werden";
+
+const String I18N_ACTOR_APP_AUTO_WIFI_SCAN_NOW = "Scanne...";
+const String I18N_ACTOR_APP_AUTO_WIFI_SSIDS = "SSIDs";
+const String I18N_ACTOR_APP_AUTO_WIFI_PW = "Passwort";
+const String I18N_ACTOR_APP_AUTO_WIFI_SAVED = "Einstellungen\ngespeichert";
+const String I18N_ACTOR_APP_AUTO_WIFI_NO_NETWORKS = "Keine Netzwerke\ngefunden";
 
 // Gateway
 

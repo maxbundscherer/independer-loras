@@ -657,7 +657,7 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
     multi_actor_stop();
   }
 
-  gui_msg_static("Hinweis", "Scanne...");
+  gui_msg_static(I18N_HINT_TITLE, I18N_ACTOR_APP_AUTO_WIFI_SCAN_NOW);
   Serial.println("WiFI AutoSave=" + String(s_autoSave));
   Serial.print("Scan start ... ");
   int n = WiFi.scanNetworks();
@@ -674,7 +674,7 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
 
     String gui_items[n + 1];
 
-    gui_items[0] = "[abbrechen]"; // Add go back item
+    gui_items[0] = I18N_MENU_ABORT; // Add go back item
 
     for (int i = 0; i < n; i++)
     {
@@ -686,14 +686,14 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
     boolean hasMesageShown = false;
     while (!hasMesageShown)
     {
-      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("SSIDs", gui_items, n - 1 + 1, false); // Add + 1 (go back item)
+      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_APP_AUTO_WIFI_SSIDS, gui_items, n - 1 + 1, false); // Add + 1 (go back item)
       if (selected_wrapper.success == false or selected_wrapper.value == 0)
         hasMesageShown = true;
       else
       {
         String t_ssid = gui_items[selected_wrapper.value];
 
-        S_GUI_INPUT_TEXT t_password_wrapper = gui_input_text("Passwort", "");
+        S_GUI_INPUT_TEXT t_password_wrapper = gui_input_text(I18N_ACTOR_APP_AUTO_WIFI_PW, "");
 
         if (t_password_wrapper.success == false)
         {
@@ -704,7 +704,7 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
         {
           Serial.println("Save now WIFI Config");
           db_save_wifi_settings(t_ssid, t_password_wrapper.value);
-          gui_msg_animated("Info", "Einstellungen\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+          gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_AUTO_WIFI_SAVED, C_GUI_DELAY_MSG_SHORT_I);
         }
         else
         {
@@ -717,7 +717,7 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
   }
   else
   {
-    gui_msg_animated("Info", "Keine Netzwerke\ngefunden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_AUTO_WIFI_NO_NETWORKS, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   return S_WIFI_CONFIG_WRAPPER{false, "", ""};
