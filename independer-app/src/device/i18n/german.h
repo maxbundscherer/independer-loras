@@ -116,8 +116,11 @@ const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_BAT_ST = "Batterie Status 
 const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_SEND_QT = "Sendekontingent (millis)";
 
 const String I18N_ACTOR_COMMUNICATIONS_LETTER = "Briefe (Gateway)";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_SHORT = "Briefe";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS = "Nachrichten (Actor)";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_SHORT = "Nachrichten";
 const String I18N_ACTOR_COMMUNICATIONS_CHAT = "Chat (Internet)";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_SHORT = "Chat";
 const String I18N_ACTOR_COMMUNICATIONS_CONTACT_BOOK = "Kontakte";
 const String I18N_ACTOR_COMMUNICATIONS_ERR_NOT_IMPL = "Leider ist die Funktion\nnoch nicht verfügbar.";
 

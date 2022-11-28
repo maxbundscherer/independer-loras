@@ -52,7 +52,7 @@ void i_communication_letters_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Briefe", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_COMMUNICATIONS_LETTER_SHORT, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
@@ -140,7 +140,7 @@ void i_communication_messages_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Nachrichten", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_COMMUNICATIONS_MSGS_SHORT, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
@@ -188,7 +188,7 @@ void i_communication_chat_menu()
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Chat", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_COMMUNICATIONS_CHAT_SHORT, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
