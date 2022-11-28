@@ -237,3 +237,6 @@ const String I18N_DEVICE_UTILS_THX = "Danke, dass du dich\nfür den Independer\n
 const String I18N_DEVICE_OTA_CONN_WITH = "Verbindet mit\n'";
 const String I18N_DEVICE_OTA_UPDATE_TITLE = "Update";
 const String I18N_DEVICE_OTA_BROWSER_GO = "Gehe im Browser auf\n'";
+
+const String I18N_DEVICE_LORA_SEND_TITLE = "Senden";
+const String I18N_DEVICE_LORA_RES_TITLE = "Empfangen";
