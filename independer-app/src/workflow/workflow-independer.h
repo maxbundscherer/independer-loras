@@ -97,7 +97,7 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   {
     if (String(boot_state_auto_sync_msg) != "")
     {
-      gui_msg_long_text("Auto-Sync", String(boot_state_auto_sync_msg));
+      gui_msg_long_text(I18N_ACTOR_AUTO_SYNC_BOOT_TITLE, String(boot_state_auto_sync_msg));
       strcpy(boot_state_auto_sync_msg, String("").c_str());
     }
   }
