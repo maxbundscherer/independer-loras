@@ -144,3 +144,7 @@ const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU = "Rettungsmenü";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_RES = "Empfänger (z.B.: 0xMB)";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_CON = "Nachricht";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_ERR_INV_RES = "Ungültiger Empfänger";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU_SEND_AGAIN = "Erneut senden";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU_CLEAN_MEM = "Speicher löschen";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU_ERR_NO_MSG = "Keine Nachrichten\ngespeichert";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU_CLEAN_NOW = "Nachrichten werden\ngelöscht";
