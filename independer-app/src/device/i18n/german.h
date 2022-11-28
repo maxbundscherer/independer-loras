@@ -5,6 +5,7 @@ void i18n_display_lang()
 
 const String I18N_ERROR_TITLE = "Fehler";
 const String I18N_HINT_TITLE = "Hinweis";
+const String I18N_INFO_TITLE = "Info";
 const String I18N_MENU_GO_BACK = "[zurück]";
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";
@@ -53,3 +54,13 @@ const String I18N_ACTOR_SETTINGS_MENU_TIME_S_LOC = "Lokal\n'";
 
 const String I18N_ACTOR_SETTINGS_MENU_SERVER_TIMEOUT = "Timeout";
 const String I18N_ACTOR_SETTINGS_MENU_SERVER_TIMEOUT_EX = "Timeout (z.B. 5000)";
+
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_AUTOMATIC = "Automatisch";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_TEST = "Testen";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_MAN_SSID = "(Manuell) SSID";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_MAN_PW = "(Manuell) Passwort";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_TEST_WIFI = "Teste WiFi\n'";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_TEST_WIFI_OK = "WiFi\nOk";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_TEST_WIFI_ERR = "WiFi\nFehler";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_SSID_TITLE = "SSID";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI_PW_TITLE = "Passwort";

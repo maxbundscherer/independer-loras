@@ -520,40 +520,40 @@ void i_setting_auto_sleep_menu()
 void i_setting_wifi_menu()
 {
   String menu_items[] = {
-      "Automatisch",
-      "Testen",
-      "(Manuell) SSID",
-      "(Manuell) Passwort",
-      "[zurück]"};
+      I18N_ACTOR_SETTINGS_MENU_WIFI_AUTOMATIC,
+      I18N_ACTOR_SETTINGS_MENU_WIFI_TEST,
+      I18N_ACTOR_SETTINGS_MENU_WIFI_MAN_SSID,
+      I18N_ACTOR_SETTINGS_MENU_WIFI_MAN_PW,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_SETTINGS_MENU_WIFI, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
       application_actor_automatic_wifi(true);
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
+      gui_msg_static(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_WIFI_TEST_WIFI + state_wifi_ssid + "'");
       if (wifi_check_status())
       {
-        gui_msg_animated("Info", "WiFi\nOk", C_GUI_DELAY_MSG_SHORT_I);
+        gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_WIFI_TEST_WIFI_OK, C_GUI_DELAY_MSG_SHORT_I);
       }
       else
       {
-        gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
+        gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_SETTINGS_MENU_WIFI_TEST_WIFI_ERR, C_GUI_DELAY_MSG_SHORT_I);
       }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
-      S_GUI_INPUT_TEXT s = gui_input_text("SSID", state_wifi_ssid);
+      S_GUI_INPUT_TEXT s = gui_input_text(I18N_ACTOR_SETTINGS_MENU_WIFI_SSID_TITLE, state_wifi_ssid);
       if (s.success)
         db_save_wifi_ssid(s.value);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
-      S_GUI_INPUT_TEXT s = gui_input_text("Passwort", state_wifi_pw);
+      S_GUI_INPUT_TEXT s = gui_input_text(I18N_ACTOR_SETTINGS_MENU_WIFI_PW_TITLE, state_wifi_pw);
       if (s.success)
         db_save_wifi_pw(s.value);
     }
