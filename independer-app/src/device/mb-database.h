@@ -281,16 +281,16 @@ void i_db_interactive_setup_actor()
     String t_wifi_pw = "";
 
     String menu_items[] = {
-        "Automatisch",
-        "(Manuell) SSID",
-        "(Manuell) Passwort",
-        "[Bestätigen]",
-        "[Ausschalten]"};
+        I18N_DEVICE_DB_INIT_WIFI_AUTO,
+        I18N_DEVICE_DB_INIT_WIFI_MAN_SSID,
+        I18N_DEVICE_DB_INIT_WIFI_MAN_PW,
+        I18N_DEVICE_DB_INIT_WIFI_OK,
+        I18N_DEVICE_DB_INIT_WIFI_OFF};
 
     bool fin_wifi_config = false;
     while (!fin_wifi_config)
     {
-        S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+        S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_DEVICE_DB_INIT_WIFI_TITLE, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
         if (selected_wrapper.success and selected_wrapper.value == 0)
         {
@@ -301,14 +301,14 @@ void i_db_interactive_setup_actor()
                 t_wifi_pw = ans.password;
                 state_wifi_ssid = t_wifi_ssid;
                 state_wifi_pw = t_wifi_pw;
-                gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
+                gui_msg_static(I18N_INFO_TITLE, I18N_DEVICE_DB_INIT_WIFI_FUN_TEST + state_wifi_ssid + "'");
                 if (wifi_check_status())
                 {
                     fin_wifi_config = true;
                 }
                 else
                 {
-                    gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
+                    gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_WIFI_ERR, C_GUI_DELAY_MSG_SHORT_I);
                 }
             }
         }

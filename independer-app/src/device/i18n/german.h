@@ -249,3 +249,13 @@ const String I18N_DEVICE_GUI_ENTER_OK = "[Enter] Ok";
 const String I18N_DEVICE_DB_INIT_TITLE = "Independer";
 const String I18N_DEVICE_DB_INIT_SUB_TITLE = "Einrichtungsmodus";
 const String I18N_DEVICE_DB_INIT_DESC = "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.";
+
+const String I18N_DEVICE_DB_INIT_WIFI_TITLE = "WIFI";
+const String I18N_DEVICE_DB_INIT_WIFI_AUTO = "Automatisch";
+const String I18N_DEVICE_DB_INIT_WIFI_MAN_SSID = "(Manuell) SSID";
+const String I18N_DEVICE_DB_INIT_WIFI_MAN_PW = "(Manuell) Passwort";
+const String I18N_DEVICE_DB_INIT_WIFI_OK = "[Bestätigen]";
+const String I18N_DEVICE_DB_INIT_WIFI_OFF = "[Ausschalten]";
+
+const String I18N_DEVICE_DB_INIT_WIFI_FUN_TEST = "Teste WIFI\n'";
+const String I18N_DEVICE_DB_INIT_WIFI_ERR = "WIFI\nFehler";
