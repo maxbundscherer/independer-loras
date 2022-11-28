@@ -747,10 +747,10 @@ void workflow_actor_main_menu()
 {
   String menu_items[] = {
       I18N_ACTOR_MAIN_MENU_COMMUNICATIONS,
-      "Actor Funktionen",
-      "Gateway Funktionen",
-      "Einstellungen",
-      "Info"};
+      I18N_ACTOR_MAIN_MENU_ACTOR_FUNCTIONS,
+      I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS,
+      I18N_ACTOR_MAIN_MENU_SETTINGS,
+      I18N_ACTOR_MAIN_MENU_INFO};
 
   S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_MAIN_MENU_TITLE, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
