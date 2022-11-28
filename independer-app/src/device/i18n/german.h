@@ -3,10 +3,14 @@ void i18n_display_lang()
     Serial.println("Set to language: German");
 }
 
+// Global
+
 const String I18N_ERROR_TITLE = "Fehler";
 const String I18N_HINT_TITLE = "Hinweis";
 const String I18N_INFO_TITLE = "Info";
 const String I18N_MENU_GO_BACK = "[zurück]";
+
+// Actor
 
 const String I18N_ACTOR_REWRITE_BOOL_ACTIV = "Aktiv";
 const String I18N_ACTOR_REWRITE_BOOL_INACTIV = "Inaktiv";
@@ -161,3 +165,11 @@ const String I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU_SEND_AGAIN = "Erneut s
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU_CLEAN = "Speicher löschen";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_ERR_NO_LETTERS = "Keine Briefe\ngespeichert";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_FUN_CLEAN_NOW = "Briefe werden\ngelöscht";
+
+// Gateway
+
+const String I18N_GATEWAY_MENU_TITLE = "Independer Gateway";
+
+const String I18N_GATEWAY_MENU_PACKETS = "Pakete: ";
+const String I18N_GATEWAY_MENU_MSGS = "Nachrichten: ";
+const String I18N_GATEWAY_MENU_DB_ITEMS = "\nDatenbank Einträge: ";

@@ -105,7 +105,7 @@ void workflow_gateway_main()
 
   if (state_gateway_has_sth_changed)
   {
-    gui_msg_static_gateway("Independer Gateway", "Pakete: " + String(state_gateway_received_packets) + " Nachrichten: " + String(state_gateway_received_messages) + "\nDatenbank Einträge: " + String(state_gateway_db_items), time_lora_quota_update_get_millis());
+    gui_msg_static_gateway(I18N_GATEWAY_MENU_TITLE, I18N_GATEWAY_MENU_PACKETS + String(state_gateway_received_packets) + I18N_GATEWAY_MENU_MSGS + String(state_gateway_received_messages) + I18N_GATEWAY_MENU_DB_ITEMS + String(state_gateway_db_items), time_lora_quota_update_get_millis());
     state_gateway_has_sth_changed = false;
   }
 
