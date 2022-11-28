@@ -485,31 +485,31 @@ void i_setting_bg_syn_menu()
 void i_setting_auto_sleep_menu()
 {
   String menu_items[] = {
-      "Status",
-      "Aktivieren",
-      "Deaktivieren",
-      "[zurück]"};
+      I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST,
+      I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ACT,
+      I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_DEACT,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Auto-Schlaf", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_SETTINGS_MENU_AUTO_SLP, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      String f = "Inaktiv";
+      String f = I18N_ACTOR_REWRITE_BOOL_INACTIV;
       if (state_auto_sleep_enabled)
-        f = "Aktiv";
-      gui_msg_animated("Info", "Status Auto-Schlaf\n" + f, C_GUI_DELAY_MSG_SHORT_I);
+        f = I18N_ACTOR_REWRITE_BOOL_ACTIV;
+      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX + f, C_GUI_DELAY_MSG_SHORT_I);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      gui_msg_animated("Info", "Aktiviere Auto-Schlaf", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX_AC, C_GUI_DELAY_MSG_SHORT_I);
       db_save_auto_sleep_enabled(1);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
-      gui_msg_animated("Info", "Deaktiviere Auto-Schlaf", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX_DEAC, C_GUI_DELAY_MSG_SHORT_I);
       db_save_auto_sleep_enabled(0);
     }
     else
@@ -730,17 +730,17 @@ void i_settings_menu()
 String i_workflow_rewrite_boolean(boolean value)
 {
   if (value)
-    return I18N_ACTOR_MAIN_REWRITE_BOOL_ACTIV;
+    return I18N_ACTOR_REWRITE_BOOL_ACTIV;
   else
-    return I18N_ACTOR_MAIN_REWRITE_BOOL_INACTIV;
+    return I18N_ACTOR_REWRITE_BOOL_INACTIV;
 }
 
 String i_workflow_rewrite_int(int value)
 {
   if (1)
-    return I18N_ACTOR_MAIN_REWRITE_BOOL_ACTIV;
+    return I18N_ACTOR_REWRITE_BOOL_ACTIV;
   else
-    return I18N_ACTOR_MAIN_REWRITE_BOOL_INACTIV;
+    return I18N_ACTOR_REWRITE_BOOL_INACTIV;
 }
 
 void workflow_actor_main_menu()

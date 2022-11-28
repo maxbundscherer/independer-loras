@@ -8,6 +8,9 @@ const String I18N_HINT_TITLE = "Hinweis";
 const String I18N_INFO_TITLE = "Info";
 const String I18N_MENU_GO_BACK = "[zurück]";
 
+const String I18N_ACTOR_REWRITE_BOOL_ACTIV = "Aktiv";
+const String I18N_ACTOR_REWRITE_BOOL_INACTIV = "Inaktiv";
+
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";
 const String I18N_ACTOR_MAIN_MENU_COMMUNICATIONS = "Kommunikation";
 const String I18N_ACTOR_MAIN_MENU_ACTOR_FUNCTIONS = "Actor Funktionen";
@@ -15,8 +18,6 @@ const String I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS = "Gateway Funktionen";
 const String I18N_ACTOR_MAIN_MENU_SETTINGS = "Einstellungen";
 const String I18N_ACTOR_MAIN_MENU_INFO = "Info";
 const String I18N_ACTOR_MAIN_MENU_ERR = "Auswahl nicht verfügbar.";
-const String I18N_ACTOR_MAIN_REWRITE_BOOL_ACTIV = "Aktiv";
-const String I18N_ACTOR_MAIN_REWRITE_BOOL_INACTIV = "Inaktiv";
 
 const String I18N_ACTOR_MAIN_MENU_INFO_PREFIX = "Info";
 const String I18N_ACTOR_MAIN_MENU_INFO_VERSION = "Version: ";
@@ -64,3 +65,11 @@ const String I18N_ACTOR_SETTINGS_MENU_WIFI_TEST_WIFI_OK = "WiFi\nOk";
 const String I18N_ACTOR_SETTINGS_MENU_WIFI_TEST_WIFI_ERR = "WiFi\nFehler";
 const String I18N_ACTOR_SETTINGS_MENU_WIFI_SSID_TITLE = "SSID";
 const String I18N_ACTOR_SETTINGS_MENU_WIFI_PW_TITLE = "Passwort";
+
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST = "Status";
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ACT = "Aktivieren";
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_DEACT = "Deaktivieren";
+
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX = "Status Auto-Schlaf\n";
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX_AC = "Aktiviere Auto-Schlaf";
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX_DEAC = "Deaktiviere Auto-Schlaf";
