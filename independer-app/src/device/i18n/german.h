@@ -190,6 +190,12 @@ const String I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_ATT = "Sende Versuch";
 const String I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_SUC = "Brief wurde\ngesendet";
 const String I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_ERR = "Brief konnte\nnicht gesendet werden";
 
+const String I18N_ACTOR_APP_QUERY_GATEWAY_ATT = "Versuch";
+const String I18N_ACTOR_APP_QUERY_GATEWAY_LETTERS = "Briefe";
+const String I18N_ACTOR_APP_QUERY_GATEWAY_LETTER = "Brief";
+const String I18N_ACTOR_APP_QUERY_GATEWAY_ER_NO_LETTER = "keine Briefe\nvorhanden";
+const String I18N_ACTOR_APP_QUERY_GATEWAY_ER_NO_RES = "Briefe konnten\nnicht empfangen werden";
+
 // Gateway
 
 const String I18N_GATEWAY_MENU_TITLE = "Independer Gateway";

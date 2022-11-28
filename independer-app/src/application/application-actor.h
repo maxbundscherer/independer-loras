@@ -296,7 +296,7 @@ void application_actor_query_msgs_from_gateway()
   {
     l_attempt++;
 
-    gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_QUERY_GATEWAY_ATT, l_attempt, 0, c_max_ping_retries);
 
     delay(C_GUI_DELAY_STATIC_SHORT);
 
@@ -394,20 +394,20 @@ void application_actor_query_msgs_from_gateway()
             gui_items[i_msg] = r;
           }
 
-          gui_items[numMessages] = "[zurück]"; // Add go back item
+          gui_items[numMessages] = I18N_MENU_GO_BACK; // Add go back item
 
           boolean hasMesageShown = false;
           while (!hasMesageShown)
           {
-            S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Briefe", gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
+            S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_APP_QUERY_GATEWAY_LETTERS, gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
             if (selected_wrapper.success == false or selected_wrapper.value == numMessages)
               hasMesageShown = true;
             else
-              gui_msg_long_text("Brief", gui_items[selected_wrapper.value]);
+              gui_msg_long_text(I18N_ACTOR_APP_QUERY_GATEWAY_LETTER, gui_items[selected_wrapper.value]);
           }
         }
         else
-          gui_msg_animated("Info", "keine Briefe\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
+          gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_QUERY_GATEWAY_ER_NO_LETTER, C_GUI_DELAY_MSG_MIDDLE_I);
       }
       else
       {
@@ -423,7 +423,7 @@ void application_actor_query_msgs_from_gateway()
 
   if (!resSuccess)
   {
-    gui_msg_animated("Fehler", "Briefe konnten\nnicht empfangen werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_QUERY_GATEWAY_ER_NO_RES, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 }
 
