@@ -326,19 +326,19 @@ void i_actor_functions_test_function_menu()
 void i_actor_functions_menu()
 {
   String menu_items[] = {
-      "Status Menü",
-      "Test Menü",
-      "Standby",
-      "Schlaf Modus",
-      "Umgebungs-Scan",
-      "Sync",
-      "Update",
-      "[zurück]"};
+      I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU,
+      I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU,
+      I18N_ACTOR_ACTOR_FUNCTIONS_STANDBY,
+      I18N_ACTOR_ACTOR_FUNCTIONS_SLP_MODE,
+      I18N_ACTOR_ACTOR_FUNCTIONS_ENV_SCAN,
+      I18N_ACTOR_ACTOR_FUNCTIONS_SYNC,
+      I18N_ACTOR_ACTOR_FUNCTIONS_UPD,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Actor Funktionen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_MAIN_MENU_ACTOR_FUNCTIONS, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
       i_actor_functions_status_function_menu();

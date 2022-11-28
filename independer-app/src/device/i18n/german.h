@@ -93,3 +93,11 @@ const String I18N_ACTOR_GATEWAY_FUNCTIONS_ST_SEND_CONFIG = "Sende Konfiguration"
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_ERR_NOT_OWNED = "Ungültige ID\n(nicht registriert)";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_ERR_NO_VALID_ID = "Ungültige ID";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_RESET = "Werkseinstellungen\n(Gateway)";
+
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU = "Status Menü";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU = "Test Menü";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STANDBY = "Standby";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_SLP_MODE = "Schlaf Modus";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_ENV_SCAN = "Umgebungs Scan";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_SYNC = "Sync";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_UPD = "Update";
