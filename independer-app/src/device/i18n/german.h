@@ -109,3 +109,8 @@ const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_OUT = "Test Ausgabe";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_SHARE = "Test Datenaustausch";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_RES_ID = "Empfänger (z.B.: 0xMB)";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_ERR_INVALID_RES = "Ungültiger Empfänger";
+
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_BAT_ST = "Batterie Status";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_SEND_QT = "Sendekontingent";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_BAT_ST = "Batterie Status (mV)";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_SEND_QT = "Sendekontingent (millis)";

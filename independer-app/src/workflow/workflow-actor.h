@@ -267,20 +267,20 @@ void i_communication_menu()
 void i_actor_functions_status_function_menu()
 {
   String menu_items[] = {
-      "Batterie Status",
-      "Sendekontingent",
-      "[zurück]"};
+      I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_BAT_ST,
+      I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_SEND_QT,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
 
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Status Menü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
-      gui_display_prg_animated("Batterie Status (mV)", utils_get_battery(), 1950, 3100, C_GUI_DELAY_MSG_SHORT_I);
+      gui_display_prg_animated(I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_BAT_ST, utils_get_battery(), 1950, 3100, C_GUI_DELAY_MSG_SHORT_I);
     else if (selected_wrapper.success and selected_wrapper.value == 1)
-      gui_display_prg_animated("Sendekontingent (millis)", time_lora_quota_update_get_millis(), 0, (C_LORA_QUOTA_CONTINGENT_SECONDS * 1000), C_GUI_DELAY_MSG_SHORT_I);
+      gui_display_prg_animated(I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_SEND_QT, time_lora_quota_update_get_millis(), 0, (C_LORA_QUOTA_CONTINGENT_SECONDS * 1000), C_GUI_DELAY_MSG_SHORT_I);
     else
       fin_flag = true;
   }
