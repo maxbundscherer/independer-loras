@@ -451,29 +451,29 @@ void i_gateway_functions_menu()
 void i_setting_bg_syn_menu()
 {
   String menu_items[] = {
-      "Status",
-      "Aktivieren",
-      "Deaktivieren",
-      "[zurück]"};
+      I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST,
+      I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ACT,
+      I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_DEACT,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Hintergrundsync", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      gui_msg_animated("Info", "Status Hintergrundsync\n" + multi_actor_get_state_string(), C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX + multi_actor_get_state_string(), C_GUI_DELAY_MSG_SHORT_I);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      gui_msg_animated("Info", "Aktiviere Hintergrundsync", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX_AC, C_GUI_DELAY_MSG_SHORT_I);
       if (!multi_actor_get_state())
         multi_actor_start();
     }
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
-      gui_msg_animated("Info", "Deaktiviere Hintergrundsync", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX_DEAC, C_GUI_DELAY_MSG_SHORT_I);
       if (multi_actor_get_state())
         multi_actor_stop();
     }

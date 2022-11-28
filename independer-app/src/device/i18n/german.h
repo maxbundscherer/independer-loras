@@ -69,7 +69,13 @@ const String I18N_ACTOR_SETTINGS_MENU_WIFI_PW_TITLE = "Passwort";
 const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST = "Status";
 const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ACT = "Aktivieren";
 const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_DEACT = "Deaktivieren";
-
 const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX = "Status Auto-Schlaf\n";
-const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX_AC = "Aktiviere Auto-Schlaf";
-const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX_DEAC = "Deaktiviere Auto-Schlaf";
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX_AC = "Aktiviere\nAuto-Schlaf";
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX_DEAC = "Deaktiviere\nAuto-Schlaf";
+
+const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST = "Status";
+const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ACT = "Aktivieren";
+const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_DEACT = "Deaktivieren";
+const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX = "Status Hintergrundsync\n";
+const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX_AC = "Aktiviere\nHintergrundsync";
+const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX_DEAC = "Deaktiviere\nHintergrundsync";
