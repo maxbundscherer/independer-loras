@@ -136,3 +136,8 @@ const String I18N_ACTOR_COMMUNICATIONS_CHAT_ERR_INVAL_RES = "Ungültiger Empfän
 const String I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_NOW = "Chat wird\ngelöscht...";
 const String I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_CLEANED = "Chat wurde\ngelöscht.";
 const String I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_ERR = "Chat konnte nicht\ngelöscht werden.";
+
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_WRITE = "Nachricht schreiben";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_READ = "Nachricht lesen";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_CLEAN = "Nachricht leeren";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU = "Rettungsmenü";

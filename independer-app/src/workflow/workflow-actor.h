@@ -131,11 +131,11 @@ void i_communication_messages_recovery_menu()
 void i_communication_messages_menu()
 {
   String menu_items[] = {
-      "Nachricht schreiben",
-      "Nachrichten lesen",
-      "Nachrichten leeren",
-      "Rettungsmenü",
-      "[zurück]"};
+      I18N_ACTOR_COMMUNICATIONS_MSGS_WRITE,
+      I18N_ACTOR_COMMUNICATIONS_MSGS_READ,
+      I18N_ACTOR_COMMUNICATIONS_MSGS_CLEAN,
+      I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
