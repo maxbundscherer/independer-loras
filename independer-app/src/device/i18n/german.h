@@ -17,7 +17,6 @@ const String I18N_APPLICATION_FROM = "'\nvon '";
 const String I18N_APPLICATION_RS = "'\nRS=";
 const String I18N_APPLICATION_PK = " PK=";
 
-
 // Actor
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";
@@ -178,6 +177,9 @@ const String I18N_ACTOR_MULTI_ACTOR_MSG = "Nachricht";
 const String I18N_ACTOR_MULTI_ACTOR_CLEAN_MSG = "Leere Nachrichten";
 
 const String I18N_ACTOR_APP_ENV_SCAN = "Umgebungs-Scan";
+const String I18N_ACTOR_APP_ENV_SCAN_RS = "' RS=";
+const String I18N_ACTOR_APP_ENV_SCAN_OUTPUT_T = "Scan Ausgabe";
+const String I18N_ACTOR_APP_ENV_SCAN_DETAIL_T = "Scan Detail";
 
 // Gateway
 

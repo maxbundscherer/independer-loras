@@ -80,21 +80,21 @@ void application_actor_who_is_in_my_area()
 
     for (int i = 0; i < collected_counter; i++)
     {
-      String r = collected_db[i].attempt + ": (" + collected_db[i].deviceId + ") '" + collected_db[i].deviceMsg + "' RS=" + collected_db[i].receivedRssi;
+      String r = collected_db[i].attempt + ": (" + collected_db[i].deviceId + ") '" + collected_db[i].deviceMsg + I18N_ACTOR_APP_ENV_SCAN_RS + collected_db[i].receivedRssi;
       // Serial.println("Scan Item '" + r + "'");
       gui_items[i] = r;
     }
 
-    gui_items[collected_counter] = "[zurück]"; // Add go back item
+    gui_items[collected_counter] = I18N_MENU_GO_BACK; // Add go back item
 
     boolean hasComp = false;
     while (!hasComp)
     {
-      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Scan Ausgabe", gui_items, collected_counter - 1 + 1, false); // Add + 1 (go back item)
+      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_APP_ENV_SCAN_OUTPUT_T, gui_items, collected_counter - 1 + 1, false); // Add + 1 (go back item)
       if (selected_wrapper.success == false or selected_wrapper.value == collected_counter)
         hasComp = true;
       else
-        gui_msg_long_text("Scan Detail", gui_items[selected_wrapper.value]);
+        gui_msg_long_text(I18N_ACTOR_APP_ENV_SCAN_DETAIL_T, gui_items[selected_wrapper.value]);
     }
   }
 
