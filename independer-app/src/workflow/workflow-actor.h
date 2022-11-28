@@ -380,27 +380,27 @@ void i_actor_functions_menu()
 void i_gateway_functions_menu()
 {
   String menu_items[] = {
-      "Schlaf Modus",
-      "Update",
-      "Einrichtung",
-      "Werkseinstellungen",
-      "[zurück]"};
+      I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS_SLEEP_MODE,
+      I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS_UPDATE,
+      I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS_INIT,
+      I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS_RESET,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Gateway Funktionen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_INFO_TITLE, "Aktiviere Schlafmodus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
       delay(C_INDEPENDER_SEND_DELAY_REPEAT);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      gui_msg_animated("Info", "Aktiviere Update-Modus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_INFO_TITLE, "Aktiviere Update-Modus\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       String sendString = "C;up;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw);
       lora_send_msg(state_my_id, state_gateway_id, sendString, state_lora_gain);
     }
@@ -416,29 +416,29 @@ void i_gateway_functions_menu()
           {
             if (utils_is_valid_receiver(msg_gateway_id_wrapper.value))
             {
-              gui_msg_static("Info", "Prüfe ID");
+              gui_msg_static(I18N_INFO_TITLE, "Prüfe ID");
               if (wifi_register_device_gateway(state_my_id, msg_gateway_id_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token))
               {
-                gui_msg_static("Info", "Sende Konfiguration");
+                gui_msg_static(I18N_INFO_TITLE, "Sende Konfiguration");
                 String sendString = "C;init;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw) + ";" + utils_encode_data(msg_gateway_id_wrapper.value);
                 lora_send_msg(state_my_id, msg_showed_id_wrapper.value, sendString, state_lora_gain);
               }
               else
               {
-                gui_msg_animated("Fehler", "ID nicht im\ngültig!", C_GUI_DELAY_MSG_SHORT_I);
+                gui_msg_animated(I18N_ERROR_TITLE, "ID nicht im\ngültig!", C_GUI_DELAY_MSG_SHORT_I);
               }
             }
             else
-              gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+              gui_msg_animated(I18N_ERROR_TITLE, "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
           }
         }
         else
-          gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+          gui_msg_animated(I18N_ERROR_TITLE, "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
       }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
-      gui_msg_animated("Info", "Werkseinstellungen\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_INFO_TITLE, "Werkseinstellungen\n(Gateway)", C_GUI_DELAY_MSG_SHORT_I);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
       delay(C_INDEPENDER_SEND_DELAY_REPEAT);
       lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);

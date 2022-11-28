@@ -79,3 +79,8 @@ const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_DEACT = "Deaktivieren";
 const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX = "Status Hintergrundsync\n";
 const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX_AC = "Aktiviere\nHintergrundsync";
 const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC_ST_EX_DEAC = "Deaktiviere\nHintergrundsync";
+
+const String I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS_SLEEP_MODE = "Schlaf Modus";
+const String I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS_UPDATE = "Update";
+const String I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS_INIT = "Einrichtung";
+const String I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS_RESET = "Werkseinstellungen";
