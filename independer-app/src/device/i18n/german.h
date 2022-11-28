@@ -4,6 +4,7 @@ void i18n_display_lang()
 }
 
 const String I18N_ERROR_TITLE = "Fehler";
+const String I18N_MENU_GO_BACK = "[zurück]";
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";
 const String I18N_ACTOR_MAIN_MENU_COMMUNICATIONS = "Kommunikation";
@@ -30,3 +31,15 @@ const String I18N_ACTOR_MAIN_MENU_INFO_WIFI_T = "\nWIFI-Timeout: ";
 const String I18N_ACTOR_MAIN_MENU_INFO_AUTO_SLP = "\nAuto-Schlaf: ";
 const String I18N_ACTOR_MAIN_MENU_INFO_BATTERY = "\nBatterie: ";
 const String I18N_ACTOR_MAIN_MENU_INFO_BATTERY_U = "mV";
+
+const String I18N_ACTOR_SETTINGS_MENU_TITLE = "Einstellungen";
+const String I18N_ACTOR_SETTINGS_MENU_GID = "Gateway ID";
+const String I18N_ACTOR_SETTINGS_MENU_LORA_GAIN = "LoRa Gain";
+const String I18N_ACTOR_SETTINGS_MENU_BRI = "Helligkeit";
+const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC = "Hintergrundsync";
+const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP = "Auto-Schlaf";
+const String I18N_ACTOR_SETTINGS_MENU_WIFI = "WIFI";
+const String I18N_ACTOR_SETTINGS_MENU_SERVER = "Server";
+const String I18N_ACTOR_SETTINGS_MENU_RESET = "Werkseinstellungen";
+const String I18N_ACTOR_SETTINGS_MENU_TIME = "Zeit";
+const String I18N_ACTOR_SETTINGS_MENU_ERR_INV_ID = "Ungültige ID";

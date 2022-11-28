@@ -631,21 +631,21 @@ void i_settings_menu()
 {
   String menu_items[] = {
       // "Meine ID",
-      "Gateway ID",
-      "LoRa Gain",
-      "Helligkeit",
-      "Hintergrundsync",
-      "Auto-Schlaf",
-      "WIFI",
-      "Server",
-      "Zeit",
-      "Werkseinstellungen",
-      "[zurück]"};
+      I18N_ACTOR_SETTINGS_MENU_GID,
+      I18N_ACTOR_SETTINGS_MENU_LORA_GAIN,
+      I18N_ACTOR_SETTINGS_MENU_BRI,
+      I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC,
+      I18N_ACTOR_SETTINGS_MENU_AUTO_SLP,
+      I18N_ACTOR_SETTINGS_MENU_WIFI,
+      I18N_ACTOR_SETTINGS_MENU_SERVER,
+      I18N_ACTOR_SETTINGS_MENU_TIME,
+      I18N_ACTOR_SETTINGS_MENU_RESET,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Einstellungen", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_SETTINGS_MENU_TITLE, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     // if (selected_wrapper.success and selected_wrapper.value == 0)
     // {
@@ -664,7 +664,7 @@ void i_settings_menu()
     // }
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      S_GUI_INPUT_TEXT m_wrapper = gui_input_text("Gateway ID (z.B.: 0gMB)", state_gateway_id);
+      S_GUI_INPUT_TEXT m_wrapper = gui_input_text(I18N_ACTOR_SETTINGS_MENU_GID, state_gateway_id);
       if (m_wrapper.success)
       {
         if (utils_is_valid_receiver(m_wrapper.value))
@@ -673,13 +673,13 @@ void i_settings_menu()
         }
         else
         {
-          gui_msg_animated("Info", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+          gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_SETTINGS_MENU_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
         }
       }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("LoRa Gain (1-20)", String(state_lora_gain));
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text(I18N_ACTOR_SETTINGS_MENU_LORA_GAIN + " (1-20)", String(state_lora_gain));
 
       if (ans_wrapper.success)
       {
@@ -692,7 +692,7 @@ void i_settings_menu()
     }
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
-      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Helligkeit (0-255)", String(state_oled_brightness));
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text(I18N_ACTOR_SETTINGS_MENU_BRI + " (0-255)", String(state_oled_brightness));
       if (ans_wrapper.success)
       {
         if (ans_wrapper.value.toInt() > 255)
