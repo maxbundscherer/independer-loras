@@ -157,3 +157,7 @@ const String I18N_ACTOR_COMMUNICATIONS_LETTER_RES = "Empfänger (z.B.: 0xMB)";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_CON = "Brief";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_ERR_INV_RES = "Ungültiger Empfänger";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_FUN_CLEAN = "Leere Briefe\n(Gateway)";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU_SEND_AGAIN = "Erneut senden";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU_CLEAN = "Speicher löschen";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_ERR_NO_LETTERS = "Keine Briefe\ngespeichert";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_FUN_CLEAN_NOW = "Briefe werden\ngelöscht";

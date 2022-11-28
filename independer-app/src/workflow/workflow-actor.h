@@ -7,14 +7,14 @@
 void i_communication_letters_recovery_menu()
 {
   String menu_items[] = {
-      "Erneut senden",
-      "Speicher löschen",
-      "[zurück]"};
+      I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU_SEND_AGAIN,
+      I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU_CLEAN,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Rettungsmenü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
@@ -26,12 +26,12 @@ void i_communication_letters_recovery_menu()
       }
       else
       {
-        gui_msg_animated("Fehler", "Keine Briefe\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+        gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_COMMUNICATIONS_LETTER_ERR_NO_LETTERS, C_GUI_DELAY_MSG_SHORT_I);
       }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      gui_msg_animated("Hinweis", "Briefe werden\ngelöscht", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_COMMUNICATIONS_LETTER_FUN_CLEAN_NOW, C_GUI_DELAY_MSG_SHORT_I);
       db_clear_letter();
     }
 
