@@ -180,10 +180,10 @@ void i_communication_messages_menu()
 void i_communication_chat_menu()
 {
   String menu_items[] = {
-      "Nachricht schreiben",
-      "Chat abrufen",
-      "Chat leeren",
-      "[zurück]"};
+      I18N_ACTOR_COMMUNICATIONS_CHAT_WRITE,
+      I18N_ACTOR_COMMUNICATIONS_CHAT_GET,
+      I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
@@ -192,32 +192,32 @@ void i_communication_chat_menu()
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      S_GUI_INPUT_TEXT msg_res_wrapper = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      S_GUI_INPUT_TEXT msg_res_wrapper = gui_input_text(I18N_ACTOR_COMMUNICATIONS_CHAT_RES, "0x");
       if (msg_res_wrapper.success)
       {
         if (utils_is_valid_receiver(msg_res_wrapper.value))
         {
-          S_GUI_INPUT_TEXT msg_tx_wrapper = gui_input_text("Inhalt", "");
+          S_GUI_INPUT_TEXT msg_tx_wrapper = gui_input_text(I18N_ACTOR_COMMUNICATIONS_CHAT_CON, "");
           if (msg_tx_wrapper.success)
           {
 
             msg_tx_wrapper.value = utils_encode_data(msg_tx_wrapper.value);
 
-            gui_msg_static("Hinweis", "Nachricht wird\ngesendet");
+            gui_msg_static(I18N_HINT_TITLE, I18N_ACTOR_COMMUNICATIONS_CHAT_ST_SEND_MSG);
             boolean suc = wifi_send_chat_message(msg_res_wrapper.value, state_my_id, msg_tx_wrapper.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
             if (suc)
             {
-              gui_msg_animated("Info", "Nachricht gesendet", C_GUI_DELAY_MSG_SHORT_I);
+              gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_COMMUNICATIONS_CHAT_ST_SENT_MSG, C_GUI_DELAY_MSG_SHORT_I);
             }
             else
             {
-              gui_msg_animated("Info", "Nachricht konnte\nnicht versendet werden", C_GUI_DELAY_MSG_SHORT_I);
+              gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_COMMUNICATIONS_CHAT_ERR_SEND_MSG, C_GUI_DELAY_MSG_SHORT_I);
             }
           }
         }
         else
         {
-          gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+          gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_COMMUNICATIONS_CHAT_ERR_INVAL_RES, C_GUI_DELAY_MSG_SHORT_I);
         }
       }
     }
@@ -225,11 +225,11 @@ void i_communication_chat_menu()
       application_actor_query_msgs_from_internet(state_my_id);
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
-      gui_msg_static("Hinweis", "Chat wird\ngelöscht...");
+      gui_msg_static(I18N_HINT_TITLE, I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_NOW);
       if (wifi_clear_message(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token))
-        gui_msg_animated("Info", "Chat wurde\ngelöscht.", C_GUI_DELAY_MSG_SHORT_I);
+        gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_CLEANED, C_GUI_DELAY_MSG_SHORT_I);
       else
-        gui_msg_animated("Info", "Chat konnte nicht\ngelöscht werden.", C_GUI_DELAY_MSG_SHORT_I);
+        gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_ERR, C_GUI_DELAY_MSG_SHORT_I);
     }
     else
       fin_flag = true;

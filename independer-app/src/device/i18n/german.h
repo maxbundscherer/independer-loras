@@ -124,3 +124,15 @@ const String I18N_ACTOR_COMMUNICATIONS_CHAT_SHORT = "Chat";
 const String I18N_ACTOR_COMMUNICATIONS_CONTACT_BOOK = "Kontakte";
 const String I18N_ACTOR_COMMUNICATIONS_ERR_NOT_IMPL = "Leider ist die Funktion\nnoch nicht verfügbar.";
 
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_WRITE = "Nachricht schreiben";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_GET = "Chat abrufen";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN = "Chat leeren";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_RES = "Empfänger (z.B.: 0xMB)";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_CON = "Inhalt";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_ST_SEND_MSG = "Nachricht wird\ngesendet";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_ST_SENT_MSG = "Nachricht gesendet";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_ERR_SEND_MSG = "Nachricht konnte\nnicht versendet werden";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_ERR_INVAL_RES = "Ungültiger Empfänger";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_NOW = "Chat wird\ngelöscht...";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_CLEANED = "Chat wurde\ngelöscht.";
+const String I18N_ACTOR_COMMUNICATIONS_CHAT_CLEAN_FUN_ERR = "Chat konnte nicht\ngelöscht werden.";
