@@ -84,3 +84,13 @@ const String I18N_ACTOR_GATEWAY_FUNCTIONS_SLEEP_MODE = "Schlaf Modus";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_UPDATE = "Update";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_INIT = "Einrichtung";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_RESET = "Werkseinstellungen";
+
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_SLP = "Aktiviere Schlafmodus\n(Gateway)";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_UPD = "Aktiviere Update-Modus\n(Gateway)";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_S_SHOWED_ID = "Angezeigte ID (z.B.: 0g01)";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_S_G_ID = "Gateway ID (z.B.: 0g01)";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_ST_CHECK_ID = "Prüfe ID";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_ST_SEND_CONFIG = "Sende Konfiguration";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_ERR_NOT_OWNED = "Ungültige ID\n(nicht registriert)";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_ERR_NO_VALID_ID = "Ungültige ID";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_RESET = "Werkseinstellungen\n(Gateway)";
