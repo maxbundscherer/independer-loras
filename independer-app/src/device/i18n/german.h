@@ -156,3 +156,4 @@ const String I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU = "Rettungsmenü";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_RES = "Empfänger (z.B.: 0xMB)";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_CON = "Brief";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_ERR_INV_RES = "Ungültiger Empfänger";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_FUN_CLEAN = "Leere Briefe\n(Gateway)";
