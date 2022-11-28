@@ -144,14 +144,14 @@ void i_communication_messages_menu()
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      S_GUI_INPUT_TEXT msg_res_wrapper = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      S_GUI_INPUT_TEXT msg_res_wrapper = gui_input_text(I18N_ACTOR_COMMUNICATIONS_MSGS_RES, "0x");
 
       if (msg_res_wrapper.success)
       {
 
         if (utils_is_valid_receiver(msg_res_wrapper.value))
         {
-          S_GUI_INPUT_TEXT msg_tx_wrapper = gui_input_text("Nachricht", "");
+          S_GUI_INPUT_TEXT msg_tx_wrapper = gui_input_text(I18N_ACTOR_COMMUNICATIONS_MSGS_CON, "");
           if (msg_tx_wrapper.success)
           {
             msg_tx_wrapper.value = utils_encode_data(msg_tx_wrapper.value);
@@ -162,7 +162,7 @@ void i_communication_messages_menu()
         }
         else
         {
-          gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+          gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_COMMUNICATIONS_MSGS_ERR_INV_RES, C_GUI_DELAY_MSG_SHORT_I);
         }
       }
     }

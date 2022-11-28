@@ -141,3 +141,6 @@ const String I18N_ACTOR_COMMUNICATIONS_MSGS_WRITE = "Nachricht schreiben";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_READ = "Nachricht lesen";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_CLEAN = "Nachricht leeren";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU = "Rettungsmenü";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_RES = "Empfänger (z.B.: 0xMB)";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_CON = "Nachricht";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS_ERR_INV_RES = "Ungültiger Empfänger";
