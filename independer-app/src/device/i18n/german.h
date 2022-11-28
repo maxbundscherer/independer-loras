@@ -222,3 +222,9 @@ const String I18N_GATEWAY_MENU_TITLE = "Independer Gateway";
 const String I18N_GATEWAY_MENU_PACKETS = "Pakete: ";
 const String I18N_GATEWAY_MENU_MSGS = " Nachrichten: ";
 const String I18N_GATEWAY_MENU_DB_ITEMS = "\nDatenbank Einträge: ";
+
+// Device
+
+const String I18N_DEVICE_WIFI_AUTO_SYNC_PROC_NEW_UPDATE = "Neues Update verfügbar (";
+const String I18N_DEVICE_WIFI_AUTO_SYNC_PROC_NEW_CHAT_MSGS = "Neue Chat-Nachrichten verfügbar (";
+const String I18N_DEVICE_WIFI_AUTO_SYNC_PROC_STATUS_MSG = "Status-Nachricht: [";

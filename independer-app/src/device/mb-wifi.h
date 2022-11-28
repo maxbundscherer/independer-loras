@@ -583,15 +583,15 @@ String i_wifi_auto_sync_proc(String ret)
 
             if (act_version != c_product_version)
             {
-                r += "Neues Update verfügbar (" + act_version + "). ";
+                r += I18N_DEVICE_WIFI_AUTO_SYNC_PROC_NEW_UPDATE + act_version + "). ";
             }
             if (num_msg > 0)
             {
-                r += "Neue Chat-Nachrichten verfügbar (" + String(num_msg) + "). ";
+                r += I18N_DEVICE_WIFI_AUTO_SYNC_PROC_NEW_CHAT_MSGS + String(num_msg) + "). ";
             }
             if (status_msg != "")
             {
-                r += "Status-Nachricht: [" + status_msg + "]";
+                r += I18N_DEVICE_WIFI_AUTO_SYNC_PROC_STATUS_MSG + status_msg + "]";
             }
 
             return r;
