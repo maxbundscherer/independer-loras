@@ -101,6 +101,11 @@ const String I18N_ACTOR_ACTOR_FUNCTIONS_SLP_MODE = "Schlaf Modus";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_ENV_SCAN = "Umgebungs Scan";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_SYNC = "Auto-Sync (manuell)";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_UPD = "Update";
-
 const String I18N_ACTOR_ACTOR_FUNCTIONS_FUN_ACT_SLP = "Aktiviere Schlafmodus\n(Actor)";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_SYNC_ERR_NO_DATA = "Keine Daten";
+
+const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_REACH_CH = "Erreichbar-Check";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_OUT = "Test Ausgabe";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_SHARE = "Test Datenaustausch";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_RES_ID = "Empfänger (z.B.: 0xMB)";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_ERR_INVALID_RES = "Ungültiger Empfänger";

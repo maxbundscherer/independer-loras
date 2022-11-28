@@ -289,19 +289,19 @@ void i_actor_functions_status_function_menu()
 void i_actor_functions_test_function_menu()
 {
   String menu_items[] = {
-      "Erreichbar-Check",
-      "Test Ausgabe",
-      "Test Datenaustausch",
-      "[zurück]"};
+      I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_REACH_CH,
+      I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_OUT,
+      I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_SHARE,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Test Menü", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Empfänger (z.B.: 0xMB)", "0x");
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text(I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_RES_ID, "0x");
       if (ans_wrapper.success)
       {
         if (utils_is_valid_receiver(ans_wrapper.value))
@@ -310,7 +310,7 @@ void i_actor_functions_test_function_menu()
         }
         else
         {
-          gui_msg_animated("Fehler", "Ungültiger Empfänger", C_GUI_DELAY_MSG_SHORT_I);
+          gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_ERR_INVALID_RES, C_GUI_DELAY_MSG_SHORT_I);
         }
       }
     }
