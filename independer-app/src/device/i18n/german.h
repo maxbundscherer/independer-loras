@@ -185,6 +185,11 @@ const String I18N_ACTOR_APP_ENV_SCAN_DETAIL_T = "Scan Detail";
 const String I18N_ACTOR_APP_REACH_CH_ATTEMPT = "Erreichbar-Check Versuch";
 const String I18N_ACTOR_APP_REACH_ERR_NO_RES = "keine Antwort\nerhalten";
 
+const String I18N_ACTOR_APP_SEND_TO_GATEWAY_ERR_GA_NOT_REACH = "Gateway ist\nnicht erreichbar";
+const String I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_ATT = "Sende Versuch";
+const String I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_SUC = "Brief wurde\ngesendet";
+const String I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_ERR = "Brief konnte\nnicht gesendet werden";
+
 // Gateway
 
 const String I18N_GATEWAY_MENU_TITLE = "Independer Gateway";

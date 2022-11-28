@@ -204,7 +204,7 @@ boolean application_actor_send_msg_to_gateway(String receiverId, String userMsg)
 
   if (!isAvailable)
   {
-    gui_msg_animated("Fehler", "Gateway ist\nnicht erreichbar", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_SEND_TO_GATEWAY_ERR_GA_NOT_REACH, C_GUI_DELAY_MSG_MIDDLE_I);
     if (sync_was_on_flag)
     {
       multi_actor_start();
@@ -223,7 +223,7 @@ boolean application_actor_send_msg_to_gateway(String receiverId, String userMsg)
   {
     l_attempt++;
 
-    gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_ATT, l_attempt, 0, c_max_ping_retries);
 
     delay(C_INDEPENDER_SEND_DELAY);
 
@@ -259,11 +259,11 @@ boolean application_actor_send_msg_to_gateway(String receiverId, String userMsg)
 
   if (sendSuccess)
   {
-    gui_msg_animated("Info", "Brief wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_SUC, C_GUI_DELAY_MSG_MIDDLE_I);
   }
   else
   {
-    gui_msg_animated("Fehler", "Brief konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_ERR, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   return sendSuccess;
