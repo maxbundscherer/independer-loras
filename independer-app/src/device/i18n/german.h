@@ -50,3 +50,6 @@ const String I18N_ACTOR_SETTINGS_MENU_TIME_SHOW = "Zeit anzeigen";
 const String I18N_ACTOR_SETTINGS_MENU_TIME_S_NOW = "Frage Zeit\nab ...";
 const String I18N_ACTOR_SETTINGS_MENU_TIME_S_RES = "Empfangen\n'";
 const String I18N_ACTOR_SETTINGS_MENU_TIME_S_LOC = "Lokal\n'";
+
+const String I18N_ACTOR_SETTINGS_MENU_SERVER_TIMEOUT = "Timeout";
+const String I18N_ACTOR_SETTINGS_MENU_SERVER_TIMEOUT_EX = "Timeout (z.B. 5000)";

@@ -567,13 +567,13 @@ void i_setting_server_menu()
   String menu_items[] = {
       // "URL",
       // "Port",
-      "Timeout",
-      "[zurück]"};
+      I18N_ACTOR_SETTINGS_MENU_SERVER_TIMEOUT,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Server", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_SETTINGS_MENU_SERVER, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     // if (selected_wrapper.success and selected_wrapper.value == 0)
     // {
@@ -590,7 +590,7 @@ void i_setting_server_menu()
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
 
-      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text("Timeout (z.B. 5000)", String(state_wifi_server_timeout));
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text(I18N_ACTOR_SETTINGS_MENU_SERVER_TIMEOUT_EX, String(state_wifi_server_timeout));
       if (ans_wrapper.success)
         db_save_wifi_server_timeout(ans_wrapper.value.toInt());
     }
