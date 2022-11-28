@@ -231,3 +231,5 @@ const String I18N_DEVICE_WIFI_AUTO_SYNC_PROC_STATUS_MSG = "Status-Nachricht: [";
 
 const String I18N_DEVICE_WIFI_AUTO_SYNC_TITLE = "Auto-Sync";
 const String I18N_DEVICE_WIFI_AUTO_SYNC_NOW = "Gleiche Daten ab\n...";
+
+const String I18N_DEVICE_UTILS_THX = "Danke, dass du dich\nfür den Independer\nentschieden hast!";
