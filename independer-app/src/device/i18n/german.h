@@ -200,6 +200,8 @@ const String I18N_ACTOR_APP_SEND_TO_ACTOR_ATT = "Sende Versuch";
 const String I18N_ACTOR_APP_SEND_TO_ACTOR_SEND_SUC = "Nachricht wurde\ngesendet";
 const String I18N_ACTOR_APP_SEND_TO_ACTOR_SEND_ERR = "Nachricht konnte\nnicht gesendet werden";
 
+const String I18N_ACTOR_APP_LARGE_DATA_MSG = "Nachricht";
+
 // Gateway
 
 const String I18N_GATEWAY_MENU_TITLE = "Independer Gateway";

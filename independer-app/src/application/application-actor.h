@@ -527,16 +527,16 @@ void application_actor_large_data_test()
     multi_actor_stop();
   }
 
-  gui_msg_animated("Info", "Nachricht 1", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Du bist mein Sonnenschein!"), state_lora_gain);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_LARGE_DATA_MSG+ " 1", 100);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Vestibulum iaculis semper diam"), state_lora_gain);
 
-  gui_msg_animated("Info", "Nachricht 2", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hey. Wie geht es dir?"), state_lora_gain);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_LARGE_DATA_MSG + " 2", 100);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Lorem ipsum dolor sit amet"), state_lora_gain);
 
-  gui_msg_animated("Info", "Nachricht 3", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hi. Wie geht es dir? Was machst du so?"), state_lora_gain);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_LARGE_DATA_MSG + " 3", 100);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Suspendisse potenti. Nunc semper ac."), state_lora_gain);
 
-  gui_msg_animated("Info", "Nachricht 4", 100);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_LARGE_DATA_MSG + " 4", 100);
   lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis semper diam, sit amet egestas nunc semper sodales. Suspendisse potenti. Nunc semper ac dolor sit amet dapibus. Maecenas dui dolor, fringilla id varius at, posuere at justo. Aenean a lacinia turpis, id maximus nibh. Quisque congue vestibulum feugiat. Nullam id dui gravida nunc aliquam aliquam sed at est. Suspendisse in lacinia leo, sit amet consectetur sem."), state_lora_gain);
 
   if (sync_was_on_flag)
