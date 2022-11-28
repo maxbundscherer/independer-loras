@@ -454,7 +454,7 @@ boolean application_actor_send_msg_actor_to_actor(String receiverId, String user
   {
     l_attempt++;
 
-    gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_SEND_TO_ACTOR_ATT, l_attempt, 0, c_max_ping_retries);
 
     delay(C_GUI_DELAY_STATIC_SHORT);
 
@@ -501,11 +501,11 @@ boolean application_actor_send_msg_actor_to_actor(String receiverId, String user
 
   if (sendSuccess)
   {
-    gui_msg_animated("Info", "Nachricht wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_SEND_TO_ACTOR_SEND_SUC, C_GUI_DELAY_MSG_MIDDLE_I);
   }
   else
   {
-    gui_msg_animated("Fehler", "Nachricht konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_SEND_TO_ACTOR_SEND_ERR, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   return sendSuccess;
