@@ -240,3 +240,8 @@ const String I18N_DEVICE_OTA_BROWSER_GO = "Gehe im Browser auf\n'";
 
 const String I18N_DEVICE_LORA_SEND_TITLE = "Senden";
 const String I18N_DEVICE_LORA_RES_TITLE = "Empfangen";
+
+const String I18N_DEVICE_GUI_ACTOR = " Aktor\n";
+const String I18N_DEVICE_GUI_GATEWAY = " Gateway\n";
+const String I18N_DEVICE_GUI_BY = " von ";
+const String I18N_DEVICE_GUI_ENTER_OK = "[Enter] Ok";

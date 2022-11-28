@@ -355,9 +355,9 @@ void gui_logo_static(String version_string, String my_id, String gateway_id, boo
   display.setFont(ArialMT_Plain_10);
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   if (isActor)
-    display.drawString(8, 35, version_string + " Actor\n" + my_id + " -> " + gateway_id);
+    display.drawString(8, 35, version_string + I18N_DEVICE_GUI_ACTOR + my_id + " -> " + gateway_id);
   else
-    display.drawString(8, 35, version_string + " Gateway\n" + gateway_id + " by " + gateway_owner);
+    display.drawString(8, 35, version_string + I18N_DEVICE_GUI_GATEWAY + gateway_id + I18N_DEVICE_GUI_BY + gateway_owner);
   display.display();
 }
 
@@ -803,7 +803,7 @@ void i_gui_input_single_line(String menu_title, String val, int current_cursor)
   display.drawString(5, 10 * 2 + 2, out);
 
   display.setTextAlignment(TEXT_ALIGN_RIGHT);
-  display.drawString(128 - 5, 64 - 15, "[Enter] Ok");
+  display.drawString(128 - 5, 64 - 15, I18N_DEVICE_GUI_ENTER_OK);
 
   display.display();
 }
