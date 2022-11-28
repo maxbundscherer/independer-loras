@@ -171,5 +171,5 @@ const String I18N_ACTOR_COMMUNICATIONS_LETTER_FUN_CLEAN_NOW = "Briefe werden\nge
 const String I18N_GATEWAY_MENU_TITLE = "Independer Gateway";
 
 const String I18N_GATEWAY_MENU_PACKETS = "Pakete: ";
-const String I18N_GATEWAY_MENU_MSGS = "Nachrichten: ";
+const String I18N_GATEWAY_MENU_MSGS = " Nachrichten: ";
 const String I18N_GATEWAY_MENU_DB_ITEMS = "\nDatenbank Einträge: ";
