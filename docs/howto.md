@@ -19,7 +19,7 @@ This means that you can only communicate with other Independers if they do not p
 
 Unfortunately, this is technically necessary at the moment to ensure that, for example, no ID has been assigned twice in the official community.
 
-Technically, unregistered Independers use a different sync word in LoRa connections.  This means that they can only be heard by other unregistered Independents.
+Technically, unregistered Independers use a different sync word in LoRa connections. This means that they can only be heard by other unregistered Independers.
 
 Use this [form](https://forms.gle/TChcaEvHBXyWu7XQA) to register your Independer.
 
