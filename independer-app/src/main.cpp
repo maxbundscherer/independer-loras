@@ -4,6 +4,7 @@
 #include <LoRa.h>
 #include <ArduinoJson.h>
 #include "device/mb-utils.h"
+#include "device/mb-i18n.h"
 
 #if IS_RELEASE
 boolean c_dev_mode = false;

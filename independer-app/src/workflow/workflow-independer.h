@@ -45,6 +45,9 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   Serial.println();
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));
 
+  Serial.println("- Set Language");
+  i18n_display_lang();
+
   Serial.println("- Init Display");
   gui_init_display();
 
