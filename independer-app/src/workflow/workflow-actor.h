@@ -239,16 +239,16 @@ void i_communication_chat_menu()
 void i_communication_menu()
 {
   String menu_items[] = {
-      "Briefe (Gateway)",
-      "Nachrichten (Actor)",
-      "Chat (Internet)",
-      "Kontakte",
-      "[zurück]"};
+      I18N_ACTOR_COMMUNICATIONS_LETTER,
+      I18N_ACTOR_COMMUNICATIONS_MSGS,
+      I18N_ACTOR_COMMUNICATIONS_CHAT,
+      I18N_ACTOR_COMMUNICATIONS_CONTACT_BOOK,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Kommunikation", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_MAIN_MENU_COMMUNICATIONS, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
       i_communication_letters_menu();
@@ -257,7 +257,7 @@ void i_communication_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 2)
       i_communication_chat_menu();
     else if (selected_wrapper.success and selected_wrapper.value == 3)
-      gui_msg_animated("Info", "Leider ist die Funktion\n'Kontakte'\nnoch nicht verfügbar.", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_COMMUNICATIONS_ERR_NOT_IMPL, C_GUI_DELAY_MSG_SHORT_I);
 
     else
       fin_flag = true;
