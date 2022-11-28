@@ -43,11 +43,11 @@ void i_communication_letters_recovery_menu()
 void i_communication_letters_menu()
 {
   String menu_items[] = {
-      "Brief schreiben",
-      "Briefe abrufen",
-      "Briefe leeren",
-      "Rettungsmenü",
-      "[zurück]"};
+      I18N_ACTOR_COMMUNICATIONS_LETTER_WRITE,
+      I18N_ACTOR_COMMUNICATIONS_LETTER_GET,
+      I18N_ACTOR_COMMUNICATIONS_LETTER_CLEAN,
+      I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)

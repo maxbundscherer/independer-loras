@@ -148,3 +148,8 @@ const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU_SEND_AGAIN = "Erneut sen
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU_CLEAN_MEM = "Speicher löschen";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU_ERR_NO_MSG = "Keine Nachrichten\ngespeichert";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_RESCUE_MENU_CLEAN_NOW = "Nachrichten werden\ngelöscht";
+
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_WRITE = "Brief schreiben";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_GET = "Briefe abrufen";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_CLEAN = "Briefe leeren";
+const String I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU = "Rettungsmenü";
