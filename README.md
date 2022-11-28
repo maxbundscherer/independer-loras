@@ -45,16 +45,6 @@ This repository describes the concept, the project structure, the encrypted Lora
 
 Anyone can **contribute to the project** and **build their own device**. Many more features like GPS visualization, environment scanner, touch screen, alternative transmission and encryption functions are waiting **in the future**!
 
-### Included
-
-- [Website](https://a-sdr.org/independer)
-- [Documentation](docs/)
-- [Sourcecode Independer ESP32 (C/C++)](independer-app/)
-- [Sourcecode Independer Server (Python Flask Application)](independer-server/)
-- [Docker Image Independer Server for Linux & Raspberry Pi](independer-server/)
-- [3D-printed Case](case/)
-- [Releases](https://github.com/maxbundscherer/independer-loras/releases/)
-
 ### Documentation
 
 - [How-to, Hardware and Cost Overview](docs/howto.md)
@@ -66,6 +56,16 @@ Anyone can **contribute to the project** and **build their own device**. Many mo
 - [Server-Protocol](docs/server-protocol.md)
 
 The current state of development can be viewed on the [project board](https://github.com/maxbundscherer/independer-loras/projects/2).
+
+### Included
+
+- [Website](https://a-sdr.org/independer)
+- [Documentation](docs/)
+- [Sourcecode Independer ESP32 (C/C++)](independer-app/)
+- [Sourcecode Independer Server (Python Flask Application)](independer-server/)
+- [Docker Image Independer Server for Linux & Raspberry Pi](independer-server/)
+- [3D-printed Case](case/)
+- [Releases](https://github.com/maxbundscherer/independer-loras/releases/)
 
 ## More pictures
 
