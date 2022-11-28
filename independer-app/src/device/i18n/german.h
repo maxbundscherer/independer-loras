@@ -256,6 +256,8 @@ const String I18N_DEVICE_DB_INIT_WIFI_MAN_SSID = "(Manuell) SSID";
 const String I18N_DEVICE_DB_INIT_WIFI_MAN_PW = "(Manuell) Passwort";
 const String I18N_DEVICE_DB_INIT_WIFI_OK = "[Bestätigen]";
 const String I18N_DEVICE_DB_INIT_WIFI_OFF = "[Ausschalten]";
-
 const String I18N_DEVICE_DB_INIT_WIFI_FUN_TEST = "Teste WIFI\n'";
 const String I18N_DEVICE_DB_INIT_WIFI_ERR = "WIFI\nFehler";
+
+const String I18N_DEVICE_DB_INIT_WIFI_SSID = "SSID";
+const String I18N_DEVICE_DB_INIT_WIFI_PW = "Passwort";

@@ -314,13 +314,13 @@ void i_db_interactive_setup_actor()
         }
         else if (selected_wrapper.success and selected_wrapper.value == 1)
         {
-            S_GUI_INPUT_TEXT s = gui_input_text("SSID", t_wifi_ssid);
+            S_GUI_INPUT_TEXT s = gui_input_text(I18N_DEVICE_DB_INIT_WIFI_SSID, t_wifi_ssid);
             if (s.success)
                 t_wifi_ssid = s.value;
         }
         else if (selected_wrapper.success and selected_wrapper.value == 2)
         {
-            S_GUI_INPUT_TEXT s = gui_input_text("Passwort", t_wifi_pw);
+            S_GUI_INPUT_TEXT s = gui_input_text(I18N_DEVICE_DB_INIT_WIFI_PW, t_wifi_pw);
             if (s.success)
                 t_wifi_pw = s.value;
         }
@@ -328,14 +328,14 @@ void i_db_interactive_setup_actor()
         {
             state_wifi_ssid = t_wifi_ssid;
             state_wifi_pw = t_wifi_pw;
-            gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
+            gui_msg_static(I18N_INFO_TITLE, I18N_DEVICE_DB_INIT_WIFI_FUN_TEST + state_wifi_ssid + "'");
             if (wifi_check_status())
             {
                 fin_wifi_config = true;
             }
             else
             {
-                gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
+                gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_WIFI_ERR, C_GUI_DELAY_MSG_SHORT_I);
             }
         }
         else
