@@ -260,6 +260,6 @@ String multi_actor_get_state_string()
 {
 
   if (state_multi_is_active)
-    return "Aktiv";
-  return "Inaktiv";
+    return I18N_REWRITE_BOOL_ACTIV;
+  return I18N_REWRITE_BOOL_INACTIV;
 }
