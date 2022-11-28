@@ -21,9 +21,7 @@ Unfortunately, this is technically necessary at the moment to ensure that, for e
 
 Technically, unregistered Independers use a different sync word in LoRa connections.  This means that they can only be heard by other unregistered Independents.
 
-## Hardware
-
-### Overview
+## Hardware Overview
 
 - Heltec ESP32 WiFi/LoRa v2 with OLED-Screen (SX1276 V2, 868-915MHz) ([Amazon](https://www.amazon.de/-/en/gp/product/B078M74NNN/)) (≈ 25 €)
 - (alternative) LILYGO TTGO ESP32 (LoRa32 V2.1 1.6.1 Version LoRa ESP-32 OLED 0.96 Inch SD Card Bluetooth WiFi Module (868 MHz) ) ([Amazon](https://www.amazon.de/gp/product/B08T984WCT/)) (≈ 27 €)
@@ -36,7 +34,7 @@ Technically, unregistered Independers use a different sync word in LoRa connecti
 
 In total ≈ 45 - 55 € per device (without shipping).
 
-## How to connect pins
+## Connect pins
 
 ### Heltec Board
 
