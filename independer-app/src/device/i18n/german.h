@@ -4,6 +4,7 @@ void i18n_display_lang()
 }
 
 const String I18N_ERROR_TITLE = "Fehler";
+const String I18N_HINT_TITLE = "Hinweis";
 const String I18N_MENU_GO_BACK = "[zurück]";
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";
@@ -43,3 +44,9 @@ const String I18N_ACTOR_SETTINGS_MENU_SERVER = "Server";
 const String I18N_ACTOR_SETTINGS_MENU_RESET = "Werkseinstellungen";
 const String I18N_ACTOR_SETTINGS_MENU_TIME = "Zeit";
 const String I18N_ACTOR_SETTINGS_MENU_ERR_INV_ID = "Ungültige ID";
+
+const String I18N_ACTOR_SETTINGS_MENU_TIME_SYNC_SHOW = "Zeit sync/anzeigen";
+const String I18N_ACTOR_SETTINGS_MENU_TIME_SHOW = "Zeit anzeigen";
+const String I18N_ACTOR_SETTINGS_MENU_TIME_S_NOW = "Frage Zeit\nab ...";
+const String I18N_ACTOR_SETTINGS_MENU_TIME_S_RES = "Empfangen\n'";
+const String I18N_ACTOR_SETTINGS_MENU_TIME_S_LOC = "Lokal\n'";

@@ -602,25 +602,25 @@ void i_setting_server_menu()
 void i_setting_time()
 {
   String menu_items[] = {
-      "Zeit sync/anzeigen",
-      "Zeit anzeigen",
-      "[zurück]"};
+      I18N_ACTOR_SETTINGS_MENU_TIME_SYNC_SHOW,
+      I18N_ACTOR_SETTINGS_MENU_TIME_SHOW,
+      I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
   while (!fin_flag)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Zeit", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_SETTINGS_MENU_TIME, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      gui_msg_static("Hinweis", "Frage Zeit\nab ...");
+      gui_msg_static(I18N_HINT_TITLE, I18N_ACTOR_SETTINGS_MENU_TIME_S_NOW);
       String r = time_sync_get_ntp_and_connect();
-      gui_msg_animated("Zeit", "Empfangen\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
+      gui_msg_animated(I18N_ACTOR_SETTINGS_MENU_TIME, I18N_ACTOR_SETTINGS_MENU_TIME_S_RES + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
       String r = time_get_from_local();
-      gui_msg_animated("Zeit", "Lokal\n'" + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
+      gui_msg_animated(I18N_ACTOR_SETTINGS_MENU_TIME, I18N_ACTOR_SETTINGS_MENU_TIME_S_LOC + r + "'", C_GUI_DELAY_MSG_MIDDLE_I);
     }
     else
       fin_flag = true;
