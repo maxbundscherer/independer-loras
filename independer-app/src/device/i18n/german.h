@@ -233,3 +233,7 @@ const String I18N_DEVICE_WIFI_AUTO_SYNC_TITLE = "Auto-Sync";
 const String I18N_DEVICE_WIFI_AUTO_SYNC_NOW = "Gleiche Daten ab\n...";
 
 const String I18N_DEVICE_UTILS_THX = "Danke, dass du dich\nfür den Independer\nentschieden hast!";
+
+const String I18N_DEVICE_OTA_CONN_WITH = "Verbindet mit\n'";
+const String I18N_DEVICE_OTA_UPDATE_TITLE = "Update";
+const String I18N_DEVICE_OTA_BROWSER_GO = "Gehe im Browser auf\n'";
