@@ -497,9 +497,9 @@ void i_setting_auto_sleep_menu()
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      String f = I18N_ACTOR_REWRITE_BOOL_INACTIV;
+      String f = I18N_REWRITE_BOOL_INACTIV;
       if (state_auto_sleep_enabled)
-        f = I18N_ACTOR_REWRITE_BOOL_ACTIV;
+        f = I18N_REWRITE_BOOL_ACTIV;
       gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_SETTINGS_MENU_AUTO_SLP_ST_EX + f, C_GUI_DELAY_MSG_SHORT_I);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
@@ -730,17 +730,17 @@ void i_settings_menu()
 String i_workflow_rewrite_boolean(boolean value)
 {
   if (value)
-    return I18N_ACTOR_REWRITE_BOOL_ACTIV;
+    return I18N_REWRITE_BOOL_ACTIV;
   else
-    return I18N_ACTOR_REWRITE_BOOL_INACTIV;
+    return I18N_REWRITE_BOOL_INACTIV;
 }
 
 String i_workflow_rewrite_int(int value)
 {
   if (1)
-    return I18N_ACTOR_REWRITE_BOOL_ACTIV;
+    return I18N_REWRITE_BOOL_ACTIV;
   else
-    return I18N_ACTOR_REWRITE_BOOL_INACTIV;
+    return I18N_REWRITE_BOOL_INACTIV;
 }
 
 void workflow_actor_main_menu()

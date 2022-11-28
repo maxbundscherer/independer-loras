@@ -10,10 +10,10 @@ const String I18N_HINT_TITLE = "Hinweis";
 const String I18N_INFO_TITLE = "Info";
 const String I18N_MENU_GO_BACK = "[zurück]";
 
-// Actor
+const String I18N_REWRITE_BOOL_ACTIV = "Aktiv";
+const String I18N_REWRITE_BOOL_INACTIV = "Inaktiv";
 
-const String I18N_ACTOR_REWRITE_BOOL_ACTIV = "Aktiv";
-const String I18N_ACTOR_REWRITE_BOOL_INACTIV = "Inaktiv";
+// Actor
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";
 const String I18N_ACTOR_MAIN_MENU_COMMUNICATIONS = "Kommunikation";
