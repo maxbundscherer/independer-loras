@@ -38,7 +38,7 @@ void application_actor_who_is_in_my_area()
     delay(C_INDEPENDER_SEND_DELAY_REPEAT);
     lora_send_msg_short_message(state_my_id, "*", C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL, state_lora_gain);
 
-    gui_display_prg_static("Umgebungs-Scan", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_ENV_SCAN, l_attempt, 0, c_max_ping_retries);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts)

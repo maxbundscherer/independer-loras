@@ -177,6 +177,8 @@ const String I18N_ACTOR_MULTI_ACTOR_TITLE = "Nachrichten";
 const String I18N_ACTOR_MULTI_ACTOR_MSG = "Nachricht";
 const String I18N_ACTOR_MULTI_ACTOR_CLEAN_MSG = "Leere Nachrichten";
 
+const String I18N_ACTOR_APP_ENV_SCAN = "Umgebungs-Scan";
+
 // Gateway
 
 const String I18N_GATEWAY_MENU_TITLE = "Independer Gateway";
