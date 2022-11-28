@@ -2,7 +2,7 @@
 
 ### How to build your own device
 
--  Read `Harware Overview` below.
+-  Read `Hardware Overview` below.
 - Print [3D-Case](../case/export).
 - Connect antenna.
 - (Opt. - on Actor) Connect the keyboard to the ESP32 board. Read `How to connect pins` below.
