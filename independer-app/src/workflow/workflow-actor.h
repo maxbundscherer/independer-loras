@@ -746,13 +746,13 @@ String i_workflow_rewrite_int(int value)
 void workflow_actor_main_menu()
 {
   String menu_items[] = {
-      "Kommunikation",
+      I18N_ACTOR_MAIN_MENU_COMMUNICATIONS,
       "Actor Funktionen",
       "Gateway Funktionen",
       "Einstellungen",
       "Info"};
 
-  S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Independer", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+  S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_MAIN_MENU_TITLE, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
   if (selected_wrapper.success and selected_wrapper.value == 0)
     i_communication_menu();
