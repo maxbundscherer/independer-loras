@@ -12,6 +12,8 @@ String I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS = "Gateway Funktionen";
 String I18N_ACTOR_MAIN_MENU_SETTINGS = "Einstellungen";
 String I18N_ACTOR_MAIN_MENU_INFO = "Info";
 String I18N_ACTOR_MAIN_MENU_ERR = "Auswahl nicht verfügbar.";
+String I18N_ACTOR_MAIN_REWRITE_BOOL_ACTIV = "Aktiv";
+String I18N_ACTOR_MAIN_REWRITE_BOOL_INACTIV = "Inaktiv";
 
 String I18N_ACTOR_MAIN_MENU_INFO_PREFIX = "Info";
 String I18N_ACTOR_MAIN_MENU_INFO_VERSION = "Version: ";

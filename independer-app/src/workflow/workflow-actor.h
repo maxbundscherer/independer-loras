@@ -730,17 +730,17 @@ void i_settings_menu()
 String i_workflow_rewrite_boolean(boolean value)
 {
   if (value)
-    return "Aktiv";
+    return I18N_ACTOR_MAIN_REWRITE_BOOL_ACTIV;
   else
-    return "Inaktiv";
+    return I18N_ACTOR_MAIN_REWRITE_BOOL_INACTIV;
 }
 
 String i_workflow_rewrite_int(int value)
 {
   if (1)
-    return "Aktiv";
+    return I18N_ACTOR_MAIN_REWRITE_BOOL_ACTIV;
   else
-    return "Inaktiv";
+    return I18N_ACTOR_MAIN_REWRITE_BOOL_INACTIV;
 }
 
 void workflow_actor_main_menu()
