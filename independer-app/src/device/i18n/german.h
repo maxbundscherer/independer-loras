@@ -202,6 +202,12 @@ const String I18N_ACTOR_APP_SEND_TO_ACTOR_SEND_ERR = "Nachricht konnte\nnicht ge
 
 const String I18N_ACTOR_APP_LARGE_DATA_MSG = "Nachricht";
 
+const String I18N_ACTOR_APP_QUERY_INTERNET_GET_MSG = "Nachrichten werden\nabgerufen";
+const String I18N_ACTOR_APP_QUERY_INTERNET_CHATS = "Chats";
+const String I18N_ACTOR_APP_QUERY_INTERNET_CHAT = "Chat";
+const String I18N_ACTOR_APP_QUERY_INTERNET_GET_NO_MSGS = "Keine Nachrichten\nvorhanden";
+const String I18N_ACTOR_APP_QUERY_INTERNET_GET_ERR = "Chat konnte nicht\nabgerufen werden";
+
 // Gateway
 
 const String I18N_GATEWAY_MENU_TITLE = "Independer Gateway";

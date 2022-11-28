@@ -554,7 +554,7 @@ void application_actor_large_data_test()
 void application_actor_query_msgs_from_internet(String myId)
 {
 
-  gui_msg_static("Hinweis", "Nachrichten werden\nabgerufen");
+  gui_msg_static(I18N_HINT_TITLE, I18N_ACTOR_APP_QUERY_INTERNET_GET_MSG);
   String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
   // Serial.println("Query Messages from Internet: '" + ret + "'");
 
@@ -615,28 +615,28 @@ void application_actor_query_msgs_from_internet(String myId)
       if (i_msg_count > 0)
       {
 
-        messages_buffer[i_msg_count] = "[zurück]"; // Add go back item
+        messages_buffer[i_msg_count] = I18N_MENU_GO_BACK; // Add go back item
 
         boolean hasMesageShown = false;
         while (!hasMesageShown)
         {
-          S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Chats", messages_buffer, i_msg_count - 1 + 1, false); // Add + 1 (go back item)
+          S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_APP_QUERY_INTERNET_CHATS, messages_buffer, i_msg_count - 1 + 1, false); // Add + 1 (go back item)
           if (selected_wrapper.success == false or selected_wrapper.value == i_msg_count)
             hasMesageShown = true;
           else
-            gui_msg_long_text("Chat", messages_buffer[selected_wrapper.value]);
+            gui_msg_long_text(I18N_ACTOR_APP_QUERY_INTERNET_CHAT, messages_buffer[selected_wrapper.value]);
         }
       }
       else
       {
-        gui_msg_animated("Hinweis", "Keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
+        gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_APP_QUERY_INTERNET_GET_NO_MSGS, C_GUI_DELAY_MSG_MIDDLE_I);
       }
 
       return;
     }
   }
 
-  gui_msg_animated("Fehler", "Chat konnte nicht\nabgerufen werden", C_GUI_DELAY_MSG_MIDDLE_I);
+  gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_QUERY_INTERNET_GET_ERR, C_GUI_DELAY_MSG_MIDDLE_I);
 
   return;
 }
