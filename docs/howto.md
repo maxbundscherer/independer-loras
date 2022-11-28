@@ -7,7 +7,7 @@
 - Connect antenna.
 - (Opt. - on Actor) Connect the keyboard to the ESP32 board. Read `How to connect pins` below.
 - (Opt. - on Actor) Connect the battery to the ESP32 board.
-- Upload software to ESP32 board. Use a tool for flashing-esp32 with ``.bin`` file from [Update-Doc](update.md).
+- Upload software to ESP32 board. Upload ``.bin`` file from [Releases](https://github.com/maxbundscherer/independer-loras/releases/) to ESP32 board.
 - (Alternative) Upload software to ESP32 board. Read `Build and upload (single device)` in [Developer Overview](../docs/developer.md). This is only necessary when initializing. After that, you can update via WIFI. See [Update-Doc](update.md).
 - When setting up the device for the first time, a configuration wizard is started automatically.
 - For some functions like online chat, update-check and in order to use Gateways the Independer must be registered. Use this [form](https://forms.gle/TChcaEvHBXyWu7XQA) to register your Independer.
