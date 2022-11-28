@@ -167,6 +167,10 @@ const String I18N_ACTOR_COMMUNICATIONS_LETTER_ERR_NO_LETTERS = "Keine Briefe\nge
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_FUN_CLEAN_NOW = "Briefe werden\ngelöscht";
 
 const String I18N_ACTOR_AUTO_SYNC_BOOT_TITLE = "Auto-Sync";
+const String I18N_ACTOR_MULTI_ACTOR_NO_MSG_AVA = "keine Nachrichten\nvorhanden";
+const String I18N_ACTOR_MULTI_ACTOR_TITLE = "Nachrichten";
+const String I18N_ACTOR_MULTI_ACTOR_MSG = "Nachricht";
+const String I18N_ACTOR_MULTI_ACTOR_CLEAN_MSG = "Leere Nachrichten";
 
 // Gateway
 
