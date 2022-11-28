@@ -228,3 +228,6 @@ const String I18N_GATEWAY_MENU_DB_ITEMS = "\nDatenbank Einträge: ";
 const String I18N_DEVICE_WIFI_AUTO_SYNC_PROC_NEW_UPDATE = "Neues Update verfügbar (";
 const String I18N_DEVICE_WIFI_AUTO_SYNC_PROC_NEW_CHAT_MSGS = "Neue Chat-Nachrichten verfügbar (";
 const String I18N_DEVICE_WIFI_AUTO_SYNC_PROC_STATUS_MSG = "Status-Nachricht: [";
+
+const String I18N_DEVICE_WIFI_AUTO_SYNC_TITLE = "Auto-Sync";
+const String I18N_DEVICE_WIFI_AUTO_SYNC_NOW = "Gleiche Daten ab\n...";
