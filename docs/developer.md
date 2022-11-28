@@ -27,6 +27,15 @@ The application is started through [PlatformIO](https://platformio.org/). Please
 - Run Script `independer-app/package.sh`
 - View files in `independer-app/export/`
 
+##### After Release (Release Workflow)
+
+- Run previous steps.
+- Merge `develop` into `master`.
+- Create new release on GitHub (with files in `independer-app/export`).
+- (Opt.) update Independer-Server.
+- Increment Version in Independer-Server SQL-Table.
+- Announcement new release (Signal, Facebook, Website, Product Presentation, GitHub)
+
 ### Upload code via WIFI
 
 - See steps above.

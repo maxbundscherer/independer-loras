@@ -57,7 +57,7 @@ Anyone can **contribute to the project** and **build their own device**. Many mo
 
 ### Documentation
 
-- [Hardware, Cost Overview, and How-to](docs/hardware.md)
+- [How-to, Hardware and Cost Overview](docs/howto.md)
 - [Antenna Measurements](docs/antenna-measurements.md)
 - [Update over WIFI](docs/update.md)
 - [Developer Overview](docs/developer.md)
