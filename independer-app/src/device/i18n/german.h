@@ -8,6 +8,7 @@ void i18n_display_lang()
 const String I18N_ERROR_TITLE = "Fehler";
 const String I18N_HINT_TITLE = "Hinweis";
 const String I18N_INFO_TITLE = "Info";
+const String I18N_ANS_TITLE = "Antwort";
 const String I18N_MENU_GO_BACK = "[zurück]";
 
 const String I18N_REWRITE_BOOL_ACTIV = "Aktiv";
@@ -180,6 +181,9 @@ const String I18N_ACTOR_APP_ENV_SCAN = "Umgebungs-Scan";
 const String I18N_ACTOR_APP_ENV_SCAN_RS = "' RS=";
 const String I18N_ACTOR_APP_ENV_SCAN_OUTPUT_T = "Scan Ausgabe";
 const String I18N_ACTOR_APP_ENV_SCAN_DETAIL_T = "Scan Detail";
+
+const String I18N_ACTOR_APP_REACH_CH_ATTEMPT = "Erreichbar-Check Versuch";
+const String I18N_ACTOR_APP_REACH_ERR_NO_RES = "keine Antwort\nerhalten";
 
 // Gateway
 
