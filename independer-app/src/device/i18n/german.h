@@ -166,7 +166,7 @@ const String I18N_ACTOR_COMMUNICATIONS_LETTER_RESCUE_MENU_CLEAN = "Speicher lös
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_ERR_NO_LETTERS = "Keine Briefe\ngespeichert";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_FUN_CLEAN_NOW = "Briefe werden\ngelöscht";
 
-const String I18N_ACTOR_AUTO_SYNC_BOOT_TITLE = "Auto-Sync"
+const String I18N_ACTOR_AUTO_SYNC_BOOT_TITLE = "Auto-Sync";
 
 // Gateway
 
