@@ -9,7 +9,7 @@
 - (Opt. - on Actor) Connect the battery to the ESP32 board.
 - Upload software to ESP32 board. Read `Build and upload (single device)` in [Developer Overview](../docs/developer.md). This is only necessary when initializing. After that, you can update via WIFI. See [Update-Doc](update.md).
 - When setting up the device for the first time, a configuration wizard is started automatically.
-- For some functions like online chat the Independer must be registered. Just write me a short mail and I will tell you the Independer ID and the Independer password.
+- For some functions like online chat and update-check the Independer must be registered. Use this [form](https://forms.gle/TChcaEvHBXyWu7XQA) to register your Independer.
 
 ### No Independer Registration
 
@@ -20,6 +20,8 @@ This means that you can only communicate with other Independers if they do not p
 Unfortunately, this is technically necessary at the moment to ensure that, for example, no ID has been assigned twice in the official community.
 
 Technically, unregistered Independers use a different sync word in LoRa connections.  This means that they can only be heard by other unregistered Independents.
+
+Use this [form](https://forms.gle/TChcaEvHBXyWu7XQA) to register your Independer.
 
 ## Hardware Overview
 
