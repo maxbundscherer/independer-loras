@@ -54,10 +54,10 @@ void db_init(boolean is_actor, boolean isDevMode)
         preferences.clear();
         preferences.end();
         if (!isDevMode)
-            gui_msg_animated("Independer", C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
+            gui_msg_animated(I18N_DEVICE_DB_INIT_TITLE, C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
         if (is_actor)
         {
-            gui_msg_long_text("Einrichtungsmodus", "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.");
+            gui_msg_long_text(I18N_DEVICE_DB_INIT_SUB_TITLE, I18N_DEVICE_DB_INIT_DESC);
             i_db_interactive_setup_actor();
         }
         else

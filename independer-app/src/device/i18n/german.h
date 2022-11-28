@@ -245,3 +245,7 @@ const String I18N_DEVICE_GUI_ACTOR = " Aktor\n";
 const String I18N_DEVICE_GUI_GATEWAY = " Gateway\n";
 const String I18N_DEVICE_GUI_BY = " von ";
 const String I18N_DEVICE_GUI_ENTER_OK = "[Enter] Ok";
+
+const String I18N_DEVICE_DB_INIT_TITLE = "Independer";
+const String I18N_DEVICE_DB_INIT_SUB_TITLE = "Einrichtungsmodus";
+const String I18N_DEVICE_DB_INIT_DESC = "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.";
