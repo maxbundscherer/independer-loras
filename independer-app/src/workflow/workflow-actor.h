@@ -353,7 +353,7 @@ void i_actor_functions_menu()
     }
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
-      gui_msg_animated("Info", "Aktiviere Schlafmodus\n(Actor)", C_GUI_DELAY_MSG_SHORT_I);
+      gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_ACTOR_FUNCTIONS_FUN_ACT_SLP, C_GUI_DELAY_MSG_SHORT_I);
       utils_go_to_sleep(true);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 4)
@@ -363,11 +363,11 @@ void i_actor_functions_menu()
       String d = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token, boot_state_count);
       if (d != "")
       {
-        gui_msg_long_text("Auto-Sync", d);
+        gui_msg_long_text(I18N_ACTOR_ACTOR_FUNCTIONS_SYNC, d);
       }
       else
       {
-        gui_msg_animated("Info", "Keine Daten", C_GUI_DELAY_MSG_SHORT_I);
+        gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_ACTOR_FUNCTIONS_SYNC_ERR_NO_DATA, C_GUI_DELAY_MSG_SHORT_I);
       }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 6)
