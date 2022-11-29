@@ -61,6 +61,7 @@ const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP = "Auto Schlaf";
 const String I18N_ACTOR_SETTINGS_MENU_WIFI = "WIFI";
 const String I18N_ACTOR_SETTINGS_MENU_SERVER = "Server";
 const String I18N_ACTOR_SETTINGS_MENU_RESET = "Werkseinstellungen";
+const String I18N_ACTOR_SETTINGS_MENU_RESET_Q = "Möchten Sie wirklich alles zurücksetzen?";
 const String I18N_ACTOR_SETTINGS_MENU_TIME = "Zeit";
 const String I18N_ACTOR_SETTINGS_MENU_ERR_INV_ID = "Ungültige ID";
 

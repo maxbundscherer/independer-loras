@@ -719,8 +719,11 @@ void i_settings_menu()
     }
     else if (selected_wrapper.success and selected_wrapper.value == 8)
     {
-      db_clear();
-      ESP.restart();
+      if (gui_dialog(I18N_WARNING_TITLE, I18N_ACTOR_SETTINGS_MENU_RESET_Q))
+      {
+        db_clear();
+        ESP.restart();
+      }
     }
     else
       fin_flag = true;
