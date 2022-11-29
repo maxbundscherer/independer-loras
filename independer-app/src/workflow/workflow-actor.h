@@ -745,14 +745,35 @@ void i_settings_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 4)
       i_setting_auto_sleep_menu();
     else if (selected_wrapper.success and selected_wrapper.value == 5)
-      i_setting_wifi_menu();
+      if (!state_is_registered_independer)
+      {
+        gui_msg_long_text(I18N_ERROR_TITLE, I18N_NOT_RG_ALERT);
+      }
+      else
+      {
+        i_setting_wifi_menu();
+      }
     else if (selected_wrapper.success and selected_wrapper.value == 6)
     {
-      i_setting_server_menu();
+      if (!state_is_registered_independer)
+      {
+        gui_msg_long_text(I18N_ERROR_TITLE, I18N_NOT_RG_ALERT);
+      }
+      else
+      {
+        i_setting_server_menu();
+      }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 7)
     {
-      i_setting_time();
+      if (!state_is_registered_independer)
+      {
+        gui_msg_long_text(I18N_ERROR_TITLE, I18N_NOT_RG_ALERT);
+      }
+      else
+      {
+        i_setting_time();
+      }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 8)
     {
