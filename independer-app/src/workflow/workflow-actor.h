@@ -374,14 +374,21 @@ void i_actor_functions_menu()
       application_actor_who_is_in_my_area();
     else if (selected_wrapper.success and selected_wrapper.value == 5)
     {
-      String d = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token, boot_state_count);
-      if (d != "")
+      if (!state_is_registered_independer)
       {
-        gui_msg_long_text(I18N_ACTOR_ACTOR_FUNCTIONS_SYNC, d);
+        gui_msg_long_text(I18N_ERROR_TITLE, I18N_NOT_RG_ALERT);
       }
       else
       {
-        gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_ACTOR_FUNCTIONS_SYNC_ERR_NO_DATA, C_GUI_DELAY_MSG_SHORT_I);
+        String d = wifi_auto_sync(state_my_id, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token, boot_state_count);
+        if (d != "")
+        {
+          gui_msg_long_text(I18N_ACTOR_ACTOR_FUNCTIONS_SYNC, d);
+        }
+        else
+        {
+          gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_ACTOR_FUNCTIONS_SYNC_ERR_NO_DATA, C_GUI_DELAY_MSG_SHORT_I);
+        }
       }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 6)
