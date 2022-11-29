@@ -16,6 +16,7 @@ const char *i_ota_loginIndex =
     "<tr>"
     "<td colspan=2>"
     "<center><font size=4><b>Independer Update Login Page</b></font></center>"
+    "<center><p><a href='https://a-sdr.org/independer'>More Infos</a></p></center>"
     "<br>"
     "</td>"
     "<br>"
