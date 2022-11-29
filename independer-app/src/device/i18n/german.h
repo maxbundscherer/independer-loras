@@ -256,7 +256,10 @@ const String I18N_DEVICE_GUI_ENTER_OK = "[Enter] Ok";
 
 const String I18N_DEVICE_DB_INIT_TITLE = "Independer";
 const String I18N_DEVICE_DB_INIT_SUB_TITLE = "Einrichtungsmodus";
-const String I18N_DEVICE_DB_INIT_DESC = "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.";
+const String I18N_DEVICE_DB_INIT_DESC = "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent.";
+
+const String I18N_DEVICE_DB_INIT_REG_TITLE = "Registriert?";
+const String I18N_DEVICE_DB_INIT_REG_DESC = "Bist du breits registriert? Für einige Funktionen wie Online-Chat, Update-Check, WIFI, NTP-Zeit-Sync und für die Nutzung von Gateways muss der Independer registriert sein. Wenn Du nicht registriert bist, ist es nur möglich, mit anderen unregistrierten Independern zu kommunizieren. Besuche für mehr Infos " + TEMPLATE_WEBSITE_URL;
 
 const String I18N_DEVICE_DB_INIT_WIFI_TITLE = "WIFI";
 const String I18N_DEVICE_DB_INIT_WIFI_AUTO = "Automatisch";

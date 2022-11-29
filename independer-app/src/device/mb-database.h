@@ -59,7 +59,15 @@ void db_init(boolean is_actor, boolean isDevMode)
         if (is_actor)
         {
             gui_msg_long_text(I18N_DEVICE_DB_INIT_SUB_TITLE, I18N_DEVICE_DB_INIT_DESC);
-            i_db_interactive_setup_actor();
+            if (gui_dialog(I18N_DEVICE_DB_INIT_REG_TITLE, I18N_DEVICE_DB_INIT_REG_DESC))
+            {
+                i_db_interactive_setup_actor();
+            }
+            else
+            {
+                // TODO
+                i_db_interactive_setup_actor();
+            }
         }
         else
         {
