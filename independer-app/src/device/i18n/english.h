@@ -63,13 +63,13 @@ const String I18N_ACTOR_SETTINGS_MENU_BACKGROUND_SYNC = "Background-Receive";
 const String I18N_ACTOR_SETTINGS_MENU_AUTO_SLP = "Auto Sleep";
 const String I18N_ACTOR_SETTINGS_MENU_WIFI = "WIFI";
 const String I18N_ACTOR_SETTINGS_MENU_SERVER = "Server";
-const String I18N_ACTOR_SETTINGS_MENU_RESET = "Factory settings";
+const String I18N_ACTOR_SETTINGS_MENU_RESET = "Factory Settings";
 const String I18N_ACTOR_SETTINGS_MENU_RESET_Q = "Do you really want to reset everything?";
 const String I18N_ACTOR_SETTINGS_MENU_TIME = "Time";
 const String I18N_ACTOR_SETTINGS_MENU_ERR_INV_ID = "Invalid ID";
 
-const String I18N_ACTOR_SETTINGS_MENU_TIME_SYNC_SHOW = "Time sync/show";
-const String I18N_ACTOR_SETTINGS_MENU_TIME_SHOW = "Time show";
+const String I18N_ACTOR_SETTINGS_MENU_TIME_SYNC_SHOW = "Time Sync/Show";
+const String I18N_ACTOR_SETTINGS_MENU_TIME_SHOW = "Show Time";
 const String I18N_ACTOR_SETTINGS_MENU_TIME_S_NOW = "Get Time\n...";
 const String I18N_ACTOR_SETTINGS_MENU_TIME_S_RES = "Received\n'";
 const String I18N_ACTOR_SETTINGS_MENU_TIME_S_LOC = "Local\n'";
@@ -115,11 +115,11 @@ const String I18N_ACTOR_GATEWAY_FUNCTIONS_ST_CHECK_ID = "Check ID";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_ST_SEND_CONFIG = "Send config";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_ERR_NOT_OWNED = "Invalid ID\n(not registered)";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_ERR_NO_VALID_ID = "Invalid ID";
-const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_RESET = "Factory settings\n(Gateway)";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_RESET = "Factory Settings\n(Gateway)";
 
 const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU = "State Menu";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU = "Test Menu";
-const String I18N_ACTOR_ACTOR_FUNCTIONS_STANDBY = "Screen off";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STANDBY = "Screen Off";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_SLP_MODE = "Sleep Mode";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_ENV_SCAN = "Environment Scan";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_SYNC = "Auto Sync (manual)";
@@ -134,9 +134,9 @@ const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_RES_ID = "Receiver (e.g.: 0x01
 const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_ERR_INVALID_RES = "Invalid Receiver";
 
 const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_BAT_ST = "Batteriy State";
-const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_SEND_QT = "Send quota";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_SEND_QT = "Send Quota";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_BAT_ST = "Battery State (mV)";
-const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_SEND_QT = "Send quota (millis)";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_SEND_QT = "Send Quota (millis)";
 
 const String I18N_ACTOR_COMMUNICATIONS_LETTER = "Letters (Gateway)";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_SHORT = "Letter";
