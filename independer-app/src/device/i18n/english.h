@@ -109,8 +109,8 @@ const String I18N_ACTOR_GATEWAY_FUNCTIONS_Q = "Do you really want to perform thi
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_IQ = "Do you really want to perform this action? The gateway must be set up again manually afterwards.";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_SLP = "Activate Sleep Mode\n(Gateway)";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_UPD = "Activate Update Mode\n(Gateway)";
-const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_S_SHOWED_ID = "Showed ID (z.B.: 0g01)";
-const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_S_G_ID = "Gateway ID (z.B.: 0g01)";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_S_SHOWED_ID = "Showed ID (e.g.: 0g01)";
+const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_S_G_ID = "Gateway ID (e.g.: 0g01)";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_ST_CHECK_ID = "Check ID";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_ST_SEND_CONFIG = "Send config";
 const String I18N_ACTOR_GATEWAY_FUNCTIONS_ERR_NOT_OWNED = "Invalid ID\n(not registered)";
@@ -135,7 +135,7 @@ const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_ERR_INVALID_RES = "Invalid Rec
 
 const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_BAT_ST = "Batteriy State";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_SEND_QT = "Send quota";
-const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_BAT_ST = "Batterie State (mV)";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_BAT_ST = "Battery State (mV)";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_SEND_QT = "Send quota (millis)";
 
 const String I18N_ACTOR_COMMUNICATIONS_LETTER = "Letters (Gateway)";
