@@ -393,16 +393,22 @@ void i_gateway_functions_menu()
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_SLP, C_GUI_DELAY_MSG_SHORT_I);
-      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
-      delay(C_INDEPENDER_SEND_DELAY_REPEAT);
-      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
+      if (gui_dialog(I18N_WARNING_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_Q))
+      {
+        gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_SLP, C_GUI_DELAY_MSG_SHORT_I);
+        lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
+        delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+        lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;slp", state_lora_gain);
+      }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
     {
-      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_UPD, C_GUI_DELAY_MSG_SHORT_I);
-      String sendString = "C;up;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw);
-      lora_send_msg(state_my_id, state_gateway_id, sendString, state_lora_gain);
+      if (gui_dialog(I18N_WARNING_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_Q))
+      {
+        gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_UPD, C_GUI_DELAY_MSG_SHORT_I);
+        String sendString = "C;up;" + utils_encode_data(state_wifi_ssid) + ";" + utils_encode_data(state_wifi_pw);
+        lora_send_msg(state_my_id, state_gateway_id, sendString, state_lora_gain);
+      }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 2)
     {
@@ -438,10 +444,13 @@ void i_gateway_functions_menu()
     }
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
-      gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_RESET, C_GUI_DELAY_MSG_SHORT_I);
-      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
-      delay(C_INDEPENDER_SEND_DELAY_REPEAT);
-      lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
+      if (gui_dialog(I18N_WARNING_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_IQ))
+      {
+        gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_RESET, C_GUI_DELAY_MSG_SHORT_I);
+        lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
+        delay(C_INDEPENDER_SEND_DELAY_REPEAT);
+        lora_send_msg_single_unsafe(state_my_id, state_gateway_id, "C;clgat", state_lora_gain);
+      }
     }
     else
       fin_flag = true;
@@ -787,7 +796,6 @@ void workflow_actor_main_menu()
 
     gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (6/6)", I18N_ACTOR_MAIN_MENU_INFO_REG + i_workflow_rewrite_boolean(state_is_registered_independer));
     gui_input_char_no_output(false);
-
   }
   else if (selected_wrapper.success == false)
   {
