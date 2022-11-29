@@ -80,11 +80,10 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   LoRa.setSignalBandwidth(LORA_SIG_BANDWIDTH);
   LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
 
-  display.setBrightness(state_oled_brightness); // Set brightness after db
-
   Serial.println("- Init Database");
   db_init(isActor, isDevMode);
-
+  display.setBrightness(state_oled_brightness); // Set brightness after db
+  
   Serial.println("- Check Is Registered");
   Serial.println("Is Registered: " + String(state_is_registered_independer));
 
