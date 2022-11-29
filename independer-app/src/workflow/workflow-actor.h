@@ -368,7 +368,7 @@ void i_actor_functions_menu()
     else if (selected_wrapper.success and selected_wrapper.value == 3)
     {
       gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_ACTOR_FUNCTIONS_FUN_ACT_SLP, C_GUI_DELAY_MSG_SHORT_I);
-      utils_go_to_sleep(true);
+      utils_go_to_sleep(true && state_is_registered_independer);
     }
     else if (selected_wrapper.success and selected_wrapper.value == 4)
       application_actor_who_is_in_my_area();

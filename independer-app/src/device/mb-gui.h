@@ -715,7 +715,7 @@ S_GUI_SELECTION_ITEM gui_selection(String menu_title, String menu_items[], int c
       patience_counter = patience_counter + 1;
       if ((patience_counter * patience_duration) > (c_patience_s * 1000))
       {
-        utils_go_to_sleep(true);
+        utils_go_to_sleep(true && state_is_registered_independer);
       }
     }
   }
@@ -887,7 +887,7 @@ S_GUI_INPUT_TEXT gui_input_text(String menu_title, String default_value)
       patience_counter = patience_counter + 1;
       if ((patience_counter * patience_duration) > (c_patience_s * 1000))
       {
-        utils_go_to_sleep(true);
+        utils_go_to_sleep(true && state_is_registered_independer);
       }
     }
   }
@@ -1040,7 +1040,7 @@ void gui_msg_long_text(String msg_title, String msg)
       patience_counter = patience_counter + 1;
       if ((patience_counter * patience_duration) > (c_patience_s * 1000))
       {
-        utils_go_to_sleep(true);
+        utils_go_to_sleep(true && state_is_registered_independer);
       }
     }
   }
