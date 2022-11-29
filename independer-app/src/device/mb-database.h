@@ -525,7 +525,7 @@ void i_db_interactive_setup_gateway()
                     // Serial.println("p_id '" + p_id + "'");
                     // Serial.println("p_owner '" + parser_ans.from + "'");
 
-                    db_save_init_config_gateway(p_ssid, p_pw, p_id, parser_ans.from, false);
+                    db_save_init_config_gateway(p_ssid, p_pw, p_id, parser_ans.from, true);
 
                     gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IGAT_SUC, C_GUI_DELAY_MSG_SHORT_I);
 
