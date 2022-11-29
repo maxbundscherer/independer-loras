@@ -25,7 +25,7 @@ const String I18N_BOOT_DEV_ACTIVE = "Dev Mode\nactive";
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";
 const String I18N_ACTOR_MAIN_MENU_COMMUNICATIONS = "Kommunikation";
-const String I18N_ACTOR_MAIN_MENU_ACTOR_FUNCTIONS = "Actor Funktionen";
+const String I18N_ACTOR_MAIN_MENU_ACTOR_FUNCTIONS = "Aktor Funktionen";
 const String I18N_ACTOR_MAIN_MENU_GATEWAY_FUNCTIONS = "Gateway Funktionen";
 const String I18N_ACTOR_MAIN_MENU_SETTINGS = "Einstellungen";
 const String I18N_ACTOR_MAIN_MENU_INFO = "Info";
@@ -272,5 +272,5 @@ const String I18N_DEVICE_DB_INIT_IACTOR_ERR_NO_L = "ID konnte nicht\nangemeldet 
 const String I18N_DEVICE_DB_INIT_IACTOR_SUC = "Einrichtung\nabgeschlossen!";
 
 const String I18N_DEVICE_DB_INIT_IGAT_TITLE = "Einrichtungsmodus";
-const String I18N_DEVICE_DB_INIT_IGAT_DESC = "Auf dem Actor:\nG. Funktionen->Einrichtung\nID: '";
+const String I18N_DEVICE_DB_INIT_IGAT_DESC = "Auf dem Aktor:\nG. Funktionen->Einrichtung\nID: '";
 const String I18N_DEVICE_DB_INIT_IGAT_SUC = "Einrichtung\nabgeschlossen!";
