@@ -268,3 +268,7 @@ const String I18N_DEVICE_DB_INIT_IACTOR_FUN_GID = "Gateway ID (z.B.: 0gMB)";
 const String I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID = "Ungültige ID";
 const String I18N_DEVICE_DB_INIT_IACTOR_ERR_NO_L = "ID konnte nicht\nangemeldet werden.";
 const String I18N_DEVICE_DB_INIT_IACTOR_SUC = "Einrichtung\nabgeschlossen!";
+
+const String I18N_DEVICE_DB_INIT_IGAT_TITLE = "Einrichtungsmodus";
+const String I18N_DEVICE_DB_INIT_IGAT_DESC = "Auf dem Actor:\nG. Funktionen->Einrichtung\nID: '";
+const String I18N_DEVICE_DB_INIT_IGAT_SUC = "Einrichtung\nabgeschlossen!";

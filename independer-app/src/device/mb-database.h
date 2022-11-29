@@ -408,7 +408,7 @@ void i_db_interactive_setup_gateway()
         if (new_value != old_showed_value)
         {
             old_showed_value = new_value;
-            gui_msg_static("Einrichtungsmodus", "Auf dem Actor:\n G. Funktionen->Einrichtung\nID: '" + randId + "' (" + String(old_showed_value) + "s)");
+            gui_msg_static(I18N_DEVICE_DB_INIT_IGAT_TITLE, I18N_DEVICE_DB_INIT_IGAT_DESC + randId + "' (" + String(old_showed_value) + "s)");
         }
 
         int packetSize = LoRa.parsePacket();
@@ -472,9 +472,9 @@ void i_db_interactive_setup_gateway()
 
                     db_save_init_config_gateway(p_ssid, p_pw, p_id, parser_ans.from);
 
-                    gui_msg_animated("Hinweis", "Einrichtung\nabgeschlossen!", C_GUI_DELAY_MSG_SHORT_I);
+                    gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IGAT_SUC, C_GUI_DELAY_MSG_SHORT_I);
 
-                    gui_msg_animated("Independer", C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
+                    gui_msg_animated(I18N_DEVICE_DB_INIT_TITLE, C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
 
                     ESP.restart();
                 }
