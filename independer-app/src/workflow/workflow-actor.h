@@ -392,7 +392,14 @@ void i_actor_functions_menu()
       }
     }
     else if (selected_wrapper.success and selected_wrapper.value == 6)
-      ota_start();
+      if (!state_is_registered_independer)
+      {
+        gui_msg_long_text(I18N_ERROR_TITLE, I18N_NOT_RG_ALERT);
+      }
+      else
+      {
+        ota_start();
+      }
     else
       fin_flag = true;
   }
