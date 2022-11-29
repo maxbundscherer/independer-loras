@@ -301,7 +301,7 @@ void i_actor_functions_test_function_menu()
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
     {
-      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text(I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_RES_ID, "0x");
+      S_GUI_INPUT_TEXT ans_wrapper = gui_input_text(I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_RES_ID, "0");
       if (ans_wrapper.success)
       {
         if (utils_is_valid_receiver(ans_wrapper.value))
