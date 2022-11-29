@@ -119,7 +119,7 @@ const String I18N_ACTOR_GATEWAY_FUNCTIONS_FUN_RESET = "Werkseinstellungen\n(Gate
 
 const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU = "Status Menü";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU = "Test Menü";
-const String I18N_ACTOR_ACTOR_FUNCTIONS_STANDBY = "Standby";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_STANDBY = "Bildschirm aus";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_SLP_MODE = "Schlaf Modus";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_ENV_SCAN = "Umgebungs Scan";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_SYNC = "Auto Sync (manuell)";
