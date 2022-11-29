@@ -3,6 +3,7 @@
 #include "SSD1306Wire.h"
 #include <LoRa.h>
 #include <ArduinoJson.h>
+#include "device/mb-i18n.h"
 #include "device/mb-utils.h"
 
 #if IS_RELEASE
@@ -26,7 +27,7 @@ boolean c_actor_mode = false;
  * ####################################
  */
 // Product Config
-String c_product_version = "v.0.3.7";
+String c_product_version = "v.0.3.8";
 
 /*
  * ####################################
@@ -50,6 +51,7 @@ String state_wifi_server_url = "independer.ddns.net"; // saved in db (fixed)
 int state_wifi_server_port = 5001;                    // saved in db (fixed)
 int state_wifi_server_timeout = 10000;                // saved in db
 String state_wifi_server_device_token = "";           // saved in db and INIT CONFIG
+bool state_is_registered_independer = false;          // saved in db and INIT CONFIG (fixed)
 
 #include "device/mb-time.h"
 #include "device/mb-base64.h"
@@ -98,7 +100,7 @@ void setup()
   }
   else
   {
-    gui_msg_animated("Info", "Dev Mode\nactive", C_GUI_DELAY_MSG_VERY_SHORT_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_BOOT_DEV_ACTIVE, C_GUI_DELAY_MSG_VERY_SHORT_I);
   }
 
   if (c_actor_mode)

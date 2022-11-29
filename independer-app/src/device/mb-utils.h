@@ -13,7 +13,7 @@
 #define C_TIME_TO_SLEEP 60 * 30   /* Time ESP32 will go to sleep (in seconds) */
 
 // Welcome MSG Config
-#define C_TEMPLATE_STRING_THX "Danke, dass du dich\nfür den Independer\nentschieden hast!"
+String C_TEMPLATE_STRING_THX = I18N_DEVICE_UTILS_THX;
 
 void utils_init_battery_meas()
 {

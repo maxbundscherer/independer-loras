@@ -10,7 +10,8 @@ Preferences preferences;
  * ####################################
  */
 
-void i_db_interactive_setup_actor();
+void i_db_interactive_setup_actor_registered();
+void i_db_interactive_setup_actor_not_registered();
 void i_db_interactive_setup_gateway();
 
 struct S_WIFI_CONFIG_WRAPPER
@@ -28,7 +29,7 @@ void db_init(boolean is_actor, boolean isDevMode)
 
     String current_db_version = preferences.getString("pref_c_ver", "null");
 
-    if (current_db_version == c_product_version)
+    if (current_db_version == (c_product_version + String(c_actor_mode)))
     {
         Serial.println("Load from DB");
         state_my_id = preferences.getString("pref_my_id", state_my_id);
@@ -45,6 +46,7 @@ void db_init(boolean is_actor, boolean isDevMode)
         state_wifi_server_timeout = preferences.getInt("pref_ws_to", state_wifi_server_timeout);
 
         state_wifi_server_device_token = preferences.getString("pref_ws_dt", state_wifi_server_device_token);
+        state_is_registered_independer = preferences.getBool("pref_is_reg", state_is_registered_independer);
 
         preferences.end();
     }
@@ -54,11 +56,18 @@ void db_init(boolean is_actor, boolean isDevMode)
         preferences.clear();
         preferences.end();
         if (!isDevMode)
-            gui_msg_animated("Independer", C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
+            gui_msg_animated(I18N_DEVICE_DB_INIT_TITLE, C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
         if (is_actor)
         {
-            gui_msg_long_text("Einrichtungsmodus", "Nach dem Update oder beim ersten Starten muss der Independer konfiguriert werden. Dabei hilft dir der Konfigurationsassistent. Für diesen Schritt ist WIFI erforderlich.");
-            i_db_interactive_setup_actor();
+            gui_msg_long_text(I18N_DEVICE_DB_INIT_SUB_TITLE, I18N_DEVICE_DB_INIT_DESC);
+            if (gui_dialog(I18N_DEVICE_DB_INIT_REG_TITLE, I18N_DEVICE_DB_INIT_REG_DESC))
+            {
+                i_db_interactive_setup_actor_registered();
+            }
+            else
+            {
+                i_db_interactive_setup_actor_not_registered();
+            }
         }
         else
         {
@@ -154,28 +163,30 @@ void db_save_wifi_server_timeout(int value)
     i_db_write("pref_ws_to", value);
 }
 
-void db_save_init_config_actor(String wifi_ssid, String wifi_pw, String my_id, String gateway_id, String device_token)
+void db_save_init_config_actor(String wifi_ssid, String wifi_pw, String my_id, String gateway_id, String device_token, bool is_registered)
 {
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.putString("pref_wifi_ssid", wifi_ssid);
     preferences.putString("pref_wifi_pw", wifi_pw);
     preferences.putString("pref_my_id", my_id);
     preferences.putString("pref_gateway_id", gateway_id);
-    preferences.putString("pref_c_ver", c_product_version);
+    preferences.putString("pref_c_ver", (c_product_version + String(c_actor_mode)));
     preferences.putString("pref_ws_dt", device_token);
+    preferences.putBool("pref_is_reg", is_registered);
     preferences.putString("pref_gat_own", "");
     preferences.end();
 }
 
-void db_save_init_config_gateway(String wifi_ssid, String wifi_pw, String gateway_id, String owner_id)
+void db_save_init_config_gateway(String wifi_ssid, String wifi_pw, String gateway_id, String owner_id, bool is_registered)
 {
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.putString("pref_wifi_ssid", wifi_ssid);
     preferences.putString("pref_wifi_pw", wifi_pw);
     preferences.putString("pref_my_id", "");
     preferences.putString("pref_gateway_id", gateway_id);
-    preferences.putString("pref_c_ver", c_product_version);
+    preferences.putString("pref_c_ver", (c_product_version + String(c_actor_mode)));
     preferences.putString("pref_ws_dt", "");
+    preferences.putBool("pref_is_reg", is_registered);
     preferences.putString("pref_gat_own", owner_id);
     preferences.end();
 }
@@ -274,23 +285,23 @@ String db_msg_get_msg() { return db_i_get_content("msg_msg"); }
  * ####################################
  */
 
-void i_db_interactive_setup_actor()
+void i_db_interactive_setup_actor_registered()
 {
 
     String t_wifi_ssid = "";
     String t_wifi_pw = "";
 
     String menu_items[] = {
-        "Automatisch",
-        "(Manuell) SSID",
-        "(Manuell) Passwort",
-        "[Bestätigen]",
-        "[Ausschalten]"};
+        I18N_DEVICE_DB_INIT_WIFI_AUTO,
+        I18N_DEVICE_DB_INIT_WIFI_MAN_SSID,
+        I18N_DEVICE_DB_INIT_WIFI_MAN_PW,
+        I18N_DEVICE_DB_INIT_WIFI_OK,
+        I18N_DEVICE_DB_INIT_WIFI_OFF};
 
     bool fin_wifi_config = false;
     while (!fin_wifi_config)
     {
-        S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("WIFI", menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+        S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_DEVICE_DB_INIT_WIFI_TITLE, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
         if (selected_wrapper.success and selected_wrapper.value == 0)
         {
@@ -301,26 +312,26 @@ void i_db_interactive_setup_actor()
                 t_wifi_pw = ans.password;
                 state_wifi_ssid = t_wifi_ssid;
                 state_wifi_pw = t_wifi_pw;
-                gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
+                gui_msg_static(I18N_INFO_TITLE, I18N_DEVICE_DB_INIT_WIFI_FUN_TEST + state_wifi_ssid + "'");
                 if (wifi_check_status())
                 {
                     fin_wifi_config = true;
                 }
                 else
                 {
-                    gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
+                    gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_WIFI_ERR, C_GUI_DELAY_MSG_SHORT_I);
                 }
             }
         }
         else if (selected_wrapper.success and selected_wrapper.value == 1)
         {
-            S_GUI_INPUT_TEXT s = gui_input_text("SSID", t_wifi_ssid);
+            S_GUI_INPUT_TEXT s = gui_input_text(I18N_DEVICE_DB_INIT_WIFI_SSID, t_wifi_ssid);
             if (s.success)
                 t_wifi_ssid = s.value;
         }
         else if (selected_wrapper.success and selected_wrapper.value == 2)
         {
-            S_GUI_INPUT_TEXT s = gui_input_text("Passwort", t_wifi_pw);
+            S_GUI_INPUT_TEXT s = gui_input_text(I18N_DEVICE_DB_INIT_WIFI_PW, t_wifi_pw);
             if (s.success)
                 t_wifi_pw = s.value;
         }
@@ -328,14 +339,14 @@ void i_db_interactive_setup_actor()
         {
             state_wifi_ssid = t_wifi_ssid;
             state_wifi_pw = t_wifi_pw;
-            gui_msg_static("Info", "Teste WiFi\n'" + state_wifi_ssid + "'");
+            gui_msg_static(I18N_INFO_TITLE, I18N_DEVICE_DB_INIT_WIFI_FUN_TEST + state_wifi_ssid + "'");
             if (wifi_check_status())
             {
                 fin_wifi_config = true;
             }
             else
             {
-                gui_msg_animated("Fehler", "WiFi\nFehler", C_GUI_DELAY_MSG_SHORT_I);
+                gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_WIFI_ERR, C_GUI_DELAY_MSG_SHORT_I);
             }
         }
         else
@@ -353,19 +364,19 @@ void i_db_interactive_setup_actor()
     while (!fin_id_config)
     {
 
-        S_GUI_INPUT_TEXT t_my_id_wrapper = gui_input_text("Meine ID (z.B.: 0xMB)", "0x");
-        S_GUI_INPUT_TEXT t_device_secret = gui_input_text("Independer Passwort", "");
+        S_GUI_INPUT_TEXT t_my_id_wrapper = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_MY_ID, "0x");
+        S_GUI_INPUT_TEXT t_device_secret = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_MY_PW, "");
         if (t_my_id_wrapper.success and t_device_secret.success)
         {
             if (utils_is_valid_receiver(t_my_id_wrapper.value))
             {
 
-                gui_msg_static("Info", "Prüfe Anmeldung\nID\n'" + t_my_id_wrapper.value + "'\n...");
+                gui_msg_static(I18N_INFO_TITLE, I18N_DEVICE_DB_INIT_IACTOR_FUN_CHECK_LOGIN + t_my_id_wrapper.value + "'\n...");
                 S_WIFI_REGISTER login_ans = wifi_register_device_actor(t_my_id_wrapper.value, t_device_secret.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
 
                 if (login_ans.success)
                 {
-                    S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text("Gateway ID (z.B.: 0gMB)", "0g");
+                    S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_FUN_GID, "0g");
                     if (t_g_id_wrapper.success)
                     {
                         if (utils_is_valid_receiver(t_g_id_wrapper.value))
@@ -376,22 +387,66 @@ void i_db_interactive_setup_actor()
                             fin_id_config = true;
                         }
                         else
-                            gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+                            gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
                     }
                 }
                 else
-                    gui_msg_animated("Fehler", "ID konnte nicht\nangemeldet werden.", C_GUI_DELAY_MSG_SHORT_I);
+                    gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_NO_L, C_GUI_DELAY_MSG_SHORT_I);
             }
             else
-                gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+                gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
         }
     }
 
-    db_save_init_config_actor(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id, t_device_token);
+    db_save_init_config_actor(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id, t_device_token, true);
 
-    gui_msg_animated("Hinweis", "Einrichtung\nabgeschlossen!", C_GUI_DELAY_MSG_SHORT_I);
+    gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IACTOR_SUC, C_GUI_DELAY_MSG_SHORT_I);
 
-    gui_msg_animated("Independer", C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
+    gui_msg_animated(I18N_DEVICE_DB_INIT_TITLE, C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
+
+    ESP.restart();
+}
+
+void i_db_interactive_setup_actor_not_registered()
+{
+
+    String t_my_id = "";
+    String t_gateway_id = "";
+
+    bool fin_id_config = false;
+
+    while (!fin_id_config)
+    {
+
+        S_GUI_INPUT_TEXT t_my_id_wrapper = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_MY_ID, "0x");
+        if (t_my_id_wrapper.success)
+        {
+            if (utils_is_valid_receiver(t_my_id_wrapper.value))
+            {
+
+                S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_FUN_GID, "0g");
+                if (t_g_id_wrapper.success)
+                {
+                    if (utils_is_valid_receiver(t_g_id_wrapper.value))
+                    {
+                        t_my_id = t_my_id_wrapper.value;
+                        t_gateway_id = t_g_id_wrapper.value;
+                        fin_id_config = true;
+                    }
+                    else
+                        gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
+                }
+            }
+            else
+                gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
+        }
+    }
+
+    db_save_init_config_actor("", "", t_my_id, t_gateway_id, "", false);
+
+    gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IACTOR_SUC, C_GUI_DELAY_MSG_SHORT_I);
+
+    gui_msg_animated(I18N_DEVICE_DB_INIT_TITLE, C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
 
     ESP.restart();
 }
@@ -408,7 +463,7 @@ void i_db_interactive_setup_gateway()
         if (new_value != old_showed_value)
         {
             old_showed_value = new_value;
-            gui_msg_static("Einrichtungsmodus", "Auf dem Actor:\n G. Funktionen->Einrichtung\nID: '" + randId + "' (" + String(old_showed_value) + "s)");
+            gui_msg_static(I18N_DEVICE_DB_INIT_IGAT_TITLE, I18N_DEVICE_DB_INIT_IGAT_DESC + randId + "' (" + String(old_showed_value) + "s)");
         }
 
         int packetSize = LoRa.parsePacket();
@@ -470,11 +525,11 @@ void i_db_interactive_setup_gateway()
                     // Serial.println("p_id '" + p_id + "'");
                     // Serial.println("p_owner '" + parser_ans.from + "'");
 
-                    db_save_init_config_gateway(p_ssid, p_pw, p_id, parser_ans.from);
+                    db_save_init_config_gateway(p_ssid, p_pw, p_id, parser_ans.from, true);
 
-                    gui_msg_animated("Hinweis", "Einrichtung\nabgeschlossen!", C_GUI_DELAY_MSG_SHORT_I);
+                    gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IGAT_SUC, C_GUI_DELAY_MSG_SHORT_I);
 
-                    gui_msg_animated("Independer", C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
+                    gui_msg_animated(I18N_DEVICE_DB_INIT_TITLE, C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
 
                     ESP.restart();
                 }

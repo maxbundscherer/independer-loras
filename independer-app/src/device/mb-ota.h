@@ -16,6 +16,7 @@ const char *i_ota_loginIndex =
     "<tr>"
     "<td colspan=2>"
     "<center><font size=4><b>Independer Update Login Page</b></font></center>"
+    "<center><p><a href='https://a-sdr.org/independer'>More Infos</a></p></center>"
     "<br>"
     "</td>"
     "<br>"
@@ -109,7 +110,7 @@ void i_ota_setup(String ssid, String password, String host)
     char *password_char = const_cast<char*>(password.c_str());
 
     Serial.println("Conntect to '" + String(ssid_char) + "' '" + ssid + "'");
-    gui_msg_static("Hinweis", "Verbindet mit\n'" + String(ssid_char) + "'");
+    gui_msg_static(I18N_HINT_TITLE, I18N_DEVICE_OTA_CONN_WITH + String(ssid_char) + "'");
 
     WiFi.begin(ssid_char, password_char);
     Serial.println("");
@@ -130,7 +131,7 @@ void i_ota_setup(String ssid, String password, String host)
 
     Serial.println("Updated");
 
-    gui_msg_static("Update", "Gehe im Browser auf\n'" + String(my_ip) + "'\n'admin' 'updateindepender'");
+    gui_msg_static(I18N_DEVICE_OTA_UPDATE_TITLE, I18N_DEVICE_OTA_BROWSER_GO + String(my_ip) + "'\n'admin' 'updateindepender'");
 
     /*use mdns for host name resolution*/
     // char host_char[host.length() + 1];

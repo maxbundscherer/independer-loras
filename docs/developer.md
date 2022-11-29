@@ -10,7 +10,7 @@ The application is started through [PlatformIO](https://platformio.org/). Please
 
 ### Environments
 
-- Environment label describes board-type (e.g. Heltec or TTGO), contains developer flag (release or developer) and contains device-mode (actor or gateway).
+- Environment label describes board-type (e.g. Heltec or TTGO), contains developer flag (release or developer), contains language flag and contains device-mode (actor or gateway).
 
 #### Build and upload (single device)
 

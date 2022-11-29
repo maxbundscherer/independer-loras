@@ -93,7 +93,7 @@ void multi_actor_background_show_messages()
 
   if (state_multi_actor_msgs_counter == 0)
   {
-    gui_msg_animated("Info", "keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_SHORT_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_MULTI_ACTOR_NO_MSG_AVA, C_GUI_DELAY_MSG_SHORT_I);
     return;
   }
 
@@ -104,22 +104,22 @@ void multi_actor_background_show_messages()
     gui_items[i] = state_multi_actor_msgs[i];
   }
 
-  gui_items[state_multi_actor_msgs_counter] = "[zurück]"; // Add go back item
+  gui_items[state_multi_actor_msgs_counter] = I18N_MENU_GO_BACK; // Add go back item
 
   boolean hasMesageShown = false;
   while (!hasMesageShown)
   {
-    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Nachrichten", gui_items, state_multi_actor_msgs_counter - 1 + 1, false); // Add + 1 (go back item)
+    S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_MULTI_ACTOR_TITLE, gui_items, state_multi_actor_msgs_counter - 1 + 1, false); // Add + 1 (go back item)
     if (selected_wrapper.success == false or selected_wrapper.value == state_multi_actor_msgs_counter)
       hasMesageShown = true;
     else
-      gui_msg_long_text("Nachricht", gui_items[selected_wrapper.value]);
+      gui_msg_long_text(I18N_ACTOR_MULTI_ACTOR_MSG, gui_items[selected_wrapper.value]);
   }
 }
 
 void multi_actor_background_clear_messages()
 {
-  gui_msg_animated("Info", "Leere Nachrichten", C_GUI_DELAY_MSG_SHORT_I);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_MULTI_ACTOR_CLEAN_MSG, C_GUI_DELAY_MSG_SHORT_I);
   state_multi_actor_msgs_counter = 0;
 }
 
@@ -260,6 +260,6 @@ String multi_actor_get_state_string()
 {
 
   if (state_multi_is_active)
-    return "Aktiv";
-  return "Inaktiv";
+    return I18N_REWRITE_BOOL_ACTIV;
+  return I18N_REWRITE_BOOL_INACTIV;
 }

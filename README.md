@@ -33,7 +33,7 @@ This repository describes the concept, the project structure, the encrypted Lora
 - Built on inexpensive Hardware
 - Open-Source Software & Protocol
 - Open-Source 3D-printed Case
-- Multiple ESP32-Boards Supported
+- Multiple ESP32 boards, languages and frequencies are supported
 - OLED-Screen
 - LoRa & WIFI
 - External Antenna Connector

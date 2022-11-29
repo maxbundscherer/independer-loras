@@ -4,7 +4,7 @@
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
 #define DISPLAY_HEIGHT 64 // OLED display height, in pixels
 
-long c_patience_s = 5*60; // MAX TIME NO INPUT BEFORE SLEEP
+long c_patience_s = 5 * 60; // MAX TIME NO INPUT BEFORE SLEEP
 
 // LED Power Pin
 #define LED 25
@@ -355,9 +355,9 @@ void gui_logo_static(String version_string, String my_id, String gateway_id, boo
   display.setFont(ArialMT_Plain_10);
   display.setTextAlignment(TEXT_ALIGN_LEFT);
   if (isActor)
-    display.drawString(8, 35, version_string + " Actor\n" + my_id + " -> " + gateway_id);
+    display.drawString(8, 35, version_string + I18N_DEVICE_GUI_ACTOR + my_id + " -> " + gateway_id);
   else
-    display.drawString(8, 35, version_string + " Gateway\n" + gateway_id + " by " + gateway_owner);
+    display.drawString(8, 35, version_string + I18N_DEVICE_GUI_GATEWAY + gateway_id + I18N_DEVICE_GUI_BY + gateway_owner);
   display.display();
 }
 
@@ -715,7 +715,7 @@ S_GUI_SELECTION_ITEM gui_selection(String menu_title, String menu_items[], int c
       patience_counter = patience_counter + 1;
       if ((patience_counter * patience_duration) > (c_patience_s * 1000))
       {
-        utils_go_to_sleep(true);
+        utils_go_to_sleep(true && state_is_registered_independer);
       }
     }
   }
@@ -803,7 +803,7 @@ void i_gui_input_single_line(String menu_title, String val, int current_cursor)
   display.drawString(5, 10 * 2 + 2, out);
 
   display.setTextAlignment(TEXT_ALIGN_RIGHT);
-  display.drawString(128 - 5, 64 - 15, "[Enter] Ok");
+  display.drawString(128 - 5, 64 - 15, I18N_DEVICE_GUI_ENTER_OK);
 
   display.display();
 }
@@ -887,7 +887,7 @@ S_GUI_INPUT_TEXT gui_input_text(String menu_title, String default_value)
       patience_counter = patience_counter + 1;
       if ((patience_counter * patience_duration) > (c_patience_s * 1000))
       {
-        utils_go_to_sleep(true);
+        utils_go_to_sleep(true && state_is_registered_independer);
       }
     }
   }
@@ -1040,8 +1040,32 @@ void gui_msg_long_text(String msg_title, String msg)
       patience_counter = patience_counter + 1;
       if ((patience_counter * patience_duration) > (c_patience_s * 1000))
       {
-        utils_go_to_sleep(true);
+        utils_go_to_sleep(true && state_is_registered_independer);
       }
     }
   }
+}
+
+bool gui_dialog(String menu_title, String menu_desc)
+{
+
+  bool fin = false;
+  S_GUI_SELECTION_ITEM i;
+
+  while (!fin)
+  {
+    gui_msg_long_text(menu_title, menu_desc);
+
+    String menu_items[] = {
+        I18N_DIALOG_NO,
+        I18N_DIALOG_YES,
+        I18N_DIALOG_AGAIN};
+
+    i = gui_selection(menu_title, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (i.success and i.value != 2)
+      fin = true;
+  }
+
+  return (i.value == 1);
 }

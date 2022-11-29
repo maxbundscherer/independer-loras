@@ -2,8 +2,18 @@
 char *c_cipher_key = "kjew50fkjriowdj6";
 
 // Send Config
+
+#define PROP_868 1
+#define PROP_915 2
+
+#if FBAND == PROP_868
 #define BAND 868E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
-#define LORA_SYNC_WORD 0x35                // 0x34 is default
+#elif FBAND == PROP_915
+#define BAND 915E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
+#endif
+
+#define LORA_SYNC_WORD_REG 0x35            // 0x34 is default
+#define LORA_SYNC_WORD_NOT_REG 0x34        // 0x34 is default
 #define LORA_SIG_BANDWIDTH 125E3           // 125E3 is default - 7.8E3, 10.4E3, 15.6E3, 20.8E3, 31.25E3, 41.7E3, 62.5E3, 125E3, and 250E3
 #define LORA_SPREAD 12                     // 7 is default - between 6 and 12
 #define LORA_SIG_CODING_RATE_DENOMINATOR 5 // 5 is default - Supported values are between 5 and 8, these correspond to coding rates of 4/5 and 4/8. The coding rate numerator is fixed at 4
@@ -45,6 +55,9 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   Serial.println();
   Serial.println("[Start Independer " + productVersion + "] Actor-Mode=" + String(isActor) + " Dev-Mode=" + String(isDevMode));
 
+  Serial.println("- Set Language");
+  i18n_display_lang();
+
   Serial.println("- Init Display");
   gui_init_display();
 
@@ -62,15 +75,27 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
 
   Serial.println("- Init LoRa");
   lora_init();
-  LoRa.setSyncWord(LORA_SYNC_WORD);
+  LoRa.setSyncWord(LORA_SYNC_WORD_REG);
   LoRa.setSpreadingFactor(LORA_SPREAD);
   LoRa.setSignalBandwidth(LORA_SIG_BANDWIDTH);
   LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
 
   Serial.println("- Init Database");
   db_init(isActor, isDevMode);
-
   display.setBrightness(state_oled_brightness); // Set brightness after db
+  
+  Serial.println("- Check Is Registered");
+  Serial.println("Is Registered: " + String(state_is_registered_independer));
+
+  Serial.println("- LORA Sync Word");
+
+  if (!state_is_registered_independer)
+  {
+    Serial.println("Set to non register syncWord");
+    LoRa.setSyncWord(LORA_SYNC_WORD_NOT_REG);
+  }
+
+  Serial.println("- Init LoRa Dev");
 
   if (isDevMode)
   {
@@ -86,15 +111,18 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   {
     if (isActor)
     {
-      i_workflow_independer_auto_sync();
-      utils_go_to_sleep(true);
+      if (state_is_registered_independer)
+      {
+        i_workflow_independer_auto_sync();
+      }
+      utils_go_to_sleep(true && state_is_registered_independer);
     }
   }
   else
   {
     if (String(boot_state_auto_sync_msg) != "")
     {
-      gui_msg_long_text("Auto-Sync", String(boot_state_auto_sync_msg));
+      gui_msg_long_text(I18N_ACTOR_AUTO_SYNC_BOOT_TITLE, String(boot_state_auto_sync_msg));
       strcpy(boot_state_auto_sync_msg, String("").c_str());
     }
   }

@@ -1,4 +1,11 @@
-#define BAND 868E6 // you can set band here directly,e.g. 868E6 915E6 433E6
+#define PROP_868 1
+#define PROP_915 2
+
+#if FBAND == PROP_868
+#define BAND 868E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
+#elif FBAND == PROP_915
+#define BAND 915E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
+#endif
 
 void lora_init()
 {
@@ -162,14 +169,14 @@ void lora_send_msg(String from, String to, String msg, int sendGain)
 
   i_trans_start(from, to, numPackets, sendGain);
   gui_current_packet++;
-  gui_display_prg_static("Senden", gui_current_packet, 0, gui_max_packets);
+  gui_display_prg_static(I18N_DEVICE_LORA_SEND_TITLE, gui_current_packet, 0, gui_max_packets);
   delay(c_send_delay);
 
   for (int i = 0; i < numPackets; i++)
   {
     i_trans_packet(from, to, i, msg.substring(i * c_max_length, (i + 1) * c_max_length), sendGain);
     gui_current_packet++;
-    gui_display_prg_static("Senden", gui_current_packet, 0, gui_max_packets);
+    gui_display_prg_static(I18N_DEVICE_LORA_SEND_TITLE, gui_current_packet, 0, gui_max_packets);
     delay(c_send_delay);
   }
 
@@ -328,7 +335,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId, boolean disableGUI =
       state_parser_max_packets = p_value.toInt() + 2; // Sync frames 2
       state_parser_msg = "";
       if (!disableGUI)
-        gui_display_prg_static("Empfangen", 1, 0, state_parser_max_packets);
+        gui_display_prg_static(I18N_DEVICE_LORA_RES_TITLE, 1, 0, state_parser_max_packets);
     }
     else if (p_type == "-" and p_from == state_parser_from)
     {
@@ -357,7 +364,7 @@ ParserAnsTuple lora_stateful_parse(String msg, String myId, boolean disableGUI =
       state_parser_last_index = p_type.toInt();
       state_parser_msg += p_value;
       if (!disableGUI)
-        gui_display_prg_static("Empfangen", state_parser_last_index + 2, 0, state_parser_max_packets);
+        gui_display_prg_static(I18N_DEVICE_LORA_RES_TITLE, state_parser_last_index + 2, 0, state_parser_max_packets);
     }
     else if (p_type == "!" or p_type == "s")
     {

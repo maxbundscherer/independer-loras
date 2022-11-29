@@ -38,7 +38,7 @@ void application_actor_who_is_in_my_area()
     delay(C_INDEPENDER_SEND_DELAY_REPEAT);
     lora_send_msg_short_message(state_my_id, "*", C_INDEPENDER_SHORT_MESSAGE_CHAR_ALL, state_lora_gain);
 
-    gui_display_prg_static("Umgebungs-Scan", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_ENV_SCAN, l_attempt, 0, c_max_ping_retries);
 
     int l_cur_receive_attempt = 0;
     while (l_cur_receive_attempt < c_max_ping_max_receive_attempts)
@@ -80,21 +80,21 @@ void application_actor_who_is_in_my_area()
 
     for (int i = 0; i < collected_counter; i++)
     {
-      String r = collected_db[i].attempt + ": (" + collected_db[i].deviceId + ") '" + collected_db[i].deviceMsg + "' RS=" + collected_db[i].receivedRssi;
+      String r = collected_db[i].attempt + ": (" + collected_db[i].deviceId + ") '" + collected_db[i].deviceMsg + I18N_ACTOR_APP_ENV_SCAN_RS + collected_db[i].receivedRssi;
       // Serial.println("Scan Item '" + r + "'");
       gui_items[i] = r;
     }
 
-    gui_items[collected_counter] = "[zurück]"; // Add go back item
+    gui_items[collected_counter] = I18N_MENU_GO_BACK; // Add go back item
 
     boolean hasComp = false;
     while (!hasComp)
     {
-      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Scan Ausgabe", gui_items, collected_counter - 1 + 1, false); // Add + 1 (go back item)
+      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_APP_ENV_SCAN_OUTPUT_T, gui_items, collected_counter - 1 + 1, false); // Add + 1 (go back item)
       if (selected_wrapper.success == false or selected_wrapper.value == collected_counter)
         hasComp = true;
       else
-        gui_msg_long_text("Scan Detail", gui_items[selected_wrapper.value]);
+        gui_msg_long_text(I18N_ACTOR_APP_ENV_SCAN_DETAIL_T, gui_items[selected_wrapper.value]);
     }
   }
 
@@ -135,7 +135,7 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns, St
   {
     l_attempt++;
 
-    gui_display_prg_static("Erreichbar-Check Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_REACH_CH_ATTEMPT, l_attempt, 0, c_max_ping_retries);
 
     lora_send_msg_short_message(state_my_id, target_id, testSendMsg, state_lora_gain);
     delay(C_INDEPENDER_SEND_DELAY_REPEAT);
@@ -169,11 +169,11 @@ boolean application_actor_is_available(String target_id, boolean flagHideAns, St
 
   if (receivedSuccess and !flagHideAns)
   {
-    gui_msg_animated("Antwort", receivedMsg, C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ANS_TITLE, receivedMsg, C_GUI_DELAY_MSG_MIDDLE_I);
   }
   else if (!flagHideAns)
   {
-    gui_msg_animated("Fehler", "keine Antwort\nerhalten", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_REACH_ERR_NO_RES, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   if (sync_was_on_flag)
@@ -204,7 +204,7 @@ boolean application_actor_send_msg_to_gateway(String receiverId, String userMsg)
 
   if (!isAvailable)
   {
-    gui_msg_animated("Fehler", "Gateway ist\nnicht erreichbar", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_SEND_TO_GATEWAY_ERR_GA_NOT_REACH, C_GUI_DELAY_MSG_MIDDLE_I);
     if (sync_was_on_flag)
     {
       multi_actor_start();
@@ -223,7 +223,7 @@ boolean application_actor_send_msg_to_gateway(String receiverId, String userMsg)
   {
     l_attempt++;
 
-    gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_ATT, l_attempt, 0, c_max_ping_retries);
 
     delay(C_INDEPENDER_SEND_DELAY);
 
@@ -259,11 +259,11 @@ boolean application_actor_send_msg_to_gateway(String receiverId, String userMsg)
 
   if (sendSuccess)
   {
-    gui_msg_animated("Info", "Brief wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_SUC, C_GUI_DELAY_MSG_MIDDLE_I);
   }
   else
   {
-    gui_msg_animated("Fehler", "Brief konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_SEND_TO_GATEWAY_SEND_ERR, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   return sendSuccess;
@@ -296,7 +296,7 @@ void application_actor_query_msgs_from_gateway()
   {
     l_attempt++;
 
-    gui_display_prg_static("Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_QUERY_GATEWAY_ATT, l_attempt, 0, c_max_ping_retries);
 
     delay(C_GUI_DELAY_STATIC_SHORT);
 
@@ -394,20 +394,20 @@ void application_actor_query_msgs_from_gateway()
             gui_items[i_msg] = r;
           }
 
-          gui_items[numMessages] = "[zurück]"; // Add go back item
+          gui_items[numMessages] = I18N_MENU_GO_BACK; // Add go back item
 
           boolean hasMesageShown = false;
           while (!hasMesageShown)
           {
-            S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Briefe", gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
+            S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_APP_QUERY_GATEWAY_LETTERS, gui_items, numMessages - 1 + 1, false); // Add + 1 (go back item)
             if (selected_wrapper.success == false or selected_wrapper.value == numMessages)
               hasMesageShown = true;
             else
-              gui_msg_long_text("Brief", gui_items[selected_wrapper.value]);
+              gui_msg_long_text(I18N_ACTOR_APP_QUERY_GATEWAY_LETTER, gui_items[selected_wrapper.value]);
           }
         }
         else
-          gui_msg_animated("Info", "keine Briefe\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
+          gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_QUERY_GATEWAY_ER_NO_LETTER, C_GUI_DELAY_MSG_MIDDLE_I);
       }
       else
       {
@@ -423,7 +423,7 @@ void application_actor_query_msgs_from_gateway()
 
   if (!resSuccess)
   {
-    gui_msg_animated("Fehler", "Briefe konnten\nnicht empfangen werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_QUERY_GATEWAY_ER_NO_RES, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 }
 
@@ -454,7 +454,7 @@ boolean application_actor_send_msg_actor_to_actor(String receiverId, String user
   {
     l_attempt++;
 
-    gui_display_prg_static("Sende Versuch", l_attempt, 0, c_max_ping_retries);
+    gui_display_prg_static(I18N_ACTOR_APP_SEND_TO_ACTOR_ATT, l_attempt, 0, c_max_ping_retries);
 
     delay(C_GUI_DELAY_STATIC_SHORT);
 
@@ -501,11 +501,11 @@ boolean application_actor_send_msg_actor_to_actor(String receiverId, String user
 
   if (sendSuccess)
   {
-    gui_msg_animated("Info", "Nachricht wurde\ngesendet", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_SEND_TO_ACTOR_SEND_SUC, C_GUI_DELAY_MSG_MIDDLE_I);
   }
   else
   {
-    gui_msg_animated("Fehler", "Nachricht konnte\nnicht gesendet werden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_SEND_TO_ACTOR_SEND_ERR, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   return sendSuccess;
@@ -527,16 +527,16 @@ void application_actor_large_data_test()
     multi_actor_stop();
   }
 
-  gui_msg_animated("Info", "Nachricht 1", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Du bist mein Sonnenschein!"), state_lora_gain);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_LARGE_DATA_MSG+ " 1", 100);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Vestibulum iaculis semper diam"), state_lora_gain);
 
-  gui_msg_animated("Info", "Nachricht 2", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hey. Wie geht es dir?"), state_lora_gain);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_LARGE_DATA_MSG + " 2", 100);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Lorem ipsum dolor sit amet"), state_lora_gain);
 
-  gui_msg_animated("Info", "Nachricht 3", 100);
-  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Hi. Wie geht es dir? Was machst du so?"), state_lora_gain);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_LARGE_DATA_MSG + " 3", 100);
+  lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Suspendisse potenti. Nunc semper ac."), state_lora_gain);
 
-  gui_msg_animated("Info", "Nachricht 4", 100);
+  gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_LARGE_DATA_MSG + " 4", 100);
   lora_send_msg(state_my_id, state_gateway_id, "M;" + state_my_id + ";" + utils_encode_data("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis semper diam, sit amet egestas nunc semper sodales. Suspendisse potenti. Nunc semper ac dolor sit amet dapibus. Maecenas dui dolor, fringilla id varius at, posuere at justo. Aenean a lacinia turpis, id maximus nibh. Quisque congue vestibulum feugiat. Nullam id dui gravida nunc aliquam aliquam sed at est. Suspendisse in lacinia leo, sit amet consectetur sem."), state_lora_gain);
 
   if (sync_was_on_flag)
@@ -554,7 +554,7 @@ void application_actor_large_data_test()
 void application_actor_query_msgs_from_internet(String myId)
 {
 
-  gui_msg_static("Hinweis", "Nachrichten werden\nabgerufen");
+  gui_msg_static(I18N_HINT_TITLE, I18N_ACTOR_APP_QUERY_INTERNET_GET_MSG);
   String ret = wifi_get_chat_messages(myId, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout, state_wifi_server_device_token);
   // Serial.println("Query Messages from Internet: '" + ret + "'");
 
@@ -615,28 +615,28 @@ void application_actor_query_msgs_from_internet(String myId)
       if (i_msg_count > 0)
       {
 
-        messages_buffer[i_msg_count] = "[zurück]"; // Add go back item
+        messages_buffer[i_msg_count] = I18N_MENU_GO_BACK; // Add go back item
 
         boolean hasMesageShown = false;
         while (!hasMesageShown)
         {
-          S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("Chats", messages_buffer, i_msg_count - 1 + 1, false); // Add + 1 (go back item)
+          S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_APP_QUERY_INTERNET_CHATS, messages_buffer, i_msg_count - 1 + 1, false); // Add + 1 (go back item)
           if (selected_wrapper.success == false or selected_wrapper.value == i_msg_count)
             hasMesageShown = true;
           else
-            gui_msg_long_text("Chat", messages_buffer[selected_wrapper.value]);
+            gui_msg_long_text(I18N_ACTOR_APP_QUERY_INTERNET_CHAT, messages_buffer[selected_wrapper.value]);
         }
       }
       else
       {
-        gui_msg_animated("Hinweis", "Keine Nachrichten\nvorhanden", C_GUI_DELAY_MSG_MIDDLE_I);
+        gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_APP_QUERY_INTERNET_GET_NO_MSGS, C_GUI_DELAY_MSG_MIDDLE_I);
       }
 
       return;
     }
   }
 
-  gui_msg_animated("Fehler", "Chat konnte nicht\nabgerufen werden", C_GUI_DELAY_MSG_MIDDLE_I);
+  gui_msg_animated(I18N_ERROR_TITLE, I18N_ACTOR_APP_QUERY_INTERNET_GET_ERR, C_GUI_DELAY_MSG_MIDDLE_I);
 
   return;
 }
@@ -657,7 +657,7 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
     multi_actor_stop();
   }
 
-  gui_msg_static("Hinweis", "Scanne...");
+  gui_msg_static(I18N_HINT_TITLE, I18N_ACTOR_APP_AUTO_WIFI_SCAN_NOW);
   Serial.println("WiFI AutoSave=" + String(s_autoSave));
   Serial.print("Scan start ... ");
   int n = WiFi.scanNetworks();
@@ -674,7 +674,7 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
 
     String gui_items[n + 1];
 
-    gui_items[0] = "[abbrechen]"; // Add go back item
+    gui_items[0] = I18N_MENU_ABORT; // Add go back item
 
     for (int i = 0; i < n; i++)
     {
@@ -686,14 +686,14 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
     boolean hasMesageShown = false;
     while (!hasMesageShown)
     {
-      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection("SSIDs", gui_items, n - 1 + 1, false); // Add + 1 (go back item)
+      S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_APP_AUTO_WIFI_SSIDS, gui_items, n - 1 + 1, false); // Add + 1 (go back item)
       if (selected_wrapper.success == false or selected_wrapper.value == 0)
         hasMesageShown = true;
       else
       {
         String t_ssid = gui_items[selected_wrapper.value];
 
-        S_GUI_INPUT_TEXT t_password_wrapper = gui_input_text("Passwort", "");
+        S_GUI_INPUT_TEXT t_password_wrapper = gui_input_text(I18N_ACTOR_APP_AUTO_WIFI_PW, "");
 
         if (t_password_wrapper.success == false)
         {
@@ -704,7 +704,7 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
         {
           Serial.println("Save now WIFI Config");
           db_save_wifi_settings(t_ssid, t_password_wrapper.value);
-          gui_msg_animated("Info", "Einstellungen\ngespeichert", C_GUI_DELAY_MSG_SHORT_I);
+          gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_AUTO_WIFI_SAVED, C_GUI_DELAY_MSG_SHORT_I);
         }
         else
         {
@@ -717,7 +717,7 @@ S_WIFI_CONFIG_WRAPPER application_actor_automatic_wifi(boolean s_autoSave)
   }
   else
   {
-    gui_msg_animated("Info", "Keine Netzwerke\ngefunden", C_GUI_DELAY_MSG_MIDDLE_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_ACTOR_APP_AUTO_WIFI_NO_NETWORKS, C_GUI_DELAY_MSG_MIDDLE_I);
   }
 
   return S_WIFI_CONFIG_WRAPPER{false, "", ""};
