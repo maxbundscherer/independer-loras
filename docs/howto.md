@@ -10,7 +10,7 @@
 - Upload software to ESP32 board. Upload ``.bin`` file from [Releases](https://github.com/maxbundscherer/independer-loras/releases/) to ESP32 board. This is only necessary when initializing. After that, you can update via WIFI. See [Update-Doc](update.md).
 - (Alternative) Upload software to ESP32 board. Read `Build and upload (single device)` in [Developer Overview](../docs/developer.md).
 - When setting up the device for the first time, a configuration wizard is started automatically.
-- For **some functions** like Online Chat, Update-Check, WIFI, NTP-Time-Sync and in order to use Gateways the **Independer must be registered** (read below). Use this [form](https://forms.gle/TChcaEvHBXyWu7XQA) to register your Independer.
+- For **some functions** like Online Chat, Update-Check, WIFI, NTP-Time-Sync and in order to use Gateways the **Independer must be registered**. **If you are not registered, it is only possible to communicate with other unregistered Independers.** (Read below). Use this [form](https://forms.gle/TChcaEvHBXyWu7XQA) to register your Independer.
 
 ### No Independer Registration
 
