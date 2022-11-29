@@ -10,7 +10,8 @@ Preferences preferences;
  * ####################################
  */
 
-void i_db_interactive_setup_actor();
+void i_db_interactive_setup_actor_registered();
+void i_db_interactive_setup_actor_not_registered();
 void i_db_interactive_setup_gateway();
 
 struct S_WIFI_CONFIG_WRAPPER
@@ -61,12 +62,11 @@ void db_init(boolean is_actor, boolean isDevMode)
             gui_msg_long_text(I18N_DEVICE_DB_INIT_SUB_TITLE, I18N_DEVICE_DB_INIT_DESC);
             if (gui_dialog(I18N_DEVICE_DB_INIT_REG_TITLE, I18N_DEVICE_DB_INIT_REG_DESC))
             {
-                i_db_interactive_setup_actor();
+                i_db_interactive_setup_actor_registered();
             }
             else
             {
-                // TODO
-                i_db_interactive_setup_actor();
+                i_db_interactive_setup_actor_not_registered();
             }
         }
         else
@@ -285,7 +285,7 @@ String db_msg_get_msg() { return db_i_get_content("msg_msg"); }
  * ####################################
  */
 
-void i_db_interactive_setup_actor()
+void i_db_interactive_setup_actor_registered()
 {
 
     String t_wifi_ssid = "";
@@ -399,6 +399,50 @@ void i_db_interactive_setup_actor()
     }
 
     db_save_init_config_actor(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id, t_device_token, true);
+
+    gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IACTOR_SUC, C_GUI_DELAY_MSG_SHORT_I);
+
+    gui_msg_animated(I18N_DEVICE_DB_INIT_TITLE, C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
+
+    ESP.restart();
+}
+
+void i_db_interactive_setup_actor_not_registered()
+{
+
+    String t_my_id = "";
+    String t_gateway_id = "";
+
+    bool fin_id_config = false;
+
+    while (!fin_id_config)
+    {
+
+        S_GUI_INPUT_TEXT t_my_id_wrapper = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_MY_ID, "0x");
+        if (t_my_id_wrapper.success)
+        {
+            if (utils_is_valid_receiver(t_my_id_wrapper.value))
+            {
+
+                S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_FUN_GID, "0g");
+                if (t_g_id_wrapper.success)
+                {
+                    if (utils_is_valid_receiver(t_g_id_wrapper.value))
+                    {
+                        t_my_id = t_my_id_wrapper.value;
+                        t_gateway_id = t_g_id_wrapper.value;
+                        fin_id_config = true;
+                    }
+                    else
+                        gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
+                }
+            }
+            else
+                gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
+        }
+    }
+
+    db_save_init_config_actor("", "", t_my_id, t_gateway_id, "", false);
 
     gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IACTOR_SUC, C_GUI_DELAY_MSG_SHORT_I);
 
