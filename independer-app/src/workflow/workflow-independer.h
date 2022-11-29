@@ -2,7 +2,16 @@
 char *c_cipher_key = "kjew50fkjriowdj6";
 
 // Send Config
-// #define BAND 868E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
+
+#define PROP_868 1
+#define PROP_915 2
+
+#if FBAND == PROP_868
+#define BAND 868E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
+#elif FBAND == PROP_915
+#define BAND 915E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
+#endif
+
 #define LORA_SYNC_WORD_REG 0x35            // 0x34 is default
 #define LORA_SYNC_WORD_NOT_REG 0x34        // 0x34 is default
 #define LORA_SIG_BANDWIDTH 125E3           // 125E3 is default - 7.8E3, 10.4E3, 15.6E3, 20.8E3, 31.25E3, 41.7E3, 62.5E3, 125E3, and 250E3
@@ -64,29 +73,30 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   ++boot_state_count;
   Serial.println("Boot number: " + String(boot_state_count));
 
+  Serial.println("- Init LoRa");
+  lora_init();
+  LoRa.setSyncWord(LORA_SYNC_WORD_REG);
+  LoRa.setSpreadingFactor(LORA_SPREAD);
+  LoRa.setSignalBandwidth(LORA_SIG_BANDWIDTH);
+  LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
+
+  display.setBrightness(state_oled_brightness); // Set brightness after db
+
   Serial.println("- Init Database");
   db_init(isActor, isDevMode);
 
   Serial.println("- Check Is Registered");
   Serial.println("Is Registered: " + String(state_is_registered_independer));
 
-  Serial.println("- Init LoRa");
-  if (state_is_registered_independer)
-  {
-    Serial.println("Set to register syncWord");
-    LoRa.setSyncWord(LORA_SYNC_WORD_REG);
-  }
-  else
+  Serial.println("- LORA Sync Word");
+
+  if (!state_is_registered_independer)
   {
     Serial.println("Set to non register syncWord");
     LoRa.setSyncWord(LORA_SYNC_WORD_NOT_REG);
   }
-  LoRa.setSpreadingFactor(LORA_SPREAD);
-  LoRa.setSignalBandwidth(LORA_SIG_BANDWIDTH);
-  LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
-  lora_init();
 
-  display.setBrightness(state_oled_brightness); // Set brightness after db
+  Serial.println("- Init LoRa Dev");
 
   if (isDevMode)
   {
