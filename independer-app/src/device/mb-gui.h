@@ -4,7 +4,7 @@
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
 #define DISPLAY_HEIGHT 64 // OLED display height, in pixels
 
-long c_patience_s = 5*60; // MAX TIME NO INPUT BEFORE SLEEP
+long c_patience_s = 5 * 60; // MAX TIME NO INPUT BEFORE SLEEP
 
 // LED Power Pin
 #define LED 25
@@ -1044,4 +1044,28 @@ void gui_msg_long_text(String msg_title, String msg)
       }
     }
   }
+}
+
+bool gui_dialog(String menu_title, String menu_desc)
+{
+
+  bool fin = false;
+  S_GUI_SELECTION_ITEM i;
+
+  while (!fin)
+  {
+    gui_msg_long_text(menu_title, menu_desc);
+
+    String menu_items[] = {
+        I18N_DIALOG_NO,
+        I18N_DIALOG_YES,
+        I18N_DIALOG_AGAIN};
+
+    i = gui_selection(menu_title, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
+
+    if (i.success and i.value != 2)
+      fin = true;
+  }
+
+  return (i.value == 1);
 }
