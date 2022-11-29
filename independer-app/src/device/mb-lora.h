@@ -1,4 +1,11 @@
-#define BAND 868E6 // you can set band here directly,e.g. 868E6 915E6 433E6
+#define PROP_868 1
+#define PROP_915 2
+
+#if FBAND == PROP_868
+#define BAND 868E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
+#elif FBAND == PROP_915
+#define BAND 915E6                         // you can set band here directly,e.g. 868E6 915E6 433E6
+#endif
 
 void lora_init()
 {
