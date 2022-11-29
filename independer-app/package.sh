@@ -6,14 +6,22 @@ echo
 rm -rf export
 mkdir export
 
-mv ./.pio/build/ttgo-gateway-release/firmware.bin "export/$versiontag-ttgo-gateway-release".bin
-mv ./.pio/build/ttgo-gateway-developer/firmware.bin "export/$versiontag-ttgo-gateway-developer".bin
+mv ./.pio/build/heltec-gateway-release-de-868MHz/firmware.bin "export/$versiontag-heltec-gateway-release-de-868MHz".bin
+mv ./.pio/build/heltec-gateway-release-de-915MHz/firmware.bin "export/$versiontag-heltec-gateway-release-de-915MHz".bin
+mv ./.pio/build/heltec-gateway-release-en-868MHz/firmware.bin "export/$versiontag-heltec-gateway-release-en-868MHz".bin
+mv ./.pio/build/heltec-gateway-release-en-915MHz/firmware.bin "export/$versiontag-heltec-gateway-release-en-915MHz".bin
 
-mv ./.pio/build/heltec-actor-developer/firmware.bin "export/$versiontag-heltec-actor-developer".bin
-mv ./.pio/build/heltec-gateway-release/firmware.bin "export/$versiontag-heltec-gateway-release".bin
+mv ./.pio/build/ttgo-gateway-release-de-868MHz/firmware.bin "export/$versiontag-ttgo-gateway-release-de-868MHz".bin
+mv ./.pio/build/ttgo-gateway-release-de-915MHz/firmware.bin "export/$versiontag-ttgo-gateway-release-de-915MHz".bin
+mv ./.pio/build/ttgo-gateway-release-en-868MHz/firmware.bin "export/$versiontag-ttgo-gateway-release-en-868MHz".bin
+mv ./.pio/build/ttgo-gateway-release-en-915MHz/firmware.bin "export/$versiontag-ttgo-gateway-release-en-915MHz".bin
 
-mv ./.pio/build/heltec-actor-release/firmware.bin "export/$versiontag-heltec-actor-release".bin
-mv ./.pio/build/heltec-gateway-developer/firmware.bin "export/$versiontag-heltec-gateway-developer".bin
+mv ./.pio/build/heltec-actor-release-de-868MHz/firmware.bin "export/$versiontag-heltec-actor-release-de-868MHz".bin
+mv ./.pio/build/heltec-actor-release-de-915MHz/firmware.bin "export/$versiontag-heltec-actor-release-de-915MHz".bin
+mv ./.pio/build/heltec-actor-release-en-868MHz/firmware.bin "export/$versiontag-heltec-actor-release-en-868MHz".bin
+mv ./.pio/build/heltec-actor-release-en-915MHz/firmware.bin "export/$versiontag-heltec-actor-release-en-915MHz".bin
 
-mv ./.pio/build/ttgo-actor-release/firmware.bin "export/$versiontag-ttgo-actor-release".bin
-mv ./.pio/build/ttgo-actor-developer/firmware.bin "export/$versiontag-ttgo-actor-developer".bin
+mv ./.pio/build/ttgo-actor-release-de-868MHz/firmware.bin "export/$versiontag-ttgo-actor-release-de-868MHz".bin
+mv ./.pio/build/ttgo-actor-release-de-915MHz/firmware.bin "export/$versiontag-ttgo-actor-release-de-915MHz".bin
+mv ./.pio/build/ttgo-actor-release-en-868MHz/firmware.bin "export/$versiontag-ttgo-actor-release-en-868MHz".bin
+mv ./.pio/build/ttgo-actor-release-en-915MHz/firmware.bin "export/$versiontag-ttgo-actor-release-en-915MHz".bin
