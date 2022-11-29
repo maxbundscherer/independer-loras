@@ -99,7 +99,7 @@ void setup()
   }
   else
   {
-    gui_msg_animated("Info", "Dev Mode\nactive", C_GUI_DELAY_MSG_VERY_SHORT_I);
+    gui_msg_animated(I18N_INFO_TITLE, I18N_BOOT_DEV_ACTIVE, C_GUI_DELAY_MSG_VERY_SHORT_I);
   }
 
   if (c_actor_mode)

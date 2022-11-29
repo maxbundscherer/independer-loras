@@ -19,6 +19,8 @@ const String I18N_APPLICATION_FROM = "'\nvon '";
 const String I18N_APPLICATION_RS = "'\nRS=";
 const String I18N_APPLICATION_PK = " PK=";
 
+const String I18N_BOOT_DEV_ACTIVE = "Dev Mode\nactive";
+
 // Actor
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";

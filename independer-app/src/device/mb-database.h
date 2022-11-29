@@ -28,7 +28,7 @@ void db_init(boolean is_actor, boolean isDevMode)
 
     String current_db_version = preferences.getString("pref_c_ver", "null");
 
-    if (current_db_version == c_product_version)
+    if (current_db_version == (c_product_version + String(c_actor_mode)))
     {
         Serial.println("Load from DB");
         state_my_id = preferences.getString("pref_my_id", state_my_id);
@@ -161,7 +161,7 @@ void db_save_init_config_actor(String wifi_ssid, String wifi_pw, String my_id, S
     preferences.putString("pref_wifi_pw", wifi_pw);
     preferences.putString("pref_my_id", my_id);
     preferences.putString("pref_gateway_id", gateway_id);
-    preferences.putString("pref_c_ver", c_product_version);
+    preferences.putString("pref_c_ver", (c_product_version + String(c_actor_mode)));
     preferences.putString("pref_ws_dt", device_token);
     preferences.putString("pref_gat_own", "");
     preferences.end();
@@ -174,7 +174,7 @@ void db_save_init_config_gateway(String wifi_ssid, String wifi_pw, String gatewa
     preferences.putString("pref_wifi_pw", wifi_pw);
     preferences.putString("pref_my_id", "");
     preferences.putString("pref_gateway_id", gateway_id);
-    preferences.putString("pref_c_ver", c_product_version);
+    preferences.putString("pref_c_ver", (c_product_version + String(c_actor_mode)));
     preferences.putString("pref_ws_dt", "");
     preferences.putString("pref_gat_own", owner_id);
     preferences.end();
