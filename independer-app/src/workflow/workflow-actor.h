@@ -799,7 +799,14 @@ void workflow_actor_main_menu()
   else if (selected_wrapper.success and selected_wrapper.value == 1)
     i_actor_functions_menu();
   else if (selected_wrapper.success and selected_wrapper.value == 2)
-    i_gateway_functions_menu();
+    if (!state_is_registered_independer)
+    {
+      gui_msg_long_text(I18N_ERROR_TITLE, I18N_NOT_RG_ALERT);
+    }
+    else
+    {
+      i_gateway_functions_menu();
+    }
   else if (selected_wrapper.success and selected_wrapper.value == 3)
     i_settings_menu();
   else if (selected_wrapper.success and selected_wrapper.value == 4)
