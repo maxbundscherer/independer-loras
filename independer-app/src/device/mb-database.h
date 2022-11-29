@@ -353,19 +353,19 @@ void i_db_interactive_setup_actor()
     while (!fin_id_config)
     {
 
-        S_GUI_INPUT_TEXT t_my_id_wrapper = gui_input_text("Meine ID (z.B.: 0xMB)", "0x");
-        S_GUI_INPUT_TEXT t_device_secret = gui_input_text("Independer Passwort", "");
+        S_GUI_INPUT_TEXT t_my_id_wrapper = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_MY_ID, "0x");
+        S_GUI_INPUT_TEXT t_device_secret = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_MY_PW, "");
         if (t_my_id_wrapper.success and t_device_secret.success)
         {
             if (utils_is_valid_receiver(t_my_id_wrapper.value))
             {
 
-                gui_msg_static("Info", "Prüfe Anmeldung\nID\n'" + t_my_id_wrapper.value + "'\n...");
+                gui_msg_static(I18N_INFO_TITLE, I18N_DEVICE_DB_INIT_IACTOR_FUN_CHECK_LOGIN + t_my_id_wrapper.value + "'\n...");
                 S_WIFI_REGISTER login_ans = wifi_register_device_actor(t_my_id_wrapper.value, t_device_secret.value, state_wifi_server_url, state_wifi_server_port, state_wifi_server_timeout);
 
                 if (login_ans.success)
                 {
-                    S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text("Gateway ID (z.B.: 0gMB)", "0g");
+                    S_GUI_INPUT_TEXT t_g_id_wrapper = gui_input_text(I18N_DEVICE_DB_INIT_IACTOR_FUN_GID, "0g");
                     if (t_g_id_wrapper.success)
                     {
                         if (utils_is_valid_receiver(t_g_id_wrapper.value))
@@ -376,22 +376,22 @@ void i_db_interactive_setup_actor()
                             fin_id_config = true;
                         }
                         else
-                            gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+                            gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
                     }
                 }
                 else
-                    gui_msg_animated("Fehler", "ID konnte nicht\nangemeldet werden.", C_GUI_DELAY_MSG_SHORT_I);
+                    gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_NO_L, C_GUI_DELAY_MSG_SHORT_I);
             }
             else
-                gui_msg_animated("Fehler", "Ungültige ID", C_GUI_DELAY_MSG_SHORT_I);
+                gui_msg_animated(I18N_ERROR_TITLE, I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID, C_GUI_DELAY_MSG_SHORT_I);
         }
     }
 
     db_save_init_config_actor(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id, t_device_token);
 
-    gui_msg_animated("Hinweis", "Einrichtung\nabgeschlossen!", C_GUI_DELAY_MSG_SHORT_I);
+    gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IACTOR_SUC, C_GUI_DELAY_MSG_SHORT_I);
 
-    gui_msg_animated("Independer", C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
+    gui_msg_animated(I18N_DEVICE_DB_INIT_TITLE, C_TEMPLATE_STRING_THX, C_GUI_DELAY_MSG_LONG_I);
 
     ESP.restart();
 }

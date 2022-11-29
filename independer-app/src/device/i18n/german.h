@@ -258,6 +258,13 @@ const String I18N_DEVICE_DB_INIT_WIFI_OK = "[Bestätigen]";
 const String I18N_DEVICE_DB_INIT_WIFI_OFF = "[Ausschalten]";
 const String I18N_DEVICE_DB_INIT_WIFI_FUN_TEST = "Teste WIFI\n'";
 const String I18N_DEVICE_DB_INIT_WIFI_ERR = "WIFI\nFehler";
-
 const String I18N_DEVICE_DB_INIT_WIFI_SSID = "SSID";
 const String I18N_DEVICE_DB_INIT_WIFI_PW = "Passwort";
+
+const String I18N_DEVICE_DB_INIT_IACTOR_MY_ID = "Meine ID (z.B.: 0xMB)";
+const String I18N_DEVICE_DB_INIT_IACTOR_MY_PW = "Independer Passwort";
+const String I18N_DEVICE_DB_INIT_IACTOR_FUN_CHECK_LOGIN = "Prüfe Anmeldung\nID\n'";
+const String I18N_DEVICE_DB_INIT_IACTOR_FUN_GID = "Gateway ID (z.B.: 0gMB)";
+const String I18N_DEVICE_DB_INIT_IACTOR_ERR_INV_ID = "Ungültige ID";
+const String I18N_DEVICE_DB_INIT_IACTOR_ERR_NO_L = "ID konnte nicht\nangemeldet werden.";
+const String I18N_DEVICE_DB_INIT_IACTOR_SUC = "Einrichtung\nabgeschlossen!";
