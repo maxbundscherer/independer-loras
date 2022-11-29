@@ -850,7 +850,7 @@ void workflow_actor_main_menu()
     gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (5/6)", I18N_ACTOR_MAIN_MENU_INFO_TIME + time_get_from_local());
     gui_input_char_no_output(false);
 
-    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (6/6)", I18N_ACTOR_MAIN_MENU_INFO_REG + i_workflow_rewrite_boolean(state_is_registered_independer));
+    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (6/6)", I18N_ACTOR_MAIN_MENU_INFO_REG + i_workflow_rewrite_boolean(state_is_registered_independer) + I18N_ACTOR_MAIN_MENU_INFO_BAND + String(BAND));
     gui_input_char_no_output(false);
   }
   else if (selected_wrapper.success == false)
