@@ -45,6 +45,7 @@ void db_init(boolean is_actor, boolean isDevMode)
         state_wifi_server_timeout = preferences.getInt("pref_ws_to", state_wifi_server_timeout);
 
         state_wifi_server_device_token = preferences.getString("pref_ws_dt", state_wifi_server_device_token);
+        state_is_registered_independer = preferences.getBool("pref_is_reg", state_is_registered_independer);
 
         preferences.end();
     }
@@ -154,7 +155,7 @@ void db_save_wifi_server_timeout(int value)
     i_db_write("pref_ws_to", value);
 }
 
-void db_save_init_config_actor(String wifi_ssid, String wifi_pw, String my_id, String gateway_id, String device_token)
+void db_save_init_config_actor(String wifi_ssid, String wifi_pw, String my_id, String gateway_id, String device_token, bool is_registered)
 {
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.putString("pref_wifi_ssid", wifi_ssid);
@@ -163,11 +164,12 @@ void db_save_init_config_actor(String wifi_ssid, String wifi_pw, String my_id, S
     preferences.putString("pref_gateway_id", gateway_id);
     preferences.putString("pref_c_ver", (c_product_version + String(c_actor_mode)));
     preferences.putString("pref_ws_dt", device_token);
+    preferences.putBool("pref_is_reg", is_registered);
     preferences.putString("pref_gat_own", "");
     preferences.end();
 }
 
-void db_save_init_config_gateway(String wifi_ssid, String wifi_pw, String gateway_id, String owner_id)
+void db_save_init_config_gateway(String wifi_ssid, String wifi_pw, String gateway_id, String owner_id, bool is_registered)
 {
     preferences.begin(c_db_target_key, false); // Read and write
     preferences.putString("pref_wifi_ssid", wifi_ssid);
@@ -176,6 +178,7 @@ void db_save_init_config_gateway(String wifi_ssid, String wifi_pw, String gatewa
     preferences.putString("pref_gateway_id", gateway_id);
     preferences.putString("pref_c_ver", (c_product_version + String(c_actor_mode)));
     preferences.putString("pref_ws_dt", "");
+    preferences.putBool("pref_is_reg", is_registered);
     preferences.putString("pref_gat_own", owner_id);
     preferences.end();
 }
@@ -387,7 +390,7 @@ void i_db_interactive_setup_actor()
         }
     }
 
-    db_save_init_config_actor(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id, t_device_token);
+    db_save_init_config_actor(t_wifi_ssid, t_wifi_pw, t_my_id, t_gateway_id, t_device_token, true);
 
     gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IACTOR_SUC, C_GUI_DELAY_MSG_SHORT_I);
 
@@ -470,7 +473,7 @@ void i_db_interactive_setup_gateway()
                     // Serial.println("p_id '" + p_id + "'");
                     // Serial.println("p_owner '" + parser_ans.from + "'");
 
-                    db_save_init_config_gateway(p_ssid, p_pw, p_id, parser_ans.from);
+                    db_save_init_config_gateway(p_ssid, p_pw, p_id, parser_ans.from, false);
 
                     gui_msg_animated(I18N_HINT_TITLE, I18N_DEVICE_DB_INIT_IGAT_SUC, C_GUI_DELAY_MSG_SHORT_I);
 

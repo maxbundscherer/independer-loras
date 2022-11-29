@@ -51,6 +51,7 @@ String state_wifi_server_url = "independer.ddns.net"; // saved in db (fixed)
 int state_wifi_server_port = 5001;                    // saved in db (fixed)
 int state_wifi_server_timeout = 10000;                // saved in db
 String state_wifi_server_device_token = "";           // saved in db and INIT CONFIG
+bool state_is_registered_independer = false;          // saved in db and INIT CONFIG (fixed)
 
 #include "device/mb-time.h"
 #include "device/mb-base64.h"

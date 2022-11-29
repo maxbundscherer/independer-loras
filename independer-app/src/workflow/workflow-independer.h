@@ -63,15 +63,18 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   ++boot_state_count;
   Serial.println("Boot number: " + String(boot_state_count));
 
+  Serial.println("- Init Database");
+  db_init(isActor, isDevMode);
+
+  Serial.println("- Check Is Registered");
+  Serial.println("Is Registered: " + String(state_is_registered_independer));
+
   Serial.println("- Init LoRa");
   lora_init();
   LoRa.setSyncWord(LORA_SYNC_WORD);
   LoRa.setSpreadingFactor(LORA_SPREAD);
   LoRa.setSignalBandwidth(LORA_SIG_BANDWIDTH);
   LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
-
-  Serial.println("- Init Database");
-  db_init(isActor, isDevMode);
 
   display.setBrightness(state_oled_brightness); // Set brightness after db
 
