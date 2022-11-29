@@ -305,7 +305,7 @@ void i_actor_functions_test_function_menu()
   String menu_items[] = {
       I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_REACH_CH,
       I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_OUT,
-      I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_SHARE,
+      // I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_TEST_SHARE,
       I18N_MENU_GO_BACK};
 
   bool fin_flag = false;
@@ -330,8 +330,8 @@ void i_actor_functions_test_function_menu()
     }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
       gui_test();
-    else if (selected_wrapper.success and selected_wrapper.value == 2)
-      application_actor_large_data_test();
+    // else if (selected_wrapper.success and selected_wrapper.value == 2)
+    //   application_actor_large_data_test();
     else
       fin_flag = true;
   }
