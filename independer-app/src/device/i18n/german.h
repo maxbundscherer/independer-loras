@@ -26,6 +26,8 @@ const String I18N_DIALOG_YES = "Ja";
 const String I18N_DIALOG_NO = "Nein";
 const String I18N_DIALOG_AGAIN = "[nochmal lesen]";
 
+const String I18N_NOT_RG_ALERT = "Für diese Funktion muss dein Independer registriert sein. Besuche für mehr Infos " + TEMPLATE_WEBSITE_URL;
+
 // Actor
 
 const String I18N_ACTOR_MAIN_MENU_TITLE = "Independer";

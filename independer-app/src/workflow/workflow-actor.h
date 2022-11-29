@@ -251,11 +251,25 @@ void i_communication_menu()
     S_GUI_SELECTION_ITEM selected_wrapper = gui_selection(I18N_ACTOR_MAIN_MENU_COMMUNICATIONS, menu_items, (int)sizeof(menu_items) / sizeof(menu_items[0]) - 1);
 
     if (selected_wrapper.success and selected_wrapper.value == 0)
-      i_communication_letters_menu();
+      if (!state_is_registered_independer)
+      {
+        gui_msg_long_text(I18N_ERROR_TITLE, I18N_NOT_RG_ALERT);
+      }
+      else
+      {
+        i_communication_letters_menu();
+      }
     else if (selected_wrapper.success and selected_wrapper.value == 1)
       i_communication_messages_menu();
     else if (selected_wrapper.success and selected_wrapper.value == 2)
-      i_communication_chat_menu();
+      if (!state_is_registered_independer)
+      {
+        gui_msg_long_text(I18N_ERROR_TITLE, I18N_NOT_RG_ALERT);
+      }
+      else
+      {
+        i_communication_chat_menu();
+      }
     else if (selected_wrapper.success and selected_wrapper.value == 3)
       gui_msg_animated(I18N_HINT_TITLE, I18N_ACTOR_COMMUNICATIONS_ERR_NOT_IMPL, C_GUI_DELAY_MSG_SHORT_I);
 
