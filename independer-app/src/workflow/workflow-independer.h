@@ -71,7 +71,6 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
   Serial.println("Is Registered: " + String(state_is_registered_independer));
 
   Serial.println("- Init LoRa");
-  lora_init();
   if (state_is_registered_independer)
   {
     Serial.println("Set to register syncWord");
@@ -82,10 +81,10 @@ boolean workflow_independer_init(boolean isActor, String productVersion, boolean
     Serial.println("Set to non register syncWord");
     LoRa.setSyncWord(LORA_SYNC_WORD_NOT_REG);
   }
-
   LoRa.setSpreadingFactor(LORA_SPREAD);
   LoRa.setSignalBandwidth(LORA_SIG_BANDWIDTH);
   LoRa.setCodingRate4(LORA_SIG_CODING_RATE_DENOMINATOR);
+  lora_init();
 
   display.setBrightness(state_oled_brightness); // Set brightness after db
 
