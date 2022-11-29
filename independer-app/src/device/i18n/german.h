@@ -42,6 +42,7 @@ const String I18N_ACTOR_MAIN_MENU_INFO_ACTOR_MODE = "Aktor Modus: ";
 const String I18N_ACTOR_MAIN_MENU_INFO_BRIGHTNESS = "Helligkeit: ";
 const String I18N_ACTOR_MAIN_MENU_INFO_BACKGROUND_SYNC = "Hintergrundsync: ";
 const String I18N_ACTOR_MAIN_MENU_INFO_TIME = "Zeit:\n";
+const String I18N_ACTOR_MAIN_MENU_INFO_REG = "Registriert:\n";
 const String I18N_ACTOR_MAIN_MENU_INFO_ID = "\nID: ";
 const String I18N_ACTOR_MAIN_MENU_INFO_GID = "\nGateway ID: ";
 const String I18N_ACTOR_MAIN_MENU_INFO_DEVELOPER = "\nEntwickler: ";

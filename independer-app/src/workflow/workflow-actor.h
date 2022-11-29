@@ -770,20 +770,24 @@ void workflow_actor_main_menu()
     gui_logo_static(c_product_version, state_my_id, state_gateway_id, c_actor_mode, state_gateway_owner);
     gui_input_char_no_output(false);
 
-    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (1/5)", I18N_ACTOR_MAIN_MENU_INFO_VERSION + c_product_version + I18N_ACTOR_MAIN_MENU_INFO_ID + state_my_id + I18N_ACTOR_MAIN_MENU_INFO_GID + state_gateway_id);
+    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (1/6)", I18N_ACTOR_MAIN_MENU_INFO_VERSION + c_product_version + I18N_ACTOR_MAIN_MENU_INFO_ID + state_my_id + I18N_ACTOR_MAIN_MENU_INFO_GID + state_gateway_id);
     gui_input_char_no_output(false);
 
-    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (2/5)", I18N_ACTOR_MAIN_MENU_INFO_ACTOR_MODE + i_workflow_rewrite_boolean(c_actor_mode) + I18N_ACTOR_MAIN_MENU_INFO_DEVELOPER + i_workflow_rewrite_boolean(c_dev_mode) + I18N_ACTOR_MAIN_MENU_INFO_LORA_GAIN + state_lora_gain);
+    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (2/6)", I18N_ACTOR_MAIN_MENU_INFO_ACTOR_MODE + i_workflow_rewrite_boolean(c_actor_mode) + I18N_ACTOR_MAIN_MENU_INFO_DEVELOPER + i_workflow_rewrite_boolean(c_dev_mode) + I18N_ACTOR_MAIN_MENU_INFO_LORA_GAIN + state_lora_gain);
     gui_input_char_no_output(false);
 
-    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (3/5)", I18N_ACTOR_MAIN_MENU_INFO_BRIGHTNESS + String(state_oled_brightness) + I18N_ACTOR_MAIN_MENU_INFO_WIFI + state_wifi_ssid + I18N_ACTOR_MAIN_MENU_INFO_WIFI_T + state_wifi_server_timeout);
+    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (3/6)", I18N_ACTOR_MAIN_MENU_INFO_BRIGHTNESS + String(state_oled_brightness) + I18N_ACTOR_MAIN_MENU_INFO_WIFI + state_wifi_ssid + I18N_ACTOR_MAIN_MENU_INFO_WIFI_T + state_wifi_server_timeout);
     gui_input_char_no_output(false);
 
-    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (4/5)", I18N_ACTOR_MAIN_MENU_INFO_BACKGROUND_SYNC + i_workflow_rewrite_boolean(multi_actor_get_state()) + I18N_ACTOR_MAIN_MENU_INFO_AUTO_SLP + i_workflow_rewrite_int(state_auto_sleep_enabled) + I18N_ACTOR_MAIN_MENU_INFO_BATTERY + String(utils_get_battery()) + I18N_ACTOR_MAIN_MENU_INFO_BATTERY_U);
+    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (4/6)", I18N_ACTOR_MAIN_MENU_INFO_BACKGROUND_SYNC + i_workflow_rewrite_boolean(multi_actor_get_state()) + I18N_ACTOR_MAIN_MENU_INFO_AUTO_SLP + i_workflow_rewrite_int(state_auto_sleep_enabled) + I18N_ACTOR_MAIN_MENU_INFO_BATTERY + String(utils_get_battery()) + I18N_ACTOR_MAIN_MENU_INFO_BATTERY_U);
     gui_input_char_no_output(false);
 
-    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (5/5)", I18N_ACTOR_MAIN_MENU_INFO_TIME + time_get_from_local());
+    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (5/6)", I18N_ACTOR_MAIN_MENU_INFO_TIME + time_get_from_local());
     gui_input_char_no_output(false);
+
+    gui_msg_static(I18N_ACTOR_MAIN_MENU_INFO_PREFIX + " (6/6)", I18N_ACTOR_MAIN_MENU_INFO_REG + i_workflow_rewrite_boolean(state_is_registered_independer));
+    gui_input_char_no_output(false);
+
   }
   else if (selected_wrapper.success == false)
   {
