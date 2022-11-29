@@ -113,7 +113,7 @@ const String I18N_ACTOR_ACTOR_FUNCTIONS_SLP_MODE = "Schlaf Modus";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_ENV_SCAN = "Umgebungs Scan";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_SYNC = "Auto Sync (manuell)";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_UPD = "Update";
-const String I18N_ACTOR_ACTOR_FUNCTIONS_FUN_ACT_SLP = "Aktiviere Schlafmodus\n(Actor)";
+const String I18N_ACTOR_ACTOR_FUNCTIONS_FUN_ACT_SLP = "Aktiviere Schlafmodus\n(Aktor)";
 const String I18N_ACTOR_ACTOR_FUNCTIONS_SYNC_ERR_NO_DATA = "Keine Daten";
 
 const String I18N_ACTOR_ACTOR_FUNCTIONS_TEST_MENU_REACH_CH = "Erreichbar Check";
@@ -129,7 +129,7 @@ const String I18N_ACTOR_ACTOR_FUNCTIONS_STATE_MENU_EX_SEND_QT = "Sendekontingent
 
 const String I18N_ACTOR_COMMUNICATIONS_LETTER = "Briefe (Gateway)";
 const String I18N_ACTOR_COMMUNICATIONS_LETTER_SHORT = "Briefe";
-const String I18N_ACTOR_COMMUNICATIONS_MSGS = "Nachrichten (Actor)";
+const String I18N_ACTOR_COMMUNICATIONS_MSGS = "Nachrichten (Aktor)";
 const String I18N_ACTOR_COMMUNICATIONS_MSGS_SHORT = "Nachrichten";
 const String I18N_ACTOR_COMMUNICATIONS_CHAT = "Chat (Internet)";
 const String I18N_ACTOR_COMMUNICATIONS_CHAT_SHORT = "Chat";
